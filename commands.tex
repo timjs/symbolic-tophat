@@ -106,17 +106,17 @@
 %% Semantic functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\newmathcommand{evaluate}[rel]
-  {\;\downarrow\;}
-\newmathcommand{stride}[rel]
+\newmathcommand{symeval}[rel]
+  {\;\bar{\downarrow}\;}
+\newmathcommand{symstride}[rel]
   % {\;\rightarrow\!\shortmid\;}
-  {\;\rightsquigarrow\;}
-\newmathcommand{normalise}[rel]
-  {\;\Downarrow\;}
-\newmacro{handle}[1]
-  {\mathrel{\;\xrightarrow{\;#1\;}\;}}
-\newmacro{drive}[1]
-  {\mathrel{\;\xRightarrow{\;#1\;}\;}}
+  {\;\bar{\rightsquigarrow}\;}
+\newmathcommand{symnormalise}[rel]
+  {\;\bar{\Downarrow}\;}
+\newmacro{symhandle}
+  {\mathrel{\;\bar{\xrightarrow{}}\;}}
+\newmacro{symdrive}
+  {\mathrel{\;\bar{\xRightarrow{}}\;}}
 
 
 \newmathcommand{Value}[cal]

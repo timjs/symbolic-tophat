@@ -13,338 +13,199 @@
   {\ifstateful{,\:\Sigma#1}\else{}\fi}
 
 
-
-%% Typing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\newmacro{RelationT}
-  {\Gamma,\Sigma \infers e : \tau}
-
-
-\newrule{T-Var}
-  {x:\tau\in\Gamma}
-  {\Gamma,\Sigma\infers x:\tau}
-
-
-\newrule{T-Abs}
-  {\Gamma[x:\tau_1] ,\Sigma \infers e:\tau_2}
-  {\Gamma,\Sigma \infers \lambda x : \tau_1 . e :\tau_1 \to \tau_2}
-
-\newrule{T-App}
-  {\Gamma,\Sigma \infers e_1:\tau_1\to\tau_2 \Quad
-   \Gamma,\Sigma \infers e_2:\tau_1}
-  {\Gamma,\Sigma \infers e_1 e_2 :\tau_2}
-
-
-\newrule{T-If}
-  {\Gamma,\Sigma \infers e_1:\Bool \Quad
-   \Gamma,\Sigma \infers e_2:\tau \Quad
-   \Gamma,\Sigma \infers e_3:\tau}
-  {\Gamma,\Sigma \infers \If{e_1}{e_2}{e_3}:\tau}
-
-
-\newrule{T-Pair}
-    {\Gamma,\Sigma \infers e_1 : \tau_1  \Quad
-     \Gamma,\Sigma \infers e_2 : \tau_2}
-    {\Gamma,\Sigma \infers \tuple{e_1, e_2} :\tau_1 \times \tau_2}
-
-
-\newrule{T-Ref}
-  {\Gamma,\Sigma \infers e:\beta}
-  {\Gamma,\Sigma \infers \Ref e :\Reference \beta}
-
-\newrule{T-Deref}
-  {\Gamma,\Sigma \infers e:\Reference \beta}
-  {\Gamma,\Sigma\infers\ !e:\beta}
-
-\newrule{T-Assign}
-  {\Gamma,\Sigma\infers e_1:\Reference \beta \Quad
-   \Gamma,\Sigma\infers e_2:\beta}
-  {\Gamma,\Sigma\infers e_1 := e_2:\Unit}
-
-\newrule{T-Loc}
-  {\Sigma(l) = \beta}
-  {\Gamma,\Sigma\infers l:\Reference \beta}
-
-
-\newrule{T-Edit}
-  {\Gamma,\Sigma \infers e : \tau}
-  {\Gamma,\Sigma \infers \Edit e : \Task \tau}
-
-\newrule{T-Enter}
-  {}
-  {\Gamma,\Sigma \infers \Enter \tau : \Task \tau}
-
-\newrule{T-Update}
-  {\Gamma,\Sigma \infers e : \Reference \beta}
-  {\Gamma,\Sigma \infers \Update e : \Task \beta}
-
-
-\newrule{T-Fail}
-  {}
-  {\Gamma,\Sigma \infers \Fail : \Task \tau}
-
-
-\newrule{T-Then}
-  {\Gamma,\Sigma \infers e_1 : \Task \tau_1 \Quad
-   \Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}
-  {\Gamma,\Sigma \infers e_1 \Then e_2 : \Task \tau_2}
-
-
-\newrule{T-Next}
-  {\Gamma,\Sigma \infers e_1 : \Task \tau_1 \Quad
-   \Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}
-  {\Gamma,\Sigma \infers e_1 \Next e_2 : \Task \tau_2}
-
-
-\newrule{T-And}
-  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau_1}
-   {\Gamma,\Sigma \infers e_2 : \Task \tau_2}}
-  {\Gamma,\Sigma \infers e_1 \And e_2 : \Task\,(\tau_1 \times \tau_2)}
-
-
-\newrule{T-Or}
-  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
-   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
-  {\Gamma,\Sigma \infers e_1 \Or e_2 : \Task \tau}
-
-
-\newrule{T-Xor}
-  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
-   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
-  {\Gamma,\Sigma \infers e_1 \Xor e_2 : \Task \tau}
-
-
-\newrule{T-Appoint}
-  {\Gamma,\Sigma\infers e:\Task\tau}
-  {\Gamma,\Sigma\infers u \At e:\Task\tau}
-
-
-
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newmacro{RelationE}
-  {e,s \evaluate v,s'}
+  {e,s \symeval v,s'}
 
 
-\newrule{E-Value}
+\newrule{Sym-E-Value}
   {}
-  {v,s\evaluate v,s}
+  {v,s,pr\symeval v,s,pr}
 
 
-\newrule{E-App}
-  {e_1,s\evaluate \lambda x:\tau.e_1',s' \Quad
-   e_2,s'\evaluate v_2,s'' \Quad
-   e_1'[x\mapsto v_2],s''\evaluate v_1,s'''}
-  {e_1 e_2,s \evaluate v_1,s'''}
+\newrule{Sym-E-App}
+  {e_1,s,pr\symeval \lambda x:\tau.e_1',s',pr' \Quad
+   e_2,s',pr'\symeval v_2,s'',pr'' \Quad
+   e_1'[x\mapsto v_2],s'',pr''\symeval v_1,s''',pr'''}
+  {e_1 e_2,s,pr \symeval v_1,s''',pr'''}
 
 
-\newrule{E-IfTrue}
-  {e_1,s\evaluate \True,s' \Quad
-   e_2,s'\evaluate v,s''}
-  {\If{e_1}{e_2}{e_3},s\evaluate v,s''}
+\newrule{Sym-E-IfTrue}
+  {e_1,s,pr\symeval \bar{v},s',pr' \Quad
+   pr'\wedge \bar{v} \text{ SAT}\Quad
+   e_2,s',pr'\wedge\bar{v}\symeval v,s'',pr''}
+  {\If{e_1}{e_2}{e_3},s,pr\symeval v,s'',pr''}
 
-\newrule{E-IfFalse}
-  {e_1,s\evaluate \False,s' \Quad
-   e_3,s'\evaluate v,s''}
-  {\If{e_1}{e_2}{e_3},s\evaluate v,s''}
-
-
-\newrule{E-Pair}
-  {e_1,s\evaluate v_1,s' \Quad
-   e_2,s'\evaluate v_2,s''}
-  {\tuple{e_1,e_2},s\evaluate\tuple{v_1,v_2},s''}
+\newrule{Sym-E-IfFalse}
+  {e_1,s\symeval \False,s' \Quad
+   e_3,s'\symeval v,s''}
+  {\If{e_1}{e_2}{e_3},s\symeval v,s''}
 
 
-\newrule{E-Ref}
-  {e,s\evaluate v,s' \Quad
+\newrule{Sym-E-Pair}
+  {e_1,s\symeval v_1,s' \Quad
+   e_2,s'\symeval v_2,s''}
+  {\tuple{e_1,e_2},s\symeval\tuple{v_1,v_2},s''}
+
+
+\newrule{Sym-E-Ref}
+  {e,s\symeval v,s' \Quad
    l\not\in Dom(s')}
-  {\Ref e,s\evaluate l,s'[l\mapsto v]}
+  {\Ref e,s\symeval l,s'[l\mapsto v]}
 
-\newrule{E-Deref}
-  {e,s\evaluate l,s'}
-  {!e,s\evaluate s'(l),s'}
+\newrule{Sym-E-Deref}
+  {e,s\symeval l,s'}
+  {!e,s\symeval s'(l),s'}
 
-\newrule{E-Assign}
-  {e_1,s\evaluate l,s' \Quad
-   e_2,s'\evaluate v_2,s''}
-  {e_1:=e_2,s\evaluate \unit,s''[l\mapsto v_2]}
+\newrule{Sym-E-Assign}
+  {e_1,s\symeval l,s' \Quad
+   e_2,s'\symeval v_2,s''}
+  {e_1:=e_2,s\symeval \unit,s''[l\mapsto v_2]}
 
+\newrule{Sym-E-Edit}
+  {e,s \symeval v,s'}
+  {\Edit e , s\symeval \Edit v,s'}
 
-\newrule{E-Sequence}
-  {?}
-  {e_1;e_2 \evaluate ?}
-
-\newrule{E-Edit}
-  {e,s \evaluate v,s'}
-  {\Edit e , s\evaluate \Edit v,s'}
-
-\newrule{E-Enter}
+\newrule{Sym-E-Enter}
   {}
-  {\Enter \tau,s \evaluate \Enter \tau,s}
+  {\Enter \tau,s \symeval \Enter \tau,s}
 
-\newrule{E-Update}
-  {e,s\evaluate l,s'}
-  {\Update e ,s\evaluate \Update l,s'}
+\newrule{Sym-E-Update}
+  {e,s\symeval l,s'}
+  {\Update e ,s\symeval \Update l,s'}
 
 
-\newrule{E-Fail}
+\newrule{Sym-E-Fail}
   {}
-  {\Fail,s \evaluate \Fail,s}
+  {\Fail,s \symeval \Fail,s}
 
 
-\newrule{E-Then}
-  {e_1 ,s\evaluate t_1,s'}
-  {e_1 \Then e_2,s \evaluate t_1 \Then e_2,s'}
+\newrule{Sym-E-Then}
+  {e_1 ,s\symeval t_1,s'}
+  {e_1 \Then e_2,s \symeval t_1 \Then e_2,s'}
 
-\newrule{E-Next}
-  {e_1 ,s\evaluate t_1,s'}
-  {e_1 \Next e_2 ,s\evaluate t_1 \Next e_2,s'}
-
-
-\newrule{E-And}
-  {e_1 ,s\evaluate t_1 ,s' \Quad
-   e_2 ,s'\evaluate t_2,s''}
-  {e_1 \And e_2 ,s\evaluate t_1 \And t_2,s''}
+\newrule{Sym-E-Next}
+  {e_1 ,s\symeval t_1,s'}
+  {e_1 \Next e_2 ,s\symeval t_1 \Next e_2,s'}
 
 
-\newrule{E-Or}
-  {e_1 ,s\evaluate t_1 ,s' \Quad
-   e_2 ,s'\evaluate t_2,s''}
-  {e_1 \Or e_2 ,s\evaluate t_1 \Or t_2,s''}
+\newrule{Sym-E-And}
+  {e_1 ,s\symeval t_1 ,s' \Quad
+   e_2 ,s'\symeval t_2,s''}
+  {e_1 \And e_2 ,s\symeval t_1 \And t_2,s''}
 
-\newrule{E-Xor}
+
+\newrule{Sym-E-Or}
+  {e_1 ,s\symeval t_1 ,s' \Quad
+   e_2 ,s'\symeval t_2,s''}
+  {e_1 \Or e_2 ,s\symeval t_1 \Or t_2,s''}
+
+\newrule{Sym-E-Xor}
   {}
-  {e_1 \Xor e_2 ,s\evaluate e_1 \Xor e_2,s}
-
-
-\newrule{E-Appoint}
-    {e,s\evaluate t,s'}
-    {u \At e,s\evaluate u \At t,s'}
-
-
+  {e_1 \Xor e_2 ,s\symeval e_1 \Xor e_2,s}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newmacro{RelationS}
-  {t,s \stride t',s'}
+  {t,s,p \symstride t',s',p'}
 
 
-\newrule{S-Edit}
+\newrule{Sym-S-Edit}
   { }
-  {\Edit v,s \stride \Edit v,s}
+  {\Edit v,s \symstride \Edit v,s}
 
-\newrule{S-Fill}
+\newrule{Sym-S-Fill}
   { }
-  {\Enter \tau,s \stride \Enter \tau,s}
+  {\Enter \tau,s \symstride \Enter \tau,s}
 
-\newrule{S-Update}
+\newrule{Sym-S-Update}
   { }
-  {\Update l,s \stride \Update l,s}
+  {\Update l,s \symstride \Update l,s}
 
 
-\newrule{S-Fail}
+\newrule{Sym-S-Fail}
   { }
-  {\Fail,s \stride \Fail,s}
+  {\Fail,s \symstride \Fail,s}
 
 
-\newrule{S-ThenStay}
-  {t_1,s \stride t_1',s'}
-  {t_1 \Then e_2,s \stride t_1' \Then e_2,s'}
+\newrule{Sym-S-ThenStay}
+  {t_1,s \symstride t_1',s'}
+  {t_1 \Then e_2,s \symstride t_1' \Then e_2,s'}
   [\Value(t_1',s') = \bot]
 
-\newrule{S-ThenFail}
-  {t_1,s \stride t_1',s'  \Quad
-   e_2\ v_1,s' \evaluate t_2,s''}
-  {t_1 \Then e_2,s \stride t_1' \Then e_2,s'}
+\newrule{Sym-S-ThenFail}
+  {t_1,s \symstride t_1',s'  \Quad
+   e_2\ v_1,s' \symeval t_2,s''}
+  {t_1 \Then e_2,s \symstride t_1' \Then e_2,s'}
   [\Value(t_1',s') = v_1 \land \Failing(t_2,s'')]
 
-\newrule{S-ThenCont}
-  {t_1,s \stride t_1',s'  \Quad
-   e_2\ v_1,s' \evaluate t_2 ,s''}
+\newrule{Sym-S-ThenCont}
+  {t_1,s \symstride t_1',s'  \Quad
+   e_2\ v_1,s' \symeval t_2 ,s''}
    % t_2,s'' \stride t_2',s'''}
-  {t_1 \Then e_2,s \stride t_2,s''}
+  {t_1 \Then e_2,s \symstride t_2,s''}
   [\Value(t_1',s') = v_1 \land \lnot\Failing(t_2,s'')]
 
-\newrule{S-Next}
-  {t_1,s \stride t_1',s'}
-  {t_1 \Next e_2,s \stride t_1' \Next e_2,s'}
+\newrule{Sym-S-Next}
+  {t_1,s \symstride t_1',s'}
+  {t_1 \Next e_2,s \symstride t_1' \Next e_2,s'}
 
 
-\newrule{S-And}
-  {t_1,s  \stride t_1',s'  \Quad
-   t_2,s' \stride t_2',s''}
-  {t_1 \And t_2,s \stride t_1' \And t_2',s''}
+\newrule{Sym-S-And}
+  {t_1,s  \symstride t_1',s'  \Quad
+   t_2,s' \symstride t_2',s''}
+  {t_1 \And t_2,s \symstride t_1' \And t_2',s''}
 
 
-\newrule{S-OrLeft}
-  {t_1,s  \stride t_1',s'}
-  {t_1 \Or t_2,s \stride t_1',s'}
+\newrule{Sym-S-OrLeft}
+  {t_1,s  \symstride t_1',s'}
+  {t_1 \Or t_2,s \symstride t_1',s'}
   [\Value(t_1',s') = v_1]
 
-\newrule{S-OrRight}
-  {t_1,s  \stride t_1',s'  \Quad
-   t_2,s' \stride t_2',s''}
-  {t_1 \Or t_2,s \stride t_2',s''}
+\newrule{Sym-S-OrRight}
+  {t_1,s  \symstride t_1',s'  \Quad
+   t_2,s' \symstride t_2',s''}
+  {t_1 \Or t_2,s \symstride t_2',s''}
   [\Value(t_1',s') = \bot \land \Value(t_2',s'') = v_2]
 
-\newrule{S-OrNone}
-  {t_1,s  \stride t_1',s'  \Quad
-   t_2,s' \stride t_2',s''}
-  {t_1 \Or t_2,s \stride t_1' \Or t_2',s''}
+\newrule{Sym-S-OrNone}
+  {t_1,s  \symstride t_1',s'  \Quad
+   t_2,s' \symstride t_2',s''}
+  {t_1 \Or t_2,s \symstride t_1' \Or t_2',s''}
   [\Value(t_1',s') = \bot \land \Value(t_2',s'') = \bot]
 
 
-\newrule{S-Xor}
+\newrule{Sym-S-Xor}
   { }
-  {e_1 \Xor e_2,s \stride e_1 \Xor e_2,s}
+  {e_1 \Xor e_2,s \symstride e_1 \Xor e_2,s}
 
-\newrule{S-Eval}
-    {e,s \evaluate e',s'  \Quad
-     e',s' \stride e'',s''}
-    {e,s \stride e'',s''}
+\newrule{Sym-S-Eval}
+    {e,s \symeval e',s'  \Quad
+     e',s' \symstride e'',s''}
+    {e,s \symstride e'',s''}
     [e \neq e']
-
-
-\newrule{S-Appoint}
-  {t,s\stride t',s'}
-  {u \At t,s\stride u \At t',s'}
-
-
-% \newrule{S-Next}
-%   {t_1,\Sigma \stride t_1'\st{'}    \Quad
-%    e\ v \evaluate t_2        \Quad
-%    t_2\st{'} \stride t_2'\st{''} }
-%   {t_1 \Next e,\Sigma \stride t_2'\st{''}}
-%   [t_1' = \Edit v]
-
-% \newrule{S-NextEval}
-%   {e_1,\Sigma \stride u_1\st{'}}
-%   {e_1 \Next e_2,\Sigma \stride u_1 \Next e_2\st{'}}
-
-
-
 
 %% Normalisation %%
 
 
 \newmacro{RelationN}
-  {e,s \normalise t,s'}
+  {e,s,p \symnormalise t,s',p'}
 
 
-\newrule{N-Done}
-    {e,s \evaluate t,s'  \Quad
-     t,s' \stride t',s''}
-    {e,s \normalise t',s''}
+\newrule{Sym-N-Done}
+    {e,s \symeval t,s'  \Quad
+     t,s' \symstride t',s''}
+    {e,s \symnormalise t',s''}
     [s'=s''\wedge t=t']
 
-\newrule{N-Repeat}
-    {e,s \evaluate t,s'  \Quad
-     t,s' \stride t',s''  \Quad
-     t',s'' \normalise t'',s'''}
-    {e,s \normalise t'',s'''}
+\newrule{Sym-N-Repeat}
+    {e,s \symeval t,s'  \Quad
+     t,s' \symstride t',s''  \Quad
+     t',s'' \symnormalise t'',s'''}
+    {e,s \symnormalise t'',s'''}
     [s'\neq s''\vee t\neq t']
 
 
@@ -353,133 +214,76 @@
 
 
 \newmacro{RelationH}
-  {t,s \handle{i} t',s'}
+  {t,s,pr \symhandle t',i,s',pr}
 
-\newrule{H-Change}
+\newrule{Sym-H-Change}
   { }
-  {\Edit v,s \handle{v'} \Edit v',s}
-  [v, v' : \tau]
+  {\Edit v,s,pr \symhandle \Edit i_j,i_j,s,pr}
 
-\newrule{H-Empty}
+\newrule{Sym-H-Empty}
   { }
-  {\Edit v,s \handle{\Empty} \Enter \tau,s}
+  {\Edit v,s,pr \symhandle \Enter \tau,\Empty,s,pr}
   [v : \tau]
 
-\newrule{H-Fill}
+\newrule{Sym-H-Fill}
   { }
-  {\Enter \tau,s \handle{v'} \Edit v',s}
-  [v' : \tau]
+  {\Enter \tau,s,pr \symhandle \Edit i_j,i_j,s,pr}
 
-\newrule{H-Update}
+\newrule{Sym-H-Update}
   { }
-  {\Update l,s \handle{v'} \Update l,s[l \mapsto v']{}}
-  [s(l), v' : \tau]
+  {\Update l,s,pr \symhandle \Update l,i_j,s[l \mapsto i_j],pr}
 
 
-\newrule{H-PassThen}
-  {t_1,s \handle{i} t_1',s'}
-  {t_1 \Then e_2,s \handle{i} t_1' \Then e_2,s'}
+\newrule{Sym-H-PassThen}
+  {t_1,s,pr \symhandle t_1',i,s',pr'}
+  {t_1 \Then e_2,s,pr \symhandle t_1' \Then e_2,i,s',pr'}
 
-\newrule{H-PassNext}
-  {t_1,s \handle{i} t_1',s'}
-  {t_1 \Next e_2,s \handle{i \neq \Continue} t_1' \Next e_2,s'}
+\newrule{Sym-H-PassNext}
+  {t_1,s,pr \symhandle t_1',i,s',pr'}
+  {t_1 \Next e_2,s,pr \symhandle t_1' \Next e_2,i,s',pr'}
 
-\newrule{H-Next}
-  {e_2\ v_1,s \normalise t_2,s'}
-  {t_1 \Next e_2,s \handle{\Continue} t_2,s'}
+\newrule{Sym-H-Next}
+  {e_2\ v_1,s,pr \symnormalise t_2,s',pr'}
+  {t_1 \Next e_2,s,pr \symhandle t_2,\Continue,s',pr'}
   [\Value{(t_1,s)} = v_1 \wedge \neg\Failing{(t_2,s')}]
 
 
-\newrule{H-FirstAnd}
-  {t_1,s \handle{i} t_1',s' }
-  {t_1 \And t_2,s \handle{\First i} t_1' \And t_2,s'}
+\newrule{Sym-H-FirstAnd}
+  {t_1,s,pr \symhandle t_1',i,s',pr }
+  {t_1 \And t_2,s,pr \symhandle t_1' \And t_2,\First i,s'pr'}
 
-\newrule{H-SecondAnd}
-  {t_2,s \handle{i} t_2',s'}
-  {t_1 \And t_2,s \handle{\Second i} t_1 \And t_2',s'}
-
-
-\newrule{H-FirstOr}
-  {t_1,s \handle{i} t_1',s'}
-  {t_1 \Or t_2,s \handle{\First i} t_1' \Or t_2,s'}
-
-\newrule{H-SecondOr}
-  {t_2,s \handle{i} t_2',s' }
-  {t_1 \Or t_2,s \handle{\Second i} t_1 \Or t_2',s'}
+\newrule{Sym-H-SecondAnd}
+  {t_2,s,pr \symhandle t_2',i,s',pr'}
+  {t_1 \And t_2,s,pr \symhandle t_1 \And t_2',\Second i,s',pr'}
 
 
-\newrule{H-PickLeft}
-  {e_1,s \normalise t_1,s'}
-  {e_1 \Xor e_2,s \handle{\Left} t_1,s'}
+\newrule{Sym-H-FirstOr}
+  {t_1,s,pr' \symhandle t_1',i,s',pr'}
+  {t_1 \Or t_2,s,pr \symhandle t_1' \Or t_2,\First i,s',pr'}
+
+\newrule{Sym-H-SecondOr}
+  {t_2,s,pr \symhandle t_2',i,s',pr' }
+  {t_1 \Or t_2,s,pr \symhandle t_1 \Or t_2',\Second i,s',pr}
+
+
+\newrule{Sym-H-PickLeft}
+  {e_1,s,pr \symnormalise t_1,s',pr'}
+  {e_1 \Xor e_2,s,pr \symhandle t_1,\Left,s',pr'}
   [\neg\Failing(t_1,s')]
 
-\newrule{H-PickRight}
-  {e_2,s \normalise t_2,s'}
-  {e_1 \Xor e_2,s \handle{\Right} t_2,s'}
+\newrule{Sym-H-PickRight}
+  {e_2,s,pr \symnormalise t_2,s',pr'}
+  {e_1 \Xor e_2,s,pr \symhandle t_2,\Right,s',pr'}
   [\neg\Failing(t_2,s')]
-
-
-\newrule{H-Appoint}
-  {t,s \handle{i} t',s'}
-  {u \At t,s\handle{i} u \At t',s'}
-
-
-
-%%%%
-
-
-% \newrule{H-Stay'}
-%   {}
-%   {t_1 \Next e,\Sigma \handle{\Next} t_1 \Next e,\Sigma}
-%   [\Value(t_1) = \bot]
-
-% \newrule{H-Next'}
-%   {e\ v \evaluate t_2     \Quad
-%    t_2,\Sigma \stride t_2'\st{'} }
-%   {t_1 \Next e,\Sigma \handle{\Next} t_2'\st{'}}
-%   [\Value(t_1) = v]
-
-% \newrule{H-Stay}
-%   {}
-%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_1 \Then e,\Sigma}
-%   [\Value(t_1) = \bot]
-
-% \newrule{H-Fail'}
-%   {e\ v \evaluate t_2     \Quad
-%    t_2,\Sigma \handle{\Pick \pi} t_2'\st{'} }
-%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_1 \Then e,\Sigma}
-%   [\Value(t_1) = v \land t_2 = \Fail]
-
-% \newrule{H-Next}
-%   {e\ v \evaluate t_2     \Quad
-%    t_2,\Sigma \handle{\Pick \pi} t_2'\st{'} }
-%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_2'\st{'}}
-%   [\Value(t_1) = v \land t_2 \neq \Fail]
-
-% \newrule{H-PassS}
-%   {t_1,\Sigma \handle{i} t_1'\st{'}}
-%   {t_1 \Next e,\Sigma \handle{i} t_1' \Next e\st{'}}
-
-% \newrule{H-Pass}
-%   {t_1,\Sigma \handle{i} t_1'\st{'}        \Quad
-%    t_1' \Then e\st{'} \stride t_2\st{''} }
-%   {t_1 \Then e,\Sigma \handle{i} t_2\st{''}}
-%   [i \neq \Execute \pi]
-
-% \newrule{H-Fallback}
-%   { }
-%   {t,\Sigma \handle{i} t,\Sigma}
-
-
 
 %% Driving %%
 
 
 \newmacro{RelationI}
-  {t,s \drive{i} t',s'}
+  {t,s,p \symdrive  t',i,s',p'}
 
 
-\newrule{I-Handle}
-  {t,s \handle{i} t',s'  \Quad
-   t',s' \normalise t'',s''}
-  {t,s \drive{i} t'',s''}
+\newrule{Sym-I-Handle}
+  {t,s,p \symhandle t',i,s',p'  \Quad
+   t',s' \symnormalise t'',s''}
+  {t,s,p \symdrive t'',i,s'',p''}

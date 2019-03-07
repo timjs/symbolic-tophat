@@ -4,3 +4,67 @@
 
 \section{Semantics}
 \label{sec:semantics}
+
+\boxed{\RelationE}
+\begin{align*}
+  \userule{Sym-E-Value}
+  \userule{Sym-E-App}\\
+  \userule{Sym-E-IfTrue}
+  \userule{Sym-E-IfFalse}\\
+  \userule{Sym-E-Pair}
+  \userule{Sym-E-Ref}\\
+  \userule{Sym-E-Deref}
+  \userule{Sym-E-Assign}\\
+  \userule{Sym-E-Edit}
+  \userule{Sym-E-Enter}\\
+  \userule{Sym-E-Update}
+  \userule{Sym-E-Then}\\
+  \userule{Sym-E-Next}
+  \userule{Sym-E-And}\\
+  \userule{Sym-E-Or}
+  \userule{Sym-E-Xor}\\
+  \userule{Sym-E-Fail}
+\end{align*}
+
+\boxed{\RelationS}
+
+\begin{gather*}
+  \userule{Sym-S-ThenStay} \Quad
+  \userule{Sym-S-ThenFail} \Break
+  \userule{Sym-S-ThenCont} \Quad
+  \userule{Sym-S-OrLeft} \Break
+  \userule{Sym-S-OrRight} \Quad
+  \userule{Sym-S-OrNone} \Break
+  \userule{Sym-S-Edit} \Quad
+  \userule{Sym-S-Fill} \Break
+  \userule{Sym-S-Update} \Quad
+  \userule{Sym-S-Fail} \Break
+  \userule{Sym-S-Xor} \Quad
+  \userule{S-Next} \Break
+  \userule{S-And}
+\end{gather*}
+
+\boxed{\RelationN}
+
+\begin{gather*}
+  \userule{Sym-N-Done} \Break
+  \userule{Sym-N-Repeat}
+\end{gather*}
+
+\boxed{\RelationH}
+
+\begin{gather*}
+\userule{Sym-H-Change} \Quad
+\userule{Sym-H-Empty} \Quad
+\userule{Sym-H-Fill} \Break
+\userule{Sym-H-Update}
+\userule{Sym-H-Next} \Break
+\userule{Sym-H-PickLeft} \Quad
+\userule{Sym-H-PickRight}
+\userule{Sym-H-PassThen} \Quad \userule{Sym-H-FirstAnd} \Quad \userule{Sym-H-FirstOr} \Break
+\userule{Sym-H-PassNext} \Quad \userule{Sym-H-SecondAnd} \Quad \userule{Sym-H-SecondOr}
+\end{gather*}
+
+\boxed{\RelationI}
+
+\userule{Sym-I-Handle}
