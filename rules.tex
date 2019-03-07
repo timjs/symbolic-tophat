@@ -1,0 +1,485 @@
+% !TEX root=main.tex
+
+
+%% Helpers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifstateful
+\statefulfalse
+\newmacro{st}[2][1]
+  {\ifthenelse{\isempty{#1}}
+    {\ifstateful{,\:s#2}\else{}\fi}
+    {\ifstateful{,\:[#1]s#2}\else{}\fi}}
+\newmacro{St}[1]
+  {\ifstateful{,\:\Sigma#1}\else{}\fi}
+
+
+
+%% Typing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newmacro{RelationT}
+  {\Gamma,\Sigma \infers e : \tau}
+
+
+\newrule{T-Var}
+  {x:\tau\in\Gamma}
+  {\Gamma,\Sigma\infers x:\tau}
+
+
+\newrule{T-Abs}
+  {\Gamma[x:\tau_1] ,\Sigma \infers e:\tau_2}
+  {\Gamma,\Sigma \infers \lambda x : \tau_1 . e :\tau_1 \to \tau_2}
+
+\newrule{T-App}
+  {\Gamma,\Sigma \infers e_1:\tau_1\to\tau_2 \Quad
+   \Gamma,\Sigma \infers e_2:\tau_1}
+  {\Gamma,\Sigma \infers e_1 e_2 :\tau_2}
+
+
+\newrule{T-If}
+  {\Gamma,\Sigma \infers e_1:\Bool \Quad
+   \Gamma,\Sigma \infers e_2:\tau \Quad
+   \Gamma,\Sigma \infers e_3:\tau}
+  {\Gamma,\Sigma \infers \If{e_1}{e_2}{e_3}:\tau}
+
+
+\newrule{T-Pair}
+    {\Gamma,\Sigma \infers e_1 : \tau_1  \Quad
+     \Gamma,\Sigma \infers e_2 : \tau_2}
+    {\Gamma,\Sigma \infers \tuple{e_1, e_2} :\tau_1 \times \tau_2}
+
+
+\newrule{T-Ref}
+  {\Gamma,\Sigma \infers e:\beta}
+  {\Gamma,\Sigma \infers \Ref e :\Reference \beta}
+
+\newrule{T-Deref}
+  {\Gamma,\Sigma \infers e:\Reference \beta}
+  {\Gamma,\Sigma\infers\ !e:\beta}
+
+\newrule{T-Assign}
+  {\Gamma,\Sigma\infers e_1:\Reference \beta \Quad
+   \Gamma,\Sigma\infers e_2:\beta}
+  {\Gamma,\Sigma\infers e_1 := e_2:\Unit}
+
+\newrule{T-Loc}
+  {\Sigma(l) = \beta}
+  {\Gamma,\Sigma\infers l:\Reference \beta}
+
+
+\newrule{T-Edit}
+  {\Gamma,\Sigma \infers e : \tau}
+  {\Gamma,\Sigma \infers \Edit e : \Task \tau}
+
+\newrule{T-Enter}
+  {}
+  {\Gamma,\Sigma \infers \Enter \tau : \Task \tau}
+
+\newrule{T-Update}
+  {\Gamma,\Sigma \infers e : \Reference \beta}
+  {\Gamma,\Sigma \infers \Update e : \Task \beta}
+
+
+\newrule{T-Fail}
+  {}
+  {\Gamma,\Sigma \infers \Fail : \Task \tau}
+
+
+\newrule{T-Then}
+  {\Gamma,\Sigma \infers e_1 : \Task \tau_1 \Quad
+   \Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}
+  {\Gamma,\Sigma \infers e_1 \Then e_2 : \Task \tau_2}
+
+
+\newrule{T-Next}
+  {\Gamma,\Sigma \infers e_1 : \Task \tau_1 \Quad
+   \Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}
+  {\Gamma,\Sigma \infers e_1 \Next e_2 : \Task \tau_2}
+
+
+\newrule{T-And}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau_1}
+   {\Gamma,\Sigma \infers e_2 : \Task \tau_2}}
+  {\Gamma,\Sigma \infers e_1 \And e_2 : \Task\,(\tau_1 \times \tau_2)}
+
+
+\newrule{T-Or}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
+   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
+  {\Gamma,\Sigma \infers e_1 \Or e_2 : \Task \tau}
+
+
+\newrule{T-Xor}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
+   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
+  {\Gamma,\Sigma \infers e_1 \Xor e_2 : \Task \tau}
+
+
+\newrule{T-Appoint}
+  {\Gamma,\Sigma\infers e:\Task\tau}
+  {\Gamma,\Sigma\infers u \At e:\Task\tau}
+
+
+
+%% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newmacro{RelationE}
+  {e,s \evaluate v,s'}
+
+
+\newrule{E-Value}
+  {}
+  {v,s\evaluate v,s}
+
+
+\newrule{E-App}
+  {e_1,s\evaluate \lambda x:\tau.e_1',s' \Quad
+   e_2,s'\evaluate v_2,s'' \Quad
+   e_1'[x\mapsto v_2],s''\evaluate v_1,s'''}
+  {e_1 e_2,s \evaluate v_1,s'''}
+
+
+\newrule{E-IfTrue}
+  {e_1,s\evaluate \True,s' \Quad
+   e_2,s'\evaluate v,s''}
+  {\If{e_1}{e_2}{e_3},s\evaluate v,s''}
+
+\newrule{E-IfFalse}
+  {e_1,s\evaluate \False,s' \Quad
+   e_3,s'\evaluate v,s''}
+  {\If{e_1}{e_2}{e_3},s\evaluate v,s''}
+
+
+\newrule{E-Pair}
+  {e_1,s\evaluate v_1,s' \Quad
+   e_2,s'\evaluate v_2,s''}
+  {\tuple{e_1,e_2},s\evaluate\tuple{v_1,v_2},s''}
+
+
+\newrule{E-Ref}
+  {e,s\evaluate v,s' \Quad
+   l\not\in Dom(s')}
+  {\Ref e,s\evaluate l,s'[l\mapsto v]}
+
+\newrule{E-Deref}
+  {e,s\evaluate l,s'}
+  {!e,s\evaluate s'(l),s'}
+
+\newrule{E-Assign}
+  {e_1,s\evaluate l,s' \Quad
+   e_2,s'\evaluate v_2,s''}
+  {e_1:=e_2,s\evaluate \unit,s''[l\mapsto v_2]}
+
+
+\newrule{E-Sequence}
+  {?}
+  {e_1;e_2 \evaluate ?}
+
+\newrule{E-Edit}
+  {e,s \evaluate v,s'}
+  {\Edit e , s\evaluate \Edit v,s'}
+
+\newrule{E-Enter}
+  {}
+  {\Enter \tau,s \evaluate \Enter \tau,s}
+
+\newrule{E-Update}
+  {e,s\evaluate l,s'}
+  {\Update e ,s\evaluate \Update l,s'}
+
+
+\newrule{E-Fail}
+  {}
+  {\Fail,s \evaluate \Fail,s}
+
+
+\newrule{E-Then}
+  {e_1 ,s\evaluate t_1,s'}
+  {e_1 \Then e_2,s \evaluate t_1 \Then e_2,s'}
+
+\newrule{E-Next}
+  {e_1 ,s\evaluate t_1,s'}
+  {e_1 \Next e_2 ,s\evaluate t_1 \Next e_2,s'}
+
+
+\newrule{E-And}
+  {e_1 ,s\evaluate t_1 ,s' \Quad
+   e_2 ,s'\evaluate t_2,s''}
+  {e_1 \And e_2 ,s\evaluate t_1 \And t_2,s''}
+
+
+\newrule{E-Or}
+  {e_1 ,s\evaluate t_1 ,s' \Quad
+   e_2 ,s'\evaluate t_2,s''}
+  {e_1 \Or e_2 ,s\evaluate t_1 \Or t_2,s''}
+
+\newrule{E-Xor}
+  {}
+  {e_1 \Xor e_2 ,s\evaluate e_1 \Xor e_2,s}
+
+
+\newrule{E-Appoint}
+    {e,s\evaluate t,s'}
+    {u \At e,s\evaluate u \At t,s'}
+
+
+
+%% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newmacro{RelationS}
+  {t,s \stride t',s'}
+
+
+\newrule{S-Edit}
+  { }
+  {\Edit v,s \stride \Edit v,s}
+
+\newrule{S-Fill}
+  { }
+  {\Enter \tau,s \stride \Enter \tau,s}
+
+\newrule{S-Update}
+  { }
+  {\Update l,s \stride \Update l,s}
+
+
+\newrule{S-Fail}
+  { }
+  {\Fail,s \stride \Fail,s}
+
+
+\newrule{S-ThenStay}
+  {t_1,s \stride t_1',s'}
+  {t_1 \Then e_2,s \stride t_1' \Then e_2,s'}
+  [\Value(t_1',s') = \bot]
+
+\newrule{S-ThenFail}
+  {t_1,s \stride t_1',s'  \Quad
+   e_2\ v_1,s' \evaluate t_2,s''}
+  {t_1 \Then e_2,s \stride t_1' \Then e_2,s'}
+  [\Value(t_1',s') = v_1 \land \Failing(t_2,s'')]
+
+\newrule{S-ThenCont}
+  {t_1,s \stride t_1',s'  \Quad
+   e_2\ v_1,s' \evaluate t_2 ,s''}
+   % t_2,s'' \stride t_2',s'''}
+  {t_1 \Then e_2,s \stride t_2,s''}
+  [\Value(t_1',s') = v_1 \land \lnot\Failing(t_2,s'')]
+
+\newrule{S-Next}
+  {t_1,s \stride t_1',s'}
+  {t_1 \Next e_2,s \stride t_1' \Next e_2,s'}
+
+
+\newrule{S-And}
+  {t_1,s  \stride t_1',s'  \Quad
+   t_2,s' \stride t_2',s''}
+  {t_1 \And t_2,s \stride t_1' \And t_2',s''}
+
+
+\newrule{S-OrLeft}
+  {t_1,s  \stride t_1',s'}
+  {t_1 \Or t_2,s \stride t_1',s'}
+  [\Value(t_1',s') = v_1]
+
+\newrule{S-OrRight}
+  {t_1,s  \stride t_1',s'  \Quad
+   t_2,s' \stride t_2',s''}
+  {t_1 \Or t_2,s \stride t_2',s''}
+  [\Value(t_1',s') = \bot \land \Value(t_2',s'') = v_2]
+
+\newrule{S-OrNone}
+  {t_1,s  \stride t_1',s'  \Quad
+   t_2,s' \stride t_2',s''}
+  {t_1 \Or t_2,s \stride t_1' \Or t_2',s''}
+  [\Value(t_1',s') = \bot \land \Value(t_2',s'') = \bot]
+
+
+\newrule{S-Xor}
+  { }
+  {e_1 \Xor e_2,s \stride e_1 \Xor e_2,s}
+
+\newrule{S-Eval}
+    {e,s \evaluate e',s'  \Quad
+     e',s' \stride e'',s''}
+    {e,s \stride e'',s''}
+    [e \neq e']
+
+
+\newrule{S-Appoint}
+  {t,s\stride t',s'}
+  {u \At t,s\stride u \At t',s'}
+
+
+% \newrule{S-Next}
+%   {t_1,\Sigma \stride t_1'\st{'}    \Quad
+%    e\ v \evaluate t_2        \Quad
+%    t_2\st{'} \stride t_2'\st{''} }
+%   {t_1 \Next e,\Sigma \stride t_2'\st{''}}
+%   [t_1' = \Edit v]
+
+% \newrule{S-NextEval}
+%   {e_1,\Sigma \stride u_1\st{'}}
+%   {e_1 \Next e_2,\Sigma \stride u_1 \Next e_2\st{'}}
+
+
+
+
+%% Normalisation %%
+
+
+\newmacro{RelationN}
+  {e,s \normalise t,s'}
+
+
+\newrule{N-Done}
+    {e,s \evaluate t,s'  \Quad
+     t,s' \stride t',s''}
+    {e,s \normalise t',s''}
+    [s'=s''\wedge t=t']
+
+\newrule{N-Repeat}
+    {e,s \evaluate t,s'  \Quad
+     t,s' \stride t',s''  \Quad
+     t',s'' \normalise t'',s'''}
+    {e,s \normalise t'',s'''}
+    [s'\neq s''\vee t\neq t']
+
+
+
+%% Handling %%
+
+
+\newmacro{RelationH}
+  {t,s \handle{i} t',s'}
+
+\newrule{H-Change}
+  { }
+  {\Edit v,s \handle{v'} \Edit v',s}
+  [v, v' : \tau]
+
+\newrule{H-Empty}
+  { }
+  {\Edit v,s \handle{\Empty} \Enter \tau,s}
+  [v : \tau]
+
+\newrule{H-Fill}
+  { }
+  {\Enter \tau,s \handle{v'} \Edit v',s}
+  [v' : \tau]
+
+\newrule{H-Update}
+  { }
+  {\Update l,s \handle{v'} \Update l,s[l \mapsto v']{}}
+  [s(l), v' : \tau]
+
+
+\newrule{H-PassThen}
+  {t_1,s \handle{i} t_1',s'}
+  {t_1 \Then e_2,s \handle{i} t_1' \Then e_2,s'}
+
+\newrule{H-PassNext}
+  {t_1,s \handle{i} t_1',s'}
+  {t_1 \Next e_2,s \handle{i \neq \Continue} t_1' \Next e_2,s'}
+
+\newrule{H-Next}
+  {e_2\ v_1,s \normalise t_2,s'}
+  {t_1 \Next e_2,s \handle{\Continue} t_2,s'}
+  [\Value{(t_1,s)} = v_1 \wedge \neg\Failing{(t_2,s')}]
+
+
+\newrule{H-FirstAnd}
+  {t_1,s \handle{i} t_1',s' }
+  {t_1 \And t_2,s \handle{\First i} t_1' \And t_2,s'}
+
+\newrule{H-SecondAnd}
+  {t_2,s \handle{i} t_2',s'}
+  {t_1 \And t_2,s \handle{\Second i} t_1 \And t_2',s'}
+
+
+\newrule{H-FirstOr}
+  {t_1,s \handle{i} t_1',s'}
+  {t_1 \Or t_2,s \handle{\First i} t_1' \Or t_2,s'}
+
+\newrule{H-SecondOr}
+  {t_2,s \handle{i} t_2',s' }
+  {t_1 \Or t_2,s \handle{\Second i} t_1 \Or t_2',s'}
+
+
+\newrule{H-PickLeft}
+  {e_1,s \normalise t_1,s'}
+  {e_1 \Xor e_2,s \handle{\Left} t_1,s'}
+  [\neg\Failing(t_1,s')]
+
+\newrule{H-PickRight}
+  {e_2,s \normalise t_2,s'}
+  {e_1 \Xor e_2,s \handle{\Right} t_2,s'}
+  [\neg\Failing(t_2,s')]
+
+
+\newrule{H-Appoint}
+  {t,s \handle{i} t',s'}
+  {u \At t,s\handle{i} u \At t',s'}
+
+
+
+%%%%
+
+
+% \newrule{H-Stay'}
+%   {}
+%   {t_1 \Next e,\Sigma \handle{\Next} t_1 \Next e,\Sigma}
+%   [\Value(t_1) = \bot]
+
+% \newrule{H-Next'}
+%   {e\ v \evaluate t_2     \Quad
+%    t_2,\Sigma \stride t_2'\st{'} }
+%   {t_1 \Next e,\Sigma \handle{\Next} t_2'\st{'}}
+%   [\Value(t_1) = v]
+
+% \newrule{H-Stay}
+%   {}
+%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_1 \Then e,\Sigma}
+%   [\Value(t_1) = \bot]
+
+% \newrule{H-Fail'}
+%   {e\ v \evaluate t_2     \Quad
+%    t_2,\Sigma \handle{\Pick \pi} t_2'\st{'} }
+%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_1 \Then e,\Sigma}
+%   [\Value(t_1) = v \land t_2 = \Fail]
+
+% \newrule{H-Next}
+%   {e\ v \evaluate t_2     \Quad
+%    t_2,\Sigma \handle{\Pick \pi} t_2'\st{'} }
+%   {t_1 \Then e,\Sigma \handle{\Execute \pi} t_2'\st{'}}
+%   [\Value(t_1) = v \land t_2 \neq \Fail]
+
+% \newrule{H-PassS}
+%   {t_1,\Sigma \handle{i} t_1'\st{'}}
+%   {t_1 \Next e,\Sigma \handle{i} t_1' \Next e\st{'}}
+
+% \newrule{H-Pass}
+%   {t_1,\Sigma \handle{i} t_1'\st{'}        \Quad
+%    t_1' \Then e\st{'} \stride t_2\st{''} }
+%   {t_1 \Then e,\Sigma \handle{i} t_2\st{''}}
+%   [i \neq \Execute \pi]
+
+% \newrule{H-Fallback}
+%   { }
+%   {t,\Sigma \handle{i} t,\Sigma}
+
+
+
+%% Driving %%
+
+
+\newmacro{RelationI}
+  {t,s \drive{i} t',s'}
+
+
+\newrule{I-Handle}
+  {t,s \handle{i} t',s'  \Quad
+   t',s' \normalise t'',s''}
+  {t,s \drive{i} t'',s''}
