@@ -6,25 +6,25 @@
 \label{sec:semantics}
 
 \boxed{\RelationE}
-\begin{align*}
-  \userule{Sym-E-Value}
-  \userule{Sym-E-App}\\
-  \userule{Sym-E-IfTrue}
-  \userule{Sym-E-IfFalse}\\
-  \userule{Sym-E-Pair}
-  \userule{Sym-E-Ref}\\
-  \userule{Sym-E-Deref}
-  \userule{Sym-E-Assign}\\
-  \userule{Sym-E-Edit}
-  \userule{Sym-E-Enter}\\
-  \userule{Sym-E-Update}
-  \userule{Sym-E-Then}\\
-  \userule{Sym-E-Next}
-  \userule{Sym-E-And}\\
-  \userule{Sym-E-Or}
-  \userule{Sym-E-Xor}\\
+\begin{gather*}
+  \userule{Sym-E-Value}\Quad
+  \userule{Sym-E-App} \Break
+  \userule{Sym-E-IfTrue} \Quad
+  \userule{Sym-E-IfFalse} \Break
+  \userule{Sym-E-Pair} \Quad
+  \userule{Sym-E-Ref} \Quad
+  \userule{Sym-E-Deref} \Break
+  \userule{Sym-E-Assign} \Quad
+  \userule{Sym-E-Edit} \Quad
+  \userule{Sym-E-Enter}\Quad
+  \userule{Sym-E-Update}\Break
+  \userule{Sym-E-Then}\Quad
+  \userule{Sym-E-Next}\Quad
+  \userule{Sym-E-And}\Break
+  \userule{Sym-E-Or} \Quad
+  \userule{Sym-E-Xor}\Quad
   \userule{Sym-E-Fail}
-\end{align*}
+\end{gather*}
 
 \boxed{\RelationS}
 
@@ -57,12 +57,16 @@
 \userule{Sym-H-Change} \Quad
 \userule{Sym-H-Empty} \Quad
 \userule{Sym-H-Fill} \Break
-\userule{Sym-H-Update}
+\userule{Sym-H-Update}\Quad
 \userule{Sym-H-Next} \Break
 \userule{Sym-H-PickLeft} \Quad
-\userule{Sym-H-PickRight}
-\userule{Sym-H-PassThen} \Quad \userule{Sym-H-FirstAnd} \Quad \userule{Sym-H-FirstOr} \Break
-\userule{Sym-H-PassNext} \Quad \userule{Sym-H-SecondAnd} \Quad \userule{Sym-H-SecondOr}
+\userule{Sym-H-PickRight}\Break
+\userule{Sym-H-PassThen} \Quad
+\userule{Sym-H-FirstAnd} \Quad
+\userule{Sym-H-FirstOr} \Break
+\userule{Sym-H-PassNext} \Quad
+\userule{Sym-H-SecondAnd} \Quad
+\userule{Sym-H-SecondOr}
 \end{gather*}
 
 \boxed{\RelationI}
