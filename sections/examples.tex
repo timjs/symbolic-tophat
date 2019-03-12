@@ -1,0 +1,13 @@
+% !TEX root=../main.tex
+
+
+
+\section{Examples}
+\label{sec:examples}
+
+\begin{TASK}
+  let selection = ref [] , nSeats = ref 5 in
+    enter Int >>? \ x. if x <= !nSteats /\ intersection x !selection = []
+                       then selection :=!selection::[x] else fail
+
+\end{TASK}
