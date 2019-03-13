@@ -142,3 +142,17 @@
       &      &\mid& \Right               & – go right \\
   \end{grammar}
 }
+
+
+\newmacro{G-Predicates}{
+  \begin{grammar}
+    Predicates
+      & \phi &::= & c                    & – constant \\
+      &      &\mid& s                    & – symbol \\
+      &      &\mid& u\ s                 & – symbolic unary operation \\
+      &      &\mid& s\ o\ s              & – symbolic binary operation \\
+    \addlinespace
+      &      &\mid& \tuple{v_1, v_2}     & – pair value \\
+      &      &\mid& \unit                & – unit \\
+  \end{grammar}
+}

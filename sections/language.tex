@@ -73,5 +73,13 @@ Differences with the normal grammar are discussed in each subsection.
 
 \subsection{Predicates}
 
-\todo{Add predicate grammar}
-\usemacro{G-Predicate}
+\usemacro{G-Predicates}
+
+First stab at predicates.
+\begin{itemize}
+  \item Similar to values but should not contain other functions except for the operations \SMT solvers know about!
+  \item Should contain constants $c$.
+  \item Should contain symbols $s$ and operations $u$ and $o$ on them.
+  \item \fixme{Do they contain tuples?}
+  \item \fixme{Do they contain unit?}
+\end{itemize}
