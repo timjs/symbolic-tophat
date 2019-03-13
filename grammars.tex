@@ -34,6 +34,22 @@
       &      &\mid& I                    & – integer \\
       &      &\mid& S                    & – string \\
     \addlinespace
+    Unary operations
+      & u    &::= & \lnot                & – logical \\
+      &      &\mid& -                    & – numerical \\
+      &      &\mid& \#                   & – sequential \\
+    \addlinespace
+    Binary operations
+      & o    &::= & \land \mid \lor                                     & – logical \\
+      &      &\mid& < \mid \le \mid \equiv \mid \nequiv \mid \ge \mid > & – equational \\
+      &      &\mid& + \mid - \mid \times \mid /                         & – numerical \\
+      &      &\mid& \pp                                                 & – sequential \\
+  \end{grammar}
+}
+
+
+\newmacro{G-Pretasks}{
+  \begin{grammar}
     Pretasks
       & p    &::= & \Edit e              & – valued editor \\
       &      &\mid& \View e              & – valued read-only editor \\
@@ -50,20 +66,8 @@
       &      &\mid& e_1 \Xor e_2         & – user choice \\
     \addlinespace
       &      &\mid& \Fail                & – fail task \\
-    \addlinespace
-    Unary operations
-      & u    &::= & \lnot                & – logical \\
-      &      &\mid& -                    & – numerical \\
-      &      &\mid& \#                   & – sequential \\
-    \addlinespace
-    Binary operations
-      & o    &::= & \land \mid \lor                                     & – logical \\
-      &      &\mid& < \mid \le \mid \equiv \mid \nequiv \mid \ge \mid > & – equational \\
-      &      &\mid& + \mid - \mid \times \mid /                         & – numerical \\
-      &      &\mid& \pp                                                 & – sequential \\
   \end{grammar}
 }
-
 
 
 \newmacro{G-Types}{
@@ -83,6 +87,7 @@
   \end{grammar}
 }
 
+
 \newmacro{G-Values}{
   \begin{grammar}
     Values
@@ -98,6 +103,12 @@
       &      &\mid& \unit                & – unit \\
     \addlinespace
       &      &\mid& t                    & – task \\
+  \end{grammar}
+}
+
+
+\newmacro{G-Tasks}{
+  \begin{grammar}
     Tasks
       & t    &::= & \Edit v              & – valued editor \\
       &      &\mid& \View v              & – valued read-only editor \\
