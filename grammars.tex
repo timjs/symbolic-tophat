@@ -9,14 +9,17 @@
       & e    &::= & \lambda x:\tau.\ e   & – abstraction \\
       &      &\mid& e_1\ e_2             & – application \\
       &      &\mid& x                    & – variable \\
+      &      &\mid& s                    & – symbol variable \\
       &      &\mid& c                    & – constant \\
     \addlinespace
-      &      &\mid& e_1 \star e_2        & – operation \\
+      &      &\mid& u\ e_1               & – unary operation \\
+      &      &\mid& e_1\ o\ e_2          & – binary operation \\
       &      &\mid& \If{e_1}{e_2}{e_3}   & – branch \\
-      &      &\mid& \tuple{e_1, e_2}     & – pair \\
-      &      &\mid& \Fst e               & – first projection \\
-      &      &\mid& \Snd e               & – second projection \\
+    \addlinespace
       &      &\mid& \unit                & – unit \\
+      &      &\mid& \tuple{e_1, e_2}     & – pair \\
+      &      &\mid& \Fst                 & – first projection \\
+      &      &\mid& \Snd                 & – second projection \\
     \addlinespace
       &      &\mid& \Ref e               & – reference \\
       &      &\mid& !e                   & – dereference \\
@@ -44,7 +47,18 @@
       &      &\mid& e_1 \Or e_2          & – choice \\
       &      &\mid& e_1 \Xor e_2         & – user choice \\
     \addlinespace
-      &      &\mid& \Fail                & – fail task
+      &      &\mid& \Fail                & – fail task \\
+    \addlinespace
+    Unary operations
+      & u    &::= & \lnot                & – logical \\
+      &      &\mid& -                    & – numerical \\
+      &      &\mid& \#                   & – sequential \\
+    \addlinespace
+    Binary operations
+      & o    &::= & \land \mid \lor                                     & – logical \\
+      &      &\mid& < \mid \le \mid \equiv \mid \nequiv \mid \ge \mid > & – equational \\
+      &      &\mid& + \mid - \mid \times \mid /                         & – numerical \\
+      &      &\mid& \pp                                                 & – sequential \\
   \end{grammar}
 }
 
@@ -71,21 +85,33 @@
   \begin{grammar}
     Values
       & v    &::= & \lambda x:\tau.\ e   & – abstraction \\
+    \addlinespace
+      &      &\mid& s                    & – symbolic variable \\
+      &      &\mid& u\ s                 & – symbolic unary operation \\
+      &      &\mid& s\ o\ s              & – symbolic binary operation \\
+    \addlinespace
       &      &\mid& \tuple{v_1, v_2}     & – pair value \\
       &      &\mid& \unit                & – unit \\
+    \addlinespace
       &      &\mid& c                    & – constant \\
       &      &\mid& l                    & – location \\
+    \addlinespace
       &      &\mid& t                    & – task \\
+    \addlinespace
     Tasks
       & t    &::= & \Edit v              & – valued editor \\
       &      &\mid& \Enter \tau          & – unvalued editor \\
       &      &\mid& \Update l            & – shared editor \\
-      &      &\mid& \Fail                & – fail task \\
+    \addlinespace
       &      &\mid& t_1 \Then e_2        & – step \\
       &      &\mid& t_1 \Next e_2        & – user step \\
+    \addlinespace
       &      &\mid& t_1 \And t_2         & – composition \\
+    \addlinespace
       &      &\mid& t_1 \Or t_2          & – choice \\
-      &      &\mid& t_1 \Xor t_2         & – user choice
+      &      &\mid& e_1 \Xor e_2         & – user choice \\
+    \addlinespace
+      &      &\mid& \Fail                & – fail task \\
   \end{grammar}
 }
 
