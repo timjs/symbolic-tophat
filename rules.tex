@@ -5,194 +5,194 @@
 
 
 \newmacro{RelationE}
-  {e,\sigma \symeval v,\sigma',\phi}
+  {e,\sigma \eval v,\sigma',\phi}
 
 
 \newrule{Sym-E-Value}
   {}
-  {v,\sigma\symeval v,\sigma,\True}
+  {v,\sigma\eval v,\sigma,\True}
 
 
 \newrule{Sym-E-App}
-  {e_1,\sigma\symeval \lambda x:\tau.e_1',\sigma',\phi_1 \Quad
-   e_2,\sigma'\symeval v_2,\sigma'',\phi_2 \Quad
-   e_1'[x\mapsto v_2],\sigma''\symeval v_1,\sigma''',\phi_3}
-  {e_1 e_2,\sigma \symeval v_1,\sigma''',\phi_1\wedge\phi_2\wedge\phi_3}
+  {e_1,\sigma\eval \lambda x:\tau.e_1',\sigma',\phi_1 \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi_2 \Quad
+   e_1'[x\mapsto v_2],\sigma''\eval v_1,\sigma''',\phi_3}
+  {e_1 e_2,\sigma \eval v_1,\sigma''',\phi_1 \land \phi_2 \land \phi_3}
 
 
 \newrule{Sym-E-IfTrue}
-  {e_1,\sigma\symeval \bar{v}_1,\sigma',\phi_1 \Quad
-   e_2,\sigma'\symeval \bar{v}_2,\sigma'',\phi_2}
-  {\If{e_1}{e_2}{e_3},\sigma\symeval v,\sigma'',\phi_1\wedge\phi_2\wedge\bar{v}_1}
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi_2}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v,\sigma'',\phi_1 \land \phi_2 \land v_1}
 
 \newrule{Sym-E-IfFalse}
-  {e_1,\sigma\symeval \bar{v}_1,\sigma',\phi_1 \Quad
-   e_3,\sigma'\symeval \bar{v}_2,\sigma'',\phi_2}
-  {\If{e_1}{e_2}{e_3},\sigma\symeval \bar{v}_2,\sigma'',\phi_1\wedge\phi_2\wedge\lnot\bar{v}_1}
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+   e_3,\sigma'\eval v_2,\sigma'',\phi_2}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land \lnot v_1}
 
 
 \newrule{Sym-E-Pair}
-  {e_1,\sigma\symeval \bar{v}_1,\sigma',\phi_1 \Quad
-   e_2,\sigma'\symeval \bar{v}_2,\sigma'',\phi_2}
-  {\tuple{e_1,e_2},\sigma\symeval\tuple{\bar{v}_1,\bar{v}_2},\sigma'',\phi_1\wedge\phi_2}
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi_2}
+  {\tuple{e_1,e_2},\sigma\eval\tuple{v_1,v_2},\sigma'',\phi_1 \land \phi_2}
 
 
 \newrule{Sym-E-Ref}
-  {e,\sigma\symeval \bar{v},\sigma',\phi \Quad
+  {e,\sigma\eval v,\sigma',\phi \Quad
    l\not\in Dom(\sigma')}
-  {\Ref e,\sigma\symeval l,\sigma'[l\mapsto \bar{v}],\phi}
+  {\Ref e,\sigma\eval l,\sigma'[l\mapsto v],\phi}
 
 \newrule{Sym-E-Deref}
-  {e,\sigma\symeval l,\sigma',\phi}
-  {!e,\sigma\symeval \sigma'(l),\sigma',\phi}
+  {e,\sigma\eval l,\sigma',\phi}
+  {!e,\sigma\eval \sigma'(l),\sigma',\phi}
 
 \newrule{Sym-E-Assign}
-  {e_1,\sigma\symeval l,\sigma',\phi \Quad
-   e_2,\sigma'\symeval \bar{v}_2,\sigma'',\phi}
-  {e_1:=e_2,\sigma\symeval \unit,\sigma''[l\mapsto \bar{v}_2]}
+  {e_1,\sigma\eval l,\sigma',\phi \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi}
+  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2]}
 
 \newrule{Sym-E-Edit}
-  {e,\sigma \symeval \bar{v},\sigma',\phi}
-  {\Edit e , \sigma\symeval \Edit \bar{v},\sigma',\phi}
+  {e,\sigma \eval v,\sigma',\phi}
+  {\Edit e , \sigma\eval \Edit v,\sigma',\phi}
 
 \newrule{Sym-E-Enter}
   {}
-  {\Enter \tau,\sigma \symeval \Enter \tau,\sigma,\True}
+  {\Enter \tau,\sigma \eval \Enter \tau,\sigma,\True}
 
 \newrule{Sym-E-Update}
-  {e,\sigma\symeval l,\sigma',\phi}
-  {\Update e ,\sigma\symeval \Update l,\sigma',\phi}
+  {e,\sigma\eval l,\sigma',\phi}
+  {\Update e ,\sigma\eval \Update l,\sigma',\phi}
 
 
 \newrule{Sym-E-Fail}
   {}
-  {\Fail,\sigma \symeval \Fail,\sigma,\True}
+  {\Fail,\sigma \eval \Fail,\sigma,\True}
 
 
 \newrule{Sym-E-Then}
-  {e_1 ,\sigma\symeval t_1,\sigma',\phi}
-  {e_1 \Then e_2,\sigma \symeval t_1 \Then e_2,\sigma',\phi}
+  {e_1 ,\sigma\eval t_1,\sigma',\phi}
+  {e_1 \Then e_2,\sigma \eval t_1 \Then e_2,\sigma',\phi}
 
 \newrule{Sym-E-Next}
-  {e_1 ,\sigma\symeval t_1,\sigma',\phi}
-  {e_1 \Next e_2 ,\sigma\symeval t_1 \Next e_2,\sigma',\phi}
+  {e_1 ,\sigma\eval t_1,\sigma',\phi}
+  {e_1 \Next e_2 ,\sigma\eval t_1 \Next e_2,\sigma',\phi}
 
 
 \newrule{Sym-E-And}
-  {e_1 ,\sigma\symeval t_1 ,\sigma',\phi_1 \Quad
-   e_2 ,\sigma'\symeval t_2,\sigma'',\phi_2}
-  {e_1 \And e_2 ,\sigma\symeval t_1 \And t_2,\sigma'',\phi_1\wedge\phi_2}
+  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
+   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
+  {e_1 \And e_2 ,\sigma\eval t_1 \And t_2,\sigma'',\phi_1 \land \phi_2}
 
 
 \newrule{Sym-E-Or}
-  {e_1 ,\sigma\symeval t_1 ,\sigma',\phi_1 \Quad
-   e_2 ,\sigma'\symeval t_2,\sigma'',\phi_2}
-  {e_1 \Or e_2 ,\sigma\symeval t_1 \Or t_2,\sigma'',\phi_1\wedge\phi_2}
+  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
+   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
+  {e_1 \Or e_2 ,\sigma\eval t_1 \Or t_2,\sigma'',\phi_1 \land \phi_2}
 
 \newrule{Sym-E-Xor}
   {}
-  {e_1 \Xor e_2 ,\sigma\symeval e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\sigma,\True}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newmacro{RelationS}
-  {t,\sigma\symstride t',\sigma',\phi}
+  {t,\sigma\stride t',\sigma',\phi}
 
 
 \newrule{Sym-S-Edit}
   { }
-  {\Edit v,\sigma \symstride \Edit v,\sigma,\True}
+  {\Edit v,\sigma \stride \Edit v,\sigma,\True}
 
 \newrule{Sym-S-Fill}
   { }
-  {\Enter \tau,\sigma \symstride \Enter \tau,\sigma,\True}
+  {\Enter \tau,\sigma \stride \Enter \tau,\sigma,\True}
 
 \newrule{Sym-S-Update}
   { }
-  {\Update l,\sigma \symstride \Update l,\sigma,\True}
+  {\Update l,\sigma \stride \Update l,\sigma,\True}
 
 
 \newrule{Sym-S-Fail}
   { }
-  {\Fail,\sigma \symstride \Fail,\sigma,\True}
+  {\Fail,\sigma \stride \Fail,\sigma,\True}
 
 
 \newrule{Sym-S-ThenStay}
-  {t_1,\sigma \symstride t_1',\sigma',\phi}
-  {t_1 \Then e_2,\sigma \symstride t_1' \Then e_2,\sigma',\phi}
+  {t_1,\sigma \stride t_1',\sigma',\phi}
+  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
   [\Value(t_1',\sigma') = \bot]
 
 \newrule{Sym-S-ThenFail}
-  {t_1,\sigma \symstride t_1',\sigma',\phi \Quad
-   e_2\ v_1,\sigma' \symeval t_2,\sigma'',\_}
-  {t_1 \Then e_2,\sigma \symstride t_1' \Then e_2,\sigma',\phi}
-  [\Value(t_1',\sigma') = \bar{v}_1 \land \Failing(t_2,\sigma'')]
+  {t_1,\sigma \stride t_1',\sigma',\phi \Quad
+   e_2\ v_1,\sigma' \eval t_2,\sigma'',\_}
+  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
+  [\Value(t_1',\sigma') = v_1 \land \Failing(t_2,\sigma'')]
 
 \newrule{Sym-S-ThenCont}
-  {t_1,\sigma \symstride t_1',\sigma',\phi_1  \Quad
-   e_2\ v_1,\sigma' \symeval t_2 ,\sigma'',\phi_2}
+  {t_1,\sigma \stride t_1',\sigma',\phi_1  \Quad
+   e_2\ v_1,\sigma' \eval t_2 ,\sigma'',\phi_2}
    % t_2,\sigma'' \stride t_2',\sigma'''}
-  {t_1 \Then e_2,\sigma \symstride t_2,\sigma'',\phi_1\wedge\phi_2}
-  [\Value(t_1',\sigma') = \bar{v_1} \land \lnot\Failing(t_2,\sigma'')]
+  {t_1 \Then e_2,\sigma \stride t_2,\sigma'',\phi_1 \land \phi_2}
+  [\Value(t_1',\sigma') = v_1 \land \lnot\Failing(t_2,\sigma'')]
 
 \newrule{Sym-S-Next}
-  {t_1,\sigma \symstride t_1',\sigma',\phi}
-  {t_1 \Next e_2,\sigma \symstride t_1' \Next e_2,\sigma',\phi}
+  {t_1,\sigma \stride t_1',\sigma',\phi}
+  {t_1 \Next e_2,\sigma \stride t_1' \Next e_2,\sigma',\phi}
 
 
 \newrule{Sym-S-And}
-  {t_1,\sigma  \symstride t_1',\sigma',\phi_1  \Quad
-   t_2,\sigma' \symstride t_2',\sigma'',\phi_2}
-  {t_1 \And t_2,\sigma \symstride t_1' \And t_2',\sigma'',\phi_1\wedge\phi_2}
+  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \And t_2,\sigma \stride t_1' \And t_2',\sigma'',\phi_1 \land \phi_2}
 
 
 \newrule{Sym-S-OrLeft}
-  {t_1,\sigma  \symstride t_1',\sigma',\phi}
-  {t_1 \Or t_2,\sigma \symstride t_1',\sigma',\phi}
-  [\Value(t_1',\sigma') = \bar{v}_1]
+  {t_1,\sigma  \stride t_1',\sigma',\phi}
+  {t_1 \Or t_2,\sigma \stride t_1',\sigma',\phi}
+  [\Value(t_1',\sigma') = v_1]
 
 \newrule{Sym-S-OrRight}
-  {t_1,\sigma  \symstride t_1',\sigma',\phi_1  \Quad
-   t_2,\sigma' \symstride t_2',\sigma'',\phi_2}
-  {t_1 \Or t_2,\sigma \symstride t_2',\sigma'',\phi_1\wedge\phi_2}
-  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bar{v}_2]
+  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \Or t_2,\sigma \stride t_2',\sigma'',\phi_1 \land \phi_2}
+  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = v_2]
 
 \newrule{Sym-S-OrNone}
-  {t_1,\sigma  \symstride t_1',\sigma' ,\phi_1 \Quad
-   t_2,\sigma' \symstride t_2',\sigma'',\phi_2}
-  {t_1 \Or t_2,\sigma \symstride t_1' \Or t_2',\sigma'',\phi_1\wedge\phi_2}
+  {t_1,\sigma  \stride t_1',\sigma' ,\phi_1 \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \Or t_2,\sigma \stride t_1' \Or t_2',\sigma'',\phi_1 \land \phi_2}
   [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bot]
 
 
 \newrule{Sym-S-Xor}
   { }
-  {e_1 \Xor e_2,\sigma \symstride e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\sigma,\True}
 
 \newrule{Sym-S-Eval}
-    {e,\sigma \symeval e',\sigma',\phi_1  \Quad
-     e',\sigma' \symstride e'',\sigma'',\phi_2}
-    {e,\sigma \symstride e'',\sigma'',\phi_1\wedge\phi_2}
+    {e,\sigma \eval e',\sigma',\phi_1  \Quad
+     e',\sigma' \stride e'',\sigma'',\phi_2}
+    {e,\sigma \stride e'',\sigma'',\phi_1 \land \phi_2}
     [e \neq e']
 
 %% Normalisation %%
 
 
 \newmacro{RelationN}
-  {e,\sigma \symnormalise t,\sigma',\phi}
+  {e,\sigma \normalise t,\sigma',\phi}
 
 
 \newrule{Sym-N-Done}
-    {e,\sigma \symeval t,\sigma',\phi_1  \Quad
-     t,\sigma' \symstride t',\sigma'',\phi_2}
-    {e,\sigma \symnormalise t',\sigma'',\phi_1\wedge\phi_2}
-    [\sigma'=\sigma''\wedge t=t']
+    {e,\sigma \eval t,\sigma',\phi_1  \Quad
+     t,\sigma' \stride t',\sigma'',\phi_2}
+    {e,\sigma \normalise t',\sigma'',\phi_1 \land \phi_2}
+    [\sigma'=\sigma'' \land t=t']
 
 \newrule{Sym-N-Repeat}
-    {e,\sigma \symeval t,\sigma',\phi_1  \Quad
-     t,\sigma' \symstride t',\sigma'',\phi_2  \Quad
-     t',\sigma'' \symnormalise t'',\sigma''',\phi_3}
-    {e,\sigma \symnormalise t'',\sigma''',\phi_1\wedge\phi_2\wedge\phi_3}
+    {e,\sigma \eval t,\sigma',\phi_1  \Quad
+     t,\sigma' \stride t',\sigma'',\phi_2  \Quad
+     t',\sigma'' \normalise t'',\sigma''',\phi_3}
+    {e,\sigma \normalise t'',\sigma''',\phi_1 \land \phi_2 \land \phi_3}
     [\sigma'\neq \sigma''\vee t\neq t']
 
 
@@ -201,76 +201,78 @@
 
 
 \newmacro{RelationH}
-  {t,\sigma,pr \symhandle t',i,\sigma',pr}
+  {t,\sigma,pr \handle t',i,\sigma',pr}
 
 \newrule{Sym-H-Change}
   { }
-  {\Edit v,\sigma \symhandle \Edit i_j,i_j,\sigma,\True}
+  {\Edit v,\sigma \handle \Edit i_j,i_j,\sigma,\True}
 
 \newrule{Sym-H-Empty}
   { }
-  {\Edit v,\sigma \symhandle \Enter \tau,\Empty,\sigma,\True}
+  {\Edit v,\sigma \handle \Enter \tau,\Empty,\sigma,\True}
   [v : \tau]
 
 \newrule{Sym-H-Fill}
   { }
-  {\Enter \tau,\sigma \symhandle \Edit i_j,i_j,\sigma,\True}
+  {\Enter \tau,\sigma \handle \Edit i_j,i_j,\sigma,\True}
 
 \newrule{Sym-H-Update}
   { }
-  {\Update l,\sigma \symhandle \Update l,i_j,\sigma[l \mapsto i_j],\True}
+  {\Update l,\sigma \handle \Update l,i_j,\sigma[l \mapsto i_j],\True}
 
 
 \newrule{Sym-H-PassThen}
-  {t_1,\sigma\symhandle t_1',i,\sigma',\phi}
-  {t_1 \Then e_2,\sigma\symhandle t_1' \Then e_2,i,\sigma',\phi}
+  {t_1,\sigma\handle t_1',i,\sigma',\phi}
+  {t_1 \Then e_2,\sigma\handle t_1' \Then e_2,i,\sigma',\phi}
 
 \newrule{Sym-H-PassNext}
-  {t_1,\sigma\symhandle t_1',i,\sigma',\phi}
-  {t_1 \Next e_2,\sigma\symhandle t_1' \Next e_2,i,\sigma',\phi}
+  {t_1,\sigma\handle t_1',i,\sigma',\phi}
+  {t_1 \Next e_2,\sigma\handle t_1' \Next e_2,i,\sigma',\phi}
 
 \newrule{Sym-H-Next}
-  {e_2\ v_1,\sigma \symnormalise t_2,\sigma',\phi}
-  {t_1 \Next e_2,\sigma \symhandle t_2,\Continue,\sigma',\phi}
-  [\Value{(t_1,\sigma)} = \bar{v}_1 \wedge \neg\Failing{(t_2,\sigma')}]
+  {e_2\ v_1,\sigma \normalise t_2,\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle t_2,\Continue,\sigma',\phi}
+  [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
 \newrule{Sym-H-FirstAnd}
-  {t_1,\sigma\symhandle t_1',i,\sigma',\phi}
-  {t_1 \And t_2,\sigma\symhandle t_1' \And t_2,\First i,\sigma',\phi}
+  {t_1,\sigma\handle t_1',i,\sigma',\phi}
+  {t_1 \And t_2,\sigma\handle t_1' \And t_2,\First i,\sigma',\phi}
 
 \newrule{Sym-H-SecondAnd}
-  {t_2,\sigma\symhandle t_2',i,\sigma',\phi}
-  {t_1 \And t_2,\sigma\symhandle t_1 \And t_2',\Second i,\sigma',\phi}
+  {t_2,\sigma\handle t_2',i,\sigma',\phi}
+  {t_1 \And t_2,\sigma\handle t_1 \And t_2',\Second i,\sigma',\phi}
 
 
 \newrule{Sym-H-FirstOr}
-  {t_1,\sigma \symhandle t_1',i,\sigma',\phi}
-  {t_1 \Or t_2,\sigma \symhandle t_1' \Or t_2,\First i,\sigma',\phi}
+  {t_1,\sigma \handle t_1',i,\sigma',\phi}
+  {t_1 \Or t_2,\sigma \handle t_1' \Or t_2,\First i,\sigma',\phi}
 
 \newrule{Sym-H-SecondOr}
-  {t_2,\sigma\symhandle t_2',i,\sigma',\phi }
-  {t_1 \Or t_2,\sigma \symhandle t_1 \Or t_2',\Second i,\sigma',\phi}
+  {t_2,\sigma\handle t_2',i,\sigma',\phi }
+  {t_1 \Or t_2,\sigma \handle t_1 \Or t_2',\Second i,\sigma',\phi}
 
 
 \newrule{Sym-H-PickLeft}
-  {e_1,\sigma\symnormalise t_1,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma\symhandle t_1,\Left,\sigma',\phi}
+  {e_1,\sigma\normalise t_1,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma\handle t_1,\Left,\sigma',\phi}
   [\neg\Failing(t_1,\sigma')]
 
 \newrule{Sym-H-PickRight}
-  {e_2,\sigma \symnormalise t_2,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \symhandle t_2,\Right,\sigma',\phi}
+  {e_2,\sigma \normalise t_2,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle t_2,\Right,\sigma',\phi}
   [\neg\Failing(t_2,\sigma')]
+
+
 
 %% Driving %%
 
 
 \newmacro{RelationI}
-  {t,\sigma\symdrive  t',i,\sigma',\phi}
+  {t,\sigma \drive t',i,\sigma',\phi}
 
 
 \newrule{Sym-I-Handle}
-  {t,\sigma \symhandle t',i,\sigma',\phi_1 \Quad
-   t',\sigma' \symnormalise t'',\sigma'',\phi_2}
-  {t,\sigma \symdrive t'',i,\sigma'',\phi_1\wedge\phi_2}
+  {t,\sigma \handle t',i,\sigma',\phi_1 \Quad
+   t',\sigma' \normalise t'',\sigma'',\phi_2}
+  {t,\sigma \drive t'',i,\sigma'',\phi_1 \land \phi_2}

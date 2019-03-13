@@ -6,7 +6,7 @@
 \newmacro{O-Value}{
   \begin{function}
     \signature{\Value : \mathrm{Tasks} \times \mathrm{States} \rightharpoonup \mathrm{Values}} \\
-    \Value(\Edit \bar{v}, \sigma)          &=& \bar{v} \\
+    \Value(\Edit v, \sigma)                &=& v \\
     \Value(\Enter \tau, \sigma)            &=& \bot \\
     \Value(\Update l, \sigma)              &=& \sigma(l) \\
     \Value(\Fail, \sigma)                  &=& \bot \\
@@ -14,16 +14,16 @@
     \Value(t_1 \Next e_2, \sigma)          &=& \bot \\
     \Value(t_1 \And t_2, \sigma)           &=& \left\{
       \begin{array}{ll}
-        \tuple{\bar{v}_1, \bar{v}_2}  & \ \when\ \Value(t_1, \sigma) = \
-        \bar{v}_1 \land \Value(t_2, \sigma) = \bar{v}_2 \\
+        \tuple{v_1, v_2}  & \ \when\ \Value(t_1, \sigma) = \
+        v_1 \land \Value(t_2, \sigma) = v_2 \\
         \bot                          & \ \otherwise
       \end{array}
     \right. \\
     \Value(t_1 \Or t_2, \sigma)            &=& \left\{
       \begin{array}{ll}
-        \bar{v}_1                           & \ \when\ \Value(t_1, \sigma) = \bar{v}_1 \\
-        \bar{v}_2                           & \ \when\ \Value(t_1, \sigma) = \bot \land \Value(t_2, \sigma) = \bar{v}_2 \\
-        \obox{\tuple{\bar{v}_1, \bar{v}_2}}{\bot} & \ \otherwise
+        v_1                           & \ \when\ \Value(t_1, \sigma) = v_1 \\
+        v_2                           & \ \when\ \Value(t_1, \sigma) = \bot \land \Value(t_2, \sigma) = v_2 \\
+        \obox{\tuple{v_1, v_2}}{\bot} & \ \otherwise
       \end{array}
     \right. \\
     \Value(t_1 \Xor t_2, \sigma)           &=& \bot
@@ -33,7 +33,7 @@
 \newmacro{O-Failing}{
   \begin{function}
     \signature{\Failing : \mathrm{Tasks} \times \mathrm{States} \to \mathrm{Booleans}} \\
-    \Failing(\Edit \bar{v},\sigma) &=& \False \\
+    \Failing(\Edit v,\sigma)       &=& \False \\
     \Failing(\Enter \tau,\sigma)   &=& \False \\
     \Failing(\Update l,\sigma)     &=& \False \\
     \Failing(\Fail,\sigma)         &=& \True \\
@@ -41,6 +41,6 @@
     \Failing(t_1 \Next e_2,\sigma) &=& \Failing(t_1,\sigma) \\
     \Failing(t_1 \And t_2,\sigma)  &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
     \Failing(t_1 \Or t_2,\sigma)   &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
-    \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2') \quad\where\ e_1,\sigma \symnormalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \symnormalise t_2,s_2'
+    \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2') \quad\where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
   \end{function}
 }
