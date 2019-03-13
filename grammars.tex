@@ -9,7 +9,7 @@
       & e    &::= & \lambda x:\tau.\ e   & – abstraction \\
       &      &\mid& e_1\ e_2             & – application \\
       &      &\mid& x                    & – variable \\
-      &      &\mid& s                    & – symbol variable \\
+      &      &\mid& s                    & – symbol \\
       &      &\mid& c                    & – constant \\
     \addlinespace
       &      &\mid& u\ e_1               & – unary operation \\
@@ -36,8 +36,10 @@
     \addlinespace
     Pretasks
       & p    &::= & \Edit e              & – valued editor \\
+      &      &\mid& \View e              & – valued read-only editor \\
       &      &\mid& \Enter \tau          & – unvalued editor \\
       &      &\mid& \Update e            & – shared editor \\
+      &      &\mid& \Watch e             & – shared read-only editor \\
     \addlinespace
       &      &\mid& e_1 \Then e_2        & – step \\
       &      &\mid& e_1 \Next e_2        & – user step \\
@@ -85,23 +87,23 @@
   \begin{grammar}
     Values
       & v    &::= & \lambda x:\tau.\ e   & – abstraction \\
+      &      &\mid& c                    & – constant \\
+      &      &\mid& l                    & – location \\
     \addlinespace
-      &      &\mid& s                    & – symbolic variable \\
+      &      &\mid& s                    & – symbol \\
       &      &\mid& u\ s                 & – symbolic unary operation \\
       &      &\mid& s\ o\ s              & – symbolic binary operation \\
     \addlinespace
       &      &\mid& \tuple{v_1, v_2}     & – pair value \\
       &      &\mid& \unit                & – unit \\
     \addlinespace
-      &      &\mid& c                    & – constant \\
-      &      &\mid& l                    & – location \\
-    \addlinespace
       &      &\mid& t                    & – task \\
-    \addlinespace
     Tasks
       & t    &::= & \Edit v              & – valued editor \\
+      &      &\mid& \View v              & – valued read-only editor \\
       &      &\mid& \Enter \tau          & – unvalued editor \\
       &      &\mid& \Update l            & – shared editor \\
+      &      &\mid& \Watch l             & – shared read-only editor \\
     \addlinespace
       &      &\mid& t_1 \Then e_2        & – step \\
       &      &\mid& t_1 \Next e_2        & – user step \\
