@@ -205,62 +205,62 @@
 
 \newrule{Sym-H-Change}
   { }
-  {\Edit v,\sigma \handle \Edit i_j,i_j,\sigma,\True}
+  {\Edit v,\sigma \handle{s} \Edit s,\sigma,\True}
 
 \newrule{Sym-H-Empty}
   { }
-  {\Edit v,\sigma \handle \Enter \tau,\Empty,\sigma,\True}
+  {\Edit v,\sigma \handle{\Empty} \Enter \tau,\sigma,\True}
   [v : \tau]
 
 \newrule{Sym-H-Fill}
   { }
-  {\Enter \tau,\sigma \handle \Edit i_j,i_j,\sigma,\True}
+  {\Enter \tau,\sigma \handle{s} \Edit s,\sigma,\True}
 
 \newrule{Sym-H-Update}
   { }
-  {\Update l,\sigma \handle \Update l,i_j,\sigma[l \mapsto i_j],\True}
+  {\Update l,\sigma \handle{s} \Update l,\sigma[l \mapsto s],\True}
 
 
 \newrule{Sym-H-PassThen}
-  {t_1,\sigma\handle t_1',i,\sigma',\phi}
-  {t_1 \Then e_2,\sigma\handle t_1' \Then e_2,i,\sigma',\phi}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Then e_2,\sigma \handle{i} t_1' \Then e_2,\sigma',\phi}
 
 \newrule{Sym-H-PassNext}
-  {t_1,\sigma\handle t_1',i,\sigma',\phi}
-  {t_1 \Next e_2,\sigma\handle t_1' \Next e_2,i,\sigma',\phi}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle{i} t_1' \Next e_2,\sigma',\phi}
 
 \newrule{Sym-H-Next}
   {e_2\ v_1,\sigma \normalise t_2,\sigma',\phi}
-  {t_1 \Next e_2,\sigma \handle t_2,\Continue,\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle{\Continue} t_2,\sigma',\phi}
   [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
 \newrule{Sym-H-FirstAnd}
-  {t_1,\sigma\handle t_1',i,\sigma',\phi}
-  {t_1 \And t_2,\sigma\handle t_1' \And t_2,\First i,\sigma',\phi}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \And t_2,\sigma \handle{\First i} t_1' \And t_2,\sigma',\phi}
 
 \newrule{Sym-H-SecondAnd}
-  {t_2,\sigma\handle t_2',i,\sigma',\phi}
-  {t_1 \And t_2,\sigma\handle t_1 \And t_2',\Second i,\sigma',\phi}
+  {t_2,\sigma \handle{i} t_2',i,\sigma',\phi}
+  {t_1 \And t_2,\sigma \handle{\Second i} t_1 \And t_2',\sigma',\phi}
 
 
 \newrule{Sym-H-FirstOr}
-  {t_1,\sigma \handle t_1',i,\sigma',\phi}
-  {t_1 \Or t_2,\sigma \handle t_1' \Or t_2,\First i,\sigma',\phi}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Or t_2,\sigma \handle{\First i} t_1' \Or t_2,\sigma',\phi}
 
 \newrule{Sym-H-SecondOr}
-  {t_2,\sigma\handle t_2',i,\sigma',\phi }
-  {t_1 \Or t_2,\sigma \handle t_1 \Or t_2',\Second i,\sigma',\phi}
+  {t_2,\sigma \handle{i} t_2',\sigma',\phi }
+  {t_1 \Or t_2,\sigma \handle{\Second i} t_1 \Or t_2',\sigma',\phi}
 
 
 \newrule{Sym-H-PickLeft}
-  {e_1,\sigma\normalise t_1,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma\handle t_1,\Left,\sigma',\phi}
+  {e_1,\sigma \normalise t_1,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{\Left} t_1,\sigma',\phi}
   [\neg\Failing(t_1,\sigma')]
 
 \newrule{Sym-H-PickRight}
   {e_2,\sigma \normalise t_2,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \handle t_2,\Right,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{\Right} t_2,\sigma',\phi}
   [\neg\Failing(t_2,\sigma')]
 
 
@@ -273,6 +273,6 @@
 
 
 \newrule{Sym-I-Handle}
-  {t,\sigma \handle t',i,\sigma',\phi_1 \Quad
+  {t,\sigma \handle{i} t',\sigma',\phi_1 \Quad
    t',\sigma' \normalise t'',\sigma'',\phi_2}
-  {t,\sigma \drive t'',i,\sigma'',\phi_1 \land \phi_2}
+  {t,\sigma \drive{i} t'',\sigma'',\phi_1 \land \phi_2}
