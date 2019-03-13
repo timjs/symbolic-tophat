@@ -31,13 +31,13 @@
 \begin{gather*}
   \boxed{\RelationE} \Break
   \userule{Sym-E-Value}\Quad
+  \userule{Sym-E-Pair} \Break
   \userule{Sym-E-App} \Break
   \userule{Sym-E-IfTrue} \Quad
   \userule{Sym-E-IfFalse} \Break
-  \userule{Sym-E-Pair} \Quad
   \userule{Sym-E-Ref} \Quad
-  \userule{Sym-E-Deref} \Break
-  \userule{Sym-E-Assign} \Quad
+  \userule{Sym-E-Deref} \Quad
+  \userule{Sym-E-Assign} \Break
   \userule{Sym-E-Edit} \Quad
   \userule{Sym-E-Enter}\Quad
   \userule{Sym-E-Update}\Break
@@ -65,8 +65,8 @@
   \userule{Sym-S-Fill} \Quad
   \userule{Sym-S-Update} \Break
   \userule{Sym-S-Fail} \Quad
-  \userule{Sym-S-Xor} \Quad
-  \userule{Sym-S-Next} \Break
+  \userule{Sym-S-Xor} \Break
+  \userule{Sym-S-Next} \Quad
   \userule{Sym-S-And}
 \end{gather*}
 
@@ -86,17 +86,19 @@
   \userule{Sym-H-Change} \Quad
   \userule{Sym-H-Empty} \Quad
   \userule{Sym-H-Fill} \Break
-  \userule{Sym-H-Update}\Quad
+  \userule{Sym-H-Update}\Break
   \userule{Sym-H-Next} \Break
+  \userule{Sym-H-PassThen} \Quad
+  \userule{Sym-H-PassNext} \Break
   \userule{Sym-H-PickLeft} \Quad
   \userule{Sym-H-PickRight}\Break
-  \userule{Sym-H-PassThen} \Quad
   \userule{Sym-H-FirstAnd} \Quad
-  \userule{Sym-H-FirstOr} \Break
-  \userule{Sym-H-PassNext} \Quad
-  \userule{Sym-H-SecondAnd} \Quad
+  \userule{Sym-H-SecondAnd} \Break
+  \userule{Sym-H-FirstOr} \Quad
   \userule{Sym-H-SecondOr}
 \end{gather*}
+
+\fixme{Is \refrule{Sym-H-Empty} needed?}
 
 
 \begin{gather*}
