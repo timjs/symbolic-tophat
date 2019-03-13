@@ -1,12 +1,31 @@
 % !TEX root=../main.tex
 
 
-
+\pagebreak
 \section{Semantics}
 \label{sec:semantics}
 
-\boxed{\RelationE}
+
+
+\subsection{Observations}
+
+\begin{center}
+  \usemacro{O-Value}
+\end{center}
+
+\begin{center}
+  \usemacro{O-Failing}
+\end{center}
+
+% \usemacro{O-Inputs}
+
+
+
+\pagebreak
+\subsection{Evaluation}
+
 \begin{gather*}
+  \boxed{\RelationE} \Break
   \userule{Sym-E-Value}\Quad
   \userule{Sym-E-App} \Break
   \userule{Sym-E-IfTrue} \Quad
@@ -26,9 +45,12 @@
   \userule{Sym-E-Fail}
 \end{gather*}
 
-\boxed{\RelationS}
+
+
+\subsection{Normalisation}
 
 \begin{gather*}
+  \boxed{\RelationS} \Break
   \userule{Sym-S-ThenStay} \Break
   \userule{Sym-S-ThenFail} \Break
   \userule{Sym-S-ThenCont} \Break
@@ -44,31 +66,36 @@
   \userule{Sym-S-And}
 \end{gather*}
 
-\boxed{\RelationN}
 
 \begin{gather*}
+  \boxed{\RelationN} \Break
   \userule{Sym-N-Done} \Break
   \userule{Sym-N-Repeat}
 \end{gather*}
 
-\boxed{\RelationH}
+
+
+\subsection{Handling}
 
 \begin{gather*}
-\userule{Sym-H-Change} \Quad
-\userule{Sym-H-Empty} \Quad
-\userule{Sym-H-Fill} \Break
-\userule{Sym-H-Update}\Quad
-\userule{Sym-H-Next} \Break
-\userule{Sym-H-PickLeft} \Quad
-\userule{Sym-H-PickRight}\Break
-\userule{Sym-H-PassThen} \Quad
-\userule{Sym-H-FirstAnd} \Quad
-\userule{Sym-H-FirstOr} \Break
-\userule{Sym-H-PassNext} \Quad
-\userule{Sym-H-SecondAnd} \Quad
-\userule{Sym-H-SecondOr}
+  \boxed{\RelationH} \Break
+  \userule{Sym-H-Change} \Quad
+  \userule{Sym-H-Empty} \Quad
+  \userule{Sym-H-Fill} \Break
+  \userule{Sym-H-Update}\Quad
+  \userule{Sym-H-Next} \Break
+  \userule{Sym-H-PickLeft} \Quad
+  \userule{Sym-H-PickRight}\Break
+  \userule{Sym-H-PassThen} \Quad
+  \userule{Sym-H-FirstAnd} \Quad
+  \userule{Sym-H-FirstOr} \Break
+  \userule{Sym-H-PassNext} \Quad
+  \userule{Sym-H-SecondAnd} \Quad
+  \userule{Sym-H-SecondOr}
 \end{gather*}
 
-\boxed{\RelationI}
 
-\userule{Sym-I-Handle}
+\begin{gather*}
+  \boxed{\RelationI} \Break
+  \userule{Sym-I-Handle}
+\end{gather*}
