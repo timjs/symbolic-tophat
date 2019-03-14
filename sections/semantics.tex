@@ -81,8 +81,7 @@
 
 \begin{gather*}
   \boxed{\RelationH} \Break
-  \userule{Sym-H-Change} \Quad
-  \userule{Sym-H-Empty} \Break
+  \userule{Sym-H-Change} \Break
   \userule{Sym-H-Fill} \Quad
   \userule{Sym-H-Update}\Break
   \userule{Sym-H-Next} \Break
@@ -96,10 +95,28 @@
   \userule{Sym-H-SecondOr}
 \end{gather*}
 
-\fixme{Is \refrule{Sym-H-Empty} needed?}
+Note that \refrule{Sym-H-Empty} is omitted as it does nothing useful for symbolic execution.
 
 
 \begin{gather*}
   \boxed{\RelationI} \Break
   \userule{Sym-I-Handle}
 \end{gather*}
+
+
+\subsection{Driving}
+
+This section describes the top level symbolic execution function.
+
+It uses the function drive, which takes $t,I,\sigma,\phi$, and is recursively called to produce a list of end states an predicates.
+The drive function makes use of triple arrow, a small step semantics that generates all possible steps that can be taken.
+Drive then filters this based on the following:
+
+\begin{align*}
+  \Value(t,\sigma) = v \wedge \text{SAT } \phi & \quad\checkmark\\
+  \neg\text{SAT }\phi                          & \quad\times \\
+  t_i=t_j \wedge \phi_i=\phi_j                 & \quad\times \\
+  \text{otherwise}                             & \quad\circlearrowleft
+\end{align*}
+
+In order to show that this actually holds, we need to prove some properties, see next section.
