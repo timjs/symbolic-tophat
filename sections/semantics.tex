@@ -119,4 +119,21 @@ Drive then filters this based on the following:
   \text{otherwise}                             & \quad\circlearrowleft
 \end{align*}
 
+\begin{function}
+  \signature{symEx :: \Task \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{Predicate})]} \\
+
+  symEx t = drive\ t\ []\ \emptyset\ \True\\
+\end{function}
+
+
+\begin{function}
+  \signature{drive :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{Predicate})]} \\
+  drive\ t\ I\ \sigma \ \phi  = map \ (concat . drive') (\Rrightarrow\ t\ I\ \sigma \ \phi)\\
+                                  where\ drive'\ t'\ I\ \sigma'\ \phi' \mid \neg \text{SAT } \phi' = [ ]\\
+                                                                       \mid \Value(t',\sigma') = v \wedge \text{SAT } \phi' = [(t',I',\phi')]\\
+                                                                       \mid t' = t \wedge \phi' = \phi = []\\
+                                                                       \mid otherwise = drive\ t'\ I'\ \sigma'\
+                                                                        \phi'
+\end{function}
+
 In order to show that this actually holds, we need to prove some properties, see next section.
