@@ -1,6 +1,11 @@
 % !TEX root=main.tex
 
 
+\newrule{S-Var}
+  {s:\tau\in\Delta}
+  {\Gamma,\Delta,\Sigma\infers s:\tau}
+
+
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -23,12 +28,12 @@
 \newrule{Sym-E-IfTrue}
   {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
    e_2,\sigma'\eval v_2,\sigma'',\phi_2}
-  {\If{e_1}{e_2}{e_3},\sigma\eval v,\sigma'',\phi_1 \land \phi_2 \land v_1}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land v_1}
 
 \newrule{Sym-E-IfFalse}
   {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
-   e_3,\sigma'\eval v_2,\sigma'',\phi_2}
-  {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land \lnot v_1}
+   e_3,\sigma'\eval v_3,\sigma'',\phi_3}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma'',\phi_1 \land \phi_3 \land \lnot v_1}
 
 
 \newrule{Sym-E-Pair}
@@ -49,7 +54,7 @@
 \newrule{Sym-E-Assign}
   {e_1,\sigma\eval l,\sigma',\phi \Quad
    e_2,\sigma'\eval v_2,\sigma'',\phi}
-  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2]}
+  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2],\phi}
 
 \newrule{Sym-E-Edit}
   {e,\sigma \eval v,\sigma',\phi}
@@ -205,8 +210,9 @@
 
 
 \newrule{Sym-H-Change}
-  { }
+  { \text{fresh }s}
   {\Edit v,\sigma \handle{s} \Edit s,\sigma,\True}
+  [v,s:\tau]
 
 \newrule{Sym-H-Empty}
   { }
@@ -214,13 +220,14 @@
   [v : \tau]
 
 \newrule{Sym-H-Fill}
-  { }
+  { \text{fresh }s}
   {\Enter \tau,\sigma \handle{s} \Edit s,\sigma,\True}
+  [s:\tau]
 
 \newrule{Sym-H-Update}
-  { }
+  { \text{fresh }s}
   {\Update l,\sigma \handle{s} \Update l,\sigma[l \mapsto s],\True}
-
+  [\sigma(l),s:\tau]
 
 \newrule{Sym-H-PassThen}
   {t_1,\sigma \handle{i} t_1',\sigma',\phi}
