@@ -5,7 +5,7 @@
 
 \newmacro{G-Language}{
   \begin{grammar}
-    Expressions
+    Symbolic expressions
       & e    &::= & \lambda x:\tau.\ e   & – abstraction \\
       &      &\mid& e_1\ e_2             & – application \\
       &      &\mid& x                    & – variable \\
@@ -90,14 +90,14 @@
 
 \newmacro{G-Values}{
   \begin{grammar}
-    Values
+    Symbolic values
       & v    &::= & \lambda x:\tau.\ e   & – abstraction \\
       &      &\mid& c                    & – constant \\
       &      &\mid& l                    & – location \\
     \addlinespace
       &      &\mid& s                    & – symbol \\
-      &      &\mid& u\ s                 & – symbolic unary operation \\
-      &      &\mid& s\ o\ s              & – symbolic binary operation \\
+      &      &\mid& u\ v                 & – symbolic unary operation \\
+      &      &\mid& v_1\ o\ v_2          & – symbolic binary operation \\
     \addlinespace
       &      &\mid& \tuple{v_1, v_2}     & – pair value \\
       &      &\mid& \unit                & – unit \\
