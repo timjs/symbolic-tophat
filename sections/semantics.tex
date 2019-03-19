@@ -112,13 +112,6 @@ It uses the function drive, which takes $t,I,\sigma,\phi$, and is recursively ca
 The drive function makes use of triple arrow, a small step semantics that generates all possible steps that can be taken.
 Drive then filters this based on the following:
 
-\begin{align*}
-  \Value(t,\sigma) = v \wedge \text{SAT } \phi & \quad\checkmark\\
-  \neg\text{SAT }\phi                          & \quad\times \\
-  t_i=t_j \wedge \phi_i=\phi_j                 & \quad\times \\
-  \text{otherwise}                             & \quad\circlearrowleft
-\end{align*}
-
 \begin{function}
   \signature{symEx :: \Task \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{Predicate})]} \\
 
@@ -129,11 +122,15 @@ Drive then filters this based on the following:
 \begin{function}
   \signature{drive :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{Predicate})]} \\
   drive\ t\ I\ \sigma \ \phi  = map \ (concat . drive') (\Rrightarrow\ t\ I\ \sigma \ \phi)\\
-                                  where\ drive'\ t'\ I\ \sigma'\ \phi' \mid \neg \text{SAT } \phi' = [ ]\\
-                                                                       \mid \Value(t',\sigma') = v \wedge \text{SAT } \phi' = [(t',I',\phi')]\\
-                                                                       \mid t' = t \wedge \phi' = \phi = []\\
-                                                                       \mid otherwise = drive\ t'\ I'\ \sigma'\
-                                                                        \phi'
+                                  where\ drive'\ t'\ I\ \sigma'\ \phi'\\
+                                  \begin{array}{ll}
+                                    \mid \neg \text{SAT } \phi'                               &= [\ ]\\
+                                    \mid \Value(t',\sigma') \equiv v \wedge \text{SAT } \phi' &= [(t',I',\phi')]\\
+                                    \mid t' \equiv t \wedge \phi' \equiv \phi                 &= [\ ]\\
+                                    \mid otherwise                                            &= drive\ t'\ I'\ \sigma'\ \phi'
+                                  \end{array}
 \end{function}
 
+Where $\text{SAT }\phi$ means that there exists a list of concrete inputs $[i_0,\cdots,i_n]$ such that $\phi[i_0\mapsto i_0,\cdots,i_n\mapsto i_n]\equiv\True$.
+\fixme{how to distinguis concrete and symbolic inputs from each other?}
 In order to show that this actually holds, we need to prove some properties, see next section.
