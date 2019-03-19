@@ -8,11 +8,11 @@
 
 \begin{lemma}[Not sat is safe to remove]
 For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi $,
-then $\neg\text{SAT }\phi$ implies that $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ is not possible.
+then $\neg\text{SAT }\phi$ implies that ???????
 \label{lemma:notSat}
 \end{lemma}
 
-\fixme{Is it problematic that this is just a single small-step, and not a sequence?}
+\fixme{We need to think a bit more about why it is allright to remove not-sat branches}
 
 \begin{lemma}[Stuck really is stuck]
 For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
@@ -22,16 +22,26 @@ then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'
 \fixme{$\phi'$ is not in scope on the left side of the implication.}
 
 
+The grammer of concrete inputs is as follows.
+
+\usemacro{G-CInputs}
+
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
 
-For all tasks $t$, for all elements $(t',I,\phi')\in symEx t$, it holds that there
-exists a list $[i_0,\cdots,i_n]$ such that $t,\emptyset,i_0 \Rightarrow t_1,\sigma_1,i_1 \Rightarrow\cdots\Rightarrow t_n,\sigma_n$ with $t_n=t'[i_0,\cdots,i_n]$ and $[i_0,\cdots,i_n]$ satisfies $I$ and $\phi$.
+For all tasks $t$, for all elements $(t',I,\phi')\in symEx\ t$, it holds that there
+exists a list $[j_0,\cdots,j_n]$ such that $t,\emptyset,\xrightarrow[]{j_0}\cdots\xrightarrow[]{i_n} t_n,\sigma_n$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $[j_0,\cdots,j_n]$ satisfies $I$ and $\phi$.
 \end{theorem}
-\fixme{Currenlty, there is no way to denote the original semantics.}
+
+
+
 \begin{theorem}[Completeness of symbolic execution]
-
-For all tasks $t$ and input listst $[i_0,\cdots,i_n]$ such that $t,\emptyset,i_0\Rightarrow\cdots\Rightarrow t_n,\sigma_n$, $\Value(t_n)=v$, then there exists an element $(t',I,\phi')\in symEx t$ such that $[i_0,\cdots,i_n]$ satisfies $I$ and $\phi$ and $t_n=t'[i_0,\cdots,i_n]$ and $[i_0,\cdots,i_n]$.
-
+For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $t,\emptyset\xrightarrow[]{j_0}\cdots\xrightarrow[]{j_n} t_n,\sigma_n$, $\Value(t_n)=v$, then there exists an element $(t',I,\phi')\in symEx\ t$ such that $[j_0,\cdots,j_n]$ satisfies $I$ and $\phi$ and $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
   \label{thm:complete}
 \end{theorem}
+
+
+\begin{definition}
+  An input list $[j_0,\cdots,j_n]$ satisfies a predicate $\phi$ and list of symbolic inputs $[i_0,\cdots,i_n]$ if and only if
+  the elements of each pair $i_k$ $j_k$ are equal apart from a possible symbolic value, and if all symbolic input variables are replaced with their concrete counterpart in $\phi$ then we arrive at $\True$.
+\end{definition}
