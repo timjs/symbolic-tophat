@@ -12,11 +12,15 @@ then $\neg\text{SAT }\phi$ implies that $t',\sigma'\handle{i'} t'',\sigma'',\phi
 \label{lemma:notSat}
 \end{lemma}
 
+\fixme{Is it problematic that this is just a single small-step, and not a sequence?}
+
 \begin{lemma}[Stuck really is stuck]
 For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
 then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
 \label{lemma:stuck}
 \end{lemma}
+\fixme{$\phi'$ is not in scope on the left side of the implication.}
+
 
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
@@ -24,7 +28,7 @@ then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'
 For all tasks $t$, for all elements $(t',I,\phi')\in symEx t$, it holds that there
 exists a list $[i_0,\cdots,i_n]$ such that $t,\emptyset,i_0 \Rightarrow t_1,\sigma_1,i_1 \Rightarrow\cdots\Rightarrow t_n,\sigma_n$ with $t_n=t'[i_0,\cdots,i_n]$ and $[i_0,\cdots,i_n]$ satisfies $I$ and $\phi$.
 \end{theorem}
-
+\fixme{Currenlty, there is no way to denote the original semantics.}
 \begin{theorem}[Completeness of symbolic execution]
 
 For all tasks $t$ and input listst $[i_0,\cdots,i_n]$ such that $t,\emptyset,i_0\Rightarrow\cdots\Rightarrow t_n,\sigma_n$, $\Value(t_n)=v$, then there exists an element $(t',I,\phi')\in symEx t$ such that $[i_0,\cdots,i_n]$ satisfies $I$ and $\phi$ and $t_n=t'[i_0,\cdots,i_n]$ and $[i_0,\cdots,i_n]$.
