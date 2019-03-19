@@ -124,15 +124,17 @@ Drive then filters this based on the following:
 \begin{function}
   \signature{drive :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{Predicate})]} \\
   drive\ t\ I\ \sigma \ \phi  = map \ (concat . drive') (\Rrightarrow\ t\ I\ \sigma \ \phi)\\
-                                  where\ drive'\ t'\ I\ \sigma'\ \phi'\\
+                                  where\ drive'\ t'\ I\ \sigma'\ \phi'=\\
                                   \begin{array}{ll}
-                                    \mid \neg \text{SAT } \phi'                               &= [\ ]\\
-                                    \mid \Value(t',\sigma') \equiv v \wedge \text{SAT } \phi' &= [(t',I',\phi')]\\
-                                    \mid t' \equiv t \wedge \phi' \equiv \phi                 &= [\ ]\\
-                                    \mid otherwise                                            &= drive\ t'\ I'\ \sigma'\ \phi'
+                                    [\ ] & \neg \text{SAT } \phi'\\
+                                    \relax [(t',I',\phi')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } \phi'\\
+                                    \relax [\ ]            & t' \equiv t \wedge \phi' \equiv \phi \wedge \Value(t',\sigma') \equiv \bot\\
+                                    drive\ t'\ I'\ \sigma'\ \phi' & (t' \neq t \vee \phi' \neq \phi) \wedge \Value(t',\sigma') \equiv \bot
                                   \end{array}
 \end{function}
 
-Where $\text{SAT }\phi$ means that there exists a list of concrete inputs $[i_0,\cdots,i_n]$ such that $\phi[i_0\mapsto i_0,\cdots,i_n\mapsto i_n]\equiv\True$.
-\fixme{how to distinguis concrete and symbolic inputs from each other?}
+
+Where $\text{SAT }\phi$ means that there exists a list of constants $[c_0,\cdots,c_n]$ such that $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$.
+
+
 In order to show that this actually holds, we need to prove some properties, see next section.
