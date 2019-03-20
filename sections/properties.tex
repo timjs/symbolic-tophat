@@ -26,22 +26,31 @@ The grammer of concrete inputs is as follows.
 
 \usemacro{G-CInputs}
 
+
+For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
+
+\begin{function}
+  \signature{eval :: \Task \times [\mathrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
+  eval\ t\ (j:js)\ \sigma = \begin{array}{ll}
+                              (t',\sigma')      & \Value(t',\sigma') \equiv v \\
+                              eval\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
+                                  \end{array}
+                              with t,s\xrightarrow[]{j} t',\sigma'
+\end{function}
+
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
 
-For all tasks $t$, for all elements $(t',I,\phi')\in symEx\ t$, it holds that there
-exists a list $[j_0,\cdots,j_n]$ such that $t,\emptyset,\xrightarrow[]{j_0}\cdots\xrightarrow[]{i_n} t_n,\sigma_n$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $[j_0,\cdots,j_n]$ satisfies $I$ and $\phi$.
+For all tasks $t$, for all elements $(t',I,\sigma',\phi')\in drive\ t\ [\ ]\ \emptyset\ \True$,
+it holds that there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=\True$.
 \end{theorem}
 
 
 
 \begin{theorem}[Completeness of symbolic execution]
-For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $t,\emptyset\xrightarrow[]{j_0}\cdots\xrightarrow[]{j_n} t_n,\sigma_n$, $\Value(t_n)=v$, then there exists an element $(t',I,\phi')\in symEx\ t$ such that $[j_0,\cdots,j_n]$ satisfies $I$ and $\phi$ and $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
+For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $eval\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
+then there exists an element $(t'',I,\sigma'',\phi'')\in drive\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
   \label{thm:complete}
 \end{theorem}
-
-
-\begin{definition}
-  An input list $[j_0,\cdots,j_n]$ satisfies a predicate $\phi$ and list of symbolic inputs $[i_0,\cdots,i_n]$ if and only if
-  the elements of each pair $i_k$ $j_k$ are equal apart from a possible symbolic value, and if all symbolic input variables are replaced with their concrete counterpart in $\phi$ then we arrive at $\True$.
-\end{definition}
