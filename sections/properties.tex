@@ -47,6 +47,51 @@ $eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ wit
 \end{theorem}
 
 
+\begin{lemma}[Soundness of evaluation]
+  $\forall e,\sigma \forall e,\sigma\eval v,\sigma',\phi$
+  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\eval}v',\sigma''$
+  with $v[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv v' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+\end{lemma}
+
+\begin{proof}[sketch]
+  We prove this Lemma by induction over $t$. Tis is trivial for all but one case.
+
+  \case{$t=\If{e_1}{e_2}{e_3}$}
+       {There are two rules that apply.\\
+       \userule{Sym-E-IfTrue}\\
+       In this case }
+\end{proof}
+
+\begin{lemma}[Soundness of striding]
+  $\forall t,\sigma \forall t,\sigma\stride t',\sigma',\phi$
+  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t',\sigma''$
+  with $t[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+\end{lemma}
+
+\begin{lemma}[Soundness of normalisation]
+  $\forall e,\sigma \forall e,\sigma\normalise t,\sigma',\phi$
+  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$
+  with $t[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+\end{lemma}
+
+\begin{lemma}[Soundness of handling]
+  $\forall t,\sigma \forall t,\sigma\handle{i} t',\sigma',\phi$
+  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xrightarrow[]{i} t'',\sigma''$
+  with $t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t'' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+\end{lemma}
+
+
+\begin{lemma}[Soundness of driving]
+  $\forall t,\sigma \forall t,\sigma\drive{i} t',\sigma',\phi$
+  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xRightarrow[]{i} t'',\sigma''$
+  with $t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t'' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+\end{lemma}
+
 
 \begin{theorem}[Completeness of symbolic execution]
 For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $eval\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
