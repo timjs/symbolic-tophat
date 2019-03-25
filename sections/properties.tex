@@ -55,12 +55,14 @@ $eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ wit
 \end{lemma}
 
 \begin{proof}[sketch]
-  We prove this Lemma by induction over $t$. Tis is trivial for all but one case.
+  We prove this Lemma by induction over $t$. This is trivial for all but one case.
 
   \case{$t=\If{e_1}{e_2}{e_3}$}
        {There are two rules that apply.\\
        \userule{Sym-E-IfTrue}\\
-       In this case }
+       In this case, we know from the induction hypothesis that there exists a mapping $M_1$ such that $e_1,\sigma M_1 \bar{\eval}v_1',\sigma'$ with $v_1 M_1\equiv v_1'$ and $\phi_1 M_1\equiv\True$.
+       Furthermore, we also obtain that there exists a mapping $M_2$ such that $e_2,\sigma M_2 \bar{\eval}v_2',\sigma''$ with $v_2 M_2\equiv v_2'$ and $\phi_2 M_2\equiv\True$.
+       From the premise, we get that $\phi_1\wedge\phi_2\wedge v_1$ is satisfiable, which means that there exists a mapping $M_3$ such that $(\phi_1\wedge\phi_2\wedge v_1)M_3\equiv\True$}
 \end{proof}
 
 \begin{lemma}[Soundness of striding]
@@ -99,3 +101,33 @@ then there exists an element $(t'',I,\sigma'',\phi'')\in drive\ t\ [\ ]\ \emptys
 $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
   \label{thm:complete}
 \end{theorem}
+
+
+\begin{lemma}[Completeness of evaluation]
+  $\forall e,\sigma$ such that $t,\sigma \bar{\eval}v,\sigma'$
+  there exists a symbolic execution $t,\sigma''\eval v',\sigma''',\phi$.
+\end{lemma}
+
+This lemma holds trivially; assume $\sigma''=\sigma$, then we have $t,\sigma\eval v,\sigma',\True$. In other words; every concrete evaluation is also a valid symbolic execution.
+
+\begin{lemma}[Completeness of striding]
+  $\forall t,\sigma$ such that $t,\sigma \bar{\stride}t',\sigma'$
+  there exists a symbolic execution $t,\sigma''\eval t'',\sigma''',\phi$.
+\end{lemma}
+
+This lemma holds trivially; assume $\sigma''=\sigma$, then we have $t,\sigma\stride t',\sigma',\True$. In other words; every concrete evaluation is also a valid symbolic execution.
+
+\begin{lemma}[Completeness of normalisation]
+  $\forall e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
+  there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
+\end{lemma}
+
+This lemma holds trivially; assume $\sigma''=\sigma$, then we have $t,\sigma\normalise t',\sigma',\True$. In other words; every concrete evaluation is also a valid symbolic execution.
+
+\begin{lemma}[Completeness of handling]
+  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t'',\sigma''$
+  there exists an $i$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$. And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$, we get $\phi[s\mapsto c]\equiv\True$, $t''[s\mapsto c]\equiv t']$ and $\sigma'''[s\mapsto c]\equiv\sigma'']$.
+\end{lemma}
+
+\begin{lemma}[Completeness of driving]
+\end{lemma}
