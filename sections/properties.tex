@@ -30,21 +30,27 @@ The grammer of concrete inputs is as follows.
 For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
 
 \begin{function}
-  \signature{eval :: \Task \times [\mathrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
-  eval\ t\ (j:js)\ \sigma = \begin{array}{ll}
+  \signature{\mathit{eval} :: \Task \times [\textrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
+  \mathit{eval}\ t\ (j:js)\ \sigma = \begin{array}{ll}
                               (t',\sigma')      & \Value(t',\sigma') \equiv v \\
-                              eval\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
+                              \mathit{eval}\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
                                   \end{array}
-                              with t,s\xrightarrow[]{j} t',\sigma'
+                              \textrm{with } t,s\xrightarrow[]{j} t',\sigma'
 \end{function}
 
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
 
+<<<<<<< HEAD
 For all tasks $t$, for all elements $(t',I,\sigma,\phi)\in drive\ t\ [\ ]\ \emptyset\ \True$,
 for all mappings $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
 $eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$,
 it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
+=======
+For all tasks $t$, for all elements $(t',I,\sigma',\phi')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
+it holds that there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$\mathit{eval}\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=\True$.
+>>>>>>> 720269ccf0529e6befc0e3b4974b60ada5b59799
 \end{theorem}
 
 
@@ -115,8 +121,8 @@ From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
 
 
 \begin{theorem}[Completeness of symbolic execution]
-For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $eval\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
-then there exists an element $(t'',I,\sigma'',\phi'')\in drive\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
+then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
 $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
   \label{thm:complete}
 \end{theorem}
