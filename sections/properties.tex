@@ -41,42 +41,61 @@ For completeness and soundness we define what it means to completely evaluate a 
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
 
-For all tasks $t$, for all elements $(t',I,\sigma',\phi')\in drive\ t\ [\ ]\ \emptyset\ \True$,
-it holds that there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-$eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=\True$.
+For all tasks $t$, for all elements $(t',I,\sigma,\phi)\in drive\ t\ [\ ]\ \emptyset\ \True$,
+for all mappings $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$,
+it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
 \end{theorem}
 
 
 \begin{lemma}[Soundness of evaluation]
-  $\forall e,\sigma \forall e,\sigma\eval v,\sigma',\phi$
-  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\eval}v',\sigma''$
-  with $v[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv v' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  \label{lem:soundeval}
+
+  For all expressions $e$ and states $\sigma$,
+  for all symbolic evaluations $e,\sigma\eval v,\sigma',\phi$,
+  for all mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma M \bar{\eval}v',\sigma''$ and $\phi M = \True$,
+  we have $v\ M \equiv v' \wedge \sigma' M \equiv \sigma''$.
+
 \end{lemma}
 
 \begin{proof}[sketch]
-  We prove this Lemma by induction over $t$. This is trivial for all but one case.
+  We prove this Lemma by induction over $t$.
 
-  \case{$t=\If{e_1}{e_2}{e_3}$}
-       {There are two rules that apply.\\
-       \userule{Sym-E-IfTrue}\\
-       In this case, we know from the induction hypothesis that there exists a mapping $M_1$ such that $e_1,\sigma M_1 \bar{\eval}v_1',\sigma'$ with $v_1 M_1\equiv v_1'$ and $\phi_1 M_1\equiv\True$.
-       Furthermore, we also obtain that there exists a mapping $M_2$ such that $e_2,\sigma M_2 \bar{\eval}v_2',\sigma''$ with $v_2 M_2\equiv v_2'$ and $\phi_2 M_2\equiv\True$.
-       From the premise, we get that $\phi_1\wedge\phi_2\wedge v_1$ is satisfiable, which means that there exists a mapping $M_3$ such that $(\phi_1\wedge\phi_2\wedge v_1)M_3\equiv\True$}
+\userule{Sym-E-Pair}
+
+
+Provided that $\phi_1 M\wedge\phi_2 M$, and $\tuple{e_1, e_2},\sigma M\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma}$,
+we need to demonstrate that $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $\sigma'' M\equiv\bar{\sigma}$.
+From the induction hypothesis, we obtain the following. $\forall M_1 . \phi_1 M_1 \wedge e_1,\sigma M_1\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_1 M_1\equiv \bar{v_1} \wedge \sigma' M_1\equiv\bar{\sigma}$ and
+$\forall M_2 . \phi_2 M_2 \wedge e_2,\sigma M_2\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_2 M_2\equiv \bar{v_2} \wedge \sigma' M_2\equiv\bar{\sigma}$
+
+Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know from the premise that $e_1,\sigma M\bar{\eval}\bar{v_1},\bar{\sigma}$, and $e_2,\sigma M\bar{\eval}\bar{v_2},\bar{\sigma}$ since $\sigma' M \equiv \bar{\sigma}$, we obtain that $v_1 M\equiv \bar{v_1}$ and $v_2 M\equiv \bar{v_2}$ and therefore $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$.
+From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
+
+      \fixme{Can we remove SAT now, since we require it in the premise? Or should we remove it from the premise of this lemma?}
 \end{proof}
 
 \begin{lemma}[Soundness of striding]
-  $\forall t,\sigma \forall t,\sigma\stride t',\sigma',\phi$
-  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t',\sigma''$
-  with $t[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  \label{lem:soundeval}
+
+  For all tasks $t$ and states $\sigma$,
+  for all symbolic evaluations $t,\sigma\stride t',\sigma',\phi$,
+  for all mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t'',\sigma''$ and $\phi M = \True$,
+  we have $t'\ M \equiv t'' \wedge \sigma' M \equiv \sigma''$.
+
 \end{lemma}
 
 \begin{lemma}[Soundness of normalisation]
-  $\forall e,\sigma \forall e,\sigma\normalise t,\sigma',\phi$
-  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$
-  with $t[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  \label{lem:soundnorm}
+
+  For all expressions $e$ and states $\sigma$,
+  for all symolic normalisations $e,\sigma\normalise t,\sigma',\phi$,
+  for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$ and $\phi M =\True$,
+  we have $t M \equiv t' \wedge \sigma' M \equiv \sigma''$.
+  
 \end{lemma}
 
 \begin{lemma}[Soundness of handling]
