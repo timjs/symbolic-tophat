@@ -93,24 +93,30 @@ From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
   For all expressions $e$ and states $\sigma$,
   for all symolic normalisations $e,\sigma\normalise t,\sigma',\phi$,
   for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$ and $\phi M =\True$,
+  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$ and $\phi M =\True$ and $\phi M = \True$,
   we have $t M \equiv t' \wedge \sigma' M \equiv \sigma''$.
 
 \end{lemma}
 
 \begin{lemma}[Soundness of handling]
-  $\forall t,\sigma \forall t,\sigma\handle{i} t',\sigma',\phi$
-  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xrightarrow[]{i} t'',\sigma''$
-  with $t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t'' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  \label{lem:soundhandle}
+
+  For all tasks $t$ and states $\sigma$,
+  for all symbolic executions $t,\sigma\handle{i} t',\sigma',\phi$,
+  for all mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xrightarrow[]{j} t'',\sigma''$ and $\phi M = \True$,
+  we have $t'M \equiv t'' \wedge \sigma' M \equiv \sigma''$
 \end{lemma}
 
 
 \begin{lemma}[Soundness of driving]
-  $\forall t,\sigma \forall t,\sigma\drive{i} t',\sigma',\phi$
-  there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xRightarrow[]{i} t'',\sigma''$
-  with $t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv t'' \wedge \sigma' [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \equiv \sigma'' \wedge \phi [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  \label{lem:sounddrive}
+
+  For all tasks $t$ and states $\sigma$,
+  for all symbolic executions $t,\sigma\drive{i} t',\sigma',\phi$
+  for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,\sigma M \xRightarrow[]{i} t'',\sigma''$ and $\phi M = \True$,
+  we have $t'M \equiv t'' \wedge \sigma' M \equiv \sigma''$.
 \end{lemma}
 
 
