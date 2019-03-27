@@ -96,8 +96,8 @@ $\mathit{eval}\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigm
 
 
 \begin{theorem}[Completeness of symbolic execution]
-For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $eval\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
-then there exists an element $(t'',I,\sigma'',\phi'')\in drive\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
+then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
 $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
   \label{thm:complete}
 \end{theorem}
