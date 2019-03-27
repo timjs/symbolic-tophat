@@ -41,16 +41,10 @@ For completeness and soundness we define what it means to completely evaluate a 
 \begin{theorem}[Soundness of symbolic execution]
 \label{thm:sound}
 
-<<<<<<< HEAD
-For all tasks $t$, for all elements $(t',I,\sigma,\phi)\in drive\ t\ [\ ]\ \emptyset\ \True$,
+For all tasks $t$, for all elements $(t',I,\sigma,\phi)\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
 for all mappings $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
 $eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$,
 it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
-=======
-For all tasks $t$, for all elements $(t',I,\sigma',\phi')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
-it holds that there exists a mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-$\mathit{eval}\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ with $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=\True$.
->>>>>>> 720269ccf0529e6befc0e3b4974b60ada5b59799
 \end{theorem}
 
 
@@ -101,7 +95,7 @@ From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
   for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
   such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$ and $\phi M =\True$,
   we have $t M \equiv t' \wedge \sigma' M \equiv \sigma''$.
-  
+
 \end{lemma}
 
 \begin{lemma}[Soundness of handling]
