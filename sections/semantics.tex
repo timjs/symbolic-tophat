@@ -115,14 +115,14 @@ The drive function makes use of triple arrow, a small step semantics that genera
 Drive then filters this based on the following:
 
 \begin{function}
-  \signature{drive :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  drive\ t\ I\ \sigma \ \phi  = map \ (concat . drive') (\Rrightarrow\ t\ I\ \sigma \ \phi)\\
-                                  where\ drive'\ t'\ I\ \sigma'\ \phi'=\\
+  \signature{\mathit{drive} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+  \mathit{drive}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . drive'}) (\Rrightarrow\ t\ I\ \sigma \ \phi)\\
+                                  \mathit{where}\ \mathit{drive'}\ t'\ I\ \sigma'\ \phi'=\\
                                   \begin{array}{ll}
                                     [\ ] & \neg \text{SAT } \phi'\\
                                     \relax [(t',I',\sigma',\phi')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } \phi'\\
                                     \relax [\ ]            & t' \equiv t \wedge \phi' \equiv \phi \wedge \Value(t',\sigma') \equiv \bot\\
-                                    drive\ t'\ I'\ \sigma'\ \phi' & (t' \neq t \vee \phi' \neq \phi) \wedge \Value(t',\sigma') \equiv \bot
+                                    \mathit{drive}\ t'\ I'\ \sigma'\ \phi' & (t' \neq t \vee \phi' \neq \phi) \wedge \Value(t',\sigma') \equiv \bot
                                   \end{array}
 \end{function}
 
