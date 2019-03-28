@@ -1,0 +1,258 @@
+% !TEX root=main.tex
+
+
+%% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newrule{E-Value}
+  {}
+  {v,\bar{\sigma}\bar{\eval} v,\bar{\sigma}}
+
+
+\newrule{E-App}
+  {e_1,\bar{\sigma}\bar{\eval} \lambda x:\tau.\bar{e_1'},\bar{\sigma'}\Quad
+   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}\Quad
+   e_1'[x\mapsto v_2],\bar{\sigma''}\bar{\eval} \bar{v_1},\bar{\sigma'''}}
+  {e_1 e_2,\bar{\sigma} \bar{\eval} \bar{v_1},\bar{\sigma'''}}
+
+
+\newrule{E-IfTrue}
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi_2}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land v_1}
+
+\newrule{E-IfFalse}
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+   e_3,\sigma'\eval v_3,\sigma'',\phi_3}
+  {\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma'',\phi_1 \land \phi_3 \land \lnot v_1}
+
+
+\newrule{E-Pair}
+  {e_1,\bar{\sigma}\bar{\eval} \bar{v_1},\bar{\sigma'} \Quad
+   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
+  {\tuple{e_1,e_2},\bar{\sigma}\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma''}}
+
+
+\newrule{E-Ref}
+  {e,\sigma\eval v,\sigma',\phi \Quad
+   l\not\in Dom(\sigma')}
+  {\Ref e,\sigma\eval l,\sigma'[l\mapsto v],\phi}
+
+\newrule{E-Deref}
+  {e,\sigma\eval l,\sigma',\phi}
+  {!e,\sigma\eval \sigma'(l),\sigma',\phi}
+
+\newrule{E-Assign}
+  {e_1,\sigma\eval l,\sigma',\phi \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi}
+  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2],\phi}
+
+\newrule{E-Edit}
+  {e,\sigma \eval v,\sigma',\phi}
+  {\Edit e , \sigma\eval \Edit v,\sigma',\phi}
+
+\newrule{E-Enter}
+  {}
+  {\Enter \tau,\sigma \eval \Enter \tau,\sigma,\True}
+
+\newrule{E-Update}
+  {e,\sigma\eval l,\sigma',\phi}
+  {\Update e ,\sigma\eval \Update l,\sigma',\phi}
+
+
+\newrule{E-Fail}
+  {}
+  {\Fail,\sigma \eval \Fail,\sigma,\True}
+
+
+\newrule{E-Then}
+  {e_1 ,\sigma\eval t_1,\sigma',\phi}
+  {e_1 \Then e_2,\sigma \eval t_1 \Then e_2,\sigma',\phi}
+
+\newrule{E-Next}
+  {e_1 ,\sigma\eval t_1,\sigma',\phi}
+  {e_1 \Next e_2 ,\sigma\eval t_1 \Next e_2,\sigma',\phi}
+
+
+\newrule{E-And}
+  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
+   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
+  {e_1 \And e_2 ,\sigma\eval t_1 \And t_2,\sigma'',\phi_1 \land \phi_2}
+
+
+\newrule{E-Or}
+  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
+   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
+  {e_1 \Or e_2 ,\sigma\eval t_1 \Or t_2,\sigma'',\phi_1 \land \phi_2}
+
+\newrule{E-Xor}
+  {}
+  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\sigma,\True}
+
+%% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newrule{S-Edit}
+  { }
+  {\Edit v,\sigma \stride \Edit v,\sigma,\True}
+
+\newrule{S-Fill}
+  { }
+  {\Enter \tau,\sigma \stride \Enter \tau,\sigma,\True}
+
+\newrule{S-Update}
+  { }
+  {\Update l,\sigma \stride \Update l,\sigma,\True}
+
+
+\newrule{S-Fail}
+  { }
+  {\Fail,\sigma \stride \Fail,\sigma,\True}
+
+
+\newrule{S-ThenStay}
+  {t_1,\sigma \stride t_1',\sigma',\phi}
+  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
+  [\Value(t_1',\sigma') = \bot]
+
+\newrule{S-ThenFail}
+  {t_1,\sigma \stride t_1',\sigma',\phi \Quad
+   e_2\ v_1,\sigma' \eval t_2,\sigma'',\_}
+  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
+  [\Value(t_1',\sigma') = v_1 \land \Failing(t_2,\sigma'')]
+
+\newrule{S-ThenCont}
+  {t_1,\sigma \stride t_1',\sigma',\phi_1  \Quad
+   e_2\ v_1,\sigma' \eval t_2 ,\sigma'',\phi_2}
+   % t_2,\sigma'' \stride t_2',\sigma'''}
+  {t_1 \Then e_2,\sigma \stride t_2,\sigma'',\phi_1 \land \phi_2}
+  [\Value(t_1',\sigma') = v_1 \land \lnot\Failing(t_2,\sigma'')]
+
+\newrule{S-Next}
+  {t_1,\sigma \stride t_1',\sigma',\phi}
+  {t_1 \Next e_2,\sigma \stride t_1' \Next e_2,\sigma',\phi}
+
+
+\newrule{S-And}
+  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \And t_2,\sigma \stride t_1' \And t_2',\sigma'',\phi_1 \land \phi_2}
+
+
+\newrule{S-OrLeft}
+  {t_1,\sigma  \stride t_1',\sigma',\phi}
+  {t_1 \Or t_2,\sigma \stride t_1',\sigma',\phi}
+  [\Value(t_1',\sigma') = v_1]
+
+\newrule{S-OrRight}
+  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \Or t_2,\sigma \stride t_2',\sigma'',\phi_1 \land \phi_2}
+  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = v_2]
+
+\newrule{S-OrNone}
+  {t_1,\sigma  \stride t_1',\sigma' ,\phi_1 \Quad
+   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
+  {t_1 \Or t_2,\sigma \stride t_1' \Or t_2',\sigma'',\phi_1 \land \phi_2}
+  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bot]
+
+
+\newrule{S-Xor}
+  { }
+  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\sigma,\True}
+
+\newrule{S-Eval}
+    {e,\sigma \eval e',\sigma',\phi_1  \Quad
+     e',\sigma' \stride e'',\sigma'',\phi_2}
+    {e,\sigma \stride e'',\sigma'',\phi_1 \land \phi_2}
+    [e \neq e']
+
+%% Normalisation %%
+
+\newrule{N-Done}
+    {e,\sigma \eval t,\sigma',\phi_1  \Quad
+     t,\sigma' \stride t',\sigma'',\phi_2}
+    {e,\sigma \normalise t',\sigma'',\phi_1 \land \phi_2}
+    [\sigma'=\sigma'' \land t=t']
+
+\newrule{N-Repeat}
+    {e,\sigma \eval t,\sigma',\phi_1  \Quad
+     t,\sigma' \stride t',\sigma'',\phi_2  \Quad
+     t',\sigma'' \normalise t'',\sigma''',\phi_3}
+    {e,\sigma \normalise t'',\sigma''',\phi_1 \land \phi_2 \land \phi_3}
+    [\sigma'\neq \sigma''\vee t\neq t']
+
+
+
+%% Handling %%
+
+
+\newrule{H-Change}
+  { \text{fresh }s}
+  {\Edit v,\sigma \handle{s} \Edit s,\sigma,\True}
+  [v,s:\tau]
+
+\newrule{H-Empty}
+  { }
+  {\Edit v,\sigma \handle{\Empty} \Enter \tau,\sigma,\True}
+  [v : \tau]
+
+\newrule{H-Fill}
+  { \text{fresh }s}
+  {\Enter \tau,\sigma \handle{s} \Edit s,\sigma,\True}
+  [s:\tau]
+
+\newrule{H-Update}
+  { \text{fresh }s}
+  {\Update l,\sigma \handle{s} \Update l,\sigma[l \mapsto s],\True}
+  [\sigma(l),s:\tau]
+
+\newrule{H-PassThen}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Then e_2,\sigma \handle{i} t_1' \Then e_2,\sigma',\phi}
+
+\newrule{H-PassNext}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle{i} t_1' \Next e_2,\sigma',\phi}
+
+\newrule{H-Next}
+  {e_2\ v_1,\sigma \normalise t_2,\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle{\Continue} t_2,\sigma',\phi}
+  [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
+
+
+\newrule{H-FirstAnd}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \And t_2,\sigma \handle{\First i} t_1' \And t_2,\sigma',\phi}
+
+\newrule{H-SecondAnd}
+  {t_2,\sigma \handle{i} t_2',i,\sigma',\phi}
+  {t_1 \And t_2,\sigma \handle{\Second i} t_1 \And t_2',\sigma',\phi}
+
+
+\newrule{H-FirstOr}
+  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
+  {t_1 \Or t_2,\sigma \handle{\First i} t_1' \Or t_2,\sigma',\phi}
+
+\newrule{H-SecondOr}
+  {t_2,\sigma \handle{i} t_2',\sigma',\phi }
+  {t_1 \Or t_2,\sigma \handle{\Second i} t_1 \Or t_2',\sigma',\phi}
+
+
+\newrule{H-PickLeft}
+  {e_1,\sigma \normalise t_1,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{\Left} t_1,\sigma',\phi}
+  [\neg\Failing(t_1,\sigma')]
+
+\newrule{H-PickRight}
+  {e_2,\sigma \normalise t_2,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{\Right} t_2,\sigma',\phi}
+  [\neg\Failing(t_2,\sigma')]
+
+
+
+%% Driving %%
+
+
+\newrule{I-Handle}
+  {t,\sigma \handle{i} t',\sigma',\phi_1 \Quad
+   t',\sigma' \normalise t'',\sigma'',\phi_2}
+  {t,\sigma \drive{i} t'',\sigma'',\phi_1 \land \phi_2}
