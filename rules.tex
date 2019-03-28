@@ -26,12 +26,12 @@
 
 
 \newrule{Sym-E-IfTrue}
-  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \land v_1 \Quad
    e_2,\sigma'\eval v_2,\sigma'',\phi_2}
   {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land v_1}
 
 \newrule{Sym-E-IfFalse}
-  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
+  {e_1,\sigma\eval v_1,\sigma',\phi_1 \land \lnot v_1\Quad
    e_3,\sigma'\eval v_3,\sigma'',\phi_3}
   {\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma'',\phi_1 \land \phi_3 \land \lnot v_1}
 
@@ -52,9 +52,9 @@
   {!e,\sigma\eval \sigma'(l),\sigma',\phi}
 
 \newrule{Sym-E-Assign}
-  {e_1,\sigma\eval l,\sigma',\phi \Quad
-   e_2,\sigma'\eval v_2,\sigma'',\phi}
-  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2],\phi}
+  {e_1,\sigma\eval l,\sigma',\phi_1 \Quad
+   e_2,\sigma'\eval v_2,\sigma'',\phi_2}
+  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2],\phi_1\wedge\phi_2}
 
 \newrule{Sym-E-Edit}
   {e,\sigma \eval v,\sigma',\phi}
