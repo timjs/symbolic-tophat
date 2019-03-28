@@ -59,21 +59,47 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
 
 \end{lemma}
 
-\begin{proof}[sketch]
-  We prove this Lemma by induction over $t$.
+\begin{proof}
+  We prove this Lemma by induction over $e$.
 
-\userule{Sym-E-Pair}
+\case{$e=v$}{}
 
+\case{$e=\tuple{e_1,e_2}$}
+  {\userule{Sym-E-Pair}
+  Provided that $\phi_1 M\wedge\phi_2 M$, and $\tuple{e_1, e_2},\sigma M\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma}$,
+  we need to demonstrate that $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $\sigma'' M\equiv\bar{\sigma}$.
+  From the induction hypothesis, we obtain the following. $\forall M_1 . \phi_1 M_1 \wedge e_1,\sigma M_1\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_1 M_1\equiv \bar{v_1} \wedge \sigma' M_1\equiv\bar{\sigma}$ and
+  $\forall M_2 . \phi_2 M_2 \wedge e_2,\sigma M_2\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_2 M_2\equiv \bar{v_2} \wedge \sigma' M_2\equiv\bar{\sigma}$
 
-Provided that $\phi_1 M\wedge\phi_2 M$, and $\tuple{e_1, e_2},\sigma M\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma}$,
-we need to demonstrate that $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $\sigma'' M\equiv\bar{\sigma}$.
-From the induction hypothesis, we obtain the following. $\forall M_1 . \phi_1 M_1 \wedge e_1,\sigma M_1\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_1 M_1\equiv \bar{v_1} \wedge \sigma' M_1\equiv\bar{\sigma}$ and
-$\forall M_2 . \phi_2 M_2 \wedge e_2,\sigma M_2\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_2 M_2\equiv \bar{v_2} \wedge \sigma' M_2\equiv\bar{\sigma}$
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know from the premise that $e_1,\sigma M\bar{\eval}\bar{v_1},\bar{\sigma}$, and $e_2,\sigma M\bar{\eval}\bar{v_2},\bar{\sigma}$ since $\sigma' M \equiv \bar{\sigma}$, we obtain that $v_1 M\equiv \bar{v_1}$ and $v_2 M\equiv \bar{v_2}$ and therefore $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$.
+  From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
+  }
 
-Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know from the premise that $e_1,\sigma M\bar{\eval}\bar{v_1},\bar{\sigma}$, and $e_2,\sigma M\bar{\eval}\bar{v_2},\bar{\sigma}$ since $\sigma' M \equiv \bar{\sigma}$, we obtain that $v_1 M\equiv \bar{v_1}$ and $v_2 M\equiv \bar{v_2}$ and therefore $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$.
-From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
+\case{$e=e_1 e_2$}{}
 
-      \fixme{Can we remove SAT now, since we require it in the premise? Or should we remove it from the premise of this lemma?}
+\case{$e=\If{e_1}{e_2}{e_3}$}{}
+
+\case{$e=\Ref e$}{}
+
+\case{$e=!e$}{}
+
+\case{$e=e_1:=e_2$}{}
+
+\case{$e=\Edit e$}{}
+
+\case{$e=\Enter \tau$}{}
+
+\case{$e=\Update e$}{}
+
+\case{$e=e_1\Then e_2$}{}
+
+\case{$e=e_1\Next e_2$}{}
+
+\case{$e=e_1\Or e_2$}{}
+
+\case{$e=e_1\Xor e_2$}{}
+
+\case{$e=\Fail$}{}
 \end{proof}
 
 \begin{lemma}[Soundness of striding]
