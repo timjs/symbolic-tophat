@@ -130,16 +130,31 @@
 
 \newmacro{G-Inputs}{
   \begin{grammar}
-    Inputs
-      & i    & ::=& a                    & – action \\
+    Symbolic inputs
+      & i    & ::=& a                    & – symbolic action \\
       &      &\mid& \First i             & – pass to first \\
       &      &\mid& \Second i            & – pass to second \\
-    Actions
+    Symbolic actions
       & a    & ::=& s                    & – change editor to symbol \\
       &      &\mid& \Empty               & – empty an editor \\
       &      &\mid& \Continue            & – continue with next task \\
       &      &\mid& \Left                & – go left \\
       &      &\mid& \Right               & – go right \\
+  \end{grammar}
+}
+
+\newmacro{G-CInputs}{
+  \begin{grammar}
+    Concrete inputs
+      & j    & ::=& \bar{a}              & – concrete action \\
+      &      &\mid& \First j             & – pass to first \\
+      &      &\mid& \Second j            & – pass to second \\
+    Concrete actions
+      & \bar{a} & ::=& c                    & – constant \\
+      &         &\mid& \Empty               & – empty an editor \\
+      &         &\mid& \Continue            & – continue with next task \\
+      &         &\mid& \Left                & – go left \\
+      &         &\mid& \Right               & – go right \\
   \end{grammar}
 }
 
