@@ -75,8 +75,8 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   $\forall M_2 . M_2\phi_2 \wedge e_2,M_2\sigma \bar{\eval}\bar{v_1},\bar{\sigma}\implies M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-  and we know from the premise that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma}$,
-  and $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma}$ since $M\sigma'\equiv \bar{\sigma}$,
+  and we know from the premise that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}$,
+  and $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma}$ since $M\sigma'\equiv \bar{\sigma'}$,
   we obtain that $M v_1\equiv \bar{v_1}$ and $M v_2 \equiv \bar{v_2}$ and therefore $M\tuple{v_1,v_2} \equiv \tuple{\bar{v_1},\bar{v_2}}$.
   From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma}$.
   }
@@ -184,21 +184,102 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   we obtain that $M l\equiv l$, $M v_2 \equiv \bar{v_2}$ and $M\sigma''\equiv\bar{\sigma''}$ and therefore $M\sigma''[l\mapsto v_2]\equiv\bar{\sigma''}[l\mapsto\bar{v_2}]$.
   }
 
-\case{$e=\Edit e$}{}
+\case{$e=\Edit e$}
+  {One rule applies, namely \userule{Sym-E-Edit}.
+  Provided that $M\phi$, and \userule{E-Edit} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M \Edit v \equiv \Edit \bar{v}$ and $M\sigma'\equiv\bar{\sigma'}$.
 
-\case{$e=\Enter \tau$}{}
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi \land e, M_1\sigma \bar{\eval}\bar{v},\bar{\sigma'}\implies  M_1v\equiv \bar{v} \land  M_1\sigma'\equiv\bar{\sigma'}$.
 
-\case{$e=\Update e$}{}
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}\bar{v},\bar{\sigma'}$,
+  we obtain that $M \Edit v\equiv \Edit \bar{v}$.
+  We can furthermore directly conclude that $\sigma' M\equiv\bar{\sigma'}$.
 
-\case{$e=e_1\Then e_2$}{}
+  }
 
-\case{$e=e_1\Next e_2$}{}
+\case{$e=\Enter \tau$}
+  {
+  One rule applies, namely \userule{Sym-E-Enter}.
+  Provided that $M\phi$, and \userule{E-Enter} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M \Enter \tau \equiv \Enter \tau$, which holds trivially since types do not hold symbols,
+  and $M\sigma\equiv\bar{\sigma}$, which also hols trivially from the premise.
+  }
 
-\case{$e=e_1\Or e_2$}{}
+\case{$e=\Update e$}
+  {One rule applies, namely \userule{Sym-E-Update}.
+  Provided that $M\phi$, and \userule{E-Update} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M \Update l \equiv \Update l$ and $M\sigma'\equiv\bar{\sigma'}$.
 
-\case{$e=e_1\Xor e_2$}{}
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi \land e, M_1\sigma \bar{\eval}l,\bar{\sigma'}\implies  M_1 l\equiv l \land  M_1\sigma'\equiv\bar{\sigma'}$.
 
-\case{$e=\Fail$}{}
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}l,\bar{\sigma'}$,
+  we obtain that $M \Update l\equiv \Update l$.
+  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+
+  }
+
+\case{$e=e_1\Then e_2$}
+  {One rule applies, namely \userule{Sym-E-Then}.
+  Provided that $M\phi$, and \userule{E-Then} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M t_1\Then e_2 \equiv \bar{t_1}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi \land e, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\implies  M_1 t_1\equiv \bar{t_1} \land  M_1\sigma'\equiv\bar{\sigma'}$.
+
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$,
+  we obtain that $M t_1\Then e_2 \equiv \bar{t_1}\Then e_2$.
+  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+
+  }
+
+\case{$e=e_1\Next e_2$}
+  {One rule applies, namely \userule{Sym-E-Next}.
+  Provided that $M\phi$, and \userule{E-Next} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M t_1\Next e_2 \equiv \bar{t_1}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi \land e, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\implies  M_1 t_1\equiv \bar{t_1} \land  M_1\sigma'\equiv\bar{\sigma'}$.
+
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$,
+  we obtain that $M t_1\Next e_2 \equiv \bar{t_1}\Next e_2$.
+  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+
+  }
+
+\case{$e=e_1\Or e_2$}
+  {One rule applies, namely \userule{Sym-E-Or}.
+  Provided that $M\phi_1\wedge M\phi_2$, and \userule{E-Or} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M t_1\Or t_2 \equiv \bar{t_1}\Or\bar{t_2}$ and $M\sigma''\equiv\bar{\sigma''}$.
+
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi_1 \wedge e_1, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\implies  M_1 t_1\equiv \bar{t_1} \wedge  M_1\sigma'\equiv\bar{\sigma'}$ and
+  $\forall M_2 . M_2\phi_2 \wedge e_2,M_2\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\implies M_2t_2\equiv \bar{t_2} \wedge M_2\sigma'\equiv\bar{\sigma'}$
+
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$,
+  and we know from the premise that $e_1,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$,
+  and $e_2,M\sigma'\bar{\eval}\bar{t_2},\bar{\sigma}$ since $M\sigma'\equiv \bar{\sigma'}$,
+  we obtain that $M t_1\equiv \bar{t_1}$ and $M t_2 \equiv \bar{t_2}$ and therefore $M t_1\Or t_2 \equiv \bar{t_1}\Or\bar{t_2}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.
+
+  }
+
+\case{$e=e_1\Xor e_2$}
+  {  One rule applies, namely \userule{Sym-E-Xor}.
+    Provided that $M\phi$, and \userule{E-Xor} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M e_1\Xor e_2 \equiv \bar{e_1}\Xor\bar{e_2}$,
+    which holds trivially,
+    and $M\sigma\equiv\bar{\sigma}$, which also holds trivially from the premise.
+
+  }
+
+\case{$e=\Fail$}
+  {  One rule applies, namely \userule{Sym-E-Fail}.
+    Provided that $M\phi$, and \userule{E-Fail} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M \Fail \equiv \Fail$, which holds trivially since fail do not hold symbols,
+    and $M\sigma\equiv\bar{\sigma}$, which also hols trivially from the premise.
+
+  }
 \end{proof}
 
 \begin{lemma}[Soundness of striding]
