@@ -288,10 +288,66 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   For all tasks $t$ and states $\sigma$,
   for all symbolic evaluations $t,\sigma\stride t',\sigma',\phi$,
   for all mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t'',\sigma''$ and $\phi M = \True$,
-  we have $t'\ M \equiv t'' \wedge \sigma' M \equiv \sigma''$.
+  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t'',\sigma''$ and $M \phi= \True$,
+  we have $M t'\ \equiv t'' \land M\sigma' \equiv \sigma''$.
 
 \end{lemma}
+
+\begin{proof}
+  We prove Lemma~\ref{lem:soundeval} by induction over $t$.
+
+\case{$t=t_1\Then e_2$}
+  {
+  Three rules apply.\\
+  \case{\userule{Sym-S-ThenStay}}{}
+  \case{\userule{Sym-S-ThenFail}}{}
+  \case{\userule{Sym-S-ThenCont}}{}
+  }
+
+\case{$t=t_1\Or t_2$}
+  {
+  Three rules apply.\\
+  \case{\userule{Sym-S-OrLeft}}{}
+  \case{\userule{Sym-S-OrRight}}{}
+  \case{\userule{Sym-S-OrNone}}{}
+  }
+
+\case{$t=\Edit v$}
+  {One rule applies, namely \userule{Sym-S-Edit}
+
+  }
+
+\case{$t=\Enter \tau$}
+  {One rule applies, namely \userule{Sym-S-Enter}
+
+  }
+
+\case{$t=\Update l$}
+  {One rule applies, namely \userule{Sym-S-Update}
+
+  }
+
+\case{$t=\Fail$}
+  {One rule applies, namely \userule{Sym-S-Fail}
+
+  }
+
+\case{$t=e_1\Xor e_2$}
+  {One rule applies, namely \userule{Sym-S-Xor}
+
+  }
+
+\case{$t=t_1\Next e_2$}
+  {One rule applies, namely \userule{Sym-S-Next}
+
+  }
+
+\case{$t=t_1\And t_2$}
+  {One rule applies, namely \userule{Sym-S-And}
+
+  }
+
+\end{proof}
 
 \begin{lemma}[Soundness of normalisation]
   \label{lem:soundnorm}
