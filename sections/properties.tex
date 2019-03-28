@@ -64,48 +64,125 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
 
 \case{$e=v$}
   {One rule applies, namely \userule{Sym-E-Value}.
-  Since this rule does not generate constraints, any $M$ will do, as long as \userule{E-Value} with $\bar{\sigma}=\sigma M$. Since neither the state, nor the expression is altered by the evaluation, this case holds true trivially.}
+  Since this rule does not generate constraints, any $M$ will do, as long as \userule{E-Value} with $\bar{\sigma}=M \sigma$. Since neither the state, nor the expression is altered by the evaluation, this case holds true trivially.}
 
 \case{$e=\tuple{e_1,e_2}$}
   {One rule applies, namely \userule{Sym-E-Pair}.
-  Provided that $\phi_1 M\wedge\phi_2 M$, and \userule{E-Pair} with $\bar{\sigma}=\sigma M$,
-  we need to demonstrate that $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $\sigma'' M\equiv\bar{\sigma''}$.
+  Provided that $M\phi_1\wedge M\phi_2$, and \userule{E-Pair} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M\tuple{v_1,v_2} \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $M\sigma''\equiv\bar{\sigma''}$.
 
-  From the induction hypothesis, we obtain the following. $\forall M_1 . \phi_1 M_1 \wedge e_1,\sigma M_1\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_1 M_1\equiv \bar{v_1} \wedge \sigma' M_1\equiv\bar{\sigma}$ and
-  $\forall M_2 . \phi_2 M_2 \wedge e_2,\sigma M_2\bar{\eval}\bar{v_1},\bar{\sigma}\implies v_2 M_2\equiv \bar{v_2} \wedge \sigma' M_2\equiv\bar{\sigma}$
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi_1 \wedge e_1, M_1\sigma \bar{\eval}\bar{v_1},\bar{\sigma}\implies  M_1v_1\equiv \bar{v_1} \wedge  M_1\sigma'\equiv\bar{\sigma}$ and
+  $\forall M_2 . M_2\phi_2 \wedge e_2,M_2\sigma \bar{\eval}\bar{v_1},\bar{\sigma}\implies M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma}$
 
-  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know from the premise that $e_1,\sigma M\bar{\eval}\bar{v_1},\bar{\sigma}$, and $e_2,\sigma' M\bar{\eval}\bar{v_2},\bar{\sigma}$ since $\sigma' M \equiv \bar{\sigma}$, we obtain that $v_1 M\equiv \bar{v_1}$ and $v_2 M\equiv \bar{v_2}$ and therefore $\tuple{v_1,v_2} M \equiv \tuple{\bar{v_1},\bar{v_2}}$.
-  From the IH we directly obtain that $\sigma'' M\equiv\bar{\sigma}$.
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$,
+  and we know from the premise that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma}$,
+  and $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma}$ since $M\sigma'\equiv \bar{\sigma}$,
+  we obtain that $M v_1\equiv \bar{v_1}$ and $M v_2 \equiv \bar{v_2}$ and therefore $M\tuple{v_1,v_2} \equiv \tuple{\bar{v_1},\bar{v_2}}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma}$.
   }
 
 \case{$e=e_1 e_2$}
   {One rule applies, namely\\
   \userule{Sym-E-App}.
-  Provided that $\phi_1 M\wedge\phi_2 M\wedge\phi_3 M$, and\\
-  \userule{E-App} with $\bar{\sigma}=\sigma M$,
-  we need to demonstrate that $v_1 M \equiv \bar{v_1}$ and $\sigma''' M\equiv\bar{\sigma'''}$.
+  Provided that $M\phi_1 \land M\phi_2\land M\phi_3$, and\\
+  \userule{E-App} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M v_1 \equiv \bar{v_1}$ and $M\sigma'''\equiv\bar{\sigma'''}$.
 
-  From the induction hypothesis, we obtain the following.
-  $\forall M_1 . \phi_1 M_1 \wedge e_1,\sigma M_1\bar{\eval}\lambda x : \tau.\bar{e_1'},\bar{\sigma'}
-  \implies \lambda x : \tau.e_1' M_1\equiv \lambda x : \tau.\bar{e_1'} \wedge \sigma' M_1\equiv\bar{\sigma'}$
-  and
-  $\forall M_2 . \phi_2 M_2 \wedge e_2,\bar{\sigma'}\bar{\eval}\bar{v_2},\bar{\sigma''}
-  \implies v_2 M_2\equiv \bar{v_2} \wedge \sigma'' M_2\equiv\bar{\sigma''}$
-  and
-  $\forall M_3 . \phi_3 M_3 \wedge \bar{e_1'}[x\mapsto \bar{v_2}],\bar{\sigma''}\bar{\eval}\bar{v_1},\bar{\sigma'''}
-  \implies v_1 M_3\equiv \bar{v_1} \wedge \sigma''' M_3\equiv\bar{\sigma'''}$.
+  From the induction hypothesis, we obtain the following.\\
+  $\forall M_1 . M_1\phi_1 \land e_1,M_1\sigma\bar{\eval}\lambda x : \tau.\bar{e_1'},\bar{\sigma'}
+  \implies M_1\lambda x : \tau.e_1' \equiv \lambda x : \tau.\bar{e_1'} \land M_1\sigma'\equiv\bar{\sigma'}$
+  and\\
+  $\forall M_2 . M_2\phi_2 \land e_2,\bar{\sigma'}\bar{\eval}\bar{v_2},\bar{\sigma''}
+  \implies M_2 v_2 \equiv \bar{v_2} \land M_2\sigma'' \equiv\bar{\sigma''}$
+  and\\
+  $\forall M_3 . M_3\phi_3 \land \bar{e_1'}[x\mapsto \bar{v_2}],\bar{\sigma''}\bar{\eval}\bar{v_1},\bar{\sigma'''}
+  \implies M_3 v_1\equiv \bar{v_1} \land M_3 \sigma'''\equiv\bar{\sigma'''}$.
 
   Since $M$ satisfies both $\phi_1$, $\phi_2$ and $\phi_3$, and we know from the premise that $e_1,\sigma M\bar{\eval}\lambda x : \tau.\bar{e_1'},\bar{\sigma'}$, $e_2,\sigma' M\bar{\eval}\bar{v_2},\bar{\sigma''}$ and $\bar{e_1'}[x\mapsto \bar{v_2}],\sigma'' M\bar{\eval}\bar{v_1},\bar{\sigma'''}$,
   since $\sigma' M\equiv\bar{\sigma'}$ and $\sigma'' M\equiv\bar{\sigma''}$.
-  We can then directly conclude that $v_1 M \equiv \bar{v_1}$ and $\sigma''' M\equiv\bar{\sigma'''}$.}
+  We can then directly conclude that $v_1 M \equiv \bar{v_1}$ and $\sigma''' M\equiv\bar{\sigma'''}$.
+  }
 
-\case{$e=\If{e_1}{e_2}{e_3}$}{}
+\case{$e=\If{e_1}{e_2}{e_3}$}
+  {Two rules apply to this case.\\
+  \case{\userule{Sym-E-IfTrue}}
+    {Provided that $M\phi_1 \land M\phi_2 \land M v_1 M$, and\\
+    \userule{E-IfTrue} with $\bar{\sigma}=M \sigma$,
+    we need to demonstrate that $M v_2 \equiv \bar{v_2}$ and $M \sigma''\equiv\bar{\sigma''}$.
 
-\case{$e=\Ref e$}{}
+    From the induction hypothesis, we obtain the following.\\
+    $\forall M_1 .M_1 \phi_1 \land M_1 v_1 \land e_1,M_1 \sigma \bar{\eval}\True,\bar{\sigma}\implies M_1 v_1 \equiv \True \land M_1\sigma' \equiv\bar{\sigma}$ and\\
+    $\forall M_2 . M_2 \phi_2 \wedge e_2,M_2 \sigma \bar{\eval}\bar{v_2},\bar{\sigma}\implies M_2 v_2\equiv \bar{v_2} \land M_2\sigma''\equiv\bar{\sigma''}$
 
-\case{$e=!e$}{}
+    Since $M$ satisfies both $\phi_1$, $v_1$ and $\phi_2$,
+    and we know from the premise that $e_1,M\sigma \bar{\eval}\True,\bar{\sigma}$,
+    and $e_2,M\sigma' \bar{\eval}\bar{v_2},\bar{\sigma}$ since $M\sigma' \equiv \bar{\sigma}$,
+    we obtain that $M v_2 \equiv \bar{v_2}$ and $M \sigma'' \equiv\bar{\sigma''}$.
 
-\case{$e=e_1:=e_2$}{}
+    }
+  \case{\userule{Sym-E-IfFalse}}
+    {Provided that $M\phi_1 \land M\phi_2 \land \lnot M v_1 M$, and\\
+    \userule{E-IfFalse} with $\bar{\sigma}=M \sigma$,
+    we need to demonstrate that $M v_2 \equiv \bar{v_2}$ and $M \sigma''\equiv\bar{\sigma''}$.
+
+    From the induction hypothesis, we obtain the following.\\
+    $\forall M_1 .M_1 \phi_1 \land\lnot M_1 v_1 \land e_1,M_1 \sigma \bar{\eval}\False,\bar{\sigma}\implies M_1 v_1 \equiv \False \land M_1\sigma' \equiv\bar{\sigma}$ and\\
+    $\forall M_2 . M_2 \phi_2 \wedge e_3,M_2 \sigma \bar{\eval}\bar{v_3},\bar{\sigma}\implies M_2 v_3\equiv \bar{v_3} \land M_2\sigma''\equiv\bar{\sigma''}$
+
+    Since $M$ satisfies both $\phi_1$, $\lnot v_1$ and $\phi_2$,
+    and we know from the premise that $e_1,M\sigma \bar{\eval}\False,\bar{\sigma}$,
+    and $e_3,M\sigma' \bar{\eval}\bar{v_3},\bar{\sigma'}$ since $M\sigma' \equiv \bar{\sigma'}$,
+    we obtain that $M v_3 \equiv \bar{v_3}$ and $M \sigma'' \equiv\bar{\sigma''}$.
+
+    }
+  }
+
+\case{$e=\Ref e$}
+  {One rule applies, namely \userule{Sym-E-Ref}.
+  Provided that $M\phi$, and \userule{E-Ref} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M l \equiv l$ and $M\sigma'[l\mapsto v]\equiv\bar{\sigma'}[l\mapsto\bar{v}]$.
+
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi \wedge e, M_1\sigma \bar{\eval}\bar{v},\bar{\sigma}\implies  M_1v\equiv \bar{v} \wedge  M_1\sigma'\equiv\bar{\sigma'}$.
+
+  We assume that the assignment of location references happens in a deterministic manner, and that we can therefore conclude that exactly the same $l$ is used in both cases. Since $l$ cannot contain any symbols, $M l \equiv l$ holds trivially.
+
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}\bar{v},\bar{\sigma'}$,
+  we obtain that $M v\equiv \bar{v}$.
+  This, together with $M \sigma' \equiv\bar{\sigma'}$ obtained from the induction hypothesis, we can conclude that $M\sigma'[l\mapsto v]\equiv\bar{\sigma'}[l\mapsto\bar{v}]$.
+  }
+
+\case{$e=!e$}
+  {One rule applies, namely \userule{Sym-E-Deref}.
+  Provided that $M\phi$, and \userule{E-Deref} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M \sigma'(l) \equiv \bar{\sigma'}(l)$ and $M\sigma'\equiv\bar{\sigma'}$.
+  This is equivalent to demonstrating that $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following.
+  $\forall M_1 .  M_1\phi \wedge e, M_1\sigma \bar{\eval}l,\bar{\sigma}\implies  M_1l\equiv l \wedge  M_1\sigma'\equiv\bar{\sigma'}$.
+
+  Note that since $l$ cannot contain any symbols, $M l \equiv l$ holds trivially.
+
+  Since $M$ satisfies $\phi$,
+  and we know from the premise that $e,M\sigma \bar{\eval}l,\bar{\sigma'}$,
+  we immediately obtain $M\sigma'\equiv\bar{\sigma'}$.
+}
+
+\case{$e=e_1:=e_2$}
+  {
+  One rule applies, namely \userule{Sym-E-Assign}.
+  Provided that $M\phi_1\wedge M\phi_2$, and \userule{E-Assign} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M\unit \equiv \unit$, which holds true trivially,
+  and $M\sigma''[l\mapsto v_2]\equiv\bar{\sigma''}[l\mapsto\bar{v_2}]$.
+
+  From the induction hypothesis, we obtain the following. $\forall M_1 .  M_1\phi_1 \wedge e_1, M_1\sigma \bar{\eval}l,\bar{\sigma}\implies  M_1 l\equiv l \wedge  M_1\sigma'\equiv\bar{\sigma}$ and
+  $\forall M_2 . M_2\phi_2 \wedge e_2,M_2\sigma \bar{\eval}\bar{v_2},\bar{\sigma'}\implies M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma'}$
+
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$,
+  and we know from the premise that $e_1,M\sigma \bar{\eval}l,\bar{\sigma'}$,
+  and $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}$ since $M\sigma'\equiv \bar{\sigma'}$,
+  we obtain that $M l\equiv l$, $M v_2 \equiv \bar{v_2}$ and $M\sigma''\equiv\bar{\sigma''}$ and therefore $M\sigma''[l\mapsto v_2]\equiv\bar{\sigma''}[l\mapsto\bar{v_2}]$.
+  }
 
 \case{$e=\Edit e$}{}
 
