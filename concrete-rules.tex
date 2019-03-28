@@ -16,14 +16,14 @@
 
 
 \newrule{E-IfTrue}
-  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
-   e_2,\sigma'\eval v_2,\sigma'',\phi_2}
-  {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land v_1}
+  {e_1,\bar{\sigma}\bar{\eval} \True,\bar{\sigma'}\Quad
+   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
+  {\If{e_1}{e_2}{e_3},\bar{\sigma}\bar{\eval} \bar{v_2},\bar{\sigma''}}
 
 \newrule{E-IfFalse}
-  {e_1,\sigma\eval v_1,\sigma',\phi_1 \Quad
-   e_3,\sigma'\eval v_3,\sigma'',\phi_3}
-  {\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma'',\phi_1 \land \phi_3 \land \lnot v_1}
+  {e_1,\bar{\sigma}\bar{\eval} \bar{v_1},\bar{\sigma'} \Quad
+   e_3,\bar{\sigma'}\bar{\eval} \bar{v_3},\bar{\sigma''}}
+  {\If{e_1}{e_2}{e_3},\bar{\sigma}\bar{\eval} \bar{v_3},\bar{\sigma''}}
 
 
 \newrule{E-Pair}
@@ -33,18 +33,18 @@
 
 
 \newrule{E-Ref}
-  {e,\sigma\eval v,\sigma',\phi \Quad
-   l\not\in Dom(\sigma')}
-  {\Ref e,\sigma\eval l,\sigma'[l\mapsto v],\phi}
+  {e,\bar{\sigma}\bar{\eval} \bar{v},\bar{\sigma'} \Quad
+   l\not\in Dom(\bar{\sigma'})}
+  {\Ref e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}[l\mapsto \bar{v}]}
 
 \newrule{E-Deref}
-  {e,\sigma\eval l,\sigma',\phi}
-  {!e,\sigma\eval \sigma'(l),\sigma',\phi}
+  {e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}}
+  {!e,\bar{\sigma}\bar{\eval} \bar{\sigma'}(l),\bar{\sigma'}}
 
 \newrule{E-Assign}
-  {e_1,\sigma\eval l,\sigma',\phi \Quad
-   e_2,\sigma'\eval v_2,\sigma'',\phi}
-  {e_1:=e_2,\sigma\eval \unit,\sigma''[l\mapsto v_2],\phi}
+  {e_1,\bar{\sigma}\bar{\eval} l,\bar{\sigma'} \Quad
+   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
+  {e_1:=e_2,\bar{\sigma}\bar{\eval} \unit,\bar{\sigma''}[l\mapsto \bar{v_2}]}
 
 \newrule{E-Edit}
   {e,\sigma \eval v,\sigma',\phi}
