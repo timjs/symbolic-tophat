@@ -167,17 +167,17 @@
 %% Normalisation %%
 
 \newrule{N-Done}
-    {e,\sigma \eval t,\sigma',\phi_1  \Quad
-     t,\sigma' \stride t',\sigma'',\phi_2}
-    {e,\sigma \normalise t',\sigma'',\phi_1 \land \phi_2}
-    [\sigma'=\sigma'' \land t=t']
+    {e,\bar{\sigma} \bar{\eval} \bar{t},\bar{\sigma'} \Quad
+     \bar{t},\bar{\sigma'} \bar{\stride} \bar{t'},\bar{\sigma''}}
+    {e,\bar{\sigma} \bar{\normalise} \bar{t'},\bar{\sigma''}}
+    [\bar{\sigma'}=\bar{\sigma''} \land \bar{t}=\bar{t'}]
 
 \newrule{N-Repeat}
-    {e,\sigma \eval t,\sigma',\phi_1  \Quad
-     t,\sigma' \stride t',\sigma'',\phi_2  \Quad
-     t',\sigma'' \normalise t'',\sigma''',\phi_3}
-    {e,\sigma \normalise t'',\sigma''',\phi_1 \land \phi_2 \land \phi_3}
-    [\sigma'\neq \sigma''\vee t\neq t']
+    {e,\bar{\sigma} \bar{\eval} \bar{t},\bar{\sigma'}  \Quad
+     \bar{t},\bar{\sigma'} \bar{\stride} \bar{t'},\bar{\sigma''}  \Quad
+     \bar{t'},\bar{\sigma''} \bar{\normalise} \bar{t''},\bar{\sigma'''}}
+    {e,\bar{\sigma} \bar{\normalise} \bar{t''},\bar{\sigma'''}}
+    [\bar{\sigma'}\neq \bar{\sigma''}\vee \bar{t}\neq \bar{t'}]
 
 
 

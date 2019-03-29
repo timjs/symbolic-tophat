@@ -449,10 +449,45 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   For all expressions $e$ and states $\sigma$,
   for all symolic normalisations $e,\sigma\normalise t,\sigma',\phi$,
   for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $e,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\normalise}t',\sigma''$ and $\phi M =\True$ and $\phi M = \True$,
+  such that $e,M \sigma \bar{\normalise}t',\sigma''$ and $\phi M =\True$,
   we have $t M \equiv t' \wedge \sigma' M \equiv \sigma''$.
 
 \end{lemma}
+
+\begin{proof}
+  We prove Lemma~\ref{lem:soundnorm} by induction over $e$.
+
+  The base case is when the Sym-N-Done rule applies.\\
+  \userule{Sym-N-Done}\\
+
+  Provided that $M\phi_1\land M\phi_2$ and \userule{N-Done} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
+
+  By Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride},
+  we know that
+  $\forall M_1. M_1\phi_1 \land e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\implies M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and
+  $\forall M_2.M_2\phi_2\land t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\implies M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
+
+  We assume $M$ to satisfy both $\phi_1$ and $\phi_2$ and we have $e,M\sigma \bar{eval}\bar{t},\bar{\sigma'}$ since $M\sigma\equiv \bar{\sigma}$.
+  We also have $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$,
+  from wich we can directly conclude what we needed to prove,
+  namely $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
+
+  The only indcution step is when \userule{Sym-N-Repeat} applies.
+  In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$ and \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
+
+  Again by Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride},
+  we know that
+  $\forall M_1. M_1\phi_1 \land e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\implies M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and
+  $\forall M_2.M_2\phi_2\land t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\implies M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
+  Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \land t',M_3\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}\implies M_3 t''\equiv \bar{t''}\land M_3 \sigma'''\equiv \bar{\sigma'''}$.
+
+  Since $M$ satisfies $\phi_1$, $\phi_2$ and $\phi_3$, and we have $e,M\sigma \bar{eval}\bar{t},\bar{\sigma'}$, since our premise contains $M\sigma = \bar{\sigma}$, we can conclude $M t \equiv \bar{t} \land M \sigma'\equiv \bar{\sigma'}$.
+  This gives us that $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$ and we can thus conclude that $M t'\equiv\bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
+  This finally gives us $t',M\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}$ from which we can conclude that which we needed to prove,
+  namely $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
+\end{proof}
 
 \begin{lemma}[Soundness of handling]
   \label{lem:soundhandle}
@@ -460,7 +495,7 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   For all tasks $t$ and states $\sigma$,
   for all symbolic executions $t,\sigma\handle{i} t',\sigma',\phi$,
   for all mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \xrightarrow[]{j} t'',\sigma''$ and $\phi M = \True$,
+  such that $t,M \sigma \xrightarrow[]{j} t'',\sigma''$ and $\phi M = \True$,
   we have $t'M \equiv t'' \wedge \sigma' M \equiv \sigma''$
 \end{lemma}
 
