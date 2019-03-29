@@ -283,25 +283,59 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
 \end{proof}
 
 \begin{lemma}[Soundness of striding]
-  \label{lem:soundeval}
+  \label{lem:soundstride}
 
   For all tasks $t$ and states $\sigma$,
   for all symbolic evaluations $t,\sigma\stride t',\sigma',\phi$,
   for all mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma [s_0\mapsto c_0,\cdots,s_n\mapsto c_n] \bar{\stride}t'',\sigma''$ and $M \phi= \True$,
-  we have $M t'\ \equiv t'' \land M\sigma' \equiv \sigma''$.
+  such that $t,M\sigma \bar{\stride}\bar{t'},\bar{\sigma'}$ and $M \phi= \True$,
+  we have $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
 
 \end{lemma}
 
 \begin{proof}
-  We prove Lemma~\ref{lem:soundeval} by induction over $t$.
+  We prove Lemma~\ref{lem:soundstride} by induction over $t$.
 
 \case{$t=t_1\Then e_2$}
   {
   Three rules apply.\\
-  \case{\userule{Sym-S-ThenStay}}{}
-  \case{\userule{Sym-S-ThenFail}}{}
-  \case{\userule{Sym-S-ThenCont}}{}
+  \case{\userule{Sym-S-ThenStay}}
+    {Provided that $M\phi\equiv\True$ and \userule{S-ThenStay} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2 \land M\sigma'\equiv \bar{\sigma'}$.
+
+    From the induction hypothesis, we obtain the following.
+    $\forall M_1 . M_1 \phi \land t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+
+    Since $M$ satisfies $\phi$, and $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$,
+    we know that $M t_1'\equiv\bar{t_1'}$,
+    and therefore also $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2$,
+    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \bar{\sigma'}$.
+    }
+  \case{\userule{Sym-S-ThenFail}}
+    {Provided that $M\phi\equiv\True$ and \userule{S-ThenFail} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2 \land M\sigma'\equiv \bar{\sigma'}$.
+
+    From the induction hypothesis, we obtain the following.
+    $\forall M_1 . M_1 \phi \land t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+
+    Since $M$ satisfies $\phi$, and $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$,
+    we know that $M t_1'\equiv\bar{t_1'}$,
+    and therefore also $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2$,
+    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \bar{\sigma'}$.
+    }
+  \case{\userule{Sym-S-ThenCont}}
+    {Provided that $M\phi_1\land M\phi_2$ and \userule{S-ThenCont} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_2 \equiv \bar{t_2}\Then e_2 \land M\sigma''\equiv \bar{\sigma''}$.
+
+    From the induction hypothesis, we obtain the following.
+    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.\\
+    From Lemma~\ref{lem:soundeval} we know that $\forall M_2 . M_2 \phi_2 \land e_2\bar{v_1}M_2\sigma'\bar{\eval}\bar{t_2},\bar{\sigma''}\implies M_2 t_2\equiv \bar{t_2}\land M_2\sigma''\equiv \bar{\sigma''}$.
+
+    Since $M$ satisfies both $\phi_1$ and $\phi_2$, and $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$ and $e_2\bar{v_1}M\sigma'\bar{\eval}\bar{t_2},\bar{\sigma''}$,
+    we know that $M t_2\equiv\bar{t_2}$,
+    and from the induction hypothesis, we directly obtain  $M\sigma''\equiv \bar{\sigma''}$.
+
+    }
   }
 
 \case{$t=t_1\Or t_2$}
