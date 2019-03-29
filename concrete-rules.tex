@@ -47,123 +47,122 @@
   {e_1:=e_2,\bar{\sigma}\bar{\eval} \unit,\bar{\sigma''}[l\mapsto \bar{v_2}]}
 
 \newrule{E-Edit}
-  {e,\sigma \eval v,\sigma',\phi}
-  {\Edit e , \sigma\eval \Edit v,\sigma',\phi}
+  {e,\bar{\sigma} \bar{\eval} \bar{v},\bar{\sigma'}}
+  {\Edit e , \bar{\sigma}\bar{\eval} \Edit \bar{v},\bar{\sigma'}}
 
 \newrule{E-Enter}
   {}
-  {\Enter \tau,\sigma \eval \Enter \tau,\sigma,\True}
+  {\Enter \tau,\bar{\sigma} \bar{\eval} \Enter \tau,\bar{\sigma}}
 
 \newrule{E-Update}
-  {e,\sigma\eval l,\sigma',\phi}
-  {\Update e ,\sigma\eval \Update l,\sigma',\phi}
+  {e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}}
+  {\Update e ,\bar{\sigma}\bar{\eval} \Update l,\bar{\sigma'}}
 
 
 \newrule{E-Fail}
   {}
-  {\Fail,\sigma \eval \Fail,\sigma,\True}
+  {\Fail,\bar{\sigma} \bar{\eval} \Fail,\bar{\sigma}}
 
 
 \newrule{E-Then}
-  {e_1 ,\sigma\eval t_1,\sigma',\phi}
-  {e_1 \Then e_2,\sigma \eval t_1 \Then e_2,\sigma',\phi}
+  {e_1 ,\bar{\sigma}\bar{\eval} \bar{t_1},\bar{\sigma'}}
+  {e_1 \Then e_2,\bar{\sigma}\bar{\eval}\bar{t_1} \Then e_2,\bar{\sigma'}}
 
 \newrule{E-Next}
-  {e_1 ,\sigma\eval t_1,\sigma',\phi}
-  {e_1 \Next e_2 ,\sigma\eval t_1 \Next e_2,\sigma',\phi}
+  {e_1 ,\bar{\sigma}\bar{\eval} \bar{t_1},\bar{\sigma'}}
+  {e_1 \Next e_2 ,\bar{\sigma}\bar{\eval} \bar{t_1} \Next e_2,\bar{\sigma'}}
 
 
 \newrule{E-And}
-  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
-   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
-  {e_1 \And e_2 ,\sigma\eval t_1 \And t_2,\sigma'',\phi_1 \land \phi_2}
+  {e_1 ,\bar{\sigma}\bar{\eval}\bar{ t_1 },\bar{\sigma'}\Quad
+   e_2 ,\bar{\sigma'}\bar{\eval} \bar{t_2},\bar{\sigma''}}
+  {e_1 \And e_2 ,\bar{\sigma}\bar{\eval}\bar{ t_1} \And \bar{t_2},\bar{\sigma''}}
 
 
 \newrule{E-Or}
-  {e_1 ,\sigma\eval t_1 ,\sigma',\phi_1 \Quad
-   e_2 ,\sigma'\eval t_2,\sigma'',\phi_2}
-  {e_1 \Or e_2 ,\sigma\eval t_1 \Or t_2,\sigma'',\phi_1 \land \phi_2}
+  {e_1 ,\bar{\sigma}\bar{\eval}\bar{ t_1} ,\bar{\sigma'}\Quad
+   e_2 ,\bar{\sigma'}\bar{\eval} \bar{t_2},\bar{\sigma''}}
+  {e_1 \Or e_2 ,\bar{\sigma}\bar{\eval} \bar{t_1} \Or \bar{t_2},\bar{\sigma''}}
 
 \newrule{E-Xor}
   {}
-  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2 ,\bar{\sigma}\bar{\eval} e_1 \Xor e_2,\bar{\sigma}}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newrule{S-Edit}
   { }
-  {\Edit v,\sigma \stride \Edit v,\sigma,\True}
+  {\Edit v,\bar{\sigma} \bar{\stride} \Edit v,\bar{\sigma}}
 
 \newrule{S-Fill}
   { }
-  {\Enter \tau,\sigma \stride \Enter \tau,\sigma,\True}
+  {\Enter \tau,\bar{\sigma} \bar{\stride} \Enter \tau,\bar{\sigma}}
 
 \newrule{S-Update}
   { }
-  {\Update l,\sigma \stride \Update l,\sigma,\True}
+  {\Update l,\bar{\sigma} \bar{\stride} \Update l,\bar{\sigma}}
 
 
 \newrule{S-Fail}
   { }
-  {\Fail,\sigma \stride \Fail,\sigma,\True}
+  {\Fail,\bar{\sigma} \bar{\stride} \Fail,\bar{\sigma}}
 
 
 \newrule{S-ThenStay}
-  {t_1,\sigma \stride t_1',\sigma',\phi}
-  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
-  [\Value(t_1',\sigma') = \bot]
+  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Then e_2,\bar{\sigma'}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot]
 
 \newrule{S-ThenFail}
-  {t_1,\sigma \stride t_1',\sigma',\phi \Quad
-   e_2\ v_1,\sigma' \eval t_2,\sigma'',\_}
-  {t_1 \Then e_2,\sigma \stride t_1' \Then e_2,\sigma',\phi}
-  [\Value(t_1',\sigma') = v_1 \land \Failing(t_2,\sigma'')]
+  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'} \Quad
+   e_2\ \bar{v_1},\bar{\sigma'} \bar{\eval} \bar{t_2},\bar{\sigma''}}
+  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Then e_2,\bar{\sigma'}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1} \land \Failing(\bar{t_2},\bar{\sigma''})]
 
 \newrule{S-ThenCont}
-  {t_1,\sigma \stride t_1',\sigma',\phi_1  \Quad
-   e_2\ v_1,\sigma' \eval t_2 ,\sigma'',\phi_2}
-   % t_2,\sigma'' \stride t_2',\sigma'''}
-  {t_1 \Then e_2,\sigma \stride t_2,\sigma'',\phi_1 \land \phi_2}
-  [\Value(t_1',\sigma') = v_1 \land \lnot\Failing(t_2,\sigma'')]
+  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
+   e_2\ \bar{v_1},\bar{\sigma'} \bar{\eval} \bar{t_2 },\bar{\sigma''}}
+  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_2},\bar{\sigma''}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1} \land \lnot\Failing(\bar{t_2},\bar{\sigma''})]
 
 \newrule{S-Next}
-  {t_1,\sigma \stride t_1',\sigma',\phi}
-  {t_1 \Next e_2,\sigma \stride t_1' \Next e_2,\sigma',\phi}
+  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \Next e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Next e_2,\bar{\sigma'}}
 
 
 \newrule{S-And}
-  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
-   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
-  {t_1 \And t_2,\sigma \stride t_1' \And t_2',\sigma'',\phi_1 \land \phi_2}
+  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
+   t_2,\bar{\sigma'} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
+  {t_1 \And t_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \And \bar{t_2'},\bar{\sigma''}}
 
 
 \newrule{S-OrLeft}
-  {t_1,\sigma  \stride t_1',\sigma',\phi}
-  {t_1 \Or t_2,\sigma \stride t_1',\sigma',\phi}
-  [\Value(t_1',\sigma') = v_1]
+  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1}]
 
 \newrule{S-OrRight}
-  {t_1,\sigma  \stride t_1',\sigma',\phi_1  \Quad
-   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
-  {t_1 \Or t_2,\sigma \stride t_2',\sigma'',\phi_1 \land \phi_2}
-  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = v_2]
+  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
+   t_2,\bar{\sigma'} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
+  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot \land \Value(\bar{t_2'},\bar{\sigma''}) = \bar{v_2}]
 
 \newrule{S-OrNone}
-  {t_1,\sigma  \stride t_1',\sigma' ,\phi_1 \Quad
-   t_2,\sigma' \stride t_2',\sigma'',\phi_2}
-  {t_1 \Or t_2,\sigma \stride t_1' \Or t_2',\sigma'',\phi_1 \land \phi_2}
-  [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bot]
+  {t_1,\bar{\sigma}  \bar{\stride }\bar{t_1'},\bar{\sigma'}  \Quad
+   t_2,\bar{\sigma' }\bar{\stride} \bar{t_2'},\bar{\sigma''}}
+  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Or \bar{t_2'},\bar{\sigma''}}
+  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot \land \Value(\bar{t_2'},\bar{\sigma''}) = \bot]
 
 
 \newrule{S-Xor}
   { }
-  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2,\bar{\sigma} \bar{\stride} e_1 \Xor e_2,\bar{\sigma}}
 
 \newrule{S-Eval}
-    {e,\sigma \eval e',\sigma',\phi_1  \Quad
-     e',\sigma' \stride e'',\sigma'',\phi_2}
-    {e,\sigma \stride e'',\sigma'',\phi_1 \land \phi_2}
-    [e \neq e']
+    {e,\bar{\sigma} \bar{\eval} \bar{e'},\bar{\sigma'}  \Quad
+     e',\bar{\sigma'} \bar{\stride} \bar{e''},\bar{\sigma''}}
+    {e,\bar{\sigma} \bar{\stride} \bar{e''},\bar{\sigma''}}
+    [e \neq \bar{e'}]
 
 %% Normalisation %%
 
