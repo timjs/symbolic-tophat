@@ -185,9 +185,9 @@
 
 
 \newrule{H-Change}
-  { \text{fresh }s}
-  {\Edit v,\sigma \handle{s} \Edit s,\sigma,\True}
-  [v,s:\tau]
+  { }
+  {\Edit v,\bar{\sigma} \xrightarrow[]{v'} \Edit v',\bar{\sigma}}
+  [v,v':\tau]
 
 \newrule{H-Empty}
   { }
@@ -195,14 +195,14 @@
   [v : \tau]
 
 \newrule{H-Fill}
-  { \text{fresh }s}
-  {\Enter \tau,\sigma \handle{s} \Edit s,\sigma,\True}
-  [s:\tau]
+  { }
+  {\Enter \tau,\bar{\sigma} \xrightarrow[]{v} \Edit v,\bar{\sigma}}
+  [v:\tau]
 
 \newrule{H-Update}
-  { \text{fresh }s}
-  {\Update l,\sigma \handle{s} \Update l,\sigma[l \mapsto s],\True}
-  [\sigma(l),s:\tau]
+  { }
+  {\Update l,\bar{\sigma} \xrightarrow[]{v} \Update l,\bar{\sigma}[l \mapsto v]}
+  [\sigma(l),v:\tau]
 
 \newrule{H-PassThen}
   {t_1,\sigma \handle{i} t_1',\sigma',\phi}
