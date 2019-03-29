@@ -499,6 +499,56 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   we have $t'M \equiv t'' \wedge \sigma' M \equiv \sigma''$
 \end{lemma}
 
+\begin{proof}
+  We prove Lemma~\ref{lem:soundhandle} by induction over $t$.\\
+
+  \case{$t=\Edit v$}
+    {
+
+    }
+
+  \case{$t=\Enter \tau$}
+  {
+
+  }
+
+  \case{$t=\Update l$}
+  {
+
+  }
+
+  \case{$t=t_1\Next e_2$}
+  {In this case, two rules apply.\\
+    \case{\userule{Sym-H-Next}}{}
+    \case{\userule{Sym-H-PassNext}}{}
+  }
+
+  \case{$t=t_1\Then e_2$}
+  {
+
+  }
+
+  \case{$t=e_1\Xor e_2$}
+  {
+  In this case, two rules apply.\\
+    \case{\userule{Sym-H-PickLeft}}{}
+    \case{\userule{Sym-H-PickRight}}{}
+  }
+
+  \case{$t=e_1\And e_2$}
+  {
+  In this case, two rules apply.\\
+    \case{\userule{Sym-H-FirstAnd}}{}
+    \case{\userule{Sym-H-SecondAnd}}{}
+  }
+
+  \case{$t=e_1\Or e_2$}
+  {
+  In this case, two rules apply.\\
+    \case{\userule{Sym-H-FirstOr}}{}
+    \case{\userule{Sym-H-SecondOr}}{}
+  }
+\end{proof}
 
 \begin{lemma}[Soundness of driving]
   \label{lem:sounddrive}
