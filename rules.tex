@@ -263,12 +263,12 @@
 
 \newrule{Sym-H-PickLeft}
   {e_1,\sigma \normalise t_1,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \handle{\Left} t_1,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{s} t_1,\sigma',\phi\land s=\Left}
   [\neg\Failing(t_1,\sigma')]
 
 \newrule{Sym-H-PickRight}
   {e_2,\sigma \normalise t_2,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \handle{\Right} t_2,\sigma',\phi}
+  {e_1 \Xor e_2,\sigma \handle{s} t_2,\sigma',\phi\land s=\Right}
   [\neg\Failing(t_2,\sigma')]
 
 
