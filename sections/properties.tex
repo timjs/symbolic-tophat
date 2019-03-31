@@ -14,6 +14,25 @@ then $\neg\text{SAT }\phi$ implies that ???????
 
 \fixme{We need to think a bit more about why it is allright to remove not-sat branches}
 
+Although the task language does not contain explicit loops, we still have infinite symbolic execution paths. Observe the following small program. $\Edit 1 \Next \lambda x . \Edit x + 1$.
+
+When we apply one symbolic execution step, we obtain $[(\Edit s_0\Next \lambda x. \Edit x+1,[s_0],\emptyset,\True),(\Edit 2,[\Continue],\emptyset,\True)]$.
+Applying it a second time results in
+$[(\Edit s_1\Next \lambda x. \Edit x+1,[s_0,s_1],\emptyset,\True)
+ ,(\Edit s_0+1,[s_0,\Continue],\emptyset,\True)
+ ,(\Edit 2,[\Continue],\emptyset,\True)]$.
+
+ Applyting it a third time gives us
+ $[(\Edit s_2\Next \lambda x. \Edit x+1,[s_0,s_1,s_2],\emptyset,\True)
+  ,(\Edit s_0+1,[s_0,\Continue],\emptyset,\True)
+  ,(\Edit 2,[\Continue],\emptyset,\True)]$.
+
+It is evident that the first element will just continue to grow infinitely, since the left hand side can be updated infinitely many often. At the same time, no extra information is gained, $s_0$ and $s_1$ are erased from the program, and are not contained in the state or
+predicate.
+
+
+\fixme{this example demonstrates that $t=t'$ is NOT an indication of a stuck expansion, since a new symbol can be introduced each time.}
+
 \begin{lemma}[Stuck really is stuck]
 For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
 then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
