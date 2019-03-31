@@ -506,7 +506,7 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   from wich we can directly conclude what we needed to prove,
   namely $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
 
-  The only indcution step is when \userule{Sym-N-Repeat} applies.
+  The only induction step is when \userule{Sym-N-Repeat} applies.
   In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$ and \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
   we need to demonstrate that $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
 
@@ -528,7 +528,7 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   For all tasks $t$ and states $\sigma$,
   for all symbolic executions $t,\sigma\handle{i} t',\sigma',\phi$,
   for all mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,M \sigma \xrightarrow[]{j} t'',\sigma''$ and $\phi M = \True$,
+  such that $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$ and $\phi M = \True$,
   we have $t'M \equiv t'' \wedge \sigma' M \equiv \sigma''$
 \end{lemma}
 
@@ -536,23 +536,38 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   We prove Lemma~\ref{lem:soundhandle} by induction over $t$.\\
 
   \case{$t=\Edit v$}
-    {
+    {One rule applies, namely \userule{Sym-H-Change}.
+    Provided that $M\True$ and \userule{H-Change} with $\bar{\sigma}=M\sigma$ and $M s = v'$,
+    we need to demonstrate that $M \Edit s\equiv \Edit v'$ and $ M\sigma\equiv \bar{\sigma}$.
+
+    Both follow trivially from the premise.
 
     }
 
   \case{$t=\Enter \tau$}
-  {
+  {One rule applies, namely \userule{Sym-H-Fill}.
+  Provided that $M\True$ and \userule{H-Fill} with $\bar{\sigma}=M\sigma$ and $M s = v$,
+  we need to demonstrate that $M \Edit s \equiv \Edit v$ and $ M\sigma\equiv \bar{\sigma}$.
+
+  Both follow trivially from the premise.
 
   }
 
   \case{$t=\Update l$}
-  {
+  {One rule applies, namely \userule{Sym-H-Update}.
+  Provided that $M\True$ and \userule{H-Update} with $\bar{\sigma}=M\sigma$ and $M s = v$,
+  we need to demonstrate that $M \Update l \equiv \Update l$ and $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$.
+
+  The first follows trivially, since locations cannot contain symbols. The second proof obligation can be concluded from the fact that $\bar{\sigma}=M\sigma$ and $M s = v$.
 
   }
 
   \case{$t=t_1\Next e_2$}
   {In this case, two rules apply.\\
-    \case{\userule{Sym-H-Next}}{}
+    \case{\userule{Sym-H-Next}}
+      {
+
+      }
     \case{\userule{Sym-H-PassNext}}{}
   }
 
