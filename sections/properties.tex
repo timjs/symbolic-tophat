@@ -33,6 +33,20 @@ predicate.
 
 \fixme{this example demonstrates that $t=t'$ is NOT an indication of a stuck expansion, since a new symbol can be introduced each time.}
 
+
+$\Update l \And (\Edit 0 \Then \lambda x . \If{!l\equiv x}{\Edit x}{\Fail})$\\
+Let $s=[l\mapsto 5]$.\\
+
+First step of symbolic execution:\\
+$[(\Update l \And (\Edit 0 \Then \lambda x . \If{!l\equiv x}{\Edit x}{\Fail}),[\First s_0],[l\mapsto s_0],\True)]$\\
+
+Second step of symbolic execution:\\
+\begin{align*}
+[(\Update l &\And& (\Edit 0 \Then \lambda x . \If{!l\equiv x}{\Edit x}{\Fail}),&[\First s_0,\First s_1],[l\mapsto s_1],\True)\\
+,(\Update l &\And& \Edit s_1,&[\First s_0,\Second s_1],[l\mapsto s_0],s_1=s_0)\\
+,(\Update l &\And& (\Edit s_1 \Then \lambda x . \If{!l\equiv x}{\Edit x}{\Fail}),&[\First s_0,\Second s_1],[l\mapsto s_0],s_1\neq s_0)]
+\end{align*}
+
 \begin{lemma}[Stuck really is stuck]
 For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
 then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
