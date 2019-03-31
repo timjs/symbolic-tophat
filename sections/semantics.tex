@@ -110,9 +110,18 @@ Note that \refrule{Sym-H-Empty} is omitted as it does nothing useful for symboli
 
 This section describes the top level symbolic execution function.
 
-It uses the function drive, which takes $t,I,\sigma,\phi$, and is recursively called to produce a list of end states an predicates.
-The drive function makes use of triple arrow, a small step semantics that generates all possible steps that can be taken.
-Drive then filters this based on the following:
+This function called drive, which takes $t,I,\sigma,\phi$, is recursively called to produce a list of end states an predicates.
+We consider a task, state and predicate to be an end state if the task value can be observed, and the predicate is satisfiable.
+
+A recursive call is terminated when one of the two stop conditions is met.
+
+When the predicate cannot be satisfied, we know that all future steps won't be satisfiable either.
+In fact, no future state will be satisfiable, and we can therefore safely remove it.
+
+The second stop condition is when an execution does not alter anymore between steps.
+In other words, the program is stuck, no value can be observed, an no value will ever be observed.
+
+We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
 \begin{function}
   \signature{\mathit{drive} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
@@ -128,6 +137,3 @@ Drive then filters this based on the following:
 
 
 Where $\text{SAT }\phi$ means that there exists a list of constants $[c_0,\cdots,c_n]$ such that $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$.
-
-
-In order to show that this actually holds, we need to prove some properties, see next section.
