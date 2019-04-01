@@ -213,38 +213,38 @@
   {t_1 \Next e_2,\sigma \handle{i} t_1' \Next e_2,\sigma',\phi}
 
 \newrule{H-Next}
-  {e_2\ v_1,\sigma \normalise t_2,\sigma',\phi}
-  {t_1 \Next e_2,\sigma \handle{\Continue} t_2,\sigma',\phi}
-  [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
+  {e_2\ \bar{v_1},\sigma \bar{\normalise} \bar{t_2},\bar{\sigma'}}
+  {t_1 \Next e_2,\sigma \bar{\handle{\Continue}} \bar{t_2},\bar{\sigma'}}
+  [\Value{(t_1,\sigma)} = \bar{v_1} \land \neg\Failing{(\bar{t_2},\bar{\sigma'})}]
 
 
 \newrule{H-FirstAnd}
-  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
-  {t_1 \And t_2,\sigma \handle{\First i} t_1' \And t_2,\sigma',\phi}
+  {t_1,\sigma \xrightarrow[]{i} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\First i} \bar{t_1'} \And t_2,\bar{\sigma'}}
 
 \newrule{H-SecondAnd}
-  {t_2,\sigma \handle{i} t_2',i,\sigma',\phi}
-  {t_1 \And t_2,\sigma \handle{\Second i} t_1 \And t_2',\sigma',\phi}
+  {t_2,\sigma \xrightarrow[]{i} \bar{t_2'},\bar{\sigma'}}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\Second i} t_1 \And \bar{t_2'},\bar{\sigma'}}
 
 
 \newrule{H-FirstOr}
-  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
-  {t_1 \Or t_2,\sigma \handle{\First i} t_1' \Or t_2,\sigma',\phi}
+  {t_1,\sigma \xrightarrow[]{i} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\First i} \bar{t_1'} \Or t_2,\bar{\sigma'}}
 
 \newrule{H-SecondOr}
-  {t_2,\sigma \handle{i} t_2',\sigma',\phi }
-  {t_1 \Or t_2,\sigma \handle{\Second i} t_1 \Or t_2',\sigma',\phi}
+  {t_2,\sigma \xrightarrow[]{i} \bar{t_2'},\bar{\sigma'} }
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\Second i} t_1 \Or \bar{t_2'},\bar{sigma'}}
 
 
 \newrule{H-PickLeft}
-  {e_1,\sigma \normalise t_1,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \handle{\Left} t_1,\sigma',\phi}
-  [\neg\Failing(t_1,\sigma')]
+  {e_1,\sigma \normalise \bar{t_1},\bar{sigma'}}
+  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Left} \bar{t_1},\bar{\sigma'}}
+  [\neg\Failing(\bar{t_1},\bar{\sigma'})]
 
 \newrule{H-PickRight}
-  {e_2,\sigma \normalise t_2,\sigma',\phi}
-  {e_1 \Xor e_2,\sigma \handle{\Right} t_2,\sigma',\phi}
-  [\neg\Failing(t_2,\sigma')]
+  {e_2,\sigma \bar{\normalise} \bar{t_2},\bar{\sigma'}}
+  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Right} \bar{t_2},\bar{\sigma'}}
+  [\neg\Failing(\bar{t_2},\bar{\sigma'})]
 
 
 
@@ -252,6 +252,6 @@
 
 
 \newrule{I-Handle}
-  {t,\sigma \handle{i} t',\sigma',\phi_1 \Quad
+  {t,\sigma \xrightarrow[]{i} t',\sigma',\phi_1 \Quad
    t',\sigma' \normalise t'',\sigma'',\phi_2}
   {t,\sigma \drive{i} t'',\sigma'',\phi_1 \land \phi_2}
