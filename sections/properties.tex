@@ -75,10 +75,14 @@ For completeness and soundness we define what it means to completely evaluate a 
 \label{thm:sound}
 
 For all tasks $t$, for all elements $(t',I,\sigma,\phi)\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
-for all mappings $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-$eval\ t\ I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\ \emptyset=(t_n,\sigma_n)$ and $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$,
-it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigma[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
+for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$eval\ t\ (M I)\ \emptyset=(t_n,\sigma_n)$ and $M \phi\equiv\True$,
+it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
 \end{theorem}
+
+\begin{proof}
+    \fixme{todo!}
+\end{proof}
 
 
 \begin{lemma}[Soundness of evaluation]
@@ -565,7 +569,12 @@ it holds that $t_n=t'[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ and $\sigma_n=\sigm
   \case{$t=t_1\Next e_2$}
   {In this case, two rules apply.\\
     \case{\userule{Sym-H-Next}}
-      {
+      {Provided that $M\True$ and \userule{H-Next} with $\bar{\sigma}=M\sigma$,
+      we need to demonstrate that $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+      From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_2 v_1,M\sigma\bar{normalise}\bar{t_2},\bar{\sigma'}\implies M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+
+      This gives us exactly what we needed to prove this case.
 
       }
     \case{\userule{Sym-H-PassNext}}{}
