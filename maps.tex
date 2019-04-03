@@ -49,15 +49,15 @@
 \newmacro{O-Inputs}{
   \begin{function}
     \signature{\Inputs : \mathrm{Tasks} \times \mathrm{States} \to \powerset(\mathrm{Inputs})} \\
-    \Inputs(\Edit v,s)             &=& \set{v':\tau, \Empty}                       \quad\where\ \Edit v : \Task\tau \\
-    \Inputs(\Enter \tau,s)         &=& \set{v':\tau} \\
-    \Inputs(\Update l,s)           &=& \obox{\set{v':\tau, \Empty}}{\set{v':\tau}} \quad\where\ \Update l : \Task\tau \\
-    \Inputs(\Fail,s)               &=& \nothing \\
-    \Inputs(t_1 \Then e_2,s)       &=& \Inputs(t_1,s) \\
-    \Inputs(t_1 \Next e_2,s)       &=& \Inputs(t_1,s) \cup \set{\Continue \mid \Value(t_1, s) = v_1 \land e_2\ v_1, s \normalise t_2, s' \land \lnot\Failing(t_2, s')} \\
-    \Inputs(t_1 \And t_2,s)        &=& \set{\First\ i \mid i \in \Inputs(t_1,s)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,s)} \\
-    \Inputs(t_1 \Or t_2,s)         &=& \set{\First\ i \mid i \in \Inputs(t_1,s)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,s)} \\
-    \Inputs(e_1 \Xor e_2,s)        &=& \set{\Left \mid e_1, s \normalise t_1, s' \land \lnot\Failing(t_1, s')} \cup \set{\Right \mid e_2, s \normalise t_2, s' \land \lnot\Failing(t_2, s')}
+    \Inputs(\Edit v,\sigma)             &=& \set{v':\tau}                       \quad\where\ \Edit v : \Task\tau \\
+    \Inputs(\Enter \tau,\sigma)         &=& \set{v':\tau} \\
+    \Inputs(\Update l,\sigma)           &=& \obox{\set{v':\tau, \Empty}}{\set{v':\tau}} \quad\where\ \Update l : \Task\tau \\
+    \Inputs(\Fail,\sigma)               &=& \nothing \\
+    \Inputs(t_1 \Then e_2,\sigma)       &=& \Inputs(t_1,\sigma) \\
+    \Inputs(t_1 \Next e_2,\sigma)       &=& \Inputs(t_1,\sigma) \cup \set{\Continue \mid \Value(t_1, \sigma) = v_1 \land e_2\ v_1, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, \sigma')} \\
+    \Inputs(t_1 \And t_2,\sigma)        &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
+    \Inputs(t_1 \Or t_2,\sigma)         &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
+    \Inputs(e_1 \Xor e_2,\sigma)        &=& \set{\Left \mid e_1, \sigma \normalise t_1, \sigma',\phi \land \lnot\Failing(t_1, s')} \cup \set{\Right \mid e_2, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, s')}
     %\Inputs(u_1 \At t,s)           &=& \set{u_2 \At i\mid u_2 \At i \in \Inputs(t,s)} \cup \set{u_1 \At i\mid i\in \Inputs(t,s)}
   \end{function}
 }
