@@ -205,12 +205,12 @@
   [\sigma(l),v:\tau]
 
 \newrule{H-PassThen}
-  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
-  {t_1 \Then e_2,\sigma \handle{i} t_1' \Then e_2,\sigma',\phi}
+  {t_1,\sigma \handle{j} t_1',\sigma',\phi}
+  {t_1 \Then e_2,\sigma \handle{j} t_1' \Then e_2,\sigma',\phi}
 
 \newrule{H-PassNext}
-  {t_1,\sigma \handle{i} t_1',\sigma',\phi}
-  {t_1 \Next e_2,\sigma \handle{i} t_1' \Next e_2,\sigma',\phi}
+  {t_1,\sigma \handle{j} t_1',\sigma',\phi}
+  {t_1 \Next e_2,\sigma \handle{j} t_1' \Next e_2,\sigma',\phi}
 
 \newrule{H-Next}
   {e_2\ \bar{v_1},\sigma \bar{\normalise} \bar{t_2},\bar{\sigma'}}
@@ -219,21 +219,21 @@
 
 
 \newrule{H-FirstAnd}
-  {t_1,\sigma \xrightarrow[]{i} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \And t_2,\sigma \xrightarrow[]{\First i} \bar{t_1'} \And t_2,\bar{\sigma'}}
+  {t_1,\sigma \xrightarrow[]{j} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\First j} \bar{t_1'} \And t_2,\bar{\sigma'}}
 
 \newrule{H-SecondAnd}
-  {t_2,\sigma \xrightarrow[]{i} \bar{t_2'},\bar{\sigma'}}
-  {t_1 \And t_2,\sigma \xrightarrow[]{\Second i} t_1 \And \bar{t_2'},\bar{\sigma'}}
+  {t_2,\sigma \xrightarrow[]{j} \bar{t_2'},\bar{\sigma'}}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\Second j} t_1 \And \bar{t_2'},\bar{\sigma'}}
 
 
 \newrule{H-FirstOr}
-  {t_1,\sigma \xrightarrow[]{i} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \Or t_2,\sigma \xrightarrow[]{\First i} \bar{t_1'} \Or t_2,\bar{\sigma'}}
+  {t_1,\sigma \xrightarrow[]{j} \bar{t_1'},\bar{\sigma'}}
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\First j} \bar{t_1'} \Or t_2,\bar{\sigma'}}
 
 \newrule{H-SecondOr}
-  {t_2,\sigma \xrightarrow[]{i} \bar{t_2'},\bar{\sigma'} }
-  {t_1 \Or t_2,\sigma \xrightarrow[]{\Second i} t_1 \Or \bar{t_2'},\bar{sigma'}}
+  {t_2,\sigma \xrightarrow[]{j} \bar{t_2'},\bar{\sigma'} }
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\Second j} t_1 \Or \bar{t_2'},\bar{sigma'}}
 
 
 \newrule{H-PickLeft}
