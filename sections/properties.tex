@@ -634,6 +634,30 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
 
 \fixme{todo proof}
 
+
+
+\begin{lemma}[Soundness of driver]
+  \label{lem:sounddriver}
+
+  For all tasks $t$ and states $\sigma$,
+  for all symbolic execution steps $(t',\sigma',\phi,i)\in \Rrightarrow t,\sigma$,
+  for all mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
+  such that $t,M\sigma \xRightarrow[]{M i} \bar{t'},\bar{\sigma'}$ and $M\phi$,
+  we have $M t' \equiv \bar{t}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+\end{lemma}
+
+\begin{proof}
+
+  The function $\Rrightarrow$ is defined as $\Rrightarrow\ t\ \sigma = \{(t',\sigma',\phi,i)\mid t,\sigma\drive{i}t',\sigma',\phi\ , \ i\in\Inputs(t,\sigma)\}$.
+  From Lemma~\ref{lem:sounddrive} we obtain that ..........\\
+  From Lemma (write lemma soundness of inputs), we obtain that ......\\
+
+  \fixme{complete this proof}
+
+\end{proof}
+
+
 \begin{theorem}[Completeness of symbolic execution]
 For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
 then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
