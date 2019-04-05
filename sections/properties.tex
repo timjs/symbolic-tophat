@@ -511,7 +511,8 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
   The base case is when the Sym-N-Done rule applies.\\
   \userule{Sym-N-Done}\\
 
-  Provided that $M\phi_1\land M\phi_2$ and \userule{N-Done} with $\bar{\sigma}=M\sigma$,
+  Provided that $M\phi_1\land M\phi_2$ and\\
+  \userule{N-Done} with $\bar{\sigma}=M\sigma$,
   we need to demonstrate that $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
 
   By Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
@@ -523,7 +524,8 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
   from wich we can directly conclude what we needed to prove,
   namely $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
 
-  The only induction step is when \userule{Sym-N-Repeat} applies.
+  The only induction step is when\\
+  \userule{Sym-N-Repeat} applies.
   In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$ and \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
   we need to demonstrate that $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
 
@@ -581,7 +583,7 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
   \case{$t=t_1\Next e_2$}
   {In this case, two rules apply.\\
     \case{\userule{Sym-H-Next}}
-      {Provided that $M\True$ and \userule{H-Next} with $\bar{\sigma}=M\sigma$,
+      {Provided that $M\phi$ and \userule{H-Next} with $\bar{\sigma}=M\sigma$,
       we need to demonstrate that $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
 
       From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_2 v_1,M\sigma\bar{normalise}\bar{t_2},\bar{\sigma'}\implies M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
@@ -590,20 +592,43 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
 
       }
     \case{\userule{Sym-H-PassNext}}
-    {
-    \fixme{todo}
+    {Provided that $M\phi$ and \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+    we need to demonstrate that $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+    By the induction hypothesis we obtain the following.\\
+    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$, and $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
     }
   }
 
   \case{$t=t_1\Then e_2$}
-  {
-    \fixme{todo}
+  {One rule applies, namely \userule{Sym-H-PassThen}\\
+  Provided that $M\phi$ and \userule{H-PassThen} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+  we need to demonstrate that $M t_1'\Then e_2\equiv \bar{t_1'}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  By the induction hypothesis we obtain the following.\\
+  $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$, and $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Then e_2 \equiv \bar{t_1'}\Then e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
+
   }
 
   \case{$t=e_1\Xor e_2$}
   {
   In this case, two rules apply.\\
-    \case{\userule{Sym-H-PickLeft}}{\fixme{todo}}
+    \case{\userule{Sym-H-PickLeft}}
+    {Provided that $M(\phi\wedge s=\Left)$ and \userule{H-PickLeft} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1\equiv \bar{t_1}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_1,M\sigma\bar{\normalise}\bar{t_1},\bar{\sigma'}\implies M t_1\equiv\bar{t_1}\land M \sigma'\equiv\bar{\sigma'}$.
+
+    Since $M$ satisfies $\phi$, and $e_1,M\sigma \bar{\normalise}[] \bar{t_1},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1 \equiv \bar{t_1}$.
+
+    }
     \case{\userule{Sym-H-PickRight}}{\fixme{todo}}
   }
 
