@@ -629,21 +629,66 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
     which we needed to show, as well as $M t_1 \equiv \bar{t_1}$.
 
     }
-    \case{\userule{Sym-H-PickRight}}{\fixme{todo}}
+    \case{\userule{Sym-H-PickRight}}
+    {Provided that $M(\phi\wedge s=\Right)$ and \userule{H-PickRight} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_2\equiv \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_2,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\implies M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+
+    Since $M$ satisfies $\phi$, and $e_2,M\sigma \bar{\normalise}[] \bar{t_2},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_2 \equiv \bar{t_2}$.
+    }
   }
 
-  \case{$t=e_1\And e_2$}
+  \case{$t=t_1\And t_2$}
   {
   In this case, two rules apply.\\
-    \case{\userule{Sym-H-FirstAnd}}{\fixme{todo}}
-    \case{\userule{Sym-H-SecondAnd}}{\fixme{todo}}
+    \case{\userule{Sym-H-FirstAnd}}
+    {Provided that $M\phi$ and \userule{H-FirstAnd} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    By the induction hypothesis we obtain the following.\\
+    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$, and $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
+
+    }
+    \case{\userule{Sym-H-SecondAnd}}
+    {Provided that $M\phi$ and \userule{H-SecondAnd} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1\And t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    By the induction hypothesis we obtain the following.\\
+    $\forall M_1 . M_1 \phi_1 \land t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\implies M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$, and $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1\And t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
   }
 
   \case{$t=e_1\Or e_2$}
   {
   In this case, two rules apply.\\
-    \case{\userule{Sym-H-FirstOr}}{\fixme{todo}}
-    \case{\userule{Sym-H-SecondOr}}{\fixme{todo}}
+    \case{\userule{Sym-H-FirstOr}}
+    {Provided that $M\phi$ and \userule{H-FirstOr} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    By the induction hypothesis we obtain the following.\\
+    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$, and $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
+
+    }
+    \case{\userule{Sym-H-SecondOr}}
+    {Provided that $M\phi$ and \userule{H-SecondOr} with $\bar{\sigma}=M\sigma$,
+    we need to demonstrate that $M t_1\Or t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+    By the induction hypothesis we obtain the following.\\
+    $\forall M_1 . M_1 \phi_1 \land t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\implies M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$, and $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
+    
   }
 \end{proof}
 
