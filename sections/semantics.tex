@@ -33,8 +33,9 @@
   \userule{Sym-E-Value}\Quad
   \userule{Sym-E-Pair} \Break
   \userule{Sym-E-App} \Break
-  \userule{Sym-E-IfTrue} \Break
-  \userule{Sym-E-IfFalse} \Break
+  \userule{Sym-E-If} \Break
+  %\userule{Sym-E-IfTrue} \Break
+  %\userule{Sym-E-IfFalse} \Break
   \userule{Sym-E-Ref} \Quad
   \userule{Sym-E-Deref} \Break
   \userule{Sym-E-Assign} \Break
@@ -89,12 +90,11 @@
   \userule{Sym-H-Next} \Break
   \userule{Sym-H-PassThen} \Quad
   \userule{Sym-H-PassNext} \Break
-  \userule{Sym-H-PickLeft} \Quad
+  \userule{Sym-H-PickLeft} \Break
   \userule{Sym-H-PickRight}\Break
-  \userule{Sym-H-FirstAnd} \Quad
-  \userule{Sym-H-SecondAnd} \Break
-  \userule{Sym-H-FirstOr} \Quad
-  \userule{Sym-H-SecondOr}
+  \userule{Sym-H-Pick}\Break
+  \userule{Sym-H-And}\Break
+  \userule{Sym-H-Or}
 \end{gather*}
 
 Note that \refrule{Sym-H-Empty} is omitted as it does nothing useful for symbolic execution.
@@ -123,14 +123,10 @@ In other words, the program is stuck, no value can be observed, an no value will
 
 We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
-\begin{function}
-  \signature{\Rrightarrow :: \Task \times \mathrm{State} \rightarrow [(\Task,\mathrm{State},[\mathrm{Inputs}],\mathrm{Predicate})]} \\
-  \Rrightarrow\ t\ \sigma = \{(t',\sigma',\phi,i)\mid t,\sigma\drive{i}t',\sigma',\phi\ , \ i\in\Inputs(t,\sigma)\}
-\end{function}
 
 \begin{function}
   \signature{\mathit{drive} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{drive}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . drive'}) (\Rrightarrow\ t\ \sigma)\\
+  \mathit{drive}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . drive'}) (t,\sigma \drive{})\\
                 \mathit{where}\ \mathit{drive'}\ t'\ i\ \sigma'\ \phi'=\\
                         \begin{array}{ll}
                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
