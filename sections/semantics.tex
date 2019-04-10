@@ -136,5 +136,7 @@ We prove that both criteria only remove paths that are invalid or infinite in Se
                                   \end{array}
 \end{function}
 
-
-Where $\text{SAT }\phi$ means that there exists a list of constants $[c_0,\cdots,c_n]$ such that $\phi[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]\equiv\True$.
+\begin{definition}[Satisfiability of predicates]
+  \label{def:Sat}
+  $\text{SAT }\phi \iff \exists M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]. M\phi\equiv\True$
+\end{definition}
