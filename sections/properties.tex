@@ -6,13 +6,55 @@
 \label{sec:properties}
 
 
-\begin{lemma}[Not sat is safe to remove]
-For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi $,
-then $\neg\text{SAT }\phi$ implies that ???????
-\label{lemma:notSat}
+\begin{theorem}[Not sat is safe to remove]
+  \label{thm:notSat}
+
+For all tasks $t$ and states $\sigma$ such that\\
+$t,\sigma\drive{}\overline{t',\sigma',i,\phi}$\\
+$t',\sigma'\drive{}\overline{t'',\sigma'',i',\phi'}$\\
+
+we have that $\neg\text{SAT }(\phi\land\phi')$ implies
+that there is no mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+$t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}\xrightarrow[]{Mi'}\bar{t''},\bar{\sigma''}$
+
+\end{theorem}
+
+\begin{proof}
+  By Definition~\ref{def:Sat}, the premise of Theorem~\ref{thm:notSat}, $\neg\text{SAT }(\phi\land\phi')$,
+  means that there does not exist a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M(\phi\land\phi')\equiv\True$.
+  This can be rewritten to for all mappings $M$, $\neg M\phi \lor \neg M\phi'$.
+  By Lemma~\ref{lem:notSatDrive}, etc etc etc \fixme{complete this}
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic evaluation]
+  \label{lem:notSatEval}
+  For all expressions $e$ and states $\sigma$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $e,M\sigma\eval\bar{v},\bar{\sigma'}$
+
 \end{lemma}
 
-\fixme{We need to think a bit more about why it is allright to remove not-sat branches}
+\begin{lemma}[Unsatisfiable symbolic striding]
+  \label{lem:notSatStride}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\stride\overline{t',\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\bar{\stride}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
+
+\begin{lemma}[Unsatisfiable symbolic normalisation]
+  \label{lem:notSatNorm}
+  For all expressions $e$ and states $\sigma$ such that $e,\sigma\normalise\overline{t,\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $e,M\sigma\bar{\normalise}\bar{t},\bar{\sigma'}$
+
+\end{lemma}
+
+\begin{lemma}[Unsatisfiable symbolic handling]
+  \label{lem:notSatHandle}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\handle{}\overline{t',\sigma',i,\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
+
+\begin{lemma}[Unsatisfiable symbolic driving]
+  \label{lem:notSatDrive}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\drive{}\overline{t',\sigma',i,\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\xRightarrow[]{Mi}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
 
 Although the task language does not contain explicit loops, we still have infinite symbolic execution paths. Observe the following small program. $\Edit 1 \Next \lambda x . \Edit x + 1$.
 
