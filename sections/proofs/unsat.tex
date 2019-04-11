@@ -1,0 +1,68 @@
+% !TEX root=../../main.tex
+
+\onecolumn
+
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:notSat}]
+  By Definition~\ref{def:Sat}, the premise of Theorem~\ref{thm:notSat}, $\neg\text{SAT }(\phi\land\phi')$,
+  means that there does not exist a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M(\phi\land\phi')\equiv\True$.
+  This can be rewritten to for all mappings $M$, $\neg M\phi \lor \neg M\phi'$.
+  By Lemma~\ref{lem:notSatDrive}, etc etc etc \fixme{complete this}
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic evaluation]
+  \label{lem:notSatEval}
+  For all expressions $e$ and states $\sigma$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $e,M\sigma\eval\bar{v},\bar{\sigma'}$
+
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:notSatEval}]
+
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic striding]
+  \label{lem:notSatStride}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\stride\overline{t',\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\bar{\stride}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
+
+
+
+\begin{proof}[Proof of Lemma~\ref{lem:notSatStride}]
+
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic normalisation]
+  \label{lem:notSatNorm}
+  For all expressions $e$ and states $\sigma$ such that $e,\sigma\normalise\overline{t,\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $e,M\sigma\bar{\normalise}\bar{t},\bar{\sigma'}$
+
+\end{lemma}
+
+
+
+\begin{proof}[Proof of Lemma~\ref{lem:notSatNorm}]
+
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic handling]
+  \label{lem:notSatHandle}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\handle{}\overline{t',\sigma',i,\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
+
+
+
+\begin{proof}[Proof of Lemma~\ref{lem:notSatHandle}]
+
+\end{proof}
+
+\begin{lemma}[Unsatisfiable symbolic driving]
+  \label{lem:notSatDrive}
+  For all tasks $t$ and states $\sigma$ such that $t,\sigma\drive{}\overline{t',\sigma',i,\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $t,M\sigma\xRightarrow[]{Mi}\bar{t'},\bar{\sigma'}$
+
+\end{lemma}
+
+\begin{proof}[Proof of Lemma~\ref{lem:notSatDrive}]
+
+\end{proof}
