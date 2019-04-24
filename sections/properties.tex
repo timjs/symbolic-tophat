@@ -95,11 +95,9 @@ it holds that $t_n=M t'$ and $\sigma_n=M \sigma$.
 \begin{lemma}[Soundness of evaluation]
   \label{lem:soundeval}
 
-  For all expressions $e$ and states $\sigma$,
-  for all symbolic evaluations $e,\sigma\eval v,\sigma',\phi$,
-  for all mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$
-  such that $t,\sigma M \bar{\eval}v',\sigma''$ and $\phi M = \True$,
-  we have $v\ M \equiv v' \wedge \sigma' M \equiv \sigma''$.
+  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
+  we have that $M\phi \implies t,M\sigma \bar{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
 
 \end{lemma}
 

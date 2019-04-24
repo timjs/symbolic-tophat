@@ -13,7 +13,7 @@
 
 \begin{lemma}[Unsatisfiable symbolic evaluation]
   \label{lem:notSatEval}
-  For all expressions $e$ and states $\sigma$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, if we have $\neg\text{SAT }(\phi)$ then $\neg\exists M$ such that $e,M\sigma\eval\bar{v},\bar{\sigma'}$
+  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, we have $M\phi \iff e,M\sigma\bar{\eval}\bar{v},\bar{\sigma'}$
 
 \end{lemma}
 
