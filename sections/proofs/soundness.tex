@@ -429,31 +429,36 @@
   The base case is when the Sym-N-Done rule applies.\\
   \userule{Sym-N-Done}\\
 
-  Provided that $M\phi_1\land M\phi_2$ and\\
+  Provided that $M\phi_1\land M\phi_2$\\
+  we need to demonstrate that
   \userule{N-Done} with $\bar{\sigma}=M\sigma$,
-  we need to demonstrate that $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
+  $M t'\equiv \bar{t'}$ and $M\sigma''\equiv \bar{\sigma''}$.
 
   By Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \land e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\implies M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
-  $\forall M_2.M_2\phi_2\land t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\implies M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
+  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
 
-  We assume $M$ to satisfy both $\phi_1$ and $\phi_2$ and we have $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$ since $M\sigma\equiv \bar{\sigma}$.
+  We assume $M$ to satisfy both $\phi_1$ and $\phi_2$, we have $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$ since $M\sigma\equiv \bar{\sigma}$.
   We also have $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$,
   from wich we can directly conclude what we needed to prove,
   namely $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
 
   The only induction step is when\\
   \userule{Sym-N-Repeat} applies.
-  In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$ and \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
-  we need to demonstrate that $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
+  In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$,
+  we need to demonstrate that
+  \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
+  $M t''\equiv \bar{t''}$ and $M\sigma'''\equiv \bar{\sigma'''}$.
 
   Again by Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \land e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\implies M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
-  $\forall M_2.M_2\phi_2\land t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\implies M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.\\
-  Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \land t',M_3\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}\implies M_3 t''\equiv \bar{t''}\land M_3 \sigma'''\equiv \bar{\sigma'''}$.
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
+  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.\\
+  Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \implies t',M_3\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}\land M_3 t''\equiv \bar{t''}\land M_3 \sigma'''\equiv \bar{\sigma'''}$.
 
-  Since $M$ satisfies $\phi_1$, $\phi_2$ and $\phi_3$, and we have $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$, since our premise contains $M\sigma = \bar{\sigma}$, we can conclude $M t \equiv \bar{t} \land M \sigma'\equiv \bar{\sigma'}$.
-  This gives us that $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$ and we can thus conclude that $M t'\equiv\bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
+  Since $M$ satisfies $\phi_1$, $\phi_2$ and $\phi_3$,
+  we can conclude that
+
+  $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$, $M t \equiv \bar{t} \land M \sigma'\equiv \bar{\sigma'}$ and $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$ and $M t'\equiv\bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
   This finally gives us $t',M\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}$ from which we can conclude that which we needed to prove,
   namely $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
 \end{proof}
