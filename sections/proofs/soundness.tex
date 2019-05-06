@@ -496,27 +496,23 @@
   }
 
   \case{$t=t_1\Next e_2$}
-  {\fixme{correct these cases to deal with the new rules}
-  In this case, two rules apply.\\
-    \case{\userule{Sym-H-Next}}
-      {Provided that $M\phi$ and \userule{H-Next} with $\bar{\sigma}=M\sigma$,
-      we need to demonstrate that $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  {One rule applies, namely \userule{Sym-H-Next}\\
 
-      From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_2 v_1,M\sigma\bar{normalise}\bar{t_2},\bar{\sigma'}\implies M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+  In the case $M\phi_1$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
 
-      This gives us exactly what we needed to prove this case.
+  By the induction hypothesis we obtain the following.\\
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
 
-      }
-    \case{\userule{Sym-H-PassNext}}
-    {Provided that $M\phi$ and \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
-    we need to demonstrate that $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$, $M\sigma'\equiv\bar{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
 
-    By the induction hypothesis we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  In the case $M\phi_2$, we need to demonstrate that \userule{H-Next} with $\bar{\sigma}=M\sigma$,
+  $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, and $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
-    which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
-    }
+  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,M\sigma\bar{normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+
+  This gives us exactly what we needed to prove this case.
   }
 
   \case{$t=t_1\Then e_2$}
