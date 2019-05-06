@@ -498,9 +498,12 @@
   }
 
   \case{$t=t_1\Next e_2$}
-  {One rule applies, namely \userule{Sym-H-Next}\\
+  {In this case, two rules apply.\\
 
-  In the case $M\phi_1$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+
+  \case{\userule{Sym-H-Next}}
+
+  {In the case $M\phi_1$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
   $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
@@ -512,20 +515,33 @@
   In the case $M\phi_2$, we need to demonstrate that \userule{H-Next} with $\bar{\sigma}=M\sigma$,
   $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
 
-  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,M\sigma\bar{normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
 
   This gives us exactly what we needed to prove this case.
+    }
+
+  \case{\userule{Sym-H-PassNext}}
+  {
+  Provided that $M\phi$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  By the induction hypothesis we obtain the following.\\
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$, $M\sigma'\equiv\bar{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
+  }
   }
 
   \case{$t=t_1\Then e_2$}
   {One rule applies, namely \userule{Sym-H-PassThen}\\
-  Provided that $M\phi$ and \userule{H-PassThen} with $\bar{\sigma}=M\sigma$ and $j= M i$,
-  we need to demonstrate that $M t_1'\Then e_2\equiv \bar{t_1'}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{H-PassThen} with $\bar{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1'\Then e_2\equiv \bar{t_1'}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
 
-  Since $M$ satisfies $\phi$, and $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
   which we needed to show, as well as $M t_1' \Then e_2 \equiv \bar{t_1'}\Then e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
 
   }
@@ -535,25 +551,28 @@
   In this case, three rules apply.\\
     \case{\userule{Sym-H-Pick}}
     {
-    \fixme{write this case}
+    Either we have that $M(\phi_1\wedge s=\Left)$ or $M(\phi_2\wedge s=\Right)$.
+    In the first case, the proof is identical to the Sym-H-PickLeft rule.
+    In the second cse, the proof is identical to the Sym-H-PickRight rule.
     }
+
     \case{\userule{Sym-H-PickLeft}}
-    {Provided that $M(\phi\wedge s=\Left)$ and \userule{H-PickLeft} with $\bar{\sigma}=M\sigma$,
-    we need to demonstrate that $M t_1\equiv \bar{t_1}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M(\phi_2\wedge s=\Left)$, we need to demonstrate that \userule{H-PickLeft} with $\bar{\sigma}=M\sigma$,
+    $M t_1\equiv \bar{t_1}$ and $M\sigma'\equiv \bar{\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_1,M\sigma\bar{\normalise}\bar{t_1},\bar{\sigma'}\implies M t_1\equiv\bar{t_1}\land M \sigma'\equiv\bar{\sigma'}$.
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_1,M\sigma\bar{\normalise}\bar{t_1},\bar{\sigma'}\land M t_1\equiv\bar{t_1}\land M \sigma'\equiv\bar{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, and $e_1,M\sigma \bar{\normalise}[] \bar{t_1},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    Since $M$ satisfies $\phi$, we have $e_1,M\sigma \bar{\normalise}[] \bar{t_1},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
     which we needed to show, as well as $M t_1 \equiv \bar{t_1}$.
 
     }
     \case{\userule{Sym-H-PickRight}}
-    {Provided that $M(\phi\wedge s=\Right)$ and \userule{H-PickRight} with $\bar{\sigma}=M\sigma$,
-    we need to demonstrate that $M t_2\equiv \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M(\phi_2\wedge s=\Right)$ we need to demonstrate that \userule{H-PickRight} with $\bar{\sigma}=M\sigma$,
+    $M t_2\equiv \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \land e_2,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\implies M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, and $e_2,M\sigma \bar{\normalise}[] \bar{t_2},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    Since $M$ satisfies $\phi$, we have $e_2,M\sigma \bar{\normalise}[] \bar{t_2},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
     which we needed to show, as well as $M t_2 \equiv \bar{t_2}$.
     }
   }
@@ -562,52 +581,49 @@
   {
   In this case, two rules apply.\\
     \case{\userule{Sym-H-FirstAnd}}
-    {Provided that $M\phi$ and \userule{H-FirstAnd} with $\bar{\sigma}=M\sigma$,
-    we need to demonstrate that $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M\phi$, we need to demonstrate that \userule{H-FirstAnd} with $\bar{\sigma}=M\sigma$,
+    $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
 
     By the induction hypothesis we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
 
-    Since $M$ satisfies $\phi$, and $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
     which we needed to show, as well as $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
 
     }
     \case{\userule{Sym-H-SecondAnd}}
-    {Provided that $M\phi$ and \userule{H-SecondAnd} with $\bar{\sigma}=M\sigma$,
-    we need to demonstrate that $M t_1\And t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M\phi$, we need to demonstrate that \userule{H-SecondAnd} with $\bar{\sigma}=M\sigma$,
+    $M t_1\And t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
 
     By the induction hypothesis we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \land t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\implies M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+    $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\land M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
 
-    Since $M$ satisfies $\phi$, and $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
+    Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
     which we needed to show, as well as $M t_1\And t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
   }
 
   \case{$t=e_1\Or e_2$}
-  {\fixme{write the new case here}
-  % In this case, two rules apply.\\
-  %   \case{\userule{Sym-H-FirstOr}}
-  %   {Provided that $M\phi$ and \userule{H-FirstOr} with $\bar{\sigma}=M\sigma$,
-  %   we need to demonstrate that $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
-  %
-  %   By the induction hypothesis we obtain the following.\\
-  %   $\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
-  %
-  %   Since $M$ satisfies $\phi$, and $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
-  %   which we needed to show, as well as $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
-  %
-  %   }
-  %   \case{\userule{Sym-H-SecondOr}}
-  %   {Provided that $M\phi$ and \userule{H-SecondOr} with $\bar{\sigma}=M\sigma$,
-  %   we need to demonstrate that $M t_1\Or t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
-  %
-  %   By the induction hypothesis we obtain the following.\\
-  %   $\forall M_1 . M_1 \phi_1 \land t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\implies M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
-  %
-  %   Since $M$ satisfies $\phi$, and $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ we have $M\sigma'\equiv\bar{\sigma'}$,
-  %   which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
+  {One rule applies, namely \userule{Sym-H-Or}\\
 
-  }
+  In the case that $M\phi_1$, we need to demonstrate that \userule{H-FirstOr} with $\bar{\sigma}=M\sigma$ and $M\First i =\First j$,
+  $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+  By the induction hypothesis we obtain the following.\\
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
+  which we needed to show, as well as $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
+
+  In the case that $M\phi_2$, we need to demonstrate that \userule{H-SecondOr} with $\bar{\sigma}=M\sigma$ and $M\Second i = \Second j$,
+  $M t_1\Or t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+
+  By the induction hypothesis we obtain the following.\\
+  $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\land M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
+  which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
+
+  
 \end{proof}
 
 
@@ -616,18 +632,19 @@
   We prove Lemma~\ref{lem:sounddrive} as follows.
   There is only one rule that applies, namely \userule{Sym-I-Handle}.
 
-  Provided that $M\phi_1\land\phi_2$ and \userule{I-Handle} with $\bar{\sigma}=M\sigma$ and $j=M i$,
-  we need to demonstrate that $M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
+  Provided that $M\phi_1\land\phi_2$, we need to demonstrate that \userule{I-Handle} with $\bar{\sigma}=M\sigma$ and $j=M i$,
+  $M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
 
 
   Lemma~\ref{lem:soundhandle} and Lemma~\ref{lem:soundnorm} respectively give us that\\
-$\forall M_1 . M_1 \phi_1 \land t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t'},\bar{\sigma'}\implies M_1 t'\equiv\bar{t'}\land M_1\sigma' \equiv \bar{\sigma'}$ and \\
-$\forall M_2 . M_2 \phi_2 \land t',M_2\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}\implies M_2 t''\equiv\bar{t''}\land M_2\sigma'' \equiv \bar{\sigma''}$.
+$\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t'},\bar{\sigma'}\land M_1 t'\equiv\bar{t'}\land M_1\sigma' \equiv \bar{\sigma'}$ and \\
+$\forall M_2 . M_2 \phi_2 \implies t',M_2\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}\land M_2 t''\equiv\bar{t''}\land M_2\sigma'' \equiv \bar{\sigma''}$.
 
-Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we have from the premise that
-$t_1,M\sigma \xrightarrow[]{M i} \bar{t'},\bar{\sigma'}$ and
-$t',M\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}$,
+Since $M$ satisfies both $\phi_1$ and $\phi_2$,
 we obtain exactly what we needed to prove,
-namely $M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
+namely
+$t_1,M\sigma \xrightarrow[]{M i} \bar{t'},\bar{\sigma'}$,
+$t',M\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}$,
+$M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
 
 \end{proof}
