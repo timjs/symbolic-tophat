@@ -470,28 +470,30 @@
 
   \case{$t=\Edit v$}
     {One rule applies, namely \userule{Sym-H-Change}\\
-    Provided that $M\True$ and \userule{H-Change} with $\bar{\sigma}=M\sigma$ and $M s = v'$,
-    we need to demonstrate that $M \Edit s\equiv \Edit v'$ and $ M\sigma\equiv \bar{\sigma}$.
+    Provided that $M\True$ we need to demonstrate that \userule{H-Change} with $\bar{\sigma}=M\sigma$ and $M s = v'$,
+    $M \Edit s\equiv \Edit v'$ and $ M\sigma\equiv \bar{\sigma}$.
 
-    Both follow trivially from the premise.
+    This follows trivially from the premise.
 
     }
 
   \case{$t=\Enter \tau$}
   {One rule applies, namely \userule{Sym-H-Fill}\\
-  Provided that $M\True$ and \userule{H-Fill} with $\bar{\sigma}=M\sigma$ and $M s = v$,
-  we need to demonstrate that $M \Edit s \equiv \Edit v$ and $ M\sigma\equiv \bar{\sigma}$.
+  Provided that $M\True$ we need to demonstrate that \userule{H-Fill} with $\bar{\sigma}=M\sigma$ and $M s = v$,
+  $M \Edit s \equiv \Edit v$ and $ M\sigma\equiv \bar{\sigma}$.
 
-  Both follow trivially from the premise.
+  This follows trivially from the premise.
 
   }
 
   \case{$t=\Update l$}
-  {One rule applies, namely \userule{Sym-H-Update}.
-  Provided that $M\True$ and \userule{H-Update} with $\bar{\sigma}=M\sigma$ and $M s = v$,
-  we need to demonstrate that $M \Update l \equiv \Update l$ and $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$.
+  {One rule applies, namely \userule{Sym-H-Update}\\
+  Provided that $M\True$
+  we need to demonstrate that  \userule{H-Update} with $\bar{\sigma}=M\sigma$ and $M s = v$,
+  $M \Update l \equiv \Update l$ and $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$.
 
-  The first follows trivially, since locations cannot contain symbols. The second proof obligation can be concluded from the fact that $\bar{\sigma}=M\sigma$ and $M s = v$.
+  \userule{H-Update} with $\bar{\sigma}=M\sigma$ follows trivially.
+  $M \Update l \equiv \Update l$ follows trivially, since locations cannot contain symbols. $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$ can be concluded from the fact that $\bar{\sigma}=M\sigma$ and $M s = v$.
 
   }
 
