@@ -11,14 +11,19 @@
 \todo{Extend for read-only editors.}
 
 \begin{center}
+  \small
   \usemacro{O-Value}
 \end{center}
 
 \begin{center}
+  \small
   \usemacro{O-Failing}
 \end{center}
 
-\usemacro{O-Inputs}
+\begin{center}
+  \small
+  \usemacro{O-Inputs}
+\end{center}
 
 \fixme{Are these still correct?}
 
@@ -29,6 +34,7 @@
 \todo{Add rules for $\Fst$ and $\Snd$.}
 
 \begin{gather*}
+  \small
   \boxed{\RelationE} \Break
   \userule{Sym-E-Value}\Quad
   \userule{Sym-E-Pair} \Break
@@ -55,6 +61,7 @@
 \subsection{Normalisation}
 
 \begin{gather*}
+  \small
   \boxed{\RelationS} \Break
   \userule{Sym-S-ThenStay} \Break
   \userule{Sym-S-ThenFail} \Break
@@ -73,6 +80,7 @@
 
 
 \begin{gather*}
+  \small
   \boxed{\RelationN} \Break
   \userule{Sym-N-Done} \Break
   \userule{Sym-N-Repeat}
@@ -83,6 +91,7 @@
 \subsection{Handling}
 
 \begin{gather*}
+  \small
   \boxed{\RelationH} \Break
   \userule{Sym-H-Change} \Quad
   \userule{Sym-H-Fill} \Break
@@ -101,6 +110,7 @@ Note that \refrule{Sym-H-Empty} is omitted as it does nothing useful for symboli
 
 
 \begin{gather*}
+  \small
   \boxed{\RelationI} \Break
   \userule{Sym-I-Handle}
 \end{gather*}
