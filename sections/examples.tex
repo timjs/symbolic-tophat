@@ -18,9 +18,16 @@ The smallest elements of a task is called an editor.
 Editors are the basic method for communicating with the outside world.
 There are three different Editors.
 \begin{description}
-  \item[$\Edit v$] Valued editor. This editor holds a value of a certain type. A new value of that type can be given as input, or the editor can be cleared of a value.
-  \item[$\Enter \tau$] Unvalued editor. This editor holds no value, and can receive a value of type $\tau$. It will then turn into a valued editor.
-  \item[$\Update l$] Shared editor. This editor refers to a shared location $l$. Its observable value is the value stored at that location. It can receive a new value, this value will then be stored at location $l$.
+  \item[$\Edit v$] Valued editor.\\
+    This editor holds a value of a certain type.
+    A new value of that type can be given as input, or the editor can be cleared of a value.
+  \item[$\Enter \tau$] Unvalued editor.\\
+    This editor holds no value, and can receive a value of type $\tau$.
+    It will then turn into a valued editor.
+  \item[$\Update l$] Shared editor.\\
+    This editor refers to a shared location $l$.
+    Its observable value is the value stored at that location.
+    It can receive a new value, this value will then be stored at location $l$.
 \end{description}
 
 Editors can be combined into tasks using combinators.
@@ -28,16 +35,33 @@ These combinators describe the way people collaborate.
 The following combinators are available in \TOPHAT.
 
 \begin{description}
-  \item[$\Then$]
-  \item[$\Next$]
-  \item[$\And$]
-  \item[$\Or$]
-  \item[$\Xor$]
+  \item[$t \Then e$] Step.\\
+  Users can work on task $t$.
+  When this task yields a value, that value is passed on to the right hand side, with which we continue.
+  \item[$t \Next e$] User Step.\\
+  Users can work on task $t$.
+  When they are done, and $t$ yields a value, the user can send a continue event to the combinator.
+  The value of $t$ is then passed on to the right hand side, with which we continue.
+  \item[$t_1 \And t_1$] Composition.\\
+  Users can work on tasks $t_1$ and $t_2$ at the same time.
+  \item[$t_1 \Or t_2$] Choice.\\
+  A choice is made between $t_1$ or $t_2$. If either of those returns a value, the system chooses that task.
+  \item[$e_1 \Xor e_1$] User choice.\\
+  A user has to make a choice between either the left or the right hand side.
+  If a choice is made, the user can work on the selected task.
 \end{description}
 
+In addition to editors and combinators, \TOPHAT also contains a fail task $\Fail$.
+This task is used by programmers to indicate that a task is not reachable or viable.
+For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed onto that task.
 
-%additonally, we also have fail.
+This language of tasks and combinators is embedded in the simply typed lambda calculus, augmented with references, pairs, if-then-else, booleans, integers and string, and unary and binary operations on these constants.
+The full syntax of this host language is listed in Figure~\ref{language}.
+
+The references present in the host language allow tasks to communicate with each other,
+sharing information that is globally available.
 
 \subsection{Flightbooking}
+
 
 \subsection{Tax subsidy request}
