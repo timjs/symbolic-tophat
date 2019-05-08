@@ -4,9 +4,40 @@
 \section{Examples}
 \label{sec:examples}
 
-\begin{TASK}
-  let selection = ref [] , nSeats = ref 5 in
-    enter Int >>? \ x. if x <= !nSteats /\ intersection x !selection = []
-                       then selection :=!selection::[x] else fail
+First we will introduce the task-oriented programming language \TOPHAT .
+Then we will introduce two examples to illustrate the kind of properties we would like to prove.
 
-\end{TASK}
+\subsection{\TOPHAT}
+
+\TOPHAT is a task-oriented programming language.
+Its aim is to model real world collaboration.
+
+Programs in \TOPHAT are called tasks.
+The smallest elements of a task is called an editor.
+
+Editors are the basic method for communicating with the outside world.
+There are three different Editors.
+\begin{description}
+  \item[$\Edit v$] Valued editor. This editor holds a value of a certain type. A new value of that type can be given as input, or the editor can be cleared of a value.
+  \item[$\Enter \tau$] Unvalued editor. This editor holds no value, and can receive a value of type $\tau$. It will then turn into a valued editor.
+  \item[$\Update l$] Shared editor. This editor refers to a shared location $l$. Its observable value is the value stored at that location. It can receive a new value, this value will then be stored at location $l$.
+\end{description}
+
+Editors can be combined into tasks using combinators.
+These combinators describe the way people collaborate.
+The following combinators are available in \TOPHAT.
+
+\begin{description}
+  \item[$\Then$]
+  \item[$\Next$]
+  \item[$\And$]
+  \item[$\Or$]
+  \item[$\Xor$]
+\end{description}
+
+
+%additonally, we also have fail.
+
+\subsection{Flightbooking}
+
+\subsection{Tax subsidy request}
