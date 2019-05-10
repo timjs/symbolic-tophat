@@ -11,11 +11,13 @@
 
 \paragraph{Axiomatic program verification}
 
-One of the classical methods of proving partial correctness of programs is Hoare's axiomatic approach, which is based on pre- and postconditions.
-See \citet{NielsonN1992} for an introduction to the topic.
+One of the classical methods of proving partial correctness of programs is Hoare's axiomatic approach \cite{Hoare1969}, which is based on pre- and postconditions.
+See \citet{NielsonN1992} for a nice introduction to the topic.
+The axiomatic approach is usually applied to imperative programs, requires manually stating loop invariants, and manually carrying out proofs.
+
+The biggest issue for bringing the axiomatic method to functional programming is that higher-order functions require higher-order logic.
 
 \begin{compactitem}
-\item Hoare logic (Nielson and Nielson)
 \item Hoare monad
 \item Dijkstra monad
 \end{compactitem}
