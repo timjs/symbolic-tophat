@@ -15,9 +15,8 @@ One of the classical methods of proving partial correctness of programs is Hoare
 See \citet{NielsonN1992} for a nice introduction to the topic.
 The axiomatic approach is usually applied to imperative programs, requires manually stating loop invariants, and manually carrying out proofs.
 
-The biggest issue for bringing the axiomatic method to functional programming is that higher-order functions require higher-order logic.
+Some work has been done to bring the axiomatic method to functional programming.
+The current state of SMT solving allows for automated extraction and solving of a large amount of proof obligations.
+Notable works in this field are for example the Hoare Type Theory by \citet{NanevskiMB2006}, the Hoare and Dijkstra Monads by \citet{NanevskiMSGB08, SwamyWSCL2013}, or the Hoare logic for the state monad by \citet{Swierstra2009}.
 
-\begin{compactitem}
-\item Hoare monad
-\item Dijkstra monad
-\end{compactitem}
+The difference between the work cited here and our work is that the axiomatic method focuses on stateful computations, while we try to incorporate input as well.
