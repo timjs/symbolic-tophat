@@ -6,11 +6,28 @@
 \label{sec:relatedwork}
 
 \paragraph{Symbolic execution}
+Symbolic execution is typically being applied to imperative programming languages \cite{BucurKC2014} \fixme{cite moar}.
+In recent years it has been used for functional programming languages as well.
+For example, there is ongoing work by \citet{HallahanXP2017} and \citet{Xue2019} to implement a symbolic execution engine for Haskell.
+
+\citet{GiantsiosPS2017} use symbolic execution for a mix of concrete and symbolic testing of programs written in a subset of Core Erlang.
+Their goal is to find executions that lead to a runtime error, either due to an assertion violation or an unhandled exception.
+
+The difficulty of symbolic execution for functional languages lies in symbolic higher-order values, that is functions as arguments to other functions.
+Hallahan et al solve this with a technique called \emph{defunctionalization}, which requires all source code to be present, so that a symbolic function can only be one of the present lambda expressions or function definitions.
+Giantosis et al also require all source code to be present, but they only analyze first-order functions.
+They can execute higher-order functions, but only with concrete arguments.
+Our method also requires closed well-typed terms, so we never execute a higher-order function in isolation.
+Furthermore, we currently do not allow functions as task values.
+Together, this means that symbolic values can never be functions.
+
+
 
 \paragraph{Contracts}
+\fixme{Write me}
+
 
 \paragraph{Axiomatic program verification}
-
 One of the classical methods of proving partial correctness of programs is Hoare's axiomatic approach \cite{Hoare1969}, which is based on pre- and postconditions.
 See \citet{NielsonN1992} for a nice introduction to the topic.
 The axiomatic approach is usually applied to imperative programs, requires manually stating loop invariants, and manually carrying out proofs.
