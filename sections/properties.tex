@@ -178,12 +178,15 @@ $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapst
 
 \begin{lemma}[Completeness of handling]
   \label{lem:completeHandle}
-  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t'',\sigma''$
-  there exists an $i$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$. And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$, we get $\phi[s\mapsto c]\equiv\True$, $t''[s\mapsto c]\equiv t']$ and $\sigma'''[s\mapsto c]\equiv\sigma'']$.
+  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
+  there exists an $i$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$. And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$, we get $\phi[s\mapsto c]=\True$, $t''[s\mapsto c]= t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of driving]
   \label{lem:completeDrive}
-  \fixme{state this lemma}
+  $\forall t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
+  there exists an $i$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
+  And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$,
+  we get $\phi[s\mapsto c]=\True$, $t''[s\mapsto c] = t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
 \end{lemma}
