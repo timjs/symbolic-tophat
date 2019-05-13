@@ -8,16 +8,35 @@
   By Definition~\ref{def:Sat}, the premise of Theorem~\ref{thm:notSat}, $\neg\text{SAT }(\phi\land\phi')$,
   means that there does not exist a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M(\phi\land\phi')\equiv\True$.
   This can be rewritten to for all mappings $M$, $\neg M\phi \lor \neg M\phi'$.
+
+  We now need to show that this implies that there exists no mapping $M$,
+  such that $t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}\xrightarrow[]{Mi'}\bar{t''},\bar{\sigma''}$.
+
   By Lemma~\ref{lem:notSatDrive}, etc etc etc \fixme{complete this}
 \end{proof}
 
 \begin{lemma}[Unsatisfiable symbolic evaluation]
   \label{lem:notSatEval}
-  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, we have $M\phi \iff e,M\sigma\bar{\eval}\bar{v},\bar{\sigma'}$
+  For all expressions $e$ and states $\sigma$ such that $e,\sigma\eval\overline{v,\sigma',\phi}$, and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ we have $M\phi \iff e,M\sigma\bar{\eval}\bar{v},\bar{\sigma'}$.
 
 \end{lemma}
 
 \begin{proof}[Proof of Lemma~\ref{lem:notSatEval}]
+  From Lemma~\ref{lem:soundeval}, we can directly conclude that $\forall M . M\phi \implies e,M\sigma\bar{\eval}\bar{v},\bar{\sigma'}$.\\
+  What remains to be proven is $\forall M . e,M\sigma\bar{\eval}\bar{v},\bar{\sigma'}\implies M\phi$.
+
+  We prove this by induction over $e$.\\
+
+  \case{$e=\tuple{e_1,e_2}$}
+    {
+      One rule applies, namely \userule{Sym-E-Pair}\\
+      Provided that \userule{E-Pair} with $\bar{\sigma}=M\sigma$, then from the induction hypothesis, we obtain the following.\\
+
+      $\forall M_1 . e_1,M_1\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}\implies M_1\phi_1$ and\\
+      $\forall M_2 . e_2,M_2\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}\implies M_2\phi_2$\\
+
+      \fixme{how does the proof proceed? We do not know that there exists an $M$ that satsifies both, just that they can be individually satisfied, no?}
+    }
 
 \end{proof}
 
