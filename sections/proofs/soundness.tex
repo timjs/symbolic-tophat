@@ -57,40 +57,37 @@
   }
 
 \case{$e=\If{e_1}{e_2}{e_3}$}
-   {\fixme{Correct this case}
+   {One rule applies, namely \userule{Sym-E-If}\\
 
+   In case that $M\phi_1\land M\phi_2 \land Mv_1$,
+   we need to demonstrate that
+   \userule{E-IfTrue} with $\bar{\sigma}=M\sigma$,
+   $M v_2 = \bar{v_2}$ and $M\sigma''=\bar{\sigma''}$.
 
-  % Two rules apply to this case.\\
-  % \case{\userule{Sym-E-IfTrue}}
-  %   {Provided that $M\phi_1 \land M\phi_2 \land M v_1 M$, and\\
-  %   \userule{E-IfTrue} with $\bar{\sigma}=M \sigma$,
-  %   we need to demonstrate that $M v_2 \equiv \bar{v_2}$ and $M \sigma''\equiv\bar{\sigma''}$.
-  %
-  %   From the induction hypothesis, we obtain the following.\\
-  %   $\forall M_1 .M_1 \phi_1 \land M_1 v_1 \land e_1,M_1 \sigma \bar{\eval}\True,\bar{\sigma'}\implies M_1 v_1 \equiv \True \land M_1\sigma' \equiv\bar{\sigma'}$ and\\
-  %   $\forall M_2 . M_2 \phi_2 \wedge e_2,M_2 \sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}\implies M_2 v_2\equiv \bar{v_2} \land M_2\sigma''\equiv\bar{\sigma''}$
-  %
-  %   Since $M$ satisfies both $\phi_1$, $v_1$ and $\phi_2$,
-  %   and we know from the premise that $e_1,M\sigma \bar{\eval}\True,\bar{\sigma'}$,
-  %   and $e_2,M\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}$ since $M\sigma' \equiv \bar{\sigma}$,
-  %   we obtain that $M v_2 \equiv \bar{v_2}$ and $M \sigma'' \equiv\bar{\sigma''}$.
-  %
-  %   }
-  % \case{\userule{Sym-E-IfFalse}}
-  %   {Provided that $M\phi_1 \land M\phi_2 \land \lnot M v_1 M$, and\\
-  %   \userule{E-IfFalse} with $\bar{\sigma}=M \sigma$,
-  %   we need to demonstrate that $M v_2 \equiv \bar{v_2}$ and $M \sigma''\equiv\bar{\sigma''}$.
-  %
-  %   From the induction hypothesis, we obtain the following.\\
-  %   $\forall M_1 .M_1 \phi_1 \land\lnot M_1 v_1 \land e_1,M_1 \sigma \bar{\eval}\False,\bar{\sigma'}\implies M_1 v_1 \equiv \False \land M_1\sigma' \equiv\bar{\sigma'}$ and\\
-  %   $\forall M_2 . M_2 \phi_2 \wedge e_3,M_2 \sigma \bar{\eval'}\bar{v_3},\bar{\sigma''}\implies M_2 v_3\equiv \bar{v_3} \land M_2\sigma''\equiv\bar{\sigma''}$
-  %
-  %   Since $M$ satisfies both $\phi_1$, $\lnot v_1$ and $\phi_2$,
-  %   and we know from the premise that $e_1,M\sigma \bar{\eval}\False,\bar{\sigma}$,
-  %   and $e_3,M\sigma' \bar{\eval}\bar{v_3},\bar{\sigma'}$ since $M\sigma' \equiv \bar{\sigma'}$,
-  %   we obtain that $M v_3 \equiv \bar{v_3}$ and $M \sigma'' \equiv\bar{\sigma''}$.
-  %
-  %   }
+   From the induction hypothesis, we obtain the following.\\
+   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}
+   \land M_1v_1 \equiv \bar{v_1} \land M_1\sigma'\equiv\bar{\sigma'}$
+   and\\
+   $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}
+   \land M_2 v_2 \equiv \bar{v_2} \land M_2\sigma'' \equiv\bar{\sigma''}$.
+
+   Since $M$ satisfies $\phi_1$, and $M v_1=\True$, we know from the application of the induction hypothesis above, that $\bar{v_1}=\True$.\\
+   Furthermore, $M$ satisfies $\phi_2$, so we directly obtain that $Mv_2=\bar{v_2}$ and $M\sigma''=\bar{\sigma''}$.
+
+   In case that $M\phi_1\land M\phi_3 \land M\neg v_1$,
+   we need to demonstrate that
+   \userule{E-IfFalse} with $\bar{\sigma}=M\sigma$,
+   $M v_3 = \bar{v_3}$ and $M\sigma''=\bar{\sigma''}$.\\
+
+   From the induction hypothesis, we obtain the following.\\
+   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}
+   \land M_1v_1 \equiv \bar{v_1} \land M_1\sigma'\equiv\bar{\sigma'}$
+   and\\
+   $\forall M_3 . M_3\phi_3 \implies e_3,M_3\sigma'\bar{\eval}\bar{v_3},\bar{\sigma''}
+   \land M_3 v_3 \equiv \bar{v_3} \land M_3\sigma'' \equiv\bar{\sigma''}$.
+
+   Since $M$ satisfies $\phi_1$, and $M v_1=\False$, we know from the application of the induction hypothesis above, that $\bar{v_1}=\False$.\\
+   Furthermore, $M$ satisfies $\phi_3$, so we directly obtain that $Mv_3=\bar{v_3}$ and $M\sigma''=\bar{\sigma''}$.
   }
 
 \case{$e=\Ref e$}
@@ -623,7 +620,7 @@
   Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
   which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
 
-  
+
 \end{proof}
 
 
