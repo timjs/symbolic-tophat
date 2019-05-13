@@ -246,7 +246,7 @@
 \newrule{Sym-H-Next}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
   e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\phi}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}\cup\overline{t_2,\sigma',\Continue,\phi}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}\cup\overline{t_2,\sigma',s,\phi\land s=\Continue}}
   [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
