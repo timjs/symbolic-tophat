@@ -6,11 +6,13 @@
 \label{sec:relatedwork}
 
 \paragraph{Symbolic execution}
-Symbolic execution \cite{King1975,Boyer1975} is typically being applied to imperative programming languages \cite{BucurKC2014} \fixme{cite moar}.
+Symbolic execution \cite{King1975,Boyer1975} is typically being applied to imperative programming languages, for example by \citet{BucurKC2014} \fixme{cite moar}.
 In recent years it has been used for functional programming languages as well.
-For example, there is ongoing work by \citet{HallahanXP2017} and \citet{Xue2019} to implement a symbolic execution engine for Haskell.
+To name some examples, there is ongoing work by \citet{HallahanXP2017} and \citet{Xue2019} to implement a symbolic execution engine for Haskell.
 \citet{GiantsiosPS2017} use symbolic execution for a mix of concrete and symbolic testing of programs written in a subset of Core Erlang.
 Their goal is to find executions that lead to a runtime error, either due to an assertion violation or an unhandled exception.
+\citet{ChangKT2018} present a symbolic execution engine for a typed lambda calculus with mutable state where only some language constructs recognize symbolic values.
+They claim that their approach is easier to implement than full symbolic execution and simplifies the burden on the solver, while still considering all execution paths.
 
 The difficulty of symbolic execution for functional languages lies in symbolic higher-order values, that is functions as arguments to other functions.
 Hallahan et al solve this with a technique called \emph{defunctionalization}, which requires all source code to be present, so that a symbolic function can only be one of the present lambda expressions or function definitions.
