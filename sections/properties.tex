@@ -7,64 +7,64 @@
 
 In this section, we describe what it means for the symbolic execution semantics to be correct.
 We demonstrate it to be sound and complete with respect to the original semantics of \TOPHAT.
-Furthermore, we demonstrate that the pruning performed in Section~\ref{subsec:driving} is safe,
-and only removes branches that are either unfeasible, or infinite.
+% Furthermore, we demonstrate that the pruning performed in Section~\ref{subsec:driving} is safe,
+% and only removes branches that are either unfeasible, or infinite.
 
-\subsection{Removal of Not SAT}
-
-Subsection~\ref{subsec:driving} describes two criteria that are used to prune away branches of the symbolic execution.
-The first removes branches that result in a predicate that is not satisfiable.
-As stated in Definition~\ref{def:Sat}, this means that there is no substitution for the symbols in the predicate,
-that will make the predicate true.
-
-In other words, these symbolic branches have no counterpart in the concrete semantics, and are therefore invalid.
-This property is described in the following theorem.
-
-\begin{theorem}[Not sat is safe to remove]
-  \label{thm:notSat}
-
-For all tasks $t$ and states $\sigma$ such that
-$t,\sigma\drive{}\overline{t',\sigma',i,\phi}$\quad
-$t',\sigma'\drive{}\overline{t'',\sigma'',i',\phi'}$
-
-we have that $\neg\text{SAT }(\phi\land\phi')$ implies
-that there is no mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-$t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}\xrightarrow[]{Mi'}\bar{t''},\bar{\sigma''}$
-
-\end{theorem}
-
-The proof for this theorem is listed in the appendix.
-
-It is important to note that this holds for all future states of the unsatisfiable symbolic executions too.
-This can be concluded from the way in which the predicates are constructed, new predicates are put in conjunction with the old one.
-
-%%%%%%%%% STUCK properties  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{When are branches stuck?}
-
-The second pruning criteria deals with terms that allow for infinite input streams,
-but that will not result in a value.
-
-Observe the following small program. $\Edit 1 \Next \lambda x . \Edit x + 1$.
-
-The symbolic execution will tell us that we can do one of two things;
-send a new symbolic value to the editor, or we can send $\Continue$,
-to proceed to the right hand side of the expression.
-
-When we elect the first, sending a new symbolic value, we can then again send yet another
-symbolic value to the editor. And then again, and again and again.
-
-No extra information is gained, $s_0$ and $s_1$ are erased from the program, and are not contained in the state or
-predicate.
-
-\begin{lemma}[Stuck really is stuck]
-For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
-then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
-\label{lemma:stuck}
-\end{lemma}
-\fixme{$\phi'$ is not in scope on the left side of the implication.}
-\\
-\fixme{this cannot be proven untill the drive function is fixed}
+% \subsection{Removal of Not SAT}
+%
+% Subsection~\ref{subsec:driving} describes two criteria that are used to prune away branches of the symbolic execution.
+% The first removes branches that result in a predicate that is not satisfiable.
+% As stated in Definition~\ref{def:Sat}, this means that there is no substitution for the symbols in the predicate,
+% that will make the predicate true.
+%
+% In other words, these symbolic branches have no counterpart in the concrete semantics, and are therefore invalid.
+% This property is described in the following theorem.
+%
+% \begin{theorem}[Not sat is safe to remove]
+%   \label{thm:notSat}
+%
+% For all tasks $t$ and states $\sigma$ such that
+% $t,\sigma\drive{}\overline{t',\sigma',i,\phi}$\quad
+% $t',\sigma'\drive{}\overline{t'',\sigma'',i',\phi'}$
+%
+% we have that $\neg\text{SAT }(\phi\land\phi')$ implies
+% that there is no mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+% $t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}\xrightarrow[]{Mi'}\bar{t''},\bar{\sigma''}$
+%
+% \end{theorem}
+%
+% The proof for this theorem is listed in the appendix.
+%
+% It is important to note that this holds for all future states of the unsatisfiable symbolic executions too.
+% This can be concluded from the way in which the predicates are constructed, new predicates are put in conjunction with the old one.
+%
+% %%%%%%%%% STUCK properties  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \subsection{When are branches stuck?}
+%
+% The second pruning criteria deals with terms that allow for infinite input streams,
+% but that will not result in a value.
+%
+% Observe the following small program. $\Edit 1 \Next \lambda x . \Edit x + 1$.
+%
+% The symbolic execution will tell us that we can do one of two things;
+% send a new symbolic value to the editor, or we can send $\Continue$,
+% to proceed to the right hand side of the expression.
+%
+% When we elect the first, sending a new symbolic value, we can then again send yet another
+% symbolic value to the editor. And then again, and again and again.
+%
+% No extra information is gained, $s_0$ and $s_1$ are erased from the program, and are not contained in the state or
+% predicate.
+%
+% \begin{lemma}[Stuck really is stuck]
+% For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
+% then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
+% \label{lemma:stuck}
+% \end{lemma}
+% \fixme{$\phi'$ is not in scope on the left side of the implication.}
+% \\
+% \fixme{this cannot be proven untill the drive function is fixed}
 
 \subsection{Soundness}
 
@@ -75,24 +75,33 @@ The grammer of concrete inputs is as follows.
 
 For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
 
-\begin{function}
-  \signature{\mathit{eval} :: \Task \times [\textrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
-  \mathit{eval}\ t\ (j:js)\ \sigma = \begin{array}{ll}
-                              (t',\sigma')      & \Value(t',\sigma') \equiv v \\
-                              \mathit{eval}\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
-                                  \end{array}
-                              \textrm{with } t,s\xrightarrow[]{j} t',\sigma'
-\end{function}
+% \begin{function}
+%   \signature{\mathit{eval} :: \Task \times [\textrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
+%   \mathit{eval}\ t\ (j:js)\ \sigma = \begin{array}{ll}
+%                               (t',\sigma')      & \Value(t',\sigma') \equiv v \\
+%                               \mathit{eval}\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
+%                                   \end{array}
+%                               \textrm{with } t,s\xrightarrow[]{j} t',\sigma'
+% \end{function}
 
-\begin{theorem}[Soundness of symbolic execution]
-\label{thm:sound}
+% \begin{theorem}[Soundness of symbolic execution]
+% \label{thm:sound}
+%
+% For all tasks $t$, mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+% for all elements $(t',I,\sigma,\phi)\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
+% $M \phi\equiv\True$ implies
+% $eval\ t\ (M I)\ \emptyset=(t_n,\sigma_n)$,  $t_n=M t'$ and $\sigma_n=M \sigma$.
+% \end{theorem}
+% \fixme{this cannot be proven untill the drive function is fixed}
 
-For all tasks $t$, mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-for all elements $(t',I,\sigma,\phi)\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
-$M \phi\equiv\True$ implies
-$eval\ t\ (M I)\ \emptyset=(t_n,\sigma_n)$,  $t_n=M t'$ and $\sigma_n=M \sigma$.
+\begin{theorem}[Soundness of driving]
+  \label{thm:sounddrive}
+
+  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  such that $t,\sigma\drive{i} \overline{t',\sigma',\phi}$
+  we have $\phi M = \True$ implies
+  $t,\sigma M \xRightarrow[]{M i} t'',\sigma''$, $t'M \equiv t''$ and $\sigma' M \equiv \sigma''$.
 \end{theorem}
-\fixme{this cannot be proven untill the drive function is fixed}
 
 \begin{lemma}[Soundness of evaluation]
   \label{lem:soundeval}
@@ -132,29 +141,27 @@ $eval\ t\ (M I)\ \emptyset=(t_n,\sigma_n)$,  $t_n=M t'$ and $\sigma_n=M \sigma$.
   $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
 \end{lemma}
 
-\begin{lemma}[Soundness of driving]
-  \label{lem:sounddrive}
-
-  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\drive{i} \overline{t',\sigma',\phi}$
-  we have $\phi M = \True$ implies
-  $t,\sigma M \xRightarrow[]{M i} t'',\sigma''$, $t'M \equiv t''$ and $\sigma' M \equiv \sigma''$.
-\end{lemma}
-
-
-
 \subsection{Completeness}
 
 
 
-\begin{theorem}[Completeness of symbolic execution]
-For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
-then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-$I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
-  \label{thm:complete}
-\end{theorem}
+% \begin{theorem}[Completeness of symbolic execution]
+% For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
+% then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
+% $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
+%   \label{thm:complete}
+% \end{theorem}
+%
+% \fixme{Proof of thm 5.2 is required for this thm}
 
-\fixme{Proof of thm 5.2 is required for this thm}
+
+\begin{theorem}[Completeness of driving]
+  \label{thm:completeDrive}
+  $\forall t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
+  there exists an $i$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
+  And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$,
+  we get $t''[s\mapsto c] = t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
+\end{theorem}
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
@@ -183,13 +190,4 @@ $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapst
   there exists an $i$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
   And when substituting the symbol from $i$ with the concrete value from $j$,
   denoted by $s\mapsto c$, we get $t''[s\mapsto c]= t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
-\end{lemma}
-
-
-\begin{lemma}[Completeness of driving]
-  \label{lem:completeDrive}
-  $\forall t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
-  there exists an $i$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
-  And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$,
-  we get $t''[s\mapsto c] = t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
 \end{lemma}
