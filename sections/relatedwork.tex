@@ -30,10 +30,14 @@ Together, this means that symbolic values can never be functions.
 \paragraph{Contracts}
 Another method for guaranteeing correctness of functional programs are \emph{contracts}.
 Contracts are assertions for higher-order languages.
-They are enforced at run time.
+They are enforced at runtime.
 Contracts were first presented by \citet{FindlerF2002}, who implement a contract checker for Scheme.
 Contracts can be used to specify properties more fine-grained than what a static type system could check.
 It is possible, for example, to refine the arguments or return values of functions to numbers in a certain range, to positive numbers or non-empty lists.
+
+\citet{NguyenTH2017} combine contracts and symbolic execution to provide \emph{soft contract checking}.
+The two ideas go hand in hand in that contracts aid symbolic execution with a language for specifications and properties for symbolic values, and symbolic execution provides compile-time guarantees and test case generation.
+They present a prototype implementation to verify Racket programs.
 
 
 \paragraph{Axiomatic program verification}
