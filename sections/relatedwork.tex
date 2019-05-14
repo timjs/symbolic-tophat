@@ -28,7 +28,12 @@ Together, this means that symbolic values can never be functions.
 
 
 \paragraph{Contracts}
-\fixme{Write me}
+Another method for guaranteeing correctness of functional programs are \emph{contracts}.
+Contracts are assertions for higher-order languages.
+They are enforced at run time.
+Contracts were first presented by \citet{FindlerF2002}, who implement a contract checker for Scheme.
+Contracts can be used to specify properties more fine-grained than what a static type system could check.
+It is possible, for example, to refine the arguments or return values of functions to numbers in a certain range, to positive numbers or non-empty lists.
 
 
 \paragraph{Axiomatic program verification}
