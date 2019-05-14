@@ -134,23 +134,28 @@ We prove that both criteria only remove paths that are invalid or infinite in Se
 
 
 \begin{function}
-  \signature{\mathit{drive} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{drive}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . drive'}) (t,\sigma \drive{})\\
-                \mathit{where}\ \mathit{drive'}\ t'\ i\ \sigma'\ \phi'=\\
+  \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . simulate'}) (t,\sigma \drive{})\\
+                \mathit{where}\ \mathit{simulate'}\ t'\ i\ \sigma'\ \phi'=\\
                         \begin{array}{ll}
                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
                   \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } (\phi'\land\phi)\\
-                  \relax [\ ]            & t' \equiv t \wedge \phi' \equiv \True \wedge \Value(t',\sigma') \equiv \bot\\
-                        \mathit{drive}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t \vee \neg\phi') \wedge \Value(t',\sigma') \equiv \bot
-                                  \end{array}
+                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \wedge \Value(t',\sigma') \equiv \bot\\
+                  map (concat.simulate'') (t',\sigma'\drive{})           & t' \equiv t \wedge \phi' \equiv \True \wedge \Value(t',\sigma') \equiv \bot
+                                  \end{array}\\
+                 \mathit{where}\ \mathit{simulate''}\ t''\ i'\ \sigma''\ \phi''=\\
+                                          \begin{array}{ll}
+                                            [\ ] & \neg \text{SAT } (\phi\land\phi'\land\phi'')\\
+                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } (\phi\land\phi'\land\phi'')\\
+                                          \mathit{simulate}\ t''\ (I\oplus[i,i'])\ \sigma''\ (\phi\land\phi'\land\phi'') & (t'' \neq t') \wedge \Value(t'',\sigma'') \equiv \bot\\
+                                    \relax [\ ] & t' \equiv t \wedge \Value(t',\sigma') \equiv \bot
+                                                    \end{array}
 \end{function}
 
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
   $\text{SAT }\phi \iff \exists M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]. M\phi\equiv\True$
 \end{definition}
-
-\fixme{The stopping criteria $t' \equiv t \wedge \phi' \equiv \True \wedge \Value(t',\sigma') \equiv \bot$ does NOT make sense}
 
 \subsection{Solving}
 
