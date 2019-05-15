@@ -14,15 +14,17 @@ The following subsections describe in detail how all elements of the \TOPHAT lan
 \subsection{Expressions}
 \label{expressions}
 
-The syntax of \TOPHAT is listed in Figure~\ref{syntaxtophat}
+The syntax of \TOPHAT is listed in Figure~\ref{fig:syntaxtophat}
 
 \begin{figure}
-\usemacro{G-Language}
 
-\usemacro{G-Pretasks}
-\label{syntaxtophat}
+\usemacro{G-Language-Compact}
+
+\usemacro{G-Pretasks-Compact}
+
 
 \caption{Syntax of \TOPHAT expressions.}
+  \label{fig:syntaxtophat}
 \end{figure}
 
 Two main changes have been made with regards to the original \TOPHAT semantics.
@@ -36,7 +38,7 @@ Two, unary and binary operations have been made explicit.
 
 The types of \TOPHAT remain the same.
 
-\usemacro{G-Types}
+\usemacro{G-Types-Compact}
 
 However, we do need an additional typing rule, S-Var, to type symbols,
 since they are now part of our expression syntax.
@@ -49,12 +51,12 @@ This requires an additional typing environment $\Delta$.
 As mentioned before, symbols are considered to be values.
 They have therefore been added to the list of values.
 
-\usemacro{G-Values}
+\usemacro{G-Values-Compact}
 
 As a result, we must now also regard unary and binary operations as values.
 This is due to the fact that the symbols are placeholders for actual values.
 
-\usemacro{G-Tasks}
+\usemacro{G-Tasks-Compact}
 
 
 \subsection{Inputs}
