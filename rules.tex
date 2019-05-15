@@ -241,7 +241,13 @@
 \newrule{Sym-H-PassNext}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi}}
   {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}}
-  [\Value{(t_1,\sigma)} = \bot \lor \Failing{(t_2,\sigma')}]
+  [\Value{(t_1,\sigma)} = \bot]
+
+\newrule{Sym-H-PassNext1}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
+  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\phi}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}}
+  [\Value{(t_1,\sigma)} = v_1 \land \Failing{(t_2,\sigma')}]
 
 \newrule{Sym-H-Next}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
