@@ -41,7 +41,8 @@
     \Failing(t_1 \Next e_2,\sigma) &=& \Failing(t_1,\sigma) \\
     \Failing(t_1 \And t_2,\sigma)  &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
     \Failing(t_1 \Or t_2,\sigma)   &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
-    \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2') \quad\where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
+    \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2')\\
+    &&\quad \where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
   \end{function}
 }
 
@@ -54,10 +55,11 @@
     \Inputs(\Update l,\sigma)           &=& \obox{\set{v':\tau, \Empty}}{\set{v':\tau}} \quad\where\ \Update l : \Task\tau \\
     \Inputs(\Fail,\sigma)               &=& \nothing \\
     \Inputs(t_1 \Then e_2,\sigma)       &=& \Inputs(t_1,\sigma) \\
-    \Inputs(t_1 \Next e_2,\sigma)       &=& \Inputs(t_1,\sigma) \cup \set{\Continue \mid \Value(t_1, \sigma) = v_1 \land e_2\ v_1, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, \sigma')} \\
+    \Inputs(t_1 \Next e_2,\sigma)       &=& \Inputs(t_1,\sigma) \cup \set{\Continue \mid \Value(t_1, \sigma) = v_1 \land \\
+                                         && e_2\ v_1, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, \sigma')} \\
     \Inputs(t_1 \And t_2,\sigma)        &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
     \Inputs(t_1 \Or t_2,\sigma)         &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
-    \Inputs(e_1 \Xor e_2,\sigma)        &=& \set{\Left \mid e_1, \sigma \normalise t_1, \sigma',\phi \land \lnot\Failing(t_1, s')} \cup \set{\Right \mid e_2, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, s')}
-    %\Inputs(u_1 \At t,s)           &=& \set{u_2 \At i\mid u_2 \At i \in \Inputs(t,s)} \cup \set{u_1 \At i\mid i\in \Inputs(t,s)}
+    \Inputs(e_1 \Xor e_2,\sigma)        &=& \set{\Left \mid e_1, \sigma \normalise t_1, \sigma',\phi \land \lnot\Failing(t_1, s')} \cup\\
+                                         && \set{\Right \mid e_2, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, s')}
   \end{function}
 }
