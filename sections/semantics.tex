@@ -79,13 +79,14 @@
 \end{gather*}
 \end{figure*}
 
+\begin{figure*}
 \begin{gather*}
   \small
   \boxed{\RelationN} \Break
-  \userule{Sym-N-Done} \Break
+  \userule{Sym-N-Done} \Quad
   \userule{Sym-N-Repeat}
 \end{gather*}
-
+\end{figure*}
 
 
 \subsection{Handling}
@@ -107,19 +108,19 @@
   \userule{Sym-H-And}\Quad
   \userule{Sym-H-Or}
 \end{gather*}
-
-Note that \refrule{Sym-H-Empty} is omitted as it does nothing useful for symbolic execution.
 \caption{Symbolic execution rules for the handling semantics}
 \end{figure*}
 
+
 \begin{gather*}
   \small
-  \boxed{\RelationI} \Break
+  \boxed{\RelationI}\Break
   \userule{Sym-I-Handle}
 \end{gather*}
 
 
-\subsection{Driving}
+
+\subsection{Simulating}
 \label{subsec:driving}
 
 This section describes the top level symbolic execution function.
