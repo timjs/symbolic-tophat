@@ -3,3 +3,53 @@
 
 
 \section{Intuition}
+\label{sec:intuition}
+
+In order to verify that a particular \TOPHAT program behaves as intended,
+we would like to show that certain relations between the input and output of tasks hold.
+A common way to do this is to write test cases manually,
+or to generate random input and verify that the outcome fulfils the desired relation.
+
+Writing tests manually is labour intensive and cumbersome.
+With random testing, there is no guarantee that all paths will be covered.
+
+To overcome these issues, we apply symbolic execution to prove that the desired properties hold.
+The idea of symbolic execution is simple.
+Instead of executing tasks with test input, we run them on symbolic input.
+This input consists of symbols that are allowed to be any value of the desired type.
+When the task branches, we record what conditions must hold over the symbolic input.
+
+When a task has an observable value, we consider it done.
+This is the point where symbolic execution terminates.
+
+This execution results in a list of all possible program results,
+guarded by certain constrains on the symbolic input.
+If these possible outcomes agree with the stated property,
+it is guaranteed that his will hold for all paths.
+
+\begin{example}
+  \begin{TASK}
+    enter String >>= \ x if palindrome x then edit x else fail
+\end{TASK}
+\end{example}
+
+Consider the small example program above.
+It asks the user to input a value of type $\String$.
+This value is then passed on to the right hand side.
+If the value is a palindrome, as determined by the function with that name,
+and editor containing the entered value is returned.
+Otherwise, the user is asked to input a different value, until the condition holds.
+
+Imagine we would like to prove that no matter what value is given as input,
+the only possible outcome value we can get is a palindrome.
+
+The symbolic execution enters a symbol $s$ as input into the editor on the left.
+The execution then arrives at a branching point.
+In order to take the then-branch, the condition $\text{palindrome}\ s$ needs to hold.
+This branch will then result in $\Edit s$.
+We can now observe the task value, $s$, which is guarded by $\text{palindrome}\ s$.
+The else branch applies if the condition does not hold.
+But this does not yield a value, it instead asks for additional input.
+
+So, from the symbolic execution we obtain that the only outcome of this program is $s \mid \text{palindrome}\ s$.
+From that outcome, we can conclude that no matter what input is given, the only result value possible has to be a palindrome.
