@@ -47,6 +47,30 @@
   \end{grammar}
 }
 
+\newmacro{G-Language-Compact}{
+  \begin{grammar}
+    \noalign{Expressions}\\
+    & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2           & – abstraction, application \\
+    &       & \mid  & x  \Mid  c                                   & – variable, constant \\
+    &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary and binary operation \\
+    &       & \mid  & \If{e_1}{e_2}{e_3}  \Mid  \unit              & – branch, unit \\
+    &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
+    &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
+    &       & \mid  & p                                            & – pretask \\
+    \\
+    \noalign{Constants}\\
+    & c& ::= &  B  \Mid  I  \Mid  S                          & – boolean, integer, string\\
+    \\
+    \noalign{Unary Operations}\\
+    & u &::= &  \lnot \Mid - \Mid \#                         & - logica, numerical, sequential\\
+    \\
+    \noalign{Binary Operations}\\
+    & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
+    &       & \mid  & + \Mid - \Mid \times \Mid /                         & – numerical \\
+    &       & \mid  & \pp                                                 & – sequential \\
+  \end{grammar}
+}
+
 
 \newmacro{G-Pretasks}{
   \begin{grammar}
@@ -69,6 +93,16 @@
   \end{grammar}
 }
 
+\newmacro{G-Pretasks-Compact}{
+  \begin{grammar}
+    \noalign{Pretasks}\\
+      & p    &::= & \Edit e \Mid \Enter \tau \Mid \Update e            & – editors: valued, unvalued shared \\
+      &      &\mid& e_1 \Then e_2 \Mid e_1 \Next e_2                   & – steps: internal, external \\
+      &      &\mid& \Fail \Mid e_1 \And e_2                            & – fail, composition \\
+      &      &\mid& e_1 \Or e_2 \Mid e_1 \Xor e_2                      & – choice: internal, external\\
+  \end{grammar}
+}
+
 
 \newmacro{G-Types}{
   \begin{grammar}
@@ -84,6 +118,17 @@
       &\beta &::= & \Bool                & – boolean type \\
       &      &\mid& \Int                 & – integer type \\
       &      &\mid& \String              & – string type \\
+  \end{grammar}
+}
+
+\newmacro{G-Types-Compact}{
+  \begin{grammar}
+    \noalign{Types}\\
+      & \tau  &  ::= & \tau_1 \to \tau_2 \Mid \tau_1 \times \tau_2 \Mid \beta & – function, product, basic \\
+      &       & \mid & \Unit \Mid \Reference \tau \Mid \Task \tau             & – unit, reference, task \\
+      \\
+    \noalign{Basic types}\\
+      & \beta &  ::= & \Bool \Mid   \Int \Mid   \String                       & – boolean, integer, string
   \end{grammar}
 }
 
@@ -106,6 +151,15 @@
   \end{grammar}
 }
 
+\newmacro{G-Values-Compact}{
+  \begin{grammar}
+    \noalign{Values}\\
+      & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
+      &   & \mid & c \Mid l \Mid t                                   & – constant, location, task \\
+      &   & \mid & s \Mid u\ v \Mid v_1\ o\ v_2                      & – symbol, unary, binary operation\\
+  \end{grammar}
+}
+
 
 \newmacro{G-Tasks}{
   \begin{grammar}
@@ -125,6 +179,16 @@
       &      &\mid& e_1 \Xor e_2         & – user choice \\
     \addlinespace
       &      &\mid& \Fail                & – fail task \\
+  \end{grammar}
+}
+
+\newmacro{G-Tasks-Compact}{
+  \begin{grammar}
+    \noalign{Tasks}\\
+      & t &  ::= & \Edit v \Mid \Enter \tau \Mid \Update l           & – editors \\
+      &   & \mid & t_1 \Then e_2 \Mid t_1 \Next e_2                  & – steps \\
+      &   & \mid & \Fail \Mid t_1 \And t_2                           & – fail, combination \\
+      &   & \mid & t_1 \Or t_2 \Mid e_1 \Xor e_2                     & – choices \\
   \end{grammar}
 }
 
