@@ -147,7 +147,6 @@
       &      &\mid& \Second j            & – pass to second \\
     Concrete actions
       & \bar{a} & ::=& c                    & – constant \\
-      &         &\mid& \Empty               & – empty an editor \\
       &         &\mid& \Continue            & – continue with next task \\
       &         &\mid& \Left                & – go left \\
       &         &\mid& \Right               & – go right \\
@@ -160,6 +159,9 @@
     Predicates
       & \phi &::= & c                    & – constant \\
       &      &\mid& s                    & – symbol \\
+      &      &\mid& \Continue            & – continue\\
+      &      &\mid& \Left             & – go left \\
+      &      &\mid& \Right            & – go right \\
       &      &\mid& u\ \phi              & – symbolic unary operation \\
       &      &\mid& \phi_1\ o\ \phi_2    & – symbolic binary operation \\
   \end{grammar}
