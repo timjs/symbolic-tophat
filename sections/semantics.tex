@@ -4,9 +4,54 @@
 \section{Semantics}
 \label{sec:semantics}
 
+This section lists the symbolic execution semantics for \TOPHAT.
+The structure of the symbolic semantics closely resembles that of the concrete semantics.
+It consists of three main layers.
+A big step symbolic evaluation semantics.
+This corresponds with the host language.
+A big step symbolic normalisation semantics at the task level.
+And finally a small step driving semantics that processes user input.
 
+They are all listed in the coming sections.
+Besides simply listing them, we will also point out what is interesting about them,
+and what changes were made with respect to the concrete semantics.
+
+\subsection{Symbolic evaluation}
+
+The host language is a simply typed lambda calculus with references.
+Symbolic evaluation of an expression $e$ and state $\sigma$ can result in zero or more possible outcomes.
+A single outcome consists of a result value $v$, an updated state $\sigma'$ and a predicate $\phi$.
+
+\fixme{something about what this result actually means?}
+
+The symbolic rules closely resemble the concrete semantics.
+Therefore, they are not listed here, but a full overview of the rules can be found in the appendix.
+One rule does differ, which is listed in Figure~\ref{fig:eval}.
+
+\begin{figure}[h]
+\begin{gather*}
+  \small
+  \boxed{\RelationE} \Break
+  \userule{Sym-E-If}
+\end{gather*}
+\caption{Part of the symbolic evaluation semantics}
+\label{fig:eval}
+\end{figure}
+
+Instead of two seperate rules, one for the then and one for the else branch, we now have one Sym-E-If rule.
+Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
+Instead, we keep both options open.
+
+We calculate the then-branch, and add to the predicate that we can only reach this point if $v_1$ becomes $\True$.
+And we do the same for the else-branch, except we now require that $v_1$ has to become false, in order for this result to apply.
 
 \subsection{Observations}
+
+The symbolic normalisation and driving semantics make use of observations on tasks.
+This is no different from how the concrete \TOPHAT semantics works.
+
+We can observe the value of a task using the function $\Value$.
+Its definition is given in Figure~\ref{fig:value}.
 
 \begin{figure}
   \begin{center}
@@ -17,6 +62,9 @@
   \label{fig:value}
 \end{figure}
 
+We can observe if a task is failing using the function $\Failing$.
+Its definition is given in Figure~\ref{fig:failing}.
+
 \begin{figure}
   \begin{center}
     \small
@@ -26,69 +74,28 @@
   \label{fig:failing}
 \end{figure}
 
-\begin{figure}
-  \begin{center}
-    \small
-    \usemacro{O-Inputs}
-  \end{center}
-  \caption{Task inputs observation function $\Inputs$}
-  \label{fig:inputs}
-\end{figure}
-
-
-\subsection{Evaluation}
-
-\begin{figure*}
-\begin{gather*}
-  \small
-  \boxed{\RelationE} \Break
-  \userule{Sym-E-Value}\Quad
-  \userule{Sym-E-Pair} \Quad
-  \userule{Sym-E-First}\Quad
-  \userule{Sym-E-Second}\Break
-  \userule{Sym-E-App} \Break
-  \userule{Sym-E-If} \Quad
-  \userule{Sym-E-Ref} \Quad
-  \userule{Sym-E-Deref} \Break
-  \userule{Sym-E-Assign} \Quad
-  \userule{Sym-E-Edit} \Quad
-  \userule{Sym-E-Enter}\Quad
-  \userule{Sym-E-Update}\Break
-  \userule{Sym-E-Then}\Quad
-  \userule{Sym-E-Next}\Quad
-  \userule{Sym-E-And}\Break
-  \userule{Sym-E-Or} \Quad
-  \userule{Sym-E-Xor}\Quad
-  \userule{Sym-E-Fail}
-\end{gather*}
-\caption{Symbolic evaluation semantics}
-\label{fig:eval}
-\end{figure*}
-
+% And finally, we can observe what the possible inputs of a task using the function $\Inputs$.
+% Its definition is given in Figure~\ref{fig:inputs}.
+% \begin{figure}
+%   \begin{center}
+%     \small
+%     \usemacro{O-Inputs}
+%   \end{center}
+%   \caption{Task inputs observation function $\Inputs$}
+%   \label{fig:inputs}
+% \end{figure}
 
 \subsection{Normalisation}
 
-\begin{figure*}
-\begin{gather*}
-  \small
-  \boxed{\RelationS} \Break
-  \userule{Sym-S-ThenStay} \Quad
-  \userule{Sym-S-ThenFail} \Break
-  \userule{Sym-S-ThenCont} \Quad
-  \userule{Sym-S-OrLeft} \Break
-  \userule{Sym-S-OrRight} \Break
-  \userule{Sym-S-OrNone} \Break
-  \userule{Sym-S-Edit} \Quad
-  \userule{Sym-S-Fill} \Quad
-  \userule{Sym-S-Update} \Quad
-  \userule{Sym-S-Fail} \Break
-  \userule{Sym-S-Xor} \Quad
-  \userule{Sym-S-Next} \Quad
-  \userule{Sym-S-And}
-\end{gather*}
-\caption{Symbolic striding semantics}
-\label{fig:striding}
-\end{figure*}
+The normalisation semantics prepares tasks to receive input.
+Very little changes had to be made to these semantics in order to accommodate symbolic execution.
+
+Just as with the evaluation semantics, we now gather sets of results, each barred by a predicate on the symbolic input.
+
+Figure~\ref{fig:normalising} lists the normalisation semantics.
+For the striding semantics, we refer to the appendix.
+
+
 
 \begin{figure*}
 \begin{gather*}
@@ -104,6 +111,14 @@
 
 \subsection{Handling}
 
+The handling semantics deals with user input, in the case of \TOPHAT.
+When dealing with symbolic execution, of course there is no user input.
+Instead, we enter in symbols, where user input is expected.
+The result of the semantics now also lists the symbol that was entered.
+
+Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
+A complete overview of the rules can be found in the appendix.
+
 \begin{figure*}
 \begin{gather*}
   \small
@@ -112,9 +127,6 @@
   \userule{Sym-H-Fill} \Quad
   \userule{Sym-H-Update}\Break
   \userule{Sym-H-Next} \Quad
-  \userule{Sym-H-PassThen} \Break
-  \userule{Sym-H-PassNext} \Break
-  \userule{Sym-H-PassNext1}\Quad
   \userule{Sym-H-PickLeft} \Break
   \userule{Sym-H-PickRight}\Quad
   \userule{Sym-H-Pick}\Break
@@ -124,6 +136,17 @@
 \caption{Symbolic execution rules for the handling semantics}
 \label{fig:handling}
 \end{figure*}
+
+The three rules for the editors clearly show how symbols are entered into the symbolic execution.
+The \refrule{Sym-H-Fill} rule for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
+
+There are several task combinators where the result depends on the user input.
+For example, the parallel combinator $\And$ receives an input for either the left or the right branch.
+Since in this case, we do not know what input will be given for which branch, so the \refrule{Sym-H-And} rule generates both cases.
+
+The same principle applies to the external choice combinator $\Xor$, however, in this case, we still need three rules.
+This is due to the fact that users are not allowed to step to a task that is failing.
+Therefore, we have one rule for the case where none of the options are failing, one rule when only the right fails and one rule for the case where the left is failing.
 
 
 \begin{figure}
@@ -136,48 +159,55 @@
 \label{fig:driving}
 \end{figure}
 
+After input has been handled, tasks are normalised.
+The combination of those two steps is taken care of by the driving semantics, listed in Figure~\ref{fig:driving}.
+
 
 \subsection{Simulating}
 \label{subsec:driving}
 
-This section describes the top level symbolic execution function.
-
-This function called drive, which takes $t,I,\sigma,\phi$, is recursively called to produce a list of end states an predicates.
+The symbolic execution semantics listed above is a small step semantics.
+In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is "done".
+The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states an predicates.
 We consider a task, state and predicate to be an end state if the task value can be observed, and the predicate is satisfiable.
 
 A recursive call is terminated when one of the two stop conditions is met.
 
-When the predicate cannot be satisfied, we know that all future steps won't be satisfiable either.
-In fact, no future state will be satisfiable, and we can therefore safely remove it.
+\begin{itemize}
+  \item When the predicate cannot be satisfied, we know that all future steps won't be satisfiable either.
+  In fact, no future state will be satisfiable, and we can therefore safely remove it.
+  \item The second stop condition is when an execution does not alter anymore between steps.
+  In other words, the program is stuck, no value can be observed, an no value will ever be observed.
+\end{itemize}
 
-The second stop condition is when an execution does not alter anymore between steps.
-In other words, the program is stuck, no value can be observed, an no value will ever be observed.
+%We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
-We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
-
-
+\begin{figure*}
 \begin{function}
   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
   \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . simulate'}) (t,\sigma \drive{})\\
                 \mathit{where}\ \mathit{simulate'}\ t'\ i\ \sigma'\ \phi'=\\
                         \begin{array}{ll}
                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
-                  \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } (\phi'\land\phi)\\
-                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \wedge \Value(t',\sigma') \equiv \bot\\
-                  map (concat.simulate'') (t',\sigma'\drive{})           & t' \equiv t \wedge \phi' \equiv \True \wedge \Value(t',\sigma') \equiv \bot
+                  \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
+                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
+                  map (concat.simulate'') (t',\sigma'\drive{})           & t' = t  \land \Value(t',\sigma') = \bot
                                   \end{array}\\
                  \mathit{where}\ \mathit{simulate''}\ t''\ i'\ \sigma''\ \phi''=\\
                                           \begin{array}{ll}
                                             [\ ] & \neg \text{SAT } (\phi\land\phi'\land\phi'')\\
-                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t',\sigma') \equiv v \wedge \text{SAT } (\phi\land\phi'\land\phi'')\\
-                                          \mathit{simulate}\ t''\ (I\oplus[i,i'])\ \sigma''\ (\phi\land\phi'\land\phi'') & (t'' \neq t') \wedge \Value(t'',\sigma'') \equiv \bot\\
-                                    \relax [\ ] & t' \equiv t \wedge \Value(t',\sigma') \equiv \bot
+                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t',\sigma') = v \land \text{SAT } (\phi\land\phi'\land\phi'')\\
+                                          \mathit{simulate}\ t''\ (I\oplus[i,i'])\ \sigma''\ (\phi\land\phi'\land\phi'') & (t'' \neq t') \land \Value(t'',\sigma'') = \bot\\
+                                    \relax [\ ] & t'' = t' \wedge \Value(t',\sigma') = \bot
                                                     \end{array}
 \end{function}
+\caption{Simulation function definition}
+\label{fig:simulate}
+\end{figure*}
 
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
-  $\text{SAT }\phi \iff \exists M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]. M\phi\equiv\True$
+  $\text{SAT }\phi$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
 \end{definition}
 
 \subsection{Solving}
