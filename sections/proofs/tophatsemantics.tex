@@ -1,0 +1,83 @@
+% !TEX root=../../main.tex
+
+\section{\TOPHAT semantics}
+
+\subsection{Evaluation rules}
+
+  \begin{gather*}
+    %\boxed{\RelationE} \Break
+    \userule{E-App} \Quad
+    \userule{E-IfTrue} \Quad
+    \userule{E-Ref} \Break
+    \userule{E-IfFalse} \Quad
+    \userule{E-Deref} \Quad
+    \userule{E-Value} \Quad
+  \userule{E-Assign} \Quad
+    \userule{E-Pair} \Break
+    \userule{E-Edit} \Quad
+    \userule{E-Enter} \Quad
+    \userule{E-Update} \Quad
+    \userule{E-Then} \Quad
+    \userule{E-Next} \Break
+    \userule{E-And} \Quad
+    \userule{E-Fail} \Quad
+    \userule{E-Or} \Quad
+    \userule{E-Xor}
+  \end{gather*}
+
+\subsection{Striding rules}
+
+\begin{gather*}
+  \userule{S-ThenStay} \Quad
+  \userule{S-ThenFail} \Break
+  \userule{S-ThenCont}\Quad
+  \userule{S-OrLeft} \Break
+  \userule{S-OrRight} \Break
+  \userule{S-OrNone}\Quad
+  \userule{S-Edit} \Quad \userule{S-Fill} \Quad \userule{S-Update} \Break
+  \userule{S-Fail} \Quad \userule{S-Xor}\Quad
+  \userule{S-Next} \Quad
+  \userule{S-And}
+\end{gather*}
+
+\subsection{Normalisation rules}
+
+\begin{gather*}
+  \userule{N-Done} \Quad
+  \userule{N-Repeat}
+\end{gather*}
+
+\subsection{Handling rules}
+
+  \begin{gather*}
+    \userule{H-Change} \Quad
+    \userule{H-Fill} \Quad
+    \userule{H-Update}\Break
+    \userule{H-Next} \Quad
+    \userule{H-PickLeft} \Quad
+    \userule{H-PickRight}\Quad
+    \userule{H-PassThen} \Break
+    \userule{H-PassNext} \Quad
+    \userule{H-FirstAnd} \Quad \userule{H-SecondAnd} \Quad
+    \userule{H-FirstOr}  \Quad \userule{H-SecondOr}
+  \end{gather*}
+
+
+\subsection{Driving semantics}
+
+    \userule{I-Handle}
+
+\subsection{Typing rules}
+
+  \begin{gather*}
+    %\boxed{\RelationT} \Break
+    \userule{T-Var} \Quad
+    \userule{T-Loc} \Quad
+    \userule{T-Pair} \Break
+    \userule{T-Abs} \Quad
+    \userule{T-App} \Break
+    \userule{T-If} \Quad
+    \userule{T-Ref} \Break
+    \userule{T-Deref} \Quad
+    \userule{T-Assign}
+  \end{gather*}
