@@ -1,6 +1,113 @@
 % !TEX root=main.tex
 
 
+%% Typing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newmacro{RelationT}
+  {\Gamma,\Sigma \infers e : \tau}
+
+
+\newrule{T-Var}
+  {x:\tau\in\Gamma}
+  {\Gamma,\Sigma\infers x:\tau}
+
+
+\newrule{T-Abs}
+  {\Gamma[x:\tau_1] ,\Sigma \infers e:\tau_2}
+  {\Gamma,\Sigma \infers \lambda x : \tau_1 . e :\tau_1 \to \tau_2}
+
+\newrule{T-App}
+  {\Gamma,\Sigma \infers e_1:\tau_1\to\tau_2 \Quad
+   \Gamma,\Sigma \infers e_2:\tau_1}
+  {\Gamma,\Sigma \infers e_1 e_2 :\tau_2}
+
+
+\newrule{T-If}
+  {\Gamma,\Sigma \infers e_1:\Bool \Quad
+   \Gamma,\Sigma \infers e_2:\tau \Quad
+   \Gamma,\Sigma \infers e_3:\tau}
+  {\Gamma,\Sigma \infers \If{e_1}{e_2}{e_3}:\tau}
+
+
+\newrule{T-Pair}
+    {\Gamma,\Sigma \infers e_1 : \tau_1  \Quad
+     \Gamma,\Sigma \infers e_2 : \tau_2}
+    {\Gamma,\Sigma \infers \tuple{e_1, e_2} :\tau_1 \times \tau_2}
+
+\newrule{T-First}
+  {\Gamma,\Sigma\infers e_1:\tau}
+  {\Gamma,\Sigma\infers \Fst \tuple{e_1,e_2}:\tau}
+
+  \newrule{T-Second}
+    {\Gamma,\Sigma\infers e_2:\tau}
+    {\Gamma,\Sigma\infers \Snd \tuple{e_1,e_2}:\tau}
+
+\newrule{T-Ref}
+  {\Gamma,\Sigma \infers e:\beta}
+  {\Gamma,\Sigma \infers \Ref e :\Reference \beta}
+
+\newrule{T-Deref}
+  {\Gamma,\Sigma \infers e:\Reference \beta}
+  {\Gamma,\Sigma\infers\ !e:\beta}
+
+\newrule{T-Assign}
+  {\Gamma,\Sigma\infers e_1:\Reference \beta \Quad
+   \Gamma,\Sigma\infers e_2:\beta}
+  {\Gamma,\Sigma\infers e_1 := e_2:\Unit}
+
+\newrule{T-Loc}
+  {\Sigma(l) = \beta}
+  {\Gamma,\Sigma\infers l:\Reference \beta}
+
+
+\newrule{T-Edit}
+  {\Gamma,\Sigma \infers e : \tau}
+  {\Gamma,\Sigma \infers \Edit e : \Task \tau}
+
+\newrule{T-Enter}
+  {}
+  {\Gamma,\Sigma \infers \Enter \tau : \Task \tau}
+
+\newrule{T-Update}
+  {\Gamma,\Sigma \infers e : \Reference \beta}
+  {\Gamma,\Sigma \infers \Update e : \Task \beta}
+
+
+\newrule{T-Fail}
+  {}
+  {\Gamma,\Sigma \infers \Fail : \Task \tau}
+
+
+\newrule{T-Then}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau_1}
+   {\Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}}
+  {\Gamma,\Sigma \infers e_1 \Then e_2 : \Task \tau_2}
+
+
+\newrule{T-Next}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau_1}
+   {\Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}}
+  {\Gamma,\Sigma \infers e_1 \Next e_2 : \Task \tau_2}
+
+
+\newrule{T-And}
+  {\Gamma,\Sigma \infers e_1 : \Task \tau_1 \Quad
+   \Gamma,\Sigma \infers e_2 : \Task \tau_2}
+  {\Gamma,\Sigma \infers e_1 \And e_2 : \Task\,(\tau_1 \times \tau_2)}
+
+
+\newrule{T-Or}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
+   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
+  {\Gamma,\Sigma \infers e_1 \Or e_2 : \Task \tau}
+
+
+\newrule{T-Xor}
+  {\upon{\Gamma,\Sigma \infers e_1 : \Task \tau}
+   {\Gamma,\Sigma \infers e_2 : \Task \tau}}
+  {\Gamma,\Sigma \infers e_1 \Xor e_2 : \Task \tau}
+
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newrule{E-Value}

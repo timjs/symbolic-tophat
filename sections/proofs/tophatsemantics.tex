@@ -2,6 +2,33 @@
 
 \section{\TOPHAT semantics}
 
+\subsection{Typing rules}
+
+  \begin{gather*}
+    \boxed{\RelationT} \Break
+    \userule{T-Var} \Quad
+    \userule{T-Loc} \Quad
+    \userule{T-Pair} \Quad
+    \userule{T-First} \Quad
+    \userule{T-Second} \Break
+    \userule{T-Abs} \Quad
+    \userule{T-App} \Quad
+    \userule{T-If} \Break
+    \userule{T-Ref} \Quad
+    \userule{T-Deref} \Quad
+    \userule{T-Assign}\Quad
+    \userule{T-Loc}\Quad
+    \userule{T-Edit}\Break
+    \userule{T-Enter}\Quad
+    \userule{T-Update}\Quad
+    \userule{T-Fail}\Quad
+    \userule{T-Then}\Quad
+    \userule{T-Next}\Break
+    \userule{T-And}\Quad
+    \userule{T-Or}\Quad
+    \userule{T-Xor}
+  \end{gather*}
+
 \subsection{Evaluation rules}
 
   \begin{gather*}
@@ -67,19 +94,6 @@
 
 \subsection{Driving semantics}
 
-    \userule{I-Handle}
-
-\subsection{Typing rules}
-
   \begin{gather*}
-    %\boxed{\RelationT} \Break
-    \userule{T-Var} \Quad
-    \userule{T-Loc} \Quad
-    \userule{T-Pair} \Break
-    \userule{T-Abs} \Quad
-    \userule{T-App} \Break
-    \userule{T-If} \Quad
-    \userule{T-Ref} \Break
-    \userule{T-Deref} \Quad
-    \userule{T-Assign}
+    \userule{I-Handle}
   \end{gather*}
