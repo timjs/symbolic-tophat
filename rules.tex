@@ -24,17 +24,6 @@
    e_1'[x\mapsto v_2],\sigma''\eval \overline{v_1,\sigma''',\phi_3}}
   {e_1 e_2,\sigma \eval \overline{v_1,\sigma''',\phi_1 \land \phi_2 \land \phi_3}}
 
-
-% \newrule{Sym-E-IfTrue}
-%   {e_1,\sigma\eval v_1,\sigma',\phi_1 \land v_1 \Quad
-%    e_2,\sigma'\eval v_2,\sigma'',\phi_2}
-%   {\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma'',\phi_1 \land \phi_2 \land v_1}
-%
-% \newrule{Sym-E-IfFalse}
-%   {e_1,\sigma\eval v_1,\sigma',\phi_1 \land \lnot v_1\Quad
-%    e_3,\sigma'\eval v_3,\sigma'',\phi_3}
-%   {\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma'',\phi_1 \land \phi_3 \land \lnot v_1}
-
 \newrule{Sym-E-If}
   {e_1,\sigma\eval \overline{v_1,\sigma',\phi_1} \Quad
    e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2} \Quad
