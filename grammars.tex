@@ -195,21 +195,16 @@
 \newmacro{G-Inputs}{
   \begin{grammar}
     Symbolic inputs
-      & i    & ::=& a                    & – symbolic action \\
+      & i    & ::=& s                    & – symbolic action \\
       &      &\mid& \First i             & – pass to first \\
-      &      &\mid& \Second i            & – pass to second \\
-    Symbolic actions
-      & a    & ::=& s                    & – change editor to symbol \\
+      &      &\mid& \Second i            & – pass to second
   \end{grammar}
 }
 
 \newmacro{G-Inputs-Compact}{
   \begin{grammar}
     \noalign{Symbolic inputs}\\
-      & i    & ::=& a \Mid \First i \Mid \Second i  & – symbolic action, to first, to second \\
-      \\
-    \noalign{Symbolic actions}\\
-      & a    & ::=& s                    & – change editor to symbol \\
+      & i    & ::=& s \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
   \end{grammar}
 }
 
@@ -230,12 +225,10 @@
 \newmacro{G-CInputs-Compact}{
   \begin{grammar}
     \noalign{Concrete inputs}\\
-      & j    & ::=& \bar{a} \Mid \First j \Mid \Second j             & – action, to first, to second \\
-      &      &\mid& \First j             & – pass to first \\
-      &      &\mid& \Second j            & – pass to second \\
+      & j    & ::=& a \Mid \First j \Mid \Second j             & – action, to first, to second \\
       \\
     \noalign{Concrete actions}\\
-      & \bar{a} & ::=& c                    & – constant \\
+      & a  & ::=& c                    & – constant \\
       &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
   \end{grammar}
 }
