@@ -8,23 +8,32 @@
 
 \subsection{Observations}
 
-\begin{center}
-  \small
-  \usemacro{O-Value}
-\end{center}
+\begin{figure}
+  \begin{center}
+    \small
+    \usemacro{O-Value}
+  \end{center}
+  \caption{Task value observation function $\Value$}
+  \label{fig:value}
+\end{figure}
 
-\begin{center}
-  \small
-  \usemacro{O-Failing}
-\end{center}
+\begin{figure}
+  \begin{center}
+    \small
+    \usemacro{O-Failing}
+  \end{center}
+  \caption{Task failing observation function $\Failing$}
+  \label{fig:failing}
+\end{figure}
 
-\begin{center}
-  \small
-  \usemacro{O-Inputs}
-\end{center}
-
-\fixme{Are these still correct?}
-
+\begin{figure}
+  \begin{center}
+    \small
+    \usemacro{O-Inputs}
+  \end{center}
+  \caption{Task inputs observation function $\Inputs$}
+  \label{fig:inputs}
+\end{figure}
 
 
 \subsection{Evaluation}
@@ -52,6 +61,8 @@
   \userule{Sym-E-Xor}\Quad
   \userule{Sym-E-Fail}
 \end{gather*}
+\caption{Symbolic evaluation semantics}
+\label{fig:eval}
 \end{figure*}
 
 
@@ -75,6 +86,8 @@
   \userule{Sym-S-Next} \Quad
   \userule{Sym-S-And}
 \end{gather*}
+\caption{Symbolic striding semantics}
+\label{fig:striding}
 \end{figure*}
 
 \begin{figure*}
@@ -84,6 +97,8 @@
   \userule{Sym-N-Done} \Quad
   \userule{Sym-N-Repeat}
 \end{gather*}
+\caption{Symbolic normalisation semantics}
+\label{fig:normalising}
 \end{figure*}
 
 
@@ -107,15 +122,19 @@
   \userule{Sym-H-Or}
 \end{gather*}
 \caption{Symbolic execution rules for the handling semantics}
+\label{fig:handling}
 \end{figure*}
 
 
+\begin{figure}
 \begin{gather*}
   \small
   \boxed{\RelationI}\Break
   \userule{Sym-I-Handle}
 \end{gather*}
-
+\caption{Symbolic driving semantics}
+\label{fig:driving}
+\end{figure}
 
 
 \subsection{Simulating}

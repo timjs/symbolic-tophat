@@ -38,25 +38,36 @@ Two, unary and binary operations have been made explicit.
 
 The types of \TOPHAT remain the same.
 
+\begin{figure}
 \usemacro{G-Types-Compact}
+\caption{Syntax of \TOPHAT types}
+  \label{fig:syntaxtypes}
+\end{figure}
 
 However, we do need an additional typing rule, S-Var, to type symbols,
 since they are now part of our expression syntax.
 This requires an additional typing environment $\Delta$.
 
+\begin{figure}
 \userule{S-Var}
+\caption{Additional typing rule for symbols}
+  \label{fig:typingsymbol}
+\end{figure}
 
 \subsection{Values}
 
 As mentioned before, symbols are considered to be values.
 They have therefore been added to the list of values.
 
+\begin{figure}
 \usemacro{G-Values-Compact}
+\usemacro{G-Tasks-Compact}
+\caption{Syntax of values in \TOPHAT}
+  \label{fig:syntaxvalues}
+\end{figure}
 
 As a result, we must now also regard unary and binary operations as values.
 This is due to the fact that the symbols are placeholders for actual values.
-
-\usemacro{G-Tasks-Compact}
 
 
 \subsection{Inputs}
@@ -65,7 +76,11 @@ In symbolic execution, we do not know what the input of a program will be.
 In the case of \TOPHAT, this means that we do not know the user input, but have to put in placeholder symbols.
 This is reflected in the definition of symbolic inputs below.
 
-\usemacro{G-Inputs}
+\begin{figure}
+\usemacro{G-Inputs-Compact}
+\caption{Syntax of inputs}
+  \label{fig:syntaxinputs}
+\end{figure}
 
 Inputs now only consist of a potential path consisting of one or more $\First$ and $\Second$,
 followed by a symbol $s$.
@@ -82,6 +97,10 @@ Since this in formation is not available during symbolic execution, we need to r
 This is done by means of predicates.
 Below, the syntax of these predicates is listed.
 
-\usemacro{G-Predicates}
+\begin{figure}
+\usemacro{G-Predicates-Compact}
+\caption{Syntax of predicates}
+  \label{fig:syntaxpredicates}
+\end{figure}
 
 Predicates can contain symbols, constants, input symbols $\Continue$, $\Left$ and $\Right$, and operations on them.
