@@ -66,9 +66,7 @@ We demonstrate it to be sound and complete with respect to the original semantic
 % \\
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-\subsection{Soundness}
-
-The grammer of concrete inputs is as follows.
+In order to do that, we use the following definition of concrete inputs.
 
 \begin{figure}
 \usemacro{G-CInputs-Compact}
@@ -77,7 +75,12 @@ The grammer of concrete inputs is as follows.
 \end{figure}
 
 
-For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
+\subsection{Soundness}
+
+
+
+
+%For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
 
 % \begin{function}
 %   \signature{\mathit{eval} :: \Task \times [\textrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
@@ -98,33 +101,33 @@ For completeness and soundness we define what it means to completely evaluate a 
 % \end{theorem}
 % \fixme{this cannot be proven untill the drive function is fixed}
 
+In order to validate the symbolic execution semantics, we want to show that for every symbolic execution, there exists a corresponding concrete one.
+This soundness property is expressed by Theorem~\ref{thm:sounddrive}.
+
 \begin{theorem}[Soundness of driving]
   \label{thm:sounddrive}
 
   For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\drive{i} \overline{t',\sigma',\phi}$
-  we have $\phi M = \True$ implies
+  such that $t,\sigma\drive{} \overline{t',\sigma',i,\phi}$
+  we have $M\phi$ implies
   $t,\sigma M \xRightarrow[]{M i} t'',\sigma''$, $t'M \equiv t''$ and $\sigma' M \equiv \sigma''$.
 \end{theorem}
 
-\begin{lemma}[Soundness of evaluation]
-  \label{lem:soundeval}
+The proof for this lemma is rather straightforward.
+Since the driving semantics makes use of the handling and the normalisation semantics, we require two lemmas.
+One showing that the handling semantics is sound, Lemma~\ref{lem:soundhandle}, and one showing that the normalisation semantics is sound, Lemma~\ref{lem:soundnorm}.
 
-  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
-  we have that $M\phi \implies t,M\sigma \bar{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
+\begin{lemma}[Soundness of handling]
+  \label{lem:soundhandle}
 
+  For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  such that $t,\sigma\handle{i} \overline{t',\sigma',\phi}$,
+  we have $\phi M = \True$ implies
+  $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
 \end{lemma}
 
-\begin{lemma}[Soundness of striding]
-  \label{lem:soundstride}
-
-  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\stride \overline{t',\sigma',\phi}$,
-  $M \phi= \True$ implies
-  $t,M\sigma \bar{\stride}\bar{t'},\bar{\sigma'}$, $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
-
-\end{lemma}
+Lemma~\ref{lem:soundhandle} is proven by induction over $t$.
+The full proof is listed in the appendix.
 
 \begin{lemma}[Soundness of normalisation]
   \label{lem:soundnorm}
@@ -136,14 +139,33 @@ For completeness and soundness we define what it means to completely evaluate a 
 
 \end{lemma}
 
-\begin{lemma}[Soundness of handling]
-  \label{lem:soundhandle}
+Since Lemma~\ref{lem:soundnorm} makes use of both the striding and the evaluation semantics,
+we are required to show soundness for those too.
 
-  For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\handle{i} \overline{t',\sigma',\phi}$,
-  we have $\phi M = \True$ implies
-  $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
+\begin{lemma}[Soundness of striding]
+  \label{lem:soundstride}
+
+  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  such that $t,\sigma\stride \overline{t',\sigma',\phi}$,
+  $M \phi= \True$ implies
+  $t,M\sigma \bar{\stride}\bar{t'},\bar{\sigma'}$, $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
+
 \end{lemma}
+
+\begin{lemma}[Soundness of evaluation]
+  \label{lem:soundeval}
+
+  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
+  we have that $M\phi \implies t,M\sigma \bar{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
+
+\end{lemma}
+
+The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.
+
+
+
+
 
 \subsection{Completeness}
 
