@@ -46,6 +46,13 @@
    e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2}}
   {\tuple{e_1,e_2},\sigma\eval\overline{\tuple{v_1,v_2},\sigma'',\phi_1 \land \phi_2}}
 
+\newrule{Sym-E-First}
+  {e_1,\sigma\eval\overline{v_1,\sigma',\phi}}
+  {\Fst\tuple{e_1,e_2},\sigma\eval\overline{v_1,\sigma',\phi} }
+
+\newrule{Sym-E-Second}
+  {e_2,\sigma\eval\overline{v_2,\sigma',\phi}}
+  {\Snd\tuple{e_1,e_2},\sigma\eval\overline{v_2,\sigma',\phi} }
 
 \newrule{Sym-E-Ref}
   {e,\sigma\eval \overline{v,\sigma',\phi} \Quad

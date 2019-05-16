@@ -31,6 +31,13 @@
    e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
   {\tuple{e_1,e_2},\bar{\sigma}\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma''}}
 
+\newrule{E-First}
+  {e_1,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
+  {\Fst\tuple{e_1,e_2},\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
+
+\newrule{E-Second}
+  {e_2,\bar{\sigma}\bar{\eval}\bar{v_2},\bar{\sigma'}}
+  {\Snd\tuple{e_1,e_2},\bar{\sigma}\bar{\eval} \bar{v_2},\bar{\sigma'} }
 
 \newrule{E-Ref}
   {e,\bar{\sigma}\bar{\eval} \bar{v},\bar{\sigma'} \Quad
