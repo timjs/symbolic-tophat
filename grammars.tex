@@ -51,9 +51,9 @@
   \begin{grammar}
     \noalign{Expressions}\\
     & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2           & – abstraction, application \\
-    &       & \mid  & x  \Mid  c                                   & – variable, constant \\
-    &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary and binary operation \\
-    &       & \mid  & \If{e_1}{e_2}{e_3}  \Mid  \unit              & – branch, unit \\
+    &       & \mid  & x  \Mid  c \Mid \unit                        & – variable, constant, unit \\
+    &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
+    &       & \mid  & \If{e_1}{e_2}{e_3}                           & – branch \\
     &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
     &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
     &       & \mid  & p                                            & – pretask \\
@@ -62,7 +62,7 @@
     & c& ::= &  B  \Mid  I  \Mid  S                          & – boolean, integer, string\\
     \\
     \noalign{Unary Operations}\\
-    & u &::= &  \lnot \Mid - \Mid \#                         & - logica, numerical, sequential\\
+    & u &::= &  \lnot \Mid - \Mid \#                         & - logical, numerical, sequential\\
     \\
     \noalign{Binary Operations}\\
     & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
@@ -156,7 +156,7 @@
     \noalign{Values}\\
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
       &   & \mid & c \Mid l \Mid t                                   & – constant, location, task \\
-      &   & \mid & s \Mid u\ v \Mid v_1\ o\ v_2                      & – symbol, unary, binary operation\\
+      &   & \mid & s \Mid u\ v \Mid v_1\ o\ v_2                      & – symbol, unary op, binary op\\
   \end{grammar}
 }
 
@@ -203,6 +203,16 @@
   \end{grammar}
 }
 
+\newmacro{G-Inputs-Compact}{
+  \begin{grammar}
+    \noalign{Symbolic inputs}\\
+      & i    & ::=& a \Mid \First i \Mid \Second i  & – symbolic action, to first, to second \\
+      \\
+    \noalign{Symbolic actions}\\
+      & a    & ::=& s                    & – change editor to symbol \\
+  \end{grammar}
+}
+
 \newmacro{G-CInputs}{
   \begin{grammar}
     Concrete inputs
@@ -217,6 +227,19 @@
   \end{grammar}
 }
 
+\newmacro{G-CInputs-Compact}{
+  \begin{grammar}
+    \noalign{Concrete inputs}\\
+      & j    & ::=& \bar{a} \Mid \First j \Mid \Second j             & – action, to first, to second \\
+      &      &\mid& \First j             & – pass to first \\
+      &      &\mid& \Second j            & – pass to second \\
+      \\
+    \noalign{Concrete actions}\\
+      & \bar{a} & ::=& c                    & – constant \\
+      &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
+  \end{grammar}
+}
+
 
 \newmacro{G-Predicates}{
   \begin{grammar}
@@ -228,5 +251,14 @@
       &      &\mid& \Right            & – go right \\
       &      &\mid& u\ \phi              & – symbolic unary operation \\
       &      &\mid& \phi_1\ o\ \phi_2    & – symbolic binary operation \\
+  \end{grammar}
+}
+
+\newmacro{G-Predicates-Compact}{
+  \begin{grammar}
+    \noalign{Predicates}\\
+      & \phi &::= & c \Mid s                   & – constant, symbol\\
+      &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
+      &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2  & – symbolic unary, binary operation
   \end{grammar}
 }
