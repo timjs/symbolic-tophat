@@ -1,0 +1,67 @@
+% !TEX root=../../main.tex
+
+\section{Complete symbolic semantics}
+
+\subsection{Symbolic execution}
+
+\begin{gather*}
+  \small
+  \boxed{\RelationE} \Break
+  \userule{Sym-E-Value}\Quad
+  \userule{Sym-E-Pair} \Quad
+  \userule{Sym-E-First}\Quad
+  \userule{Sym-E-Second}\Break
+  \userule{Sym-E-App} \Break
+  \userule{Sym-E-If} \Quad
+  \userule{Sym-E-Ref} \Quad
+  \userule{Sym-E-Deref} \Break
+  \userule{Sym-E-Assign} \Quad
+  \userule{Sym-E-Edit} \Quad
+  \userule{Sym-E-Enter}\Quad
+  \userule{Sym-E-Update}\Break
+  \userule{Sym-E-Then}\Quad
+  \userule{Sym-E-Next}\Quad
+  \userule{Sym-E-And}\Break
+  \userule{Sym-E-Or} \Quad
+  \userule{Sym-E-Xor}\Quad
+  \userule{Sym-E-Fail}
+\end{gather*}
+
+\subsection{Symbolic striding semantics}
+
+\begin{gather*}
+  \small
+  \boxed{\RelationS} \Break
+  \userule{Sym-S-ThenStay} \Quad
+  \userule{Sym-S-ThenFail} \Break
+  \userule{Sym-S-ThenCont} \Quad
+  \userule{Sym-S-OrLeft} \Break
+  \userule{Sym-S-OrRight} \Break
+  \userule{Sym-S-OrNone} \Break
+  \userule{Sym-S-Edit} \Quad
+  \userule{Sym-S-Fill} \Quad
+  \userule{Sym-S-Update} \Quad
+  \userule{Sym-S-Fail} \Break
+  \userule{Sym-S-Xor} \Quad
+  \userule{Sym-S-Next} \Quad
+  \userule{Sym-S-And}
+\end{gather*}
+
+\subsection{Symbolic handling semantics}
+
+\begin{gather*}
+  \small
+  \boxed{\RelationH} \Break
+  \userule{Sym-H-Change} \Quad
+  \userule{Sym-H-Fill} \Quad
+  \userule{Sym-H-Update}\Break
+  \userule{Sym-H-Next} \Quad
+  \userule{Sym-H-PassThen} \Break
+  \userule{Sym-H-PassNext} \Break
+  \userule{Sym-H-PassNext1}\Quad
+  \userule{Sym-H-PickLeft} \Break
+  \userule{Sym-H-PickRight}\Quad
+  \userule{Sym-H-Pick}\Break
+  \userule{Sym-H-And}\Quad
+  \userule{Sym-H-Or}
+\end{gather*}
