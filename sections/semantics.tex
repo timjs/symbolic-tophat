@@ -196,9 +196,9 @@ A recursive call is terminated when one of the two stop conditions is met.
                  \mathit{where}\ \mathit{simulate''}\ t''\ i'\ \sigma''\ \phi''=\\
                                           \begin{array}{ll}
                                             [\ ] & \neg \text{SAT } (\phi\land\phi'\land\phi'')\\
-                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t',\sigma') = v \land \text{SAT } (\phi\land\phi'\land\phi'')\\
+                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t'',\sigma'') = v \land \text{SAT } (\phi\land\phi'\land\phi'')\\
                                           \mathit{simulate}\ t''\ (I\oplus[i,i'])\ \sigma''\ (\phi\land\phi'\land\phi'') & (t'' \neq t') \land \Value(t'',\sigma'') = \bot\\
-                                    \relax [\ ] & t'' = t' \wedge \Value(t',\sigma') = \bot
+                                    \relax [\ ] & t'' = t' \wedge \Value(t'',\sigma'') = \bot
                                                     \end{array}
 \end{function}
 \caption{Simulation function definition}
