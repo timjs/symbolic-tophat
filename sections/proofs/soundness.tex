@@ -35,7 +35,34 @@
   From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.
   }
 
-\fixme{add first and second pair projection cases}
+\case{$e=\Fst e$}
+{
+  One rule applies, namely \userule{Sym-E-First}\\
+  Provided that $M\phi$,
+  we need to demonstrate that \userule{E-First} with $\bar{\sigma}=M\sigma$,
+  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following.\\
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\bar{v_1},\bar{v_2}}\land M_1\sigma'\equiv\bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$,
+  we directly obtain that $\Fst e,\sigma\bar{\eval}\bar{v_1}$,
+  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  }
+
+\case{$e=\Snd e$}
+{ One rule applies, namely \userule{Sym-E-Second}\\
+  Provided that $M\phi$,
+  we need to demonstrate that \userule{E-Second} with $\bar{\sigma}=M\sigma$,
+  $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following.\\
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\bar{v_1},\bar{v_2}}\land M_1\sigma'\equiv\bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$,
+  we directly obtain that $\Snd e,\sigma\bar{\eval}\bar{v_2}$,
+  $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  }
 
 \case{$e=e_1 e_2$}
   {One rule applies, namely \userule{Sym-E-App}\\
