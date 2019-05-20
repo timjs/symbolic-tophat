@@ -180,15 +180,20 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
 %
 % \fixme{Proof of thm 5.2 is required for this thm}
 
-\fixme{I think that we need a better way to say that i and j are related}
-
 \begin{theorem}[Completeness of driving]
   \label{thm:completeDrive}
   $\forall t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
-  there exists an $i$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
-  And when substituting the symbol from $i$ with the concrete value from $j$, denoted by $s\mapsto c$,
-  we get $t''[s\mapsto c] = t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
+  there exists an $i\sim j$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
 \end{theorem}
+
+%why do we need simulation? explain that here!
+
+\begin{definition}[input simulation]
+  A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
+  $s\sim a$, where $s$ is a symbol and $a$ a concrete action.\\
+  $i\sim j\implies \First i \sim \First j$\\
+  $i\sim j\implies \Second i \sim \Second j$
+\end{definition}
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
@@ -214,7 +219,5 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
 \begin{lemma}[Completeness of handling]
   \label{lem:completeHandle}
   $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
-  there exists an $i$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
-  And when substituting the symbol from $i$ with the concrete value from $j$,
-  denoted by $s\mapsto c$, we get $t''[s\mapsto c]= t'$ and $\sigma'''[s\mapsto c]=\sigma''$.
+  there exists an $i\sim j$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
 \end{lemma}
