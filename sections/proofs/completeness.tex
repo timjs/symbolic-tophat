@@ -86,7 +86,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   Two rules apply in this case.\\
   \case{\userule{H-PickLeft}}
     {
-      Take $i=s$ where s is free in $e_1$ and $\sigma$.\\
+      Take $i=s$.\\
       Lemma~\ref{lem:completeNormalise} gives us that there exists a symbolic execution $e_1,\sigma\normalise t_1',\sigma'',\phi$.\\
       \fixme{now we need something like, failing, split in two cases, depending on right branch, etc etc}
     }
@@ -97,15 +97,55 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   }
   \case{$t=t_1\Or t_2$}
     {
-    Tow rules applies in this case.\\
-    \case{\userule{H-FirstOr}}{\fixme{todo}}
-    \case{\userule{H-SecondOr}}{\fixme{todo}}
+    Two rules applies in this case.\\
+    \case{\userule{H-FirstOr}}
+    {
+    Take $i=\First i$.
+
+    By application of the induction hypothesis, we obtain the following.\\
+    For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[]{j}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
+
+    From this, we can conclude that $\First i\sim \First j$.
+    From \refrule{Sym-H-Or}, and the conclusion of the induction hypothesis,
+    we can conclude that there exists an $i$ such that $t_1\Or t_2,\sigma\handle{}t_1'\Or t_2,\sigma',i,\phi$.
+    }
+    \case{\userule{H-SecondOr}}
+    {
+    Take $i=\Second i$.
+
+    By application of the induction hypothesis, we obtain the following.\\
+    For all $t_2,\sigma,j$ such that $t_2,\sigma\xrightarrow[]{j}t_2',\sigma'$ there exists an $i\sim j$ such that $t_2'',\sigma''\handle{}t_2''',\sigma''',i,\phi$.\\
+
+    From this, we can conclude that $\Second i\sim \Second j$.
+    From \refrule{Sym-H-Or}, and the conclusion of the induction hypothesis,
+    we can conclude that there exists an $i$ such that $t_1\Or t_2,\sigma\handle{}t_1\Or t_2',\sigma',i,\phi$.
+    }
     }
   \case{$t=t_1\And t_2$}
     {
-    Tow rules applies in this case.\\
-    \case{\userule{H-FirstAnd}}{\fixme{todo}}
-    \case{\userule{H-SecondAnd}}{\fixme{todo}}
+    Two rules applies in this case.\\
+    \case{\userule{H-FirstAnd}}
+    {
+    Take $i=\First i$.
+
+    By application of the induction hypothesis, we obtain the following.\\
+    For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[]{j}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
+
+    From this, we can conclude that $\First i\sim \First j$.
+    From \refrule{Sym-H-And}, and the conclusion of the induction hypothesis,
+    we can conclude that there exists an $i$ such that $t_1\And t_2,\sigma\handle{}t_1'\Or t_2,\sigma',i,\phi$.
+    }
+    \case{\userule{H-SecondAnd}}
+    {
+    Take $i=\Second i$.
+
+    By application of the induction hypothesis, we obtain the following.\\
+    For all $t_2,\sigma,j$ such that $t_2,\sigma\xrightarrow[]{j}t_2',\sigma'$ there exists an $i\sim j$ such that $t_2'',\sigma''\handle{}t_2''',\sigma''',i,\phi$.\\
+
+    From this, we can conclude that $\First i\sim \Second j$.
+    From \refrule{Sym-H-And}, and the conclusion of the induction hypothesis,
+    we can conclude that there exists an $i$ such that $t_1\And t_2,\sigma\handle{}t_1\And t_2',\sigma',i,\phi$.
+    }
     }
 
 \end{proof}
