@@ -38,45 +38,37 @@ In other words; every concrete evaluation is also a valid symbolic execution.
 
   \case{$t=\Edit v$}
   {One rule applies in this case, namely \userule{H-Change}\\
-  Take $i=s$ where s is a free symbol in $\sigma$ and assume $\sigma''=\sigma$.
-  Then by the Sym-H-Change rule,
-  we know that a symbolic execution exists.
-  When applying the substitution $[s\mapsto v']$,
-  we get $\Edit s[s\mapsto v'] = \Edit v'$ and $\sigma[s\mapsto v']=\sigma$ since $s$ is free in $\sigma$.
+  Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v'$ holds by definition.
+  Then by the Sym-H-Change rule, we know that a symbolic execution exists.
 
   }
 
   \case{$t=\Enter \tau$}
   {One rule applies in this case, namely \userule{H-Fill}\\
-  Take $i=s$ where s is a free symbol in $\sigma$ and assume $\sigma''=\sigma$.
+  Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v$ holds by definition.
   Then by the Sym-H-Fill rule,
   we know that a symbolic execution exists.
-  When applying the substitution $[s\mapsto v']$,
-  we get $\Edit s[s\mapsto v'] = \Edit v'$ and $\sigma[s\mapsto v']=\sigma$ since $s$ is free in $\sigma$. }
+  }
 
   \case{$t=\Update l$}
   {One rule applies in this case, namely \userule{H-Update}\\
-  Take $i=s$ where s is a free symbol in $\sigma$ and assume $\sigma''=\sigma$.
+  Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v'$ holds by definition.
   Then by the Sym-H-Update rule,
   we know that a symbolic execution exists.
-  When applying the substitution $[s\mapsto v']$,
-  we get $\Edit s[s\mapsto v'] = \Edit v'$ and $\sigma[s\mapsto v']=\sigma$ since $s$ is free in $\sigma$. }
+   }
 
   \case{$t=t_1\Next e_2$}
   {Two rules apply in this case\\
     \case{\userule{H-Next}}
     {
-    Take $i=s$ where s is a free symbol in $\sigma$ and $t$, and assume $\sigma''=\sigma$.
-    Then by the Sym-H-Next rule,
-    we know that a symbolic execution exists.
-    When applying the substitution $[s\mapsto \Continue]$,
-    we get $t_2[s\mapsto \Continue] = t_2'$ and $\sigma'[s\mapsto \Continue]=\sigma'$ since $s$ is free in both $\sigma$ and $t$.
+    Take $i=s$ and assume $\sigma''=\sigma$. $s\sim \Continue$ holds by definition.
+    Then by the Sym-H-Next rule, we know that a symbolic execution exists.
     }
     \case{\userule{H-PassNext}}
     {
     By application of the induction hypothesis, we obtain the following.\\
-    For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[j]{}t_1',\sigma'$ there exists an $i$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$ and when substituting the symbol in $i$ for the concrete value from $j$, denoted by $[s\mapsto c]$, we have $t_1'''[s\mapsto c] = t_1'\land \sigma'''[s\mapsto c]=\sigma'$.\\
-    From this we can conclude that there exists a symbolic execution $t_1\Next e_2,\sigma\handle{} t_1'''\Next e_2,\sigma''',i,\phi$, and that $t_1'''\Next e_2[s\mapsto c] = t_1'\Next e_2$ and $\sigma'''[s\mapsto c]=\sigma'$.
+    For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[j]{}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
+    From this we can conclude that there exists a symbolic execution $t_1\Next e_2,\sigma\handle{} t_1'''\Next e_2,\sigma''',i,\phi$, and that $i\sim j$.
     }
   }
 
@@ -86,8 +78,8 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   One rule applies in this case, namely \userule{H-PassThen}\\
 
   By application of the induction hypothesis, we obtain the following.\\
-  For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[j]{}t_1',\sigma'$ there exists an $i$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$ and when substituting the symbol in $i$ for the concrete value from $j$, denoted by $[s\mapsto c]$, we have $t_1'''[s\mapsto c] = t_1'\land \sigma'''[s\mapsto c]=\sigma'$.\\
-  From this we can conclude that there exists a symbolic execution $t_1\Then e_2,\sigma\handle{} t_1'''\Then e_2,\sigma''',i,\phi$, and that $t_1'''\Then e_2[s\mapsto c] = t_1'\Then e_2$ and $\sigma'''[s\mapsto c]=\sigma'$.
+  For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[j]{}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
+  From this we can conclude that there exists a symbolic execution $t_1\Then e_2,\sigma\handle{} t_1'''\Then e_2,\sigma''',i,\phi$, and $i\sim j$.
   }
   \case{$t=e_1\Xor e_2$}
   {
@@ -123,9 +115,9 @@ In other words; every concrete evaluation is also a valid symbolic execution.
 \begin{proof}[Proof of Theorem~\ref{thm:completeDrive}]
   The driving semantics only consists of one rule, namely \userule{I-Handle}.\\
   By Lemma~\ref{lem:completeHandle} we obtain the following.\\
-  $t,\sigma\xrightarrow[j]{}\bar{t'},\bar{\sigma'}\implies \exists i . t,\sigma\handle{}t',\sigma',i,\phi \land t'[s\mapsto c]=\bar{t'}\land \sigma'[s\mapsto c]=\bar{\sigma'}$\\
+  $t,\sigma\xrightarrow[j]{}\bar{t'},\bar{\sigma'}\implies \exists i . t,\sigma\handle{}t',\sigma',i,\phi \land i\sim j$\\
   Then by Lemma~\ref{lem:completeNormalise} we obtain the following.\\
   $\bar{t'},\bar{\sigma'}\bar{\normalise}\bar{t''},\bar{\sigma''}\implies \bar{t'},\bar{\sigma'}\normalise t'',\sigma'',\phi'$\\
-  From the above, together with the Sym-I-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\drive t',\sigma',i,\phi$.\\
-  \fixme{how do we show that the resulting values are "compatible"?}
+  From the above, together with the Sym-I-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\drive{} t',\sigma',i,\phi\land i\sim j$.
+
 \end{proof}
