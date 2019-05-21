@@ -37,18 +37,18 @@ The following combinators are available in \TOPHAT.
 \begin{description}
   \item[$t \Then e$] Step.\\
   Users can work on task $t$.
-  When this task yields a value, that value is passed on to the right hand side, with which we continue.
+  As soon as $t$ yields a value, that value is passed on to the right hand side, with which it continues.
   \item[$t \Next e$] User Step.\\
   Users can work on task $t$.
   When they are done, and $t$ yields a value, the user can send a continue event to the combinator.
-  The value of $t$ is then passed on to the right hand side, with which we continue.
+  The value of $t$ is then passed on to the right hand side, with which it continues.
   \item[$t_1 \And t_1$] Composition.\\
   Users can work on tasks $t_1$ and $t_2$ at the same time.
   \item[$t_1 \Or t_2$] Choice.\\
-  A choice is made between $t_1$ or $t_2$. If either of those returns a value, the system chooses that task.
+  The system chooses between $t_1$ or $t_2$. If either of those returns a value, the system chooses that task.
   \item[$e_1 \Xor e_1$] User choice.\\
   A user has to make a choice between either the left or the right hand side.
-  If a choice is made, the user can work on the selected task.
+  The user continues to work on the chosen task.
 \end{description}
 
 In addition to editors and combinators, \TOPHAT also contains a fail task $\Fail$.
