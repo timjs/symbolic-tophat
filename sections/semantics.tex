@@ -42,7 +42,7 @@ Instead of two seperate rules, one for the then and one for the else branch, we 
 Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
 Instead, we keep both options open.
 
-We calculate the then-branch, and add to the predicate that we can only reach this point if $v_1$ becomes $\True$.
+We calculate the then-branch, and add to the path condition that we can only reach this point if $v_1$ becomes $\True$.
 And we do the same for the else-branch, except we now require that $v_1$ has to become $\False$, in order for this result to apply.
 
 \subsection{Observations}
@@ -90,7 +90,7 @@ Its definition is given in Figure~\ref{fig:failing}.
 The normalisation semantics prepares tasks to receive input.
 Very little changes had to be made to these semantics in order to accommodate symbolic execution.
 
-Just as with the evaluation semantics, we now gather sets of results, each barred by a predicate on the symbolic input.
+Just as with the evaluation semantics, we now gather sets of results, each guarded by a path condition on the symbolic input.
 
 Figure~\ref{fig:normalising} lists the normalisation semantics.
 For the striding semantics, we refer to the appendix.
@@ -168,13 +168,13 @@ The combination of those two steps is taken care of by the driving semantics, li
 
 The symbolic execution semantics listed above is a small step semantics.
 In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is done.
-The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states an predicates.
-We consider a task, state and predicate to be an end state if the task value can be observed, and the predicate is satisfiable.
+The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states and path conditions.
+We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
 
 A recursive call is terminated when one of the two stop conditions is met.
 
 \begin{itemize}
-  \item When the predicate cannot be satisfied, we know that all future steps won't be satisfiable either.
+  \item When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
   In fact, no future state will be satisfiable, and we can therefore safely remove it.
   \item The second stop condition is when an execution does not alter anymore between steps.
   In other words, the program is stuck, no value can be observed, an no value will ever be observed.

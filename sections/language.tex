@@ -88,18 +88,18 @@ This symbol is a placeholder for all concrete inputs, this can either be a const
 This means that editors can no longer be set to a value $v$, but will instead hold a symbol $s$ after user input.
 
 
-\subsection{Predicates}
+\subsection{Path conditions}
 
 When the execution of a \TOPHAT program takes a certain path, there are always certain conditions to arrive at that point.
 A user selects the left task, a user enters a value, that is used to select the next task, etc.
 Since this information is not available during symbolic execution, we need to record how the path depends on the input.
 
-This is done by means of predicates.
-\Cref{fig:syntaxpredicates} lists the syntax for predicates.
+This is done by means of path conditions.
+\Cref{fig:syntaxpredicates} lists the syntax for path conditions.
 
 \begin{figure}
 \usemacro{G-Predicates-Compact}
-\caption{Syntax of predicates}
+\caption{Syntax of path conditions}
   \label{fig:syntaxpredicates}
 \end{figure}
 
