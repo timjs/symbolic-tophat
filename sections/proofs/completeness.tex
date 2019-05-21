@@ -86,13 +86,23 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   Two rules apply in this case.\\
   \case{\userule{H-PickLeft}}
     {
-      Take $i=s$.\\
-      Lemma~\ref{lem:completeNormalise} gives us that there exists a symbolic execution $e_1,\sigma\normalise t_1',\sigma'',\phi$.\\
-      \fixme{now we need something like, failing, split in two cases, depending on right branch, etc etc}
+      Take $i=s$. $s\sim \Left$ holds by definition.\\
+      Lemma~\ref{lem:completeNormalise} gives us the following.\\
+      There exists a symbolic execution $e_1,\sigma\normalise t_1,\sigma_1,\phi$.\\
+      There exists a symbolic execution $e_2,\sigma_1\normalise t_2,\sigma_2,\phi$.\\
+
+      We can now conclude that a symbolic execution exists.
+      Either by the \refrule{Sym-H-PickLeft} rule, in case $\Failing(t_2,\sigma_2)$, or by the \refrule{Sym-H-Pick} rule in case $\neg\Failing(t_2,\sigma_2)$.
     }
   \case{\userule{H-PickRight}}
     {
-      \fixme{todo}
+    Take $i=s$. $s\sim \Left$ holds by definition.\\
+    Lemma~\ref{lem:completeNormalise} gives us the following.\\
+    There exists a symbolic execution $e_1,\sigma\normalise t_1,\sigma_1,\phi$.\\
+    There exists a symbolic execution $e_2,\sigma_1\normalise t_2,\sigma_2,\phi$.\\
+
+    We can now conclude that a symbolic execution exists.
+    Either by the \refrule{Sym-H-PickRight} rule, in case $\Failing(t_1,\sigma_1)$, or by the \refrule{Sym-H-Pick} rule in case $\neg\Failing(t_1,\sigma_1)$.
     }
   }
   \case{$t=t_1\Or t_2$}
