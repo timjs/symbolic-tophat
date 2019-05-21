@@ -142,7 +142,7 @@ The \refrule{Sym-H-Fill} rule for example, generates a fresh symbol $s$, and the
 
 There are several task combinators where the result depends on the user input.
 For example, the parallel combinator $\And$ receives an input for either the left or the right branch.
-Since in this case, we do not know what input will be given for which branch, so the \refrule{Sym-H-And} rule generates both cases.
+To accommodate for all possibilities, the \refrule{Sym-H-And} rule generates both cases.
 
 The same principle applies to the external choice combinator $\Xor$, however, in this case, we still need three rules.
 This is due to the fact that users are not allowed to step to a task that is failing.
@@ -167,7 +167,7 @@ The combination of those two steps is taken care of by the driving semantics, li
 \label{subsec:driving}
 
 The symbolic execution semantics listed above is a small step semantics.
-In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is "done".
+In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is done.
 The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states an predicates.
 We consider a task, state and predicate to be an end state if the task value can be observed, and the predicate is satisfiable.
 
