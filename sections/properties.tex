@@ -66,7 +66,7 @@ We demonstrate it to be sound and complete with respect to the original semantic
 % \\
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to do that, we use the following definition of concrete inputs.
+In order to relate the two semantics, we use the of concrete inputs listed in Figure~\ref{fig:inputsConcrete}.
 
 \begin{figure}
 \usemacro{G-CInputs-Compact}
@@ -169,7 +169,8 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
 
 \subsection{Completeness}
 
-
+We also want to show that for every concrete execution, a symbolic one exists.
+This completeness property is listed in Theorem~\ref{thm:completeDrive}.
 
 % \begin{theorem}[Completeness of symbolic execution]
 % For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
@@ -186,7 +187,8 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
   there exists an $i\sim j$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
 \end{theorem}
 
-%why do we need simulation? explain that here!
+Where with $i\sim j$ we mean that the symbolic input $i$ follows the same direction as the concrete input does.
+This relation is properly defined below.
 
 \begin{definition}[input simulation]
   A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
@@ -195,10 +197,29 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
   $i\sim j\implies \Second i \sim \Second j$
 \end{definition}
 
-\begin{lemma}[Completeness of evaluation]
-  \label{lem:completeEval}
-  $\forall e,\sigma$ such that $t,\sigma \bar{\eval}v,\sigma'$
-  there exists a symbolic execution $t,\sigma''\eval v',\sigma''',\phi$.
+The proof of Theorem~\ref{thm:completeDrive} is rather simple.
+We show that handling is complete, Lemma~\ref{lem:completeHandle},
+and that the subsequent normalisation is complete too, Lemma~\ref{lem:completeNormalise}.
+
+
+\begin{lemma}[Completeness of handling]
+  \label{lem:completeHandle}
+  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
+  there exists an $i\sim j$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
+\end{lemma}
+
+Lemma~\ref{lem:completeHandle} is shown by induction over $t$.
+In essence, we merely need to show that every concrete execution also is a symbolic one.
+The only change needed to convert from concrete to symbolic, is the adaption of the input.
+
+Since handling makes use of the normalisation, striding and eventually the evaluation semantics,
+we need to prove that they too are complete.
+These properties are listed in \cref{lem:completeNormalise,lem:completeStride,lem:completeEval}
+
+\begin{lemma}[Completeness of normalisation]
+  \label{lem:completeNormalise}
+  $\forall e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
+  there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
 \end{lemma}
 
 
@@ -209,15 +230,12 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
 \end{lemma}
 
 
-\begin{lemma}[Completeness of normalisation]
-  \label{lem:completeNormalise}
-  $\forall e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
-  there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
+\begin{lemma}[Completeness of evaluation]
+  \label{lem:completeEval}
+  $\forall e,\sigma$ such that $t,\sigma \bar{\eval}v,\sigma'$
+  there exists a symbolic execution $t,\sigma''\eval v',\sigma''',\phi$.
 \end{lemma}
 
 
-\begin{lemma}[Completeness of handling]
-  \label{lem:completeHandle}
-  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
-  there exists an $i\sim j$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
-\end{lemma}
+Proof for \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} is trivial,
+since every concrete execution in these semantics is also a symbolic one.
