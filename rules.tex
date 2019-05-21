@@ -267,13 +267,13 @@
   {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
    e_2,\sigma \normalise \overline{t_2,\sigma_2,\phi_1}}
   {e_1 \Xor e_2,\sigma \handle{} t_1,\sigma_1,s,\phi_1\land s=\Left}
-  [\neg\Failing(t_1,\sigma')\land \Failing(t_2,\sigma_2)]
+  [\neg\Failing(t_1,\sigma_1)\land \Failing(t_2,\sigma_2)]
 
 \newrule{Sym-H-PickRight}
   {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
    e_2,\sigma \normalise \overline{t_2,\sigma_2,\phi_1}}
   {e_1 \Xor e_2,\sigma \handle{} t_2,\sigma_2,s,\phi_2\land s=\Right}
-  [\neg\Failing(t_2,\sigma')\land \Failing(t_1,\sigma_1)]
+  [\neg\Failing(t_2,\sigma_1)\land \Failing(t_1,\sigma_1)]
 
 \newrule{Sym-H-Pick}
   {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
