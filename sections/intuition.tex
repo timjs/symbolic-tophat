@@ -23,17 +23,17 @@ When a task has an observable value, we consider it done.
 This is the point where symbolic execution terminates.
 
 This execution results in a list of all possible program results,
-guarded by certain constrains on the symbolic input.
+guarded by certain constraints on the symbolic input.
 If these possible outcomes agree with the stated property,
 it is guaranteed that his will hold for all paths.
 
 \begin{example}
-  \begin{TASK}
-    enter String >>= \ x if palindrome x then edit x else fail
-\end{TASK}
-\end{example}
+Consider the following example program.
 
-Consider the small example program above.
+\begin{TASK}
+  enter String >>= \ x if palindrome x then edit x else fail
+\end{TASK}
+
 It asks the user to input a value of type $\String$.
 This value is then passed on to the right hand side.
 If the value is a palindrome, as determined by the function with that name,
@@ -53,3 +53,4 @@ But this does not yield a value, it instead asks for additional input.
 
 So, from the symbolic execution we obtain that the only outcome of this program is $s \mid \text{palindrome}\ s$.
 From that outcome, we can conclude that no matter what input is given, the only result value possible has to be a palindrome.
+\end{example}
