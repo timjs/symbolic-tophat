@@ -6,9 +6,9 @@
 \label{sec:intuition}
 
 In order to verify that a particular \TOPHAT program behaves as intended,
-we would like to show that certain relations between the input and output of tasks hold.
+we would like to show that certain properties on the of a task hold.
 A common way to do this is to write test cases manually,
-or to generate random input and verify that the outcome fulfils the desired relation.
+or to generate random input and verify that the outcome fulfils the desired property.
 
 Writing tests manually is labour intensive and cumbersome.
 With random testing, there is no guarantee that all paths will be covered.
@@ -17,12 +17,12 @@ To overcome these issues, we apply symbolic execution to prove that the desired 
 The idea of symbolic execution is simple.
 Instead of executing tasks with test input, we run them on symbolic input.
 This input consists of symbols that are allowed to be any value of the desired type.
-When the task branches, we record what conditions must hold over the symbolic input.
+When the task branches, we record what path conditions must hold over the symbolic input.
 
 When a task has an observable value, we consider it done.
 This is the point where symbolic execution terminates.
 
-This execution results in a list of all possible program results,
+The execution results in a list of all possible program results,
 guarded by certain constraints on the symbolic input.
 If these possible outcomes agree with the stated property,
 it is guaranteed that his will hold for all paths.
