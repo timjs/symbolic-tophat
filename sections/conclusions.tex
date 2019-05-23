@@ -4,14 +4,29 @@
 
 \label{sec:conclusion}
 
+In this paper, we have demonstrated how to apply symbolic execution to \TOPHAT in order to verify individual programs.
+We have developed both a formal system and a practical implementation in Haskell of a symbolic execution semantics.
+Our approach has been validated by proving the formal system correct, and by running our practical implementation on example programs.
+
 \subsection{Future work}
 
-%different kinds of analysis
+There are many ways in which we would like to continue this line of work.
 
-%fitting it to iTasks?
+First of all, we are confident that much more can be done with symbolic execution.
+Currently, our approach only allows one to prove predicates over the results of tasks, that must hold for any input.
+We would like to be able to relate the properties that we want to prove to the input received.
+When a user enters certain values, we except a certain behaviour.
 
-% loops perhaps?
+Currently, our symbolic execution only applies to \TOPHAT.
+We would like to see if we can als fit it to iTasks.
+This poses several challenges.
+ITasks does not have a formal semantics in the sense that \TOPHAT does.
+The current implementation in clean is the closes thing available to a formal specification.
+There are also a few language features that are not covered by \TOPHAT, that are available in iTasks, like loops.
 
-% euality on tasks
 
-%....
+Furthermore, we would like to apply different kinds of analysis all-together.
+Can a certain part of the program be reached?
+Does a certain property hold at every point in the program?
+Are two programs equal? And what does it mean for two programs to be equal, or equivalent?
+We feel that these properties require a different  approach.
