@@ -179,27 +179,21 @@ A recursive call is terminated when one of the two stop conditions is met.
   \item The second stop condition is when an execution does not alter anymore between steps.
   In other words, the program is stuck, no value can be observed, an no value will ever be observed.
 \end{itemize}
-
+\todo{we allow for one step lookahead. Explain}
 %We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
 \begin{figure*}
 \begin{function}
   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{map} \ (\mathit{concat . simulate'}) (t,\sigma \drive{})\\
-                \mathit{where}\ \mathit{simulate'}\ t'\ i\ \sigma'\ \phi'=\\
+  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
+                \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
                         \begin{array}{ll}
                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
                   \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
                         \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
-                  map (concat.simulate'') (t',\sigma'\drive{})           & t' = t  \land \Value(t',\sigma') = \bot
+                  \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
+                  \relax [\ ]           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
                                   \end{array}\\
-                 \mathit{where}\ \mathit{simulate''}\ t''\ i'\ \sigma''\ \phi''=\\
-                                          \begin{array}{ll}
-                                            [\ ] & \neg \text{SAT } (\phi\land\phi'\land\phi'')\\
-                                    \relax [(t'',I\oplus[i,i'],\sigma'',\phi\land\phi'\land\phi'')] & \Value(t'',\sigma'') = v \land \text{SAT } (\phi\land\phi'\land\phi'')\\
-                                          \mathit{simulate}\ t''\ (I\oplus[i,i'])\ \sigma''\ (\phi\land\phi'\land\phi'') & (t'' \neq t') \land \Value(t'',\sigma'') = \bot\\
-                                    \relax [\ ] & t'' = t' \wedge \Value(t'',\sigma'') = \bot
-                                                    \end{array}
 \end{function}
 \caption{Simulation function definition}
 \label{fig:simulate}
