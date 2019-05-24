@@ -460,16 +460,13 @@
   Provided that $M\phi_1\land M\phi_2$\\
   we need to demonstrate that
   \userule{N-Done} with $\bar{\sigma}=M\sigma$,
-  $M t'\equiv \bar{t'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+  $M t\equiv \bar{t}$ and $M\sigma'\equiv \bar{\sigma'}$.
 
   By Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{\eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
   $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
 
   We assume $M$ to satisfy both $\phi_1$ and $\phi_2$, we have $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$ since $M\sigma\equiv \bar{\sigma}$.
-  We also have $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$,
-  from wich we can directly conclude what we needed to prove,
-  namely $M t'\equiv \bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
 
   The only induction step is when\\
   \userule{Sym-N-Repeat} applies.
@@ -479,7 +476,7 @@
   $M t''\equiv \bar{t''}$ and $M\sigma'''\equiv \bar{\sigma'''}$.
 
   Again by Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{\eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
   $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.\\
   Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \implies t',M_3\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}\land M_3 t''\equiv \bar{t''}\land M_3 \sigma'''\equiv \bar{\sigma'''}$.
 
