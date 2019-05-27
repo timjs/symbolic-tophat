@@ -10,7 +10,7 @@ It consists of three main layers.
 A big step symbolic evaluation semantics.
 This corresponds with the host language.
 A big step symbolic normalisation semantics at the task level.
-And finally a small step driving semantics that processes user input.
+And finally a small step driving semantics that processes user inputs one by one.
 
 They are all listed in the coming sections.
 Besides simply listing them, we will also point out what is interesting about them,
@@ -38,7 +38,7 @@ One rule does differ, which is listed in Figure~\ref{fig:eval}.
 \label{fig:eval}
 \end{figure}
 
-Instead of two seperate rules, one for the then and one for the else branch, we now have one Sym-E-If rule.
+Instead of two separate rules, one for the then and one for the else branch, we now have one \refrule{Sym-E-If rule}.
 Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
 Instead, we keep both options open.
 
@@ -98,9 +98,9 @@ For the striding semantics, we refer to the appendix.
 
 
 \begin{figure*}
+  \boxed{\RelationN}
 \begin{gather*}
   \small
-  \boxed{\RelationN} \Break
   \userule{Sym-N-Done} \Quad
   \userule{Sym-N-Repeat}
 \end{gather*}
@@ -120,9 +120,9 @@ Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling s
 A complete overview of the rules can be found in the appendix.
 
 \begin{figure*}
+    \boxed{\RelationH}
 \begin{gather*}
   \small
-  \boxed{\RelationH} \Break
   \userule{Sym-H-Change} \Quad
   \userule{Sym-H-Fill} \Quad
   \userule{Sym-H-Update}\Break
@@ -207,3 +207,8 @@ A recursive call is terminated when one of the two stop conditions is met.
 \subsection{Solving}
 
 \fixme{Something about SMT.}
+
+\subsection{Implementation}
+\fixme{todo}
+\subsection{Outlook}
+\fixme{todo}
