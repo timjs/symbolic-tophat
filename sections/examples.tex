@@ -61,6 +61,17 @@ The full syntax of this host language is listed in Section~\ref{expressions}.
 The references present in the host language allow tasks to communicate with each other,
 sharing information that is globally available.
 
+Finally, several observations can be made over tasks.
+Using the value function $\Value$, the current value of a task can be determined.
+The value function is a partial function, since not all tasks have a value.
+For example, $\Enter \tau$ holds no value.
+We can also observe wether or not a task is failing, by means of the failing function $\Failing$.
+The step combinator makes use of both functions in order to determine if it can step.
+First, it uses $\Value$ to see if the left hand side produces a value.
+If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side using that value.
+The complete definition of the value and failing function are listed in Section~\ref{subsec:observations}.
+
+
 \subsection{Flightbooking}
 
 
