@@ -29,6 +29,12 @@ This \TOP implementation does have a formal semantics, and is therefore suitable
   \item Implementation in Haskell of the symbolic execution semantics
 \end{itemize}
 
+\subsection{Scope}
+
+We limit ourselves to predicates over task results that must hold for all possible inputs.
+In the future, we would also like to be able to prove statements for certain inputs.
+\fixme{more on this}
+
 \subsection{Structure}
 Section~\ref{sec:examples} will give a brief overview of \TOPHAT and introduce two examples to demonstrate the goal of our analysis.
 Section~\ref{sec:intuition} describes the intuition behind symbolic execution and how it is applied to \TOPHAT.
