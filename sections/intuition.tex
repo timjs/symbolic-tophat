@@ -20,6 +20,8 @@ This input consists of symbols that are allowed to be any value of the desired t
 When the task branches, we record what path conditions must hold over the symbolic input.
 
 When a task has an observable value, we consider it done.
+Tasks only have an observable value when they consist merely of editors or pairs of editors.
+At this point, user interaction with the task can change its value, but it is impossible for the task to do anything meaningful with that new value.
 This is the point where symbolic execution terminates.
 
 The execution results in a list of all possible program results,
