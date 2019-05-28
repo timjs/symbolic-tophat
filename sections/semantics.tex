@@ -191,14 +191,44 @@ A recursive call is terminated when one of the two stop conditions is met.
                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
                   \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
                         \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
-                  \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
+                  \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
                   \relax [\ ]           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
                                   \end{array}\\
 \end{function}
+
+
+\begin{function}
+  \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
+      \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi'\\
+      \begin{array}{ll}
+                \mid \neg \text{SAT } (\phi'\land\phi) & = [\ ]\\
+                \mid \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi) & = [(t',I ++ [i],\sigma',\phi\land\phi')]\\
+                \mid (t' \neq t) \land \Value(t',\sigma')=\bot & =\mathit{simulate}\ t'\ (I ++ [i])\ \sigma'\ (\phi\land\phi')\\
+                \mid go \land t' = t  \land \Value(t',\sigma') = \bot &= \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I ++ [i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))\\
+                \mid \neg go \land t' = t  \land \Value(t',\sigma') = \bot & = [\ ]
+                                  \end{array}\\
+\end{function}
+
+\begin{function}
+  \signature{\mathit{simulate} : \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \bigcup
+  \{\mathit{simulate'}\ \True\ t\ I\ \phi\ r\mid r \in \  (t,\sigma\drive{})\}\\
+                \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
+                        \left \{\begin{array}{ll}
+                          \emptyset & \neg \text{SAT } (\phi'\land\phi)\\
+                  \{(t',I\oplus[i],\sigma',\phi\land\phi')\} & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
+                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
+                  \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ r\mid r \in \  (t',\sigma'\drive{})\} & go \land t' = t  \land \Value(t',\sigma') = \bot\\
+                  \emptyset           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
+                                  \end{array}\right.\\
+\end{function}
+
+
 \caption{Simulation function definition}
 \label{fig:simulate}
 \end{figure*}
-
+\fixme{arguments are in the wrong order, drive gives task, state and then input}
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
   $\text{SAT }\phi$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
