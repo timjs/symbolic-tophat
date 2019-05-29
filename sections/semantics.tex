@@ -254,7 +254,64 @@ A recursive call is terminated when one of the two stop conditions is met.
 \caption{Simulation function definition}
 \label{fig:simulate}
 \end{figure*}
-\fixme{arguments are in the wrong order, drive gives task, state and then input}
+
+To better illustrate how the simulate function works, we apply it to Example~\ref{example:abs}.
+
+\begin{figure*}
+
+\tikzstyle{level 1}=[level distance=4.5cm, sibling distance=3.5cm]
+\tikzstyle{level 2}=[level distance=4.5cm, sibling distance=3.5cm]
+
+
+\tikzstyle{bag} = [text width=4em, text centered]
+\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+
+\begin{tikzpicture}[grow=right, sloped]
+\node[bag] {s_0}
+    child {
+        node[bag] {s_1}
+            child {
+                node[bag] {s_2}
+                child {
+                    node[end, label=right:
+                        {$\emptyset$}] {}
+                    edge from parent
+                    node[above] {$s_2\leq 0$}
+                    node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Edit s_0 \Then\ldots = \Edit s_1\Then\ldots$\\ $go=\False$ \end{tabular}}
+                }
+                child {
+                    node[end, label=right:
+                        {$\Edit s_2$}] {}
+                    edge from parent
+                    node[above] {$s_2>0$}
+                    node[below]  {$\Value(\Edit s_2,\sigma)=s_2$}
+                }
+                edge from parent
+                node[above] {$s_1\leq0$}
+                node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Edit s_0 \Then\ldots = \Edit s_1\Then\ldots$\\ $go=\True$\end{tabular}}
+            }
+            child {
+                node[end, label=right:
+                    {$\Edit s_1$}] {}
+                edge from parent
+                node[above] {$s_1>0$}
+                node[below]  {$\Value(\Edit s_1,\sigma)=s_1$}
+            }
+            edge from parent
+            node[above] {$s_0\leq 0$}
+            node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Enter \Int \Then\ldots\neq \Edit s_0\Then\ldots$\end{tabular}}
+    }
+    child {
+        node[end, label=right:
+            {$\Edit s_0$}] {}
+        edge from parent
+            node[above] {$s_0>0$}
+            node[below]  {$\Value(\Edit s_0,\sigma)=s_0$}
+    };
+\end{tikzpicture}
+\caption{simulation function applied to abs}
+\end{figure*}
+
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
   $\text{SAT }\phi$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
