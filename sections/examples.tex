@@ -76,3 +76,17 @@ The complete definition of the value and failing function are listed in Section~
 
 
 \subsection{Tax subsidy request}
+
+\begin{TASK}
+  enter <<BSN, Address, Date>>
+      >>= \ <<bsn, address, today>> .
+  provideDocuments <&> companyApprove
+      >>= \ <<<<invoiceAmount, invoiceDate>>, cApproved>> .
+  officerApprove invoiceAmount invoiceDate today cApproved
+      >>= \ decision .
+  let subsidyAmount = if decision then min 600 (invoiceAmount / 10) else 0 in
+  edit <<subsidyAmount, decision, cApproved, invoiceAmount, invoiceDate, today>>
+  provideDocuments = enter <<Amount, Date>>
+  companyApprove = edit True <?> edit False
+  officerApprove = invoiceAmount invoiceDate today cApproved = something something
+\end{TASK}
