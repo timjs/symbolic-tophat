@@ -19,6 +19,32 @@ and what changes were made with respect to the concrete semantics.
 \subsection{Symbolic evaluation}
 
 The host language is a simply typed lambda calculus with references.
+
+%explain how we convert old rules to new rules.
+Most of the symbolic evaluation rules closely resemble the concrete semantics.
+Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic rule to illustrate how to convert one to the other.
+
+\begin{figure}[h]
+
+  \begin{gather*}
+    \small
+    \userule{E-Edit}\Quad
+    \userule{Sym-E-Edit}
+  \end{gather*}
+  \label{fig:oldToNewSemantics}
+  \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression}
+\end{figure}
+
+The \refrule{E-Edit} rule evaluates
+
+%explain what the overline notation means (using list comprehensions?)
+
+
+%explain why we can have multiple results from one rule
+
+
+
+%wat betekend dit resultaat intuitief?
 Symbolic evaluation of an expression $e$ and state $\sigma$ can result in zero or more possible outcomes.
 A single outcome consists of a result value $v$, an updated state $\sigma'$ and a path condition $\phi$.
 
