@@ -205,48 +205,48 @@ A recursive call is terminated when one of the two stop conditions is met.
   \item The second stop condition is when an execution does not alter anymore between steps.
   In other words, the program is stuck, no value can be observed, an no value will ever be observed.
 \end{itemize}
-\todo{we allow for one step lookahead. Explain}
+\todo{we allow for one step lookahead. Explain}\\
 %We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
 \begin{figure*}
-\begin{function}
-  \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
-                \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
-                        \begin{array}{ll}
-                          [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
-                  \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
-                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
-                  \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
-                  \relax [\ ]           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
-                                  \end{array}\\
-\end{function}
+% \begin{function}
+%   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+%   \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
+%                 \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
+%                         \begin{array}{ll}
+%                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
+%                   \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
+%                         \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
+%                   \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
+%                   \relax [\ ]           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
+%                                   \end{array}\\
+% \end{function}
+%
+%
+% \begin{function}
+%   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
+%   \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
+%       \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi'\\
+%       \begin{array}{ll}
+%                 \mid \neg \text{SAT } (\phi'\land\phi) & = [\ ]\\
+%                 \mid \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi) & = [(t',I +\!\!+ [i],\sigma',\phi\land\phi')]\\
+%                 \mid (t' \neq t) \land \Value(t',\sigma')=\bot & =\mathit{simulate}\ t'\ (I +\!\!+ [i])\ \sigma'\ (\phi\land\phi')\\
+%                 \mid go \land t' = t  \land \Value(t',\sigma') = \bot &= \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I +\!\!+ [i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))\\
+%                 \mid \neg go \land t' = t  \land \Value(t',\sigma') = \bot & = [\ ]
+%                                   \end{array}\\
+% \end{function}
 
-
-\begin{function}
-  \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
-      \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi'\\
-      \begin{array}{ll}
-                \mid \neg \text{SAT } (\phi'\land\phi) & = [\ ]\\
-                \mid \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi) & = [(t',I ++ [i],\sigma',\phi\land\phi')]\\
-                \mid (t' \neq t) \land \Value(t',\sigma')=\bot & =\mathit{simulate}\ t'\ (I ++ [i])\ \sigma'\ (\phi\land\phi')\\
-                \mid go \land t' = t  \land \Value(t',\sigma') = \bot &= \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I ++ [i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))\\
-                \mid \neg go \land t' = t  \land \Value(t',\sigma') = \bot & = [\ ]
-                                  \end{array}\\
-\end{function}
-
-\begin{function}
-  \signature{\mathit{simulate} : \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-  \mathit{simulate}\ t\ I\ \sigma \ \phi  = \bigcup
-  \{\mathit{simulate'}\ \True\ t\ I\ \phi\ r\mid r \in \  (t,\sigma\drive{})\}\\
-                \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
-                        \left \{\begin{array}{ll}
-                          \emptyset & \neg \text{SAT } (\phi'\land\phi)\\
-                  \{(t',I\oplus[i],\sigma',\phi\land\phi')\} & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
-                        \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
-                  \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ r\mid r \in \  (t',\sigma'\drive{})\} & go \land t' = t  \land \Value(t',\sigma') = \bot\\
-                  \emptyset           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
+\hspace{-2cm}\begin{function}
+  \signature{\mathit{simulate} : \Task \times \mathrm{State} \times [\mathrm{Inputs}]  \times \mathrm{Predicate} \rightarrow \powerset((\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate}))} \\
+  \mathit{simulate}\ t\ \sigma \ I\  \phi  = \bigcup \{\mathit{simulate'}\ \True\ t\ I\ \phi\ t'\ \sigma'\ i\ \phi' \mid (t',\sigma',i,\phi') \in \  (t,\sigma\drive{})\}\\
+  \signature{\mathit{simulate'} : \Bool \times \Task \times [\mathrm{Inputs}]\times \mathrm{Predicate} \times \Task \times \mathrm{State}\times \mathrm{Input} \times \mathrm{Predicate} \rightarrow \powerset((\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate}))}\\
+  \mathit{simulate'}\ go\ t\ I\ \phi\ t'\ i\ \sigma'\ \phi' =\\
+              \left \{\begin{array}{lccccccc}
+                  \emptyset                                                                                                       &\neg \text{SAT } (\phi'\land\phi) &&&&&&\\
+                  \{(t',I\oplus[i],\sigma',\phi\land\phi')\}                                                                      & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
+                        \mathit{simulate}\ t'\ \sigma'\ (I\oplus[i])\ (\phi\land\phi')                                            & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
+                  \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ t''\ \sigma''\ i'\ \phi'' \mid (t'',\sigma'',i',\phi'') \in \  (t',\sigma'\drive{})\} & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& go\\
+                  \emptyset                                                                                                       & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg go
                                   \end{array}\right.\\
 \end{function}
 
