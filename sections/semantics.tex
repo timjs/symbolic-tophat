@@ -31,26 +31,26 @@ Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics an
     \userule{E-Edit}\Quad
     \userule{Sym-E-Edit}
   \end{gather*}
-  \label{fig:oldToNewSemantics}
+
   \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression}
+  \label{fig:oldToNewSemantics}
 \end{figure}
 
-The \refrule{E-Edit} rule evaluates
+The \refrule{E-Edit} rule evaluates the expression held in an editor to a value.
+The \refrule{Sym-E-Edit} does the same, but since we are doing a symbolic execution, the expression could contain symbols.
+We therefore do not know beforehand which concrete value will be produced, or even which path the execution will take.
+If the expression contains a conditional that depends on a symbol, it is possible that there are multiple result values, instead of just one.
+This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
+Figure~\ref{fig:eval} lists the rule for conditional.
+From this rule, one can clearly see that both branches are calculated, since at this point we do not know, what the condition will evaluate to.
 
-%explain what the overline notation means (using list comprehensions?)
+The set that results from the symbolic execution can be interpreted as follows.
+Each element is a possible (end)point in the execution of a task.
+It is guarded by a condition $\phi$ over the symbolic input.
+Only if $\phi$ holds, can we arrive at the value $v$ and state $\sigma'$.
 
-
-%explain why we can have multiple results from one rule
-
-
-
-%wat betekend dit resultaat intuitief?
-Symbolic evaluation of an expression $e$ and state $\sigma$ can result in zero or more possible outcomes.
-A single outcome consists of a result value $v$, an updated state $\sigma'$ and a path condition $\phi$.
-
-\fixme{something about what this result actually means?}
-
-The symbolic rules closely resemble the concrete semantics.
+As mentioned, the symbolic rules closely resemble the concrete semantics.
+They follow directly from the concrete semantics, as described above.
 Therefore, they are not listed here, but a full overview of the rules can be found in the appendix.
 One rule does differ, which is listed in Figure~\ref{fig:eval}.
 
