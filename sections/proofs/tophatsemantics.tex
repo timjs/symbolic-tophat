@@ -6,28 +6,32 @@
 
   \begin{gather*}
     \boxed{\RelationT} \Break
+    \userule{T-ConstBool} \Quad
+    \userule{T-ConstInt} \Quad
+    \userule{T-ConstString} \Quad
+    \userule{T-Unit}\Quad
     \userule{T-Var} \Quad
-    \userule{T-Loc} \Quad
+    \userule{T-Loc} \Break
     \userule{T-Pair} \Quad
     \userule{T-First} \Quad
-    \userule{T-Second} \Break
+    \userule{T-Second} \Quad
     \userule{T-ListEmpty} \Quad
-    \userule{T-ListCons} \Quad
+    \userule{T-ListCons} \Break
     \userule{T-ListHead} \Quad
-    \userule{T-ListTail}\Break
+    \userule{T-ListTail}\Quad
     \userule{T-Abs} \Quad
-    \userule{T-App} \Quad
-    \userule{T-If} \Break
+    \userule{T-App} \Break
+    \userule{T-If} \Quad
     \userule{T-Ref} \Quad
     \userule{T-Deref} \Quad
-    \userule{T-Assign}\Quad
+    \userule{T-Assign}\Break
     \userule{T-Loc}\Quad
-    \userule{T-Edit}\Break
+    \userule{T-Edit}\Quad
     \userule{T-Enter}\Quad
     \userule{T-Update}\Quad
     \userule{T-Fail}\Quad
-    \userule{T-Then}\Quad
-    \userule{T-Next}\Break
+    \userule{T-Then}\Break
+    \userule{T-Next}\Quad
     \userule{T-And}\Quad
     \userule{T-Or}\Quad
     \userule{T-Xor}
@@ -47,7 +51,6 @@
     \userule{E-Pair} \Break
     \userule{E-First} \Quad
     \userule{E-Second}\Quad
-    \userule{E-Nil}\Quad
     \userule{E-Cons}\Quad
     \userule{E-Head}\Break
     \userule{E-Tail}\Quad
