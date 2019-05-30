@@ -321,6 +321,36 @@ To better illustrate how the simulate function works, we apply it to Example~\re
   $\text{SAT }\phi$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
 \end{definition}
 
+Figure~\ref{diagram:simapp} gives a schematic overview of the application of simulate to
+Simulate will first call the drive semantics, to calculate what input the task takes.
+We can enter a fresh symbol $s_0$, as listed on the left.
+The symbolic execution then branches, since we reach a conditional.
+Two cases are generated. Either $s_0>0$, the upper branch, or $s_0\leq0$, the  branch to the right.
+In the first case, the resulting task has a value, and the symbolic execution ends, returning that value, and the input observed.
+In the second case, the resulting task does not have a value, and the new task is different from the previous task.
+Therefore, we recurse, and simulate is called again.
+
+We can now input a fresh symbol $s_1$. Again, $s_1$ can either be larger than zero, or smaller or equal.
+In the first case, again the resulting task has a value, and the execution ends.
+In the second case however, the task does not have a value, and we find that the task has not been altered (apart from the new symbol).
+This will result in a recursive call to simulate', where we set the go-parameter to $\False$.
+
+Again, we can input a fresh symbol $s_2$. And again, $s_2$ can be larger than zero, or smaller or equal to it.
+In the first case, we have a value and we are done.
+In the second case, we do not have a value, the task again has not changed, but the go-parameter is $\False$ and therefore, we do not proceed with the symbolic execution of this branch.
+
+This example tells is a few things.
+From manual inspection, it is clear that only the first iteration returns an interesting result.
+When $s_0$ is larger than zero, the task results in a value, that is larger than zero.
+When the input is smaller than or equal to zero, we can only input a new value, until that value is larger than zero.
+So this means, we are back where we started from.
+Why does the simulation still proceed then?
+Since the editor $\Enter$ changes to $\Edit$, the tasks are not the same anymore.
+This causes simulate to run an extra iteration.
+Then, it finds that the task still does not return a value, but now, the tasks have changed.
+Then the simulate function will perform one look-ahead step, by setting the go-parameter to $\False$.
+When this look-ahead does not return a value, we close the branch.
+
 \subsection{Solving}
 
 \fixme{Something about SMT.}
