@@ -43,6 +43,28 @@
   {e_2,\sigma\eval\overline{v_2,\sigma',\phi}}
   {\Snd\tuple{e_1,e_2},\sigma\eval\overline{v_2,\sigma',\phi} }
 
+
+%%%%%%%
+
+\newrule{Sym-E-Nil}
+  { }
+  {[\ ]_\beta,\sigma \eval [\ ]_\beta,\sigma,\True}
+
+\newrule{Sym-E-Cons}
+  {e_1,\sigma \eval v_1,\sigma',\phi_1\Quad
+   e_2,\sigma' \eval v_2,\sigma'',\phi_2}
+  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\phi_1\land\phi_2}
+
+\newrule{Sym-E-Head}
+  {e,\sigma \eval v_1::v_2,\sigma',\phi}
+  {\text{head } e,\sigma \eval v_1,\sigma',\phi}
+
+\newrule{Sym-E-Tail}
+{e,\sigma \eval v_1::v_2,\sigma',\phi}
+{\text{head } e,\sigma \eval v_2,\sigma',\phi}
+
+
+%%%%%
 \newrule{Sym-E-Ref}
   {e,\sigma\eval \overline{v,\sigma',\phi} \Quad
    l\not\in Dom(\sigma')}

@@ -43,6 +43,27 @@
     {\Gamma,\Sigma\infers e_2:\tau}
     {\Gamma,\Sigma\infers \Snd \tuple{e_1,e_2}:\tau}
 
+%%%%%
+\newrule{T-ListEmpty}
+  { }
+  {\Gamma,\Sigma\infers [\ ]_\beta : \text{List}\beta}
+
+\newrule{T-ListCons}
+  {\Gamma,\Sigma\infers e_1:\beta \Quad
+   \Gamma,\Sigma\infers e_2:\text{List }\beta}
+  {\Gamma,\Sigma\infers e_1 :: e_2 : \text{List } \beta}
+
+\newrule{T-ListHead}
+  {\Gamma,\Sigma\infers e:\text{List }\beta}
+  {\Gamma,\Sigma\infers \text{head}\ e:\beta}
+
+\newrule{T-ListTail}
+    {\Gamma,\Sigma\infers e:\text{List }\beta}
+    {\Gamma,\Sigma\infers \text{tail}\ e:\text{List }\beta}
+
+%%%%%
+
+
 \newrule{T-Ref}
   {\Gamma,\Sigma \infers e:\beta}
   {\Gamma,\Sigma \infers \Ref e :\Reference \beta}
@@ -145,6 +166,28 @@
 \newrule{E-Second}
   {e_2,\bar{\sigma}\bar{\eval}\bar{v_2},\bar{\sigma'}}
   {\Snd\tuple{e_1,e_2},\bar{\sigma}\bar{\eval} \bar{v_2},\bar{\sigma'} }
+
+%%%%%%%%%
+
+\newrule{E-Nil}
+  { }
+  {[\ ]_\beta,\sigma \bar{\eval} [\ ]_\beta,\sigma}
+
+\newrule{E-Cons}
+  {e_1,\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}\Quad
+   e_2,\bar{\sigma'}\bar{\eval}\bar{v_2},\bar{\sigma''}}
+  {e_1 :: e_2,\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma''}}
+
+\newrule{E-Head}
+  {e,\sigma\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
+  {\text{head } e,\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}}
+
+\newrule{E-Tail}
+{e,\sigma\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
+{\text{head } e,\sigma\bar{\eval}\bar{v_2},\bar{\sigma'}}
+
+%%%%%%
+
 
 \newrule{E-Ref}
   {e,\bar{\sigma}\bar{\eval} \bar{v},\bar{\sigma'} \Quad

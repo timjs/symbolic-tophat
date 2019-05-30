@@ -52,9 +52,11 @@
     \noalign{Expressions}\\
     & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2           & – abstraction, application \\
     &       & \mid  & x  \Mid  c \Mid \unit                        & – variable, constant, unit \\
-    &       & \mid  & \fbox{$u\ e_1 \Mid e_1\ o\ e_2$}               & – unary, binary operation \\
+    &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
     &       & \mid  & \If{e_1}{e_2}{e_3}                           & – branch \\
     &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
+    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & - empty list, cons\\
+    &       & \mid  & \text{head}\ e \Mid \text{tail}\ e           & - first element, list tail\\
     &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
     &       & \mid  & p \Mid \fbox{$s$}                                     & – pretask, symbol \\
     \\
@@ -62,12 +64,12 @@
     & c& ::= &  B  \Mid  I  \Mid  S                          & – boolean, integer, string\\
     \\
     \noalign{Unary Operations}\\
-    & u &::= &  \lnot \Mid - \Mid \#                         & - not, negate, length\\
+    & u &::= &  \lnot \Mid - \Mid \# \Mid \text{unique}  & - not, negate, length, no duplicates\\
     \\
     \noalign{Binary Operations}\\
     & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
     &       & \mid  & + \Mid - \Mid \times \Mid /                         & – numerical \\
-    &       & \mid  & \pp                                                 & – append \\
+    &       & \mid  & \pp  \Mid \text{elem}                               & – append, element \\
   \end{grammar}
 }
 
@@ -108,14 +110,15 @@
   \begin{grammar}
     Types
       & \tau &::= & \tau_1 \to \tau_2    & – function type \\
-      &      &\mid& \tau_1 \times \tau_2 & – product type \\
-      &      &\mid& \Unit                & – unit type \\
       &      &\mid& \Reference \tau      & – reference type \\
       &      &\mid& \Task \tau           & – task type \\
       &      &\mid& \beta                & – basic type \\
       % &      &\mid& \alpha               & – universal type \\
     Basic types
-      &\beta &::= & \Bool                & – boolean type \\
+      &\beta &::= & \tau_1 \times \tau_2 & – product type \\
+      &      &\mid& \text{List} \beta    & - list type\\
+      &      &\mid& \Unit                & – unit type \\
+      &      &\mid& \Bool                & – boolean type \\
       &      &\mid& \Int                 & – integer type \\
       &      &\mid& \String              & – string type \\
   \end{grammar}
@@ -124,11 +127,12 @@
 \newmacro{G-Types-Compact}{
   \begin{grammar}
     \noalign{Types}\\
-      & \tau  &  ::= & \tau_1 \to \tau_2 \Mid \tau_1 \times \tau_2 \Mid \beta & – function, product, basic \\
+      & \tau  &  ::= & \tau_1 \to \tau_2 \Mid \beta & – function, basic \\
       &       & \mid & \Reference \tau \Mid \Task \tau             & – reference, task \\
       \\
     \noalign{Basic types}\\
-      & \beta &  ::= &\Unit \Mid \Bool                           & – unit, boolean\\
+      & \beta &  ::= & \tau_1 \times \tau_2 \Mid [\ ]_\beta         & - product, list\\
+      &       & \mid & \Unit \Mid \Bool                           & – unit, boolean\\
       &       & \mid & \Int \Mid   \String                       & – integer, string
   \end{grammar}
 }
@@ -156,6 +160,7 @@
   \begin{grammar}
     \noalign{Values}\\
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
+      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - empty list, cons\\
       &   & \mid & c \Mid l \Mid t                                     & – constant, location, task \\
       &   & \mid & \fbox{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
   \end{grammar}
