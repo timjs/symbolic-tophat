@@ -7,7 +7,21 @@
 \newmacro{RelationT}
   {\Gamma,\Sigma \infers e : \tau}
 
+\newrule{T-ConstBool}
+  {c\in B}
+  {\Gamma,\Sigma\infers c : \Bool}
 
+  \newrule{T-ConstInt}
+    {c\in I}
+    {\Gamma,\Sigma\infers c : \Int}
+
+    \newrule{T-ConstString}
+      {c\in S}
+      {\Gamma,\Sigma\infers c : \String}
+
+      \newrule{T-Unit}
+        { }
+        {\Gamma,\Sigma\infers \unit : \Unit}
 \newrule{T-Var}
   {x:\tau\in\Gamma}
   {\Gamma,\Sigma\infers x:\tau}
@@ -46,20 +60,20 @@
 %%%%%
 \newrule{T-ListEmpty}
   { }
-  {\Gamma,\Sigma\infers [\ ]_\beta : \text{List}\beta}
+  {\Gamma,\Sigma\infers [\ ]_\beta : \List\beta}
 
 \newrule{T-ListCons}
   {\Gamma,\Sigma\infers e_1:\beta \Quad
-   \Gamma,\Sigma\infers e_2:\text{List }\beta}
-  {\Gamma,\Sigma\infers e_1 :: e_2 : \text{List } \beta}
+   \Gamma,\Sigma\infers e_2:\List\beta}
+  {\Gamma,\Sigma\infers e_1 :: e_2 : \List \beta}
 
 \newrule{T-ListHead}
-  {\Gamma,\Sigma\infers e:\text{List }\beta}
-  {\Gamma,\Sigma\infers \text{head}\ e:\beta}
+  {\Gamma,\Sigma\infers e:\List\beta}
+  {\Gamma,\Sigma\infers \Head e:\beta}
 
 \newrule{T-ListTail}
-    {\Gamma,\Sigma\infers e:\text{List }\beta}
-    {\Gamma,\Sigma\infers \text{tail}\ e:\text{List }\beta}
+    {\Gamma,\Sigma\infers e:\List\beta}
+    {\Gamma,\Sigma\infers \Tail e:\List\beta}
 
 %%%%%
 
@@ -169,22 +183,18 @@
 
 %%%%%%%%%
 
-\newrule{E-Nil}
-  { }
-  {[\ ]_\beta,\sigma \bar{\eval} [\ ]_\beta,\sigma}
-
 \newrule{E-Cons}
-  {e_1,\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}\Quad
+  {e_1,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}\Quad
    e_2,\bar{\sigma'}\bar{\eval}\bar{v_2},\bar{\sigma''}}
-  {e_1 :: e_2,\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma''}}
+  {e_1 :: e_2,\bar{\sigma}\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma''}}
 
 \newrule{E-Head}
-  {e,\sigma\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
-  {\text{head } e,\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}}
+  {e,\bar{\sigma}\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
+  {\Head e,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
 
 \newrule{E-Tail}
-{e,\sigma\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
-{\text{head } e,\sigma\bar{\eval}\bar{v_2},\bar{\sigma'}}
+{e,\bar{\sigma}\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
+{\Tail e,\bar{\sigma}\bar{\eval}\bar{v_2},\bar{\sigma'}}
 
 %%%%%%
 
