@@ -77,6 +77,8 @@ The complete definition of the value and failing function are listed in Section~
 
 \subsection{Tax subsidy request}
 
+\Cref{fig:thetaxman} shows an example program, based on \cite{conf/sfp/StutterheimAP17}
+
 \begin{figure}
 \begin{TASK}
   provideCitizenInformation
@@ -95,6 +97,6 @@ The complete definition of the value and failing function are listed in Section~
       edit False <?> if (today - invoiceDate < 365 && cApproved)
                  then edit True else fail
 \end{TASK}
-\caption{The Taxman}
-\label{fig:taxman}
+\caption{Subsidy request and approval workflow at the Dutch tax office.}
+\label{fig:thetaxman}
 \end{figure}
