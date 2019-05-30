@@ -79,7 +79,7 @@ This is no different from how the concrete \TOPHAT semantics works.
 We can observe the value of a task using the function $\Value$.
 Its definition is given in Figure~\ref{fig:value}.
 
-\begin{figure}
+\begin{figure}[h]
   \begin{center}
     \small
     \usemacro{O-Value}
@@ -91,7 +91,7 @@ Its definition is given in Figure~\ref{fig:value}.
 We can observe if a task is failing using the function $\Failing$.
 Its definition is given in Figure~\ref{fig:failing}.
 
-\begin{figure}
+\begin{figure}[h]
   \begin{center}
     \small
     \usemacro{O-Failing}
@@ -99,17 +99,6 @@ Its definition is given in Figure~\ref{fig:failing}.
   \caption{Task failing observation function $\Failing$}
   \label{fig:failing}
 \end{figure}
-
-% And finally, we can observe what the possible inputs of a task using the function $\Inputs$.
-% Its definition is given in Figure~\ref{fig:inputs}.
-% \begin{figure}
-%   \begin{center}
-%     \small
-%     \usemacro{O-Inputs}
-%   \end{center}
-%   \caption{Task inputs observation function $\Inputs$}
-%   \label{fig:inputs}
-% \end{figure}
 
 \subsection{Normalisation}
 
@@ -197,53 +186,26 @@ In order to compute every possible symbolic execution, the driving semantics nee
 The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states and path conditions.
 We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
 
-A recursive call is terminated when one of the two stop conditions is met.
+A recursive call is terminated when one of the following conditions is met.
 
-\begin{itemize}
-  \item When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
+\begin{description}
+  \item[$\text{SAT }\phi$] When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
   In fact, no future state will be satisfiable, and we can therefore safely remove it.
-  \item The second stop condition is when an execution does not alter anymore between steps.
-  In other words, the program is stuck, no value can be observed, an no value will ever be observed.
-\end{itemize}
-\todo{we allow for one step lookahead. Explain}\\
+  \item[$\Value(t,\sigma)$] When the current task produces a value, we are at an endpoint, which we can return.
+  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg go$] When the current task does not produce a value, and then it is equal to the previous task, apart from symbol names, the simulate function performs one look-ahead step in case the task is waiting for an independent symbol.
+  This one step look-ahead is encoded by the go-parameter. When this parameter is set to $\False$, one step look-ahead has been performed and simulate does not continue further. If a value is found, it is returned, otherwise the branch that is being explored will be pruned.
+\end{description}
 %We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
 \begin{figure*}
-% \begin{function}
-%   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-%   \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
-%                 \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi' =\\
-%                         \begin{array}{ll}
-%                           [\ ] & \neg \text{SAT } (\phi'\land\phi)\\
-%                   \relax [(t',I\oplus[i],\sigma',\phi\land\phi')] & \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi)\\
-%                         \mathit{simulate}\ t'\ (I\oplus[i])\ \sigma'\ (\phi\land\phi') & (t' \neq t) \land \Value(t',\sigma') = \bot\\
-%                   \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))           & go \land t' = t  \land \Value(t',\sigma') = \bot\\
-%                   \relax [\ ]           & \neg go \land t' = t  \land \Value(t',\sigma') = \bot
-%                                   \end{array}\\
-% \end{function}
-%
-%
-% \begin{function}
-%   \signature{\mathit{simulate} :: \Task \times [\mathrm{Inputs}] \times \mathrm{State} \times \mathrm{Predicate} \rightarrow [(\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate})]} \\
-%   \mathit{simulate}\ t\ I\ \sigma \ \phi  = \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \True\ t\ I\ \phi) (t,\sigma \drive{}))\\
-%       \mathit{where}\ \mathit{simulate'}\ go\ I\ t\ \phi\ t'\ i\ \sigma'\ \phi'\\
-%       \begin{array}{ll}
-%                 \mid \neg \text{SAT } (\phi'\land\phi) & = [\ ]\\
-%                 \mid \Value(t',\sigma') = v \land \text{SAT } (\phi'\land\phi) & = [(t',I +\!\!+ [i],\sigma',\phi\land\phi')]\\
-%                 \mid (t' \neq t) \land \Value(t',\sigma')=\bot & =\mathit{simulate}\ t'\ (I +\!\!+ [i])\ \sigma'\ (\phi\land\phi')\\
-%                 \mid go \land t' = t  \land \Value(t',\sigma') = \bot &= \mathit{concat} \ (\mathit{map} \ (\mathit{simulate'}\ \False\ t'\ (I +\!\!+ [i])\ (\phi'\land\phi))\ (t',\sigma'\drive{}))\\
-%                 \mid \neg go \land t' = t  \land \Value(t',\sigma') = \bot & = [\ ]
-%                                   \end{array}\\
-% \end{function}
-
 \hspace{-2cm}\begin{function}
-  \signature{\mathit{simulate} : \Task \times \mathrm{State} \times [\mathrm{Inputs}]  \times \mathrm{Predicate} \rightarrow \powerset((\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate}))} \\
+  \signature{\mathit{simulate} : \Task \times \mathrm{State} \times [\mathrm{Inputs}]  \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)} \\
   \mathit{simulate}\ t\ \sigma \ I\  \phi  = \bigcup \{\mathit{simulate'}\ \True\ t\ I\ \phi\ t'\ \sigma'\ i\ \phi' \mid (t',\sigma',i,\phi') \in \  (t,\sigma\drive{})\}\\
-  \signature{\mathit{simulate'} : \Bool \times \Task \times [\mathrm{Inputs}]\times \mathrm{Predicate} \times \Task \times \mathrm{State}\times \mathrm{Input} \times \mathrm{Predicate} \rightarrow \powerset((\Task,[\mathrm{Inputs}],\mathrm{State},\mathrm{Predicate}))}\\
+  \signature{\mathit{simulate'} : \Bool \times \Task \times [\mathrm{Inputs}]\times \mathrm{Predicate} \times \Task \times \mathrm{State}\times \mathrm{Input} \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)}\\
   \mathit{simulate'}\ go\ t\ I\ \phi\ t'\ i\ \sigma'\ \phi' =\\
               \left \{\begin{array}{lccccccc}
                   \emptyset                                                                                                       &\neg \text{SAT } (\phi'\land\phi) &&&&&&\\
-                  \{(t',I\oplus[i],\sigma',\phi\land\phi')\}                                                                      & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
+                  \{(v,I\oplus[i],\phi\land\phi')\}                                                                      & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
                         \mathit{simulate}\ t'\ \sigma'\ (I\oplus[i])\ (\phi\land\phi')                                            & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
                   \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ t''\ \sigma''\ i'\ \phi'' \mid (t'',\sigma'',i',\phi'') \in \  (t',\sigma'\drive{})\} & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& go\\
                   \emptyset                                                                                                       & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg go
