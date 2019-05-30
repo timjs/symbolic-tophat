@@ -64,6 +64,49 @@
   $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
   }
 
+\case{$e=e_1::e_2$}
+  {One rule applies, namely \userule{Sym-E-Cons}\\
+  Provided that $M\phi$,
+  we need to demonstrate that \userule{E-Cons} with $bar{\sigma}=M\sigma$,
+  $M v_1::v_2\equiv \bar{v_1}::\bar{v_2}$ and $M\sigma''\equiv\bar{\sigma''}$.
+
+  From the induction hypothesis, we obtain the following.\\
+  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}\land  M_1v_1\equiv \bar{v_1} \land  M_1\sigma'\equiv\bar{\sigma'}$ and
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}\land M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma''}$
+
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$,
+  and we know that $M\sigma'\equiv \bar{\sigma'}$
+  we obtain that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}$,
+  $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}$, $M\sigma'\equiv \bar{\sigma'}$,
+ $M v_1\equiv \bar{v_1}$ and $M v_2 \equiv \bar{v_2}$ and therefore $M(v_1::v_2) \equiv \bar{v_1}::\bar{v_2}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.}
+
+\case{$e=\Head e$}
+  {One rule applies, namely \userule{Sym-E-Head}\\
+  Provided that $M\phi$,
+  we need to demonstrate that \userule{E-Head} with $\bar{\sigma}=M\sigma$,
+  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+  From the induction hypothesis, we obtain the following.\\
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma'}\land M_1 (v_1::v_2)\equiv \bar{v_1}::\bar{v_2}\land M_1\sigma'\equiv\bar{\sigma'}$
+
+  Since $M$ satisfies $\phi$,
+  we directly obtain that $\Head e,\sigma\bar{\eval}\bar{v_1}$,
+  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.}
+
+\case{$e=\Tail e$}
+  {One rule applies, namely \userule{Sym-E-Tail}\\
+    Provided that $M\phi$,
+    we need to demonstrate that \userule{E-Tail} with $\bar{\sigma}=M\sigma$,
+    $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+
+    From the induction hypothesis, we obtain the following.\\
+    $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma'}\land M_1(v_1::v_2)\equiv \bar{v_1}::\bar{v_2}\land M_1\sigma'\equiv\bar{\sigma'}$
+
+    Since $M$ satisfies $\phi$,
+    we directly obtain that $\Tail e,\sigma\bar{\eval}\bar{v_2}$,
+    $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.}
+
 \case{$e=e_1 e_2$}
   {One rule applies, namely \userule{Sym-E-App}\\
   Provided that $M\phi_1 \land M\phi_2\land M\phi_3$,
