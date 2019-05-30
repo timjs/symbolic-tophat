@@ -58,7 +58,7 @@
     &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & - empty list, cons\\
     &       & \mid  & \text{head}\ e \Mid \text{tail}\ e           & - first element, list tail\\
     &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
-    &       & \mid  & p \Mid \fbox{$s$}                                     & – pretask, symbol \\
+    &       & \mid  & p \Mid \colorbox{lightgray}{s}                                & – pretask, symbol \\
     \\
     \noalign{Constants}\\
     & c& ::= &  B  \Mid  I  \Mid  S                          & – boolean, integer, string\\
@@ -162,7 +162,7 @@
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
       &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - empty list, cons\\
       &   & \mid & c \Mid l \Mid t                                     & – constant, location, task \\
-      &   & \mid & \fbox{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
+      &   & \mid & \colorbox{lightgray}{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
   \end{grammar}
 }
 
@@ -210,7 +210,7 @@
 \newmacro{G-Inputs-Compact}{
   \begin{grammar}
     \noalign{Symbolic inputs}\\
-      & i    & ::=& \fbox{$s$} \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
+      & i    & ::=& \colorbox{lightgray}{$s$} \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
   \end{grammar}
 }
 
