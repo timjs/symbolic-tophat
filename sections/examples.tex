@@ -72,31 +72,49 @@ If that is the case, it uses the $\Failing$ function to see if it is safe to ste
 The complete definition of the value and failing function are listed in Section~\ref{subsec:observations}.
 
 
-\subsection{Flightbooking}
-
-
 \subsection{Tax subsidy request}
 
-\Cref{fig:thetaxman} shows an example program, based on \cite{conf/sfp/StutterheimAP17}
+\citet{conf/sfp/StutterheimAP17} worked with the Dutch tax office to develop a demonstrator for a fictional but realistic law about solar panel subsidies.
+In this section we study a simplified version of this, translated to \TOPHAT, to illustrate how symbolic TopHat can be used to prove that the program implements the law.
+
+This example proves that a citizen will get subsidy only under the following conditions.
+\begin{itemize}
+\item The company has confirmed that they installed solar panels for the citizen.
+\item The tax officer has approved the request.
+\item The tax officer can only approve the request if the company has confirmed, and the request is filed within one year of the invoice date.
+\item The amount of the granted subsidy is maximal 600 EUR.
+\end{itemize}
 
 \begin{figure}
 \begin{TASK}
   provideCitizenInformation
-      >>= \ <<bsn, address, today>> .
-  provideDocuments <&> companyApprove
-      >>= \ <<<<invoiceAmount, invoiceDate>>, cApproved>> .
-  officerApprove invoiceAmount invoiceDate today cApproved
+      >>= \ <<address, today>> .
+  provideDocuments <&> companyConfirm
+      >>= \ <<<<invoiceAmount, invoiceDate>>, cConfirmed>> .
+  officerApprove invoiceDate today cConfirmed
       >>= \ decision .
   let subsidyAmount = if decision
           then min 600 (invoiceAmount / 10) else 0 in
-  edit <<subsidyAmount, decision, cApproved, invoiceAmount, invoiceDate, today>>
-  provideCitizenInformation = enter <<BSN, Address, Date>>
+  edit <<subsidyAmount, decision, cConfirmed, invoiceAmount, invoiceDate, today>>
+  provideCitizenInformation = enter <<Address, Date>>
   provideDocuments = enter <<Amount, Date>>
-  companyApprove = edit True <?> edit False
-  officerApprove = invoiceAmount invoiceDate today cApproved =
-      edit False <?> if (today - invoiceDate < 365 && cApproved)
+  companyConfirm = edit True <?> edit False
+  officerApprove invoiceDate today cConfirmed =
+      edit False <?> if (today - invoiceDate < 365 && cConfirmed)
                  then edit True else fail
 \end{TASK}
 \caption{Subsidy request and approval workflow at the Dutch tax office.}
 \label{fig:thetaxman}
 \end{figure}
+
+\Cref{fig:thetaxman} shows the program.
+It works as follows.
+First, the citizen has to enter their home address and today's date.
+Then, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the solar panel company has to confirm that they actually installed solar panels at the citizen's address.
+Once the invoice and the confirmation are there, the tax officer has to approve the request.
+The officer can always decline the request, but they can only approve it if the company has confirmed and the application date is within one year after the invoice date.
+The result of the program is the amount of the subsidy, together with all information needed to prove the required properties.
+
+
+
+\subsection{Flightbooking}
