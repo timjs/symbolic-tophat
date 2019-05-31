@@ -320,4 +320,51 @@ When this look-ahead does not return a value, we close the branch.
 \subsection{Implementation}
 \fixme{todo}
 \subsection{Outlook}
-\fixme{todo}
+\label{subsec:outlook}
+
+As mentioned in the introduction, other work on symbolic execution often uses assertions written by the programmer in the program.
+
+\begin{example}
+  Consider the following small example program.
+  \begin{TASK}
+    enter Int >>= \ x . edit (ref x ) >>= \ store . assert (!store = x) (edit "Done")
+  \end{TASK}
+
+  This program asks the user to enter an integer.
+  The entered value is then stored in a reference.
+  The assertion that follows, ensures that the store holds the correct value.
+  Afterwards, the string "Done" is returned to the user.
+\end{example}
+
+The assertion in the example above has access to all variables that are in scope.
+This is not the case when programmers are only allowed to define properties over the resulting value of tasks.
+We can overcome this however, by returning the values we are interested in at the end of the program.
+
+\begin{TASK}
+  enter Int >>= \ x . edit (ref x ) >>= \ store . edit "Done" >>= \ _ . edit (x,!store)
+\end{TASK}
+
+We can now verify that the property $\lambda v . \Fst v = \Snd v$ holds.
+
+This shows that our approach as the same power as using assertions.
+
+We would like to extend our symbolic execution with assertions however.
+This is much more convenient for programmers to use.
+
+Another feature we would like to support in the future, is input dependent predicates.
+
+\begin{example}
+  Consider the following small program.
+
+  \begin{TASK}
+    enter Int >>= \ x . if x>0 then edit "Thank you" else edit "error"
+  \end{TASK}
+
+  The user inputs an integer.
+  If the integer is larger than zero, we print a thank you message.
+  If the integer is smaller than zero, an error is returned.
+
+  If we wanted to prove that, given a positive input, the program never returns "error", we need to be able to include the input in our predicate.
+\end{example}
+
+Currently our symbolic execution does not support this feature, but this is definitely future work.
