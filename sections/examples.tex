@@ -86,22 +86,22 @@ This example proves that a citizen will get subsidy only under the following con
 \end{itemize}
 
 \begin{figure}
+\lstset{emph={invoiceDate,today,confirmed,invoiceAmount,decision}}
 \begin{TASK}
-  let provideCitizenInformation = enter <<Address, Date>> in
-  let provideDocuments = enter <<Amount, Date>> in
+  let provideCitizenInformation = enter Date in
+  let provideDocuments = enter Amount <&> enter Date in
   let companyConfirm = edit True <?> edit False in
-  let officerApprove invoiceDate today cConfirmed =
-      edit False <?> if (today - invoiceDate < 365 && cConfirmed)
-                 then edit True else fail in
-  provideCitizenInformation
-      >>= \ <<address, today>> .
-  provideDocuments <&> companyConfirm
-      >>= \ <<<<invoiceAmount, invoiceDate>>, cConfirmed>> .
-  officerApprove invoiceDate today cConfirmed
-      >>= \ decision .
+  let officerApprove = \ invoiceDate. \ today. \ confirmed.
+    edit False <?> if (today - invoiceDate < 365 /\ confirmed)
+      then edit True else fail in
+  provideCitizenInformation >>= \ today.
+  provideDocuments <&> companyConfirm >>= \ <<<<invoiceAmount,
+    invoiceDate>>, confirmed>>.
+  officerApprove invoiceDate today confirmed >>= \ decision.
   let subsidyAmount = if decision
-          then min 600 (invoiceAmount / 10) else 0 in
-  edit <<subsidyAmount, decision, cConfirmed, invoiceAmount, invoiceDate, today>>
+    then min 600 (invoiceAmount / 10) else 0 in
+  edit <<subsidyAmount, decision, confirmed, invoiceAmount,
+    invoiceDate, today>>
 \end{TASK}
 \caption{Subsidy request and approval workflow at the Dutch tax office.}
 \label{fig:thetaxman}
@@ -130,9 +130,10 @@ This program is a simplified version of what we presented in earlier work \cite{
   let maxSeats = 50 in
   let bookedSeats = ref [] in
   let bookSeat = enter Int >>= \ x .
-    if elem x !bookedSeats || x > maxSeats then fail else bookedSeats := cons x !bookedSeats in
+    if x `elem` !bookedSeats \/ x > maxSeats
+      then fail else bookedSeats := x :: !bookedSeats in
   bookSeat <&> bookSeat <&> bookSeat >>= \ _ .
-  edit !bookedSeats
+  edit (!bookedSeats)
 \end{TASK}
 \caption{Flight booking}
 \label{fig:flight-booking}
