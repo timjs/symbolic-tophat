@@ -44,13 +44,13 @@ The types of \TOPHAT remain the same.
   \label{fig:syntaxtypes}
 \end{figure}
 
-However, we do need an additional typing rule, S-Var, to type symbols,
+However, we do need an additional typing rule, \refrule{T-Sym}, to type symbols,
 since they are now part of our expression syntax.
-This requires an additional typing environment $\Delta$.
+The type of symbols is kept track of in the environment $\Gamma$.
 
 \begin{figure}
-\userule{S-Var}
-\caption{Additional typing rule for symbols}
+  \highlight{\userule{T-Sym}}
+  \caption{Additional typing rule for symbols}
   \label{fig:typingsymbol}
 \end{figure}
 
