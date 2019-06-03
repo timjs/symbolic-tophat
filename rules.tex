@@ -28,7 +28,7 @@
   {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
    \highlight{e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2}} \Quad
    \highlight{e_3,\sigma'\eval \overline{v_3,\sigma''',\phi_3}}}
-  {\If{e_1}{e_2}{e_3},\sigma\eval \overline{v_2,\sigma'',\highlight{\phi_1 \land \phi_2\land v_1}} \cup \overline{v_3,\sigma''',\highlight{\phi_1 \land \phi_3 \land \lnot v_1}}}
+  {\If{e_1}{e_2}{e_3},\sigma\eval \highlight{\overline{v_2,\sigma'',\phi_1 \land \phi_2\land v_1} \cup \overline{v_3,\sigma''',\phi_1 \land \phi_3 \land \lnot v_1}}}
 
 \newrule{SE-Pair}
   {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
@@ -266,19 +266,19 @@
 \newrule{SH-Next}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
   e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\highlight{\phi}}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}\cup\overline{t_2,\sigma',\highlight{s,\phi \land s=\Continue}}}
+  {t_1 \Next e_2,\sigma \handle{} \highlight{\overline{t_1' \Next e_2,\sigma',i,\phi}\cup\overline{t_2,\sigma',s,\phi \land s=\Continue}}}
   [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
 \newrule{SH-And}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
    t_2,\sigma \handle{} \overline{t_2',i,\sigma'',\highlight{i,\phi}}}
-  {t_1 \And t_2,\sigma \handle{} \overline{t_1' \And t_2,\sigma',\highlight{\First i,\phi}}\cup \overline{t_1 \And t_2',\sigma'',\highlight{\Second i,\phi}}}
+  {t_1 \And t_2,\sigma \handle{} \highlight{\overline{t_1' \And t_2,\sigma',\First i,\phi}\cup \overline{t_1 \And t_2',\sigma'',\Second i,\phi}}}
 
 \newrule{SH-Or}
   {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi_1}}\Quad
   t_2,\sigma \handle{} \overline{t_2',\sigma'',\highlight{i,\phi_2} }}
-  {t_1 \Or t_2,\sigma \handle{} \overline{t_1' \Or t_2,\sigma',\highlight{\First i,\phi_1}}\cup\overline{t_1 \Or t_2',\sigma'',\highlight{\Second i,\phi_2}}}
+  {t_1 \Or t_2,\sigma \handle{} \highlight{\overline{t_1' \Or t_2,\sigma',\First i,\phi_1}\cup\overline{t_1 \Or t_2',\sigma'',\Second i,\phi_2}}}
 
 
 \newrule{SH-PickLeft}
@@ -296,7 +296,7 @@
 \newrule{SH-Pick}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
    e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
-  {e_1 \Xor e_2,\sigma \handle{} \overline{t_1,\sigma_1,\highlight{s,\phi_1 \land s=\Left}}\cup\overline{t_2,\sigma_2,\highlight{s,\phi_2 \land s=\Right}}}
+  {e_1 \Xor e_2,\sigma \handle{} \highlight{\overline{t_1,\sigma_1,s,\phi_1 \land s=\Left}\cup\overline{t_2,\sigma_2,s,\phi_2 \land s=\Right}}}
   [\neg\Failing(t_1,\sigma_1)\land\neg\Failing(t_2,\sigma_2)]
 
 
