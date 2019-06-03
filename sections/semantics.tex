@@ -25,13 +25,11 @@ Most of the symbolic evaluation rules closely resemble the concrete semantics.
 Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic rule to illustrate how to convert one to the other.
 
 \begin{figure}[h]
-
+  \small
   \begin{gather*}
-    \small
     \userule{E-Edit}\Quad
     \userule{Sym-E-Edit}
   \end{gather*}
-
   \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression}
   \label{fig:oldToNewSemantics}
 \end{figure}
@@ -55,13 +53,13 @@ Therefore, they are not listed here, but a full overview of the rules can be fou
 One rule does differ, which is listed in Figure~\ref{fig:eval}.
 
 \begin{figure}[h]
-\begin{gather*}
   \small
-  \boxed{\RelationE} \Break
-  \userule{Sym-E-If}
-\end{gather*}
-\caption{Part of the symbolic evaluation semantics}
-\label{fig:eval}
+  \begin{gather*}
+    \boxed{\RelationE} \Break
+    \userule{Sym-E-If}
+  \end{gather*}
+  \caption{Part of the symbolic evaluation semantics}
+  \label{fig:eval}
 \end{figure}
 
 Instead of two separate rules, one for the then and one for the else branch, we now have one \refrule{Sym-E-If rule}.
@@ -80,8 +78,8 @@ We can observe the value of a task using the function $\Value$.
 Its definition is given in Figure~\ref{fig:value}.
 
 \begin{figure}[h]
+  \small
   \begin{center}
-    \small
     \usemacro{O-Value}
   \end{center}
   \caption{Task value observation function $\Value$}
@@ -92,8 +90,8 @@ We can observe if a task is failing using the function $\Failing$.
 Its definition is given in Figure~\ref{fig:failing}.
 
 \begin{figure}[h]
+  \small
   \begin{center}
-    \small
     \usemacro{O-Failing}
   \end{center}
   \caption{Task failing observation function $\Failing$}
@@ -113,14 +111,14 @@ For the striding semantics, we refer to the appendix.
 
 
 \begin{figure*}
-  \boxed{\RelationN}
-\begin{gather*}
   \small
-  \userule{Sym-N-Done} \Quad
-  \userule{Sym-N-Repeat}
-\end{gather*}
-\caption{Symbolic normalisation semantics}
-\label{fig:normalising}
+  \begin{gather*}
+    \boxed{\RelationN} \Break
+    \userule{Sym-N-Done} \Quad
+    \userule{Sym-N-Repeat}
+  \end{gather*}
+  \caption{Symbolic normalisation semantics}
+  \label{fig:normalising}
 \end{figure*}
 
 
@@ -135,21 +133,21 @@ Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling s
 A complete overview of the rules can be found in the appendix.
 
 \begin{figure*}
-    \boxed{\RelationH}
-\begin{gather*}
   \small
-  \userule{Sym-H-Change} \Quad
-  \userule{Sym-H-Fill} \Quad
-  \userule{Sym-H-Update}\Break
-  \userule{Sym-H-Next} \Quad
-  \userule{Sym-H-PickLeft} \Break
-  \userule{Sym-H-PickRight}\Quad
-  \userule{Sym-H-Pick}\Break
-  \userule{Sym-H-And}\Quad
-  \userule{Sym-H-Or}
-\end{gather*}
-\caption{Symbolic execution rules for the handling semantics}
-\label{fig:handling}
+  \begin{gather*}
+    \boxed{\RelationH} \Break
+    \userule{Sym-H-Change} \Quad
+    \userule{Sym-H-Fill} \Quad
+    \userule{Sym-H-Update}\Break
+    \userule{Sym-H-Next} \Quad
+    \userule{Sym-H-PickLeft} \Break
+    \userule{Sym-H-PickRight}\Quad
+    \userule{Sym-H-Pick}\Break
+    \userule{Sym-H-And}\Quad
+    \userule{Sym-H-Or}
+  \end{gather*}
+  \caption{Symbolic execution rules for the handling semantics}
+  \label{fig:handling}
 \end{figure*}
 
 The three rules for the editors clearly show how symbols are entered into the symbolic execution.
@@ -165,13 +163,13 @@ Therefore, we have one rule for the case where none of the options are failing, 
 
 
 \begin{figure}
-\begin{gather*}
   \small
-  \boxed{\RelationI}\Break
-  \userule{Sym-I-Handle}
-\end{gather*}
-\caption{Symbolic driving semantics}
-\label{fig:driving}
+  \begin{gather*}
+    \boxed{\RelationI} \Break
+    \userule{Sym-I-Handle}
+  \end{gather*}
+  \caption{Symbolic driving semantics}
+  \label{fig:driving}
 \end{figure}
 
 After input has been handled, tasks are normalised.
@@ -198,28 +196,27 @@ A recursive call is terminated when one of the following conditions is met.
 %We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
 \begin{figure*}
-\hspace{-2cm}\begin{function}
-  \signature{\mathit{simulate} : \Task \times \mathrm{State} \times [\mathrm{Inputs}]  \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)} \\
-  \mathit{simulate}\ t\ \sigma \ I\  \phi  = \bigcup \{\mathit{simulate'}\ \True\ t\ I\ \phi\ t'\ \sigma'\ i\ \phi' \mid (t',\sigma',i,\phi') \in \  (t,\sigma\drive{})\}\\
-  \signature{\mathit{simulate'} : \Bool \times \Task \times [\mathrm{Inputs}]\times \mathrm{Predicate} \times \Task \times \mathrm{State}\times \mathrm{Input} \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)}\\
-  \mathit{simulate'}\ go\ t\ I\ \phi\ t'\ i\ \sigma'\ \phi' =\\
-              \left \{\begin{array}{lccccccc}
-                  \emptyset                                                                                                       &\neg \text{SAT } (\phi'\land\phi) &&&&&&\\
-                  \{(v,I\oplus[i],\phi\land\phi')\}                                                                      & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
-                        \mathit{simulate}\ t'\ \sigma'\ (I\oplus[i])\ (\phi\land\phi')                                            & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
-                  \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ t''\ \sigma''\ i'\ \phi'' \mid (t'',\sigma'',i',\phi'') \in \  (t',\sigma'\drive{})\} & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& go\\
-                  \emptyset                                                                                                       & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg go
-                                  \end{array}\right.\\
-\end{function}
-
-
-\caption{Simulation function definition}
-\label{fig:simulate}
+  \hspace{-2cm}\begin{function}
+    \signature{\mathit{simulate} : \Task \times \mathrm{State} \times [\mathrm{Inputs}]  \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)} \\
+    \mathit{simulate}\ t\ \sigma \ I\  \phi  = \bigcup \{\mathit{simulate'}\ \True\ t\ I\ \phi\ t'\ \sigma'\ i\ \phi' \mid (t',\sigma',i,\phi') \in \  (t,\sigma\drive{})\}\\
+    \signature{\mathit{simulate'} : \Bool \times \Task \times [\mathrm{Inputs}]\times \mathrm{Predicate} \times \Task \times \mathrm{State}\times \mathrm{Input} \times \mathrm{Predicate} \rightarrow \powerset(\langle\mathrm{Value},[\mathrm{Inputs}],\mathrm{Predicate}\rangle)}\\
+    \mathit{simulate'}\ go\ t\ I\ \phi\ t'\ i\ \sigma'\ \phi' =\\
+                \left \{\begin{array}{lccccccc}
+                    \emptyset                                                                                                       &\neg \text{SAT } (\phi'\land\phi) &&&&&&\\
+                    \{(v,I\oplus[i],\phi\land\phi')\}                                                                      & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
+                          \mathit{simulate}\ t'\ \sigma'\ (I\oplus[i])\ (\phi\land\phi')                                            & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
+                    \bigcup \{\mathit{simulate'}\ \False\ t'\ (I\oplus[i])\ (\phi'\land\phi)\ t''\ \sigma''\ i'\ \phi'' \mid (t'',\sigma'',i',\phi'') \in \  (t',\sigma'\drive{})\} & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& go\\
+                    \emptyset                                                                                                       & \text{SAT } (\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg go
+                                    \end{array}\right.\\
+  \end{function}
+  \caption{Simulation function definition}
+  \label{fig:simulate}
 \end{figure*}
 
 To better illustrate how the simulate function works, we apply it to Example~\ref{example:abs}.
 
 \begin{figure*}
+  \small
 
 \tikzstyle{level 1}=[level distance=5cm, sibling distance=3cm]
 \tikzstyle{level 2}=[level distance=5cm, sibling distance=3cm]

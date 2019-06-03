@@ -17,13 +17,10 @@ The following subsections describe in detail how all elements of the \TOPHAT lan
 The syntax of \TOPHAT is listed in Figure~\ref{fig:syntaxtophat}
 
 \begin{figure}
-
-\usemacro{G-Language-Compact}
-
-\usemacro{G-Pretasks-Compact}
-
-
-\caption{Syntax of \TOPHAT expressions.}
+  \small
+  \usemacro{G-Language-Compact}
+  \usemacro{G-Pretasks-Compact}
+  \caption{Syntax of \TOPHAT expressions.}
   \label{fig:syntaxtophat}
 \end{figure}
 
@@ -39,8 +36,9 @@ Second, unary and binary operations have been made explicit.
 The types of \TOPHAT remain the same.
 
 \begin{figure}
-\usemacro{G-Types-Compact}
-\caption{Syntax of \TOPHAT types}
+  \small
+  \usemacro{G-Types-Compact}
+  \caption{Syntax of \TOPHAT types}
   \label{fig:syntaxtypes}
 \end{figure}
 
@@ -49,6 +47,7 @@ since they are now part of our expression syntax.
 The type of symbols is kept track of in the environment $\Gamma$.
 
 \begin{figure}
+  \small
   \highlight{\userule{T-Sym}}
   \caption{Additional typing rule for symbols}
   \label{fig:typingsymbol}
@@ -60,9 +59,10 @@ As mentioned before, symbols are considered to be values.
 They have therefore been added to the list of values.
 
 \begin{figure}
-\usemacro{G-Values-Compact}
-\usemacro{G-Tasks-Compact}
-\caption{Syntax of values in \TOPHAT}
+  \small
+  \usemacro{G-Values-Compact}
+  \usemacro{G-Tasks-Compact}
+  \caption{Syntax of values in \TOPHAT}
   \label{fig:syntaxvalues}
 \end{figure}
 
@@ -77,6 +77,7 @@ In the case of \TOPHAT, this means that we do not know the user input, but have 
 This is reflected in the definition of symbolic inputs below.
 
 \begin{figure}
+  \small
   \usemacro{G-Inputs-Compact}
   \caption{Syntax of symbolic inputs}
   \label{fig:syntaxinputs}
@@ -98,6 +99,7 @@ This is done by means of path conditions.
 \Cref{fig:syntaxpredicates} lists the syntax for path conditions.
 
 \begin{figure}
+  \small
   \usemacro{G-Predicates-Compact}
   \caption{Syntax of path conditions}
   \label{fig:syntaxpredicates}
