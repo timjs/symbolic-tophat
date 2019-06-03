@@ -39,21 +39,21 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   \case{$t=\Edit v$}
   {One rule applies in this case, namely \userule{H-Change}\\
   Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v'$ holds by definition.
-  Then by the Sym-H-Change rule, we know that a symbolic execution exists.
+  Then by the SH-Change rule, we know that a symbolic execution exists.
 
   }
 
   \case{$t=\Enter \tau$}
   {One rule applies in this case, namely \userule{H-Fill}\\
   Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v$ holds by definition.
-  Then by the Sym-H-Fill rule,
+  Then by the SH-Fill rule,
   we know that a symbolic execution exists.
   }
 
   \case{$t=\Update l$}
   {One rule applies in this case, namely \userule{H-Update}\\
   Take $i=s$ and assume $\sigma''=\sigma$. $s\sim v'$ holds by definition.
-  Then by the Sym-H-Update rule,
+  Then by the SH-Update rule,
   we know that a symbolic execution exists.
    }
 
@@ -62,7 +62,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     \case{\userule{H-Next}}
     {
     Take $i=s$ and assume $\sigma''=\sigma$. $s\sim \Continue$ holds by definition.
-    Then by the Sym-H-Next rule, we know that a symbolic execution exists.
+    Then by the SH-Next rule, we know that a symbolic execution exists.
     }
     \case{\userule{H-PassNext}}
     {
@@ -92,7 +92,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
       There exists a symbolic execution $e_2,\sigma_1\normalise t_2,\sigma_2,\phi$.\\
 
       We can now conclude that a symbolic execution exists.
-      Either by the \refrule{Sym-H-PickLeft} rule, in case $\Failing(t_2,\sigma_2)$, or by the \refrule{Sym-H-Pick} rule in case $\neg\Failing(t_2,\sigma_2)$.
+      Either by the \refrule{SH-PickLeft} rule, in case $\Failing(t_2,\sigma_2)$, or by the \refrule{SH-Pick} rule in case $\neg\Failing(t_2,\sigma_2)$.
     }
   \case{\userule{H-PickRight}}
     {
@@ -102,7 +102,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     There exists a symbolic execution $e_2,\sigma_1\normalise t_2,\sigma_2,\phi$.\\
 
     We can now conclude that a symbolic execution exists.
-    Either by the \refrule{Sym-H-PickRight} rule, in case $\Failing(t_1,\sigma_1)$, or by the \refrule{Sym-H-Pick} rule in case $\neg\Failing(t_1,\sigma_1)$.
+    Either by the \refrule{SH-PickRight} rule, in case $\Failing(t_1,\sigma_1)$, or by the \refrule{SH-Pick} rule in case $\neg\Failing(t_1,\sigma_1)$.
     }
   }
   \case{$t=t_1\Or t_2$}
@@ -116,7 +116,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[]{j}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
 
     From this, we can conclude that $\First i\sim \First j$.
-    From \refrule{Sym-H-Or}, and the conclusion of the induction hypothesis,
+    From \refrule{SH-Or}, and the conclusion of the induction hypothesis,
     we can conclude that there exists an $i$ such that $t_1\Or t_2,\sigma\handle{}t_1'\Or t_2,\sigma',i,\phi$.
     }
     \case{\userule{H-SecondOr}}
@@ -127,7 +127,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     For all $t_2,\sigma,j$ such that $t_2,\sigma\xrightarrow[]{j}t_2',\sigma'$ there exists an $i\sim j$ such that $t_2'',\sigma''\handle{}t_2''',\sigma''',i,\phi$.\\
 
     From this, we can conclude that $\Second i\sim \Second j$.
-    From \refrule{Sym-H-Or}, and the conclusion of the induction hypothesis,
+    From \refrule{SH-Or}, and the conclusion of the induction hypothesis,
     we can conclude that there exists an $i$ such that $t_1\Or t_2,\sigma\handle{}t_1\Or t_2',\sigma',i,\phi$.
     }
     }
@@ -142,7 +142,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     For all $t_1,\sigma,j$ such that $t_1,\sigma\xrightarrow[]{j}t_1',\sigma'$ there exists an $i\sim j$ such that $t_1'',\sigma''\handle{}t_1''',\sigma''',i,\phi$.\\
 
     From this, we can conclude that $\First i\sim \First j$.
-    From \refrule{Sym-H-And}, and the conclusion of the induction hypothesis,
+    From \refrule{SH-And}, and the conclusion of the induction hypothesis,
     we can conclude that there exists an $i$ such that $t_1\And t_2,\sigma\handle{}t_1'\Or t_2,\sigma',i,\phi$.
     }
     \case{\userule{H-SecondAnd}}
@@ -153,7 +153,7 @@ In other words; every concrete evaluation is also a valid symbolic execution.
     For all $t_2,\sigma,j$ such that $t_2,\sigma\xrightarrow[]{j}t_2',\sigma'$ there exists an $i\sim j$ such that $t_2'',\sigma''\handle{}t_2''',\sigma''',i,\phi$.\\
 
     From this, we can conclude that $\First i\sim \Second j$.
-    From \refrule{Sym-H-And}, and the conclusion of the induction hypothesis,
+    From \refrule{SH-And}, and the conclusion of the induction hypothesis,
     we can conclude that there exists an $i$ such that $t_1\And t_2,\sigma\handle{}t_1\And t_2',\sigma',i,\phi$.
     }
     }
@@ -168,6 +168,6 @@ In other words; every concrete evaluation is also a valid symbolic execution.
   $t,\sigma\xrightarrow[j]{}\bar{t'},\bar{\sigma'}\implies \exists i . t,\sigma\handle{}t',\sigma',i,\phi \land i\sim j$\\
   Then by Lemma~\ref{lem:completeNormalise} we obtain the following.\\
   $\bar{t'},\bar{\sigma'}\bar{\normalise}\bar{t''},\bar{\sigma''}\implies \bar{t'},\bar{\sigma'}\normalise t'',\sigma'',\phi'$\\
-  From the above, together with the Sym-I-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\drive{} t',\sigma',i,\phi\land i\sim j$.
+  From the above, together with the SI-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\drive{} t',\sigma',i,\phi\land i\sim j$.
 
 \end{proof}

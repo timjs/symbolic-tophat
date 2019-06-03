@@ -28,14 +28,14 @@ Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics an
   \small
   \begin{gather*}
     \userule{E-Edit}\Quad
-    \userule{Sym-E-Edit}
+    \userule{SE-Edit}
   \end{gather*}
   \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression}
   \label{fig:oldToNewSemantics}
 \end{figure}
 
 The \refrule{E-Edit} rule evaluates the expression held in an editor to a value.
-The \refrule{Sym-E-Edit} does the same, but since we are doing a symbolic execution, the expression could contain symbols.
+The \refrule{SE-Edit} does the same, but since we are doing a symbolic execution, the expression could contain symbols.
 We therefore do not know beforehand which concrete value will be produced, or even which path the execution will take.
 If the expression contains a conditional that depends on a symbol, it is possible that there are multiple result values, instead of just one.
 This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
@@ -56,13 +56,13 @@ One rule does differ, which is listed in Figure~\ref{fig:eval}.
   \small
   \begin{gather*}
     \boxed{\RelationE} \Break
-    \userule{Sym-E-If}
+    \userule{SE-If}
   \end{gather*}
   \caption{Part of the symbolic evaluation semantics}
   \label{fig:eval}
 \end{figure}
 
-Instead of two separate rules, one for the then and one for the else branch, we now have one \refrule{Sym-E-If rule}.
+Instead of two separate rules, one for the then and one for the else branch, we now have one \refrule{SE-If rule}.
 Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
 Instead, we keep both options open.
 
@@ -114,8 +114,8 @@ For the striding semantics, we refer to the appendix.
   \small
   \begin{gather*}
     \boxed{\RelationN} \Break
-    \userule{Sym-N-Done} \Quad
-    \userule{Sym-N-Repeat}
+    \userule{SN-Done} \Quad
+    \userule{SN-Repeat}
   \end{gather*}
   \caption{Symbolic normalisation semantics}
   \label{fig:normalising}
@@ -136,26 +136,26 @@ A complete overview of the rules can be found in the appendix.
   \small
   \begin{gather*}
     \boxed{\RelationH} \Break
-    \userule{Sym-H-Change} \Quad
-    \userule{Sym-H-Fill} \Quad
-    \userule{Sym-H-Update}\Break
-    \userule{Sym-H-Next} \Quad
-    \userule{Sym-H-PickLeft} \Break
-    \userule{Sym-H-PickRight}\Quad
-    \userule{Sym-H-Pick}\Break
-    \userule{Sym-H-And}\Quad
-    \userule{Sym-H-Or}
+    \userule{SH-Change} \Quad
+    \userule{SH-Fill} \Quad
+    \userule{SH-Update}\Break
+    \userule{SH-Next} \Quad
+    \userule{SH-PickLeft} \Break
+    \userule{SH-PickRight}\Quad
+    \userule{SH-Pick}\Break
+    \userule{SH-And}\Quad
+    \userule{SH-Or}
   \end{gather*}
   \caption{Symbolic execution rules for the handling semantics}
   \label{fig:handling}
 \end{figure*}
 
 The three rules for the editors clearly show how symbols are entered into the symbolic execution.
-The \refrule{Sym-H-Fill} rule for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
+The \refrule{SH-Fill} rule for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
 
 There are several task combinators where the result depends on the user input.
 For example, the parallel combinator $\And$ receives an input for either the left or the right branch.
-To accommodate for all possibilities, the \refrule{Sym-H-And} rule generates both cases.
+To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
 
 The same principle applies to the external choice combinator $\Xor$, however, in this case, we still need three rules.
 This is due to the fact that users are not allowed to step to a task that is failing.
@@ -166,7 +166,7 @@ Therefore, we have one rule for the case where none of the options are failing, 
   \small
   \begin{gather*}
     \boxed{\RelationI} \Break
-    \userule{Sym-I-Handle}
+    \userule{SI-Handle}
   \end{gather*}
   \caption{Symbolic driving semantics}
   \label{fig:driving}
