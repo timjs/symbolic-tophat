@@ -4,70 +4,71 @@
 
 \subsection{Typing rules}
 
-  \begin{gather*}
-    \boxed{\RelationT} \Break
-    \userule{T-ConstBool} \Quad
-    \userule{T-ConstInt} \Quad
-    \userule{T-ConstString} \Quad
-    \userule{T-Unit}\Quad
-    \userule{T-Var} \Quad
-    \userule{T-Loc} \Break
-    \userule{T-Pair} \Quad
-    \userule{T-First} \Quad
-    \userule{T-Second} \Quad
-    \userule{T-ListEmpty} \Quad
-    \userule{T-ListCons} \Break
-    \userule{T-ListHead} \Quad
-    \userule{T-ListTail}\Quad
-    \userule{T-Abs} \Quad
-    \userule{T-App} \Break
-    \userule{T-If} \Quad
-    \userule{T-Ref} \Quad
-    \userule{T-Deref} \Quad
-    \userule{T-Assign}\Break
-    \userule{T-Loc}\Quad
-    \userule{T-Edit}\Quad
-    \userule{T-Enter}\Quad
-    \userule{T-Update}\Quad
-    \userule{T-Fail}\Quad
-    \userule{T-Then}\Break
-    \userule{T-Next}\Quad
-    \userule{T-And}\Quad
-    \userule{T-Or}\Quad
-    \userule{T-Xor}
-  \end{gather*}
+\begin{gather*}
+  \boxed{\RelationT} \Break
+  \userule{T-ConstBool} \Quad
+  \userule{T-ConstInt} \Quad
+  \userule{T-ConstString} \Quad
+  \userule{T-Unit}\Quad
+  \userule{T-Var} \Quad
+  \userule{T-Loc} \Break
+  \userule{T-Pair} \Quad
+  \userule{T-First} \Quad
+  \userule{T-Second} \Quad
+  \userule{T-ListEmpty} \Quad
+  \userule{T-ListCons} \Break
+  \userule{T-ListHead} \Quad
+  \userule{T-ListTail}\Quad
+  \userule{T-Abs} \Quad
+  \userule{T-App} \Break
+  \userule{T-If} \Quad
+  \userule{T-Ref} \Quad
+  \userule{T-Deref} \Quad
+  \userule{T-Assign}\Break
+  \userule{T-Loc}\Quad
+  \userule{T-Edit}\Quad
+  \userule{T-Enter}\Quad
+  \userule{T-Update}\Quad
+  \userule{T-Fail}\Quad
+  \userule{T-Then}\Break
+  \userule{T-Next}\Quad
+  \userule{T-And}\Quad
+  \userule{T-Or}\Quad
+  \userule{T-Xor}
+\end{gather*}
 
 \subsection{Evaluation rules}
 
-  \begin{gather*}
-    %\boxed{\RelationE} \Break
-    \userule{E-App} \Quad
-    \userule{E-IfTrue} \Quad
-    \userule{E-Ref} \Break
-    \userule{E-IfFalse} \Quad
-    \userule{E-Deref} \Quad
-    \userule{E-Value} \Quad
+\begin{gather*}
+  \boxed{\RelationE} \Break
+  \userule{E-App} \Quad
+  \userule{E-IfTrue} \Quad
+  \userule{E-Ref} \Break
+  \userule{E-IfFalse} \Quad
+  \userule{E-Deref} \Quad
+  \userule{E-Value} \Quad
   \userule{E-Assign} \Quad
-    \userule{E-Pair} \Break
-    \userule{E-First} \Quad
-    \userule{E-Second}\Quad
-    \userule{E-Cons}\Quad
-    \userule{E-Head}\Break
-    \userule{E-Tail}\Quad
-    \userule{E-Edit} \Quad
-    \userule{E-Enter} \Quad
-    \userule{E-Update} \Quad
-    \userule{E-Then} \Break
-    \userule{E-Next} \Quad
-    \userule{E-And} \Quad
-    \userule{E-Fail} \Quad
-    \userule{E-Or} \Quad
-    \userule{E-Xor}
-  \end{gather*}
+  \userule{E-Pair} \Break
+  \userule{E-First} \Quad
+  \userule{E-Second}\Quad
+  \userule{E-Cons}\Quad
+  \userule{E-Head}\Break
+  \userule{E-Tail}\Quad
+  \userule{E-Edit} \Quad
+  \userule{E-Enter} \Quad
+  \userule{E-Update} \Quad
+  \userule{E-Then} \Break
+  \userule{E-Next} \Quad
+  \userule{E-And} \Quad
+  \userule{E-Fail} \Quad
+  \userule{E-Or} \Quad
+  \userule{E-Xor}
+\end{gather*}
 
 \subsection{Striding rules}
 
 \begin{gather*}
+  \boxed{\RelationS} \Break
   \userule{S-ThenStay} \Quad
   \userule{S-ThenFail} \Break
   \userule{S-ThenCont}\Quad
@@ -83,28 +84,31 @@
 \subsection{Normalisation rules}
 
 \begin{gather*}
+  \boxed{\RelationN} \Break
   \userule{N-Done} \Quad
   \userule{N-Repeat}
 \end{gather*}
 
 \subsection{Handling rules}
 
-  \begin{gather*}
-    \userule{H-Change} \Quad
-    \userule{H-Fill} \Quad
-    \userule{H-Update}\Break
-    \userule{H-Next} \Quad
-    \userule{H-PickLeft} \Quad
-    \userule{H-PickRight}\Quad
-    \userule{H-PassThen} \Break
-    \userule{H-PassNext} \Quad
-    \userule{H-FirstAnd} \Quad \userule{H-SecondAnd} \Quad
-    \userule{H-FirstOr}  \Quad \userule{H-SecondOr}
-  \end{gather*}
+\begin{gather*}
+  \boxed{\RelationH} \Break
+  \userule{H-Change} \Quad
+  \userule{H-Fill} \Quad
+  \userule{H-Update}\Break
+  \userule{H-Next} \Quad
+  \userule{H-PickLeft} \Quad
+  \userule{H-PickRight}\Quad
+  \userule{H-PassThen} \Break
+  \userule{H-PassNext} \Quad
+  \userule{H-FirstAnd} \Quad \userule{H-SecondAnd} \Quad
+  \userule{H-FirstOr}  \Quad \userule{H-SecondOr}
+\end{gather*}
 
 
 \subsection{Driving semantics}
 
-  \begin{gather*}
-    \userule{I-Handle}
-  \end{gather*}
+\begin{gather*}
+  \boxed{\RelationI} \Break
+  \userule{I-Handle}
+\end{gather*}

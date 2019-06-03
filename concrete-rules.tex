@@ -7,21 +7,25 @@
 \newmacro{RelationT}
   {\Gamma,\Sigma \infers e : \tau}
 
+
 \newrule{T-ConstBool}
   {c\in B}
   {\Gamma,\Sigma\infers c : \Bool}
 
-  \newrule{T-ConstInt}
-    {c\in I}
-    {\Gamma,\Sigma\infers c : \Int}
+\newrule{T-ConstInt}
+  {c\in I}
+  {\Gamma,\Sigma\infers c : \Int}
 
-    \newrule{T-ConstString}
-      {c\in S}
-      {\Gamma,\Sigma\infers c : \String}
+\newrule{T-ConstString}
+  {c\in S}
+  {\Gamma,\Sigma\infers c : \String}
 
-      \newrule{T-Unit}
-        { }
-        {\Gamma,\Sigma\infers \unit : \Unit}
+
+\newrule{T-Unit}
+  { }
+  {\Gamma,\Sigma\infers \unit : \Unit}
+
+
 \newrule{T-Var}
   {x:\tau\in\Gamma}
   {\Gamma,\Sigma\infers x:\tau}
@@ -143,7 +147,12 @@
    {\Gamma,\Sigma \infers e_2 : \Task \tau}}
   {\Gamma,\Sigma \infers e_1 \Xor e_2 : \Task \tau}
 
+
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newmacro{RelationE}
+  {e,\hat{\sigma} \hat{\eval} v,\hat{\sigma}'}
+
 
 \newrule{E-Value}
   {}
@@ -255,7 +264,12 @@
   {}
   {e_1 \Xor e_2 ,\hat{\sigma}\hat{\eval} e_1 \Xor e_2,\hat{\sigma}}
 
+
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newmacro{RelationS}
+  {t,\hat{\sigma} \hat{\stride} t',\hat{\sigma}'}
+
 
 \newrule{S-Edit}
   { }
@@ -331,7 +345,12 @@
     {e,\hat{\sigma} \hat{\stride} \hat{e}'',\hat{\sigma}''}
     [e \neq \hat{e}']
 
+
 %% Normalisation %%
+
+\newmacro{RelationN}
+  {e,\hat{\sigma} \hat{\normalise} t,\hat{\sigma}'}
+
 
 \newrule{N-Done}
     {e,\hat{\sigma} \hat{\eval} \hat{t},\hat{\sigma}' \Quad
@@ -349,6 +368,9 @@
 
 
 %% Handling %%
+
+\newmacro{RelationH}
+  {t,\hat{\sigma} \hat{\handle{j}} t',\hat{\sigma}'}
 
 
 \newrule{H-Change}
@@ -416,6 +438,10 @@
 
 
 %% Driving %%
+
+\newmacro{RelationI}
+  {\hat{t},\hat{\sigma} \hat{\drive{j}} \hat{t}',\hat{\sigma}'}
+
 
 
 \newrule{I-Handle}
