@@ -22,8 +22,6 @@
   {\textbf{#1}}
 \newmacro{divert}[1]
   {\textcolor{gray}{#1}}
-\newmacro{highlight}[1]
-  {\colorbox{lightgray}{#1}}
 \newmacro{enquote}[1]
   {``#1''}
 \newmacro{fixme}[1]
@@ -157,6 +155,8 @@
 \newmacro{obox}[2]
   {\makebox[0pt][l]{\ensuremath{#2}}\phantom{\ensuremath{#1}}}
 
+\newmacro{highlight}[1]
+  {\colorbox{lightgray}{\ensuremath{#1}}}
 
 %% Spacing %%
 

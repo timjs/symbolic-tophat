@@ -10,213 +10,213 @@
 
 
 \newmacro{RelationE}
-  {e,\sigma \eval \overline{v,\sigma',\phi}}
+  {e,\sigma \eval \overline{v,\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-E-Value}
   {}
-  {v,\sigma\eval v,\sigma,\True}
+  {v,\sigma\eval v,\highlight{\sigma,\True}}
 
 
 \newrule{Sym-E-App}
-  {e_1,\sigma\eval \overline{\lambda x:\tau.e_1',\sigma',\phi_1} \Quad
-   e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2} \Quad
-   e_1'[x\mapsto v_2],\sigma''\eval \overline{v_1,\sigma''',\phi_3}}
-  {e_1 e_2,\sigma \eval \overline{v_1,\sigma''',\phi_1 \land \phi_2 \land \phi_3}}
+  {e_1,\sigma\eval \overline{\lambda x:\tau.e_1',\sigma',\highlight{\phi_1}} \Quad
+   e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}} \Quad
+   e_1'[x\mapsto v_2],\sigma''\eval \overline{v_1,\sigma''',\highlight{\phi_3}}}
+  {e_1 e_2,\sigma \eval \overline{v_1,\sigma''',\highlight{\phi_1} \land \highlight{\phi_2} \land \highlight{\phi_3}}}
 
 \newrule{Sym-E-If}
-  {e_1,\sigma\eval \overline{v_1,\sigma',\phi_1} \Quad
-   e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2} \Quad
-     e_3,\sigma'\eval \overline{v_3,\sigma''',\phi_3}}
-  {\If{e_1}{e_2}{e_3},\sigma\eval \overline{v_2,\sigma'',\phi_1\land \phi_2\land v_1} \cup \overline{v_3,\sigma''',\phi_1 \land \phi_3 \land \lnot v_1}}
+  {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
+   \highlight{e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2}} \Quad
+   \highlight{e_3,\sigma'\eval \overline{v_3,\sigma''',\phi_3}}}
+  {\If{e_1}{e_2}{e_3},\sigma\eval \overline{v_2,\sigma'',\highlight{\phi_1 \land \phi_2\land v_1}} \cup \overline{v_3,\sigma''',\highlight{\phi_1 \land \phi_3 \land \lnot v_1}}}
 
 \newrule{Sym-E-Pair}
-  {e_1,\sigma\eval \overline{v_1,\sigma',\phi_1} \Quad
-   e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2}}
-  {\tuple{e_1,e_2},\sigma\eval\overline{\tuple{v_1,v_2},\sigma'',\phi_1 \land \phi_2}}
+  {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
+   e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}}}
+  {\tuple{e_1,e_2},\sigma\eval\overline{\tuple{v_1,v_2},\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
 
 \newrule{Sym-E-First}
-  {e_1,\sigma\eval\overline{v_1,\sigma',\phi}}
-  {\Fst\tuple{e_1,e_2},\sigma\eval\overline{v_1,\sigma',\phi} }
+  {e_1,\sigma\eval\overline{v_1,\sigma',\highlight{\phi}}}
+  {\Fst\tuple{e_1,e_2},\sigma\eval\overline{v_1,\sigma',\highlight{\phi}} }
 
 \newrule{Sym-E-Second}
-  {e_2,\sigma\eval\overline{v_2,\sigma',\phi}}
-  {\Snd\tuple{e_1,e_2},\sigma\eval\overline{v_2,\sigma',\phi} }
+  {e_2,\sigma\eval\overline{v_2,\sigma',\highlight{\phi}}}
+  {\Snd\tuple{e_1,e_2},\sigma\eval\overline{v_2,\sigma',\highlight{\phi}} }
 
 
 %%%%%%%
 
 \newrule{Sym-E-Cons}
-  {e_1,\sigma \eval v_1,\sigma',\phi_1\Quad
-   e_2,\sigma' \eval v_2,\sigma'',\phi_2}
-  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\phi_1\land\phi_2}
+  {e_1,\sigma \eval v_1,\sigma',\highlight{\phi_1}\Quad
+   e_2,\sigma' \eval v_2,\sigma'',\highlight{\phi_2}}
+  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\highlight{\phi_1}\land\highlight{\phi_2}}
 
 \newrule{Sym-E-Head}
-  {e,\sigma \eval v_1::v_2,\sigma',\phi}
-  {\Head e,\sigma \eval v_1,\sigma',\phi}
+  {e,\sigma \eval v_1::v_2,\sigma',\highlight{\phi}}
+  {\Head e,\sigma \eval v_1,\sigma',\highlight{\phi}}
 
 \newrule{Sym-E-Tail}
-{e,\sigma \eval v_1::v_2,\sigma',\phi}
-{\Tail e,\sigma \eval v_2,\sigma',\phi}
+{e,\sigma \eval v_1::v_2,\sigma',\highlight{\phi}}
+{\Tail e,\sigma \eval v_2,\sigma',\highlight{\phi}}
 
 
 %%%%%
 \newrule{Sym-E-Ref}
-  {e,\sigma\eval \overline{v,\sigma',\phi} \Quad
+  {e,\sigma\eval \overline{v,\sigma',\highlight{\phi}} \Quad
    l\not\in Dom(\sigma')}
-  {\Ref e,\sigma\eval \overline{l,\sigma'[l\mapsto v],\phi}}
+  {\Ref e,\sigma\eval \overline{l,\sigma'[l\mapsto v],\highlight{\phi}}}
 
 \newrule{Sym-E-Deref}
-  {e,\sigma\eval \overline{l,\sigma',\phi}}
-  {!e,\sigma\eval \overline{\sigma'(l),\sigma',\phi}}
+  {e,\sigma\eval \overline{l,\sigma',\highlight{\phi}}}
+  {!e,\sigma\eval \overline{\sigma'(l),\sigma',\highlight{\phi}}}
 
 \newrule{Sym-E-Assign}
-  {e_1,\sigma\eval \overline{l,\sigma',\phi_1} \Quad
-   e_2,\sigma'\eval \overline{v_2,\sigma'',\phi_2}}
-  {e_1:=e_2,\sigma\eval \overline{\unit,\sigma''[l\mapsto v_2],\phi_1\wedge\phi_2}}
+  {e_1,\sigma\eval \overline{l,\sigma',\highlight{\phi_1}} \Quad
+   e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}}}
+  {e_1:=e_2,\sigma\eval \overline{\unit,\sigma''[l\mapsto v_2],\highlight{\phi_1}\wedge\highlight{\phi_2}}}
 
 \newrule{Sym-E-Edit}
-  {e,\sigma \eval \overline{v,\sigma',\phi}}
-  {\Edit e , \sigma\eval \overline{\Edit v,\sigma',\phi}}
+  {e,\sigma \eval \overline{v,\sigma',\highlight{\phi}}}
+  {\Edit e , \sigma\eval \overline{\Edit v,\sigma',\highlight{\phi}}}
 
 \newrule{Sym-E-Enter}
   {}
-  {\Enter \tau,\sigma \eval \Enter \tau,\sigma,\True}
+  {\Enter \tau,\sigma \eval \Enter \tau,\highlight{\sigma,\True}}
 
 \newrule{Sym-E-Update}
-  {e,\sigma\eval \overline{l,\sigma',\phi}}
-  {\Update e ,\sigma\eval \overline{\Update l,\sigma',\phi}}
+  {e,\sigma\eval \overline{l,\sigma',\highlight{\phi}}}
+  {\Update e ,\sigma\eval \overline{\Update l,\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-E-Fail}
   {}
-  {\Fail,\sigma \eval \Fail,\sigma,\True}
+  {\Fail,\sigma \eval \Fail,\highlight{\sigma,\True}}
 
 
 \newrule{Sym-E-Then}
-  {e_1 ,\sigma\eval \overline{t_1,\sigma',\phi}}
-  {e_1 \Then e_2,\sigma \eval \overline{t_1 \Then e_2,\sigma',\phi}}
+  {e_1 ,\sigma\eval \overline{t_1,\sigma',\highlight{\phi}}}
+  {e_1 \Then e_2,\sigma \eval \overline{t_1 \Then e_2,\sigma',\highlight{\phi}}}
 
 \newrule{Sym-E-Next}
-  {e_1 ,\sigma\eval \overline{t_1,\sigma',\phi}}
-  {e_1 \Next e_2 ,\sigma\eval \overline{t_1 \Next e_2,\sigma',\phi}}
+  {e_1 ,\sigma\eval \overline{t_1,\sigma',\highlight{\phi}}}
+  {e_1 \Next e_2 ,\sigma\eval \overline{t_1 \Next e_2,\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-E-And}
-  {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\phi_1} \Quad
-   e_2 ,\sigma'\eval \overline{t_2,\sigma'',\phi_2}}
-  {e_1 \And e_2 ,\sigma\eval \overline{t_1 \And t_2,\sigma'',\phi_1 \land \phi_2}}
+  {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\highlight{\phi_1}} \Quad
+   e_2 ,\sigma'\eval \overline{t_2,\sigma'',\highlight{\phi_2}}}
+  {e_1 \And e_2 ,\sigma\eval \overline{t_1 \And t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
 
 
 \newrule{Sym-E-Or}
-  {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\phi_1} \Quad
-   e_2 ,\sigma'\eval \overline{t_2,\sigma'',\phi_2}}
-  {e_1 \Or e_2 ,\sigma\eval \overline{t_1 \Or t_2,\sigma'',\phi_1 \land \phi_2}}
+  {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\highlight{\phi_1}} \Quad
+   e_2 ,\sigma'\eval \overline{t_2,\sigma'',\highlight{\phi_2}}}
+  {e_1 \Or e_2 ,\sigma\eval \overline{t_1 \Or t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
 
 \newrule{Sym-E-Xor}
   {}
-  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\highlight{\sigma,\True}}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newmacro{RelationS}
-  {t,\sigma\stride \overline{t',\sigma',\phi}}
+  {t,\sigma\stride \overline{t',\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-S-Edit}
   { }
-  {\Edit v,\sigma \stride \Edit v,\sigma,\True}
+  {\Edit v,\sigma \stride \Edit v,\highlight{\sigma,\True}}
 
 \newrule{Sym-S-Fill}
   { }
-  {\Enter \tau,\sigma \stride \Enter \tau,\sigma,\True}
+  {\Enter \tau,\sigma \stride \Enter \tau,\highlight{\sigma,\True}}
 
 \newrule{Sym-S-Update}
   { }
-  {\Update l,\sigma \stride \Update l,\sigma,\True}
+  {\Update l,\sigma \stride \Update l,\highlight{\sigma,\True}}
 
 
 \newrule{Sym-S-Fail}
   { }
-  {\Fail,\sigma \stride \Fail,\sigma,\True}
+  {\Fail,\sigma \stride \Fail,\highlight{\sigma,\True}}
 
 
 \newrule{Sym-S-ThenStay}
-  {t_1,\sigma \stride \overline{t_1',\sigma',\phi}}
-  {t_1 \Then e_2,\sigma \stride \overline{t_1' \Then e_2,\sigma',\phi}}
+  {t_1,\sigma \stride \overline{t_1',\sigma',\highlight{\phi}}}
+  {t_1 \Then e_2,\sigma \stride \overline{t_1' \Then e_2,\sigma',\highlight{\phi}}}
   [\Value(t_1',\sigma') = \bot]
 
 \newrule{Sym-S-ThenFail}
-  {t_1,\sigma \stride \overline{t_1',\sigma',\phi} \Quad
+  {t_1,\sigma \stride \overline{t_1',\sigma',\highlight{\phi}} \Quad
    e_2\ v_1,\sigma' \eval \overline{t_2,\sigma'',\_}}
-  {t_1 \Then e_2,\sigma \stride \overline{t_1' \Then e_2,\sigma',\phi}}
+  {t_1 \Then e_2,\sigma \stride \overline{t_1' \Then e_2,\sigma',\highlight{\phi}}}
   [\Value(t_1',\sigma') = v_1 \land \Failing(t_2,\sigma'')]
 
 \newrule{Sym-S-ThenCont}
-  {t_1,\sigma \stride \overline{t_1',\sigma',\phi_1} \Quad
-   e_2\ v_1,\sigma' \eval \overline{t_2 ,\sigma'',\phi_2}}
+  {t_1,\sigma \stride \overline{t_1',\sigma',\highlight{\phi_1}} \Quad
+   e_2\ v_1,\sigma' \eval \overline{t_2 ,\sigma'',\highlight{\phi_2}}}
    % t_2,\sigma'' \stride t_2',\sigma'''}
-  {t_1 \Then e_2,\sigma \stride \overline{t_2,\sigma'',\phi_1 \land \phi_2}}
+  {t_1 \Then e_2,\sigma \stride \overline{t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
   [\Value(t_1',\sigma') = v_1 \land \lnot\Failing(t_2,\sigma'')]
 
 \newrule{Sym-S-Next}
-  {t_1,\sigma \stride \overline{t_1',\sigma',\phi}}
-  {t_1 \Next e_2,\sigma \stride \overline{t_1' \Next e_2,\sigma',\phi}}
+  {t_1,\sigma \stride \overline{t_1',\sigma',\highlight{\phi}}}
+  {t_1 \Next e_2,\sigma \stride \overline{t_1' \Next e_2,\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-S-And}
-  {t_1,\sigma  \stride \overline{t_1',\sigma',\phi_1 } \Quad
-   t_2,\sigma' \stride \overline{t_2',\sigma'',\phi_2}}
-  {t_1 \And t_2,\sigma \stride \overline{t_1' \And t_2',\sigma'',\phi_1 \land \phi_2}}
+  {t_1,\sigma  \stride \overline{t_1',\sigma',\highlight{\phi_1} } \Quad
+   t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
+  {t_1 \And t_2,\sigma \stride \overline{t_1' \And t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
 
 
 \newrule{Sym-S-OrLeft}
-  {t_1,\sigma  \stride \overline{t_1',\sigma',\phi}}
-  {t_1 \Or t_2,\sigma \stride \overline{t_1',\sigma',\phi}}
+  {t_1,\sigma  \stride \overline{t_1',\sigma',\highlight{\phi}}}
+  {t_1 \Or t_2,\sigma \stride \overline{t_1',\sigma',\highlight{\phi}}}
   [\Value(t_1',\sigma') = v_1]
 
 \newrule{Sym-S-OrRight}
-  {t_1,\sigma  \stride \overline{t_1',\sigma',\phi_1}  \Quad
-   t_2,\sigma' \stride \overline{t_2',\sigma'',\phi_2}}
-  {t_1 \Or t_2,\sigma \stride \overline{t_2',\sigma'',\phi_1 \land \phi_2}}
+  {t_1,\sigma  \stride \overline{t_1',\sigma',\highlight{\phi_1}}  \Quad
+   t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
+  {t_1 \Or t_2,\sigma \stride \overline{t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
   [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = v_2]
 
 \newrule{Sym-S-OrNone}
-  {t_1,\sigma  \stride \overline{t_1',\sigma' ,\phi_1} \Quad
-   t_2,\sigma' \stride \overline{t_2',\sigma'',\phi_2}}
-  {t_1 \Or t_2,\sigma \stride \overline{t_1' \Or t_2',\sigma'',\phi_1 \land \phi_2}}
+  {t_1,\sigma  \stride \overline{t_1',\sigma' ,\highlight{\phi_1}} \Quad
+   t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
+  {t_1 \Or t_2,\sigma \stride \overline{t_1' \Or t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
   [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bot]
 
 
 \newrule{Sym-S-Xor}
   { }
-  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\sigma,\True}
+  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\highlight{\sigma,\True}}
 
 \newrule{Sym-S-Eval}
-    {e,\sigma \eval \overline{e',\sigma',\phi_1}  \Quad
-     e',\sigma' \stride \overline{e'',\sigma'',\phi_2}}
-    {e,\sigma \stride \overline{e'',\sigma'',\phi_1 \land \phi_2}}
+    {e,\sigma \eval \overline{e',\sigma',\highlight{\phi_1}}  \Quad
+     e',\sigma' \stride \overline{e'',\sigma'',\highlight{\phi_2}}}
+    {e,\sigma \stride \overline{e'',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
     [e \neq e']
 
 %% Normalisation %%
 
 
 \newmacro{RelationN}
-  {e,\sigma \normalise \overline{t,\sigma',\phi}}
+  {e,\sigma \normalise \overline{t,\sigma',\highlight{\phi}}}
 
 
 \newrule{Sym-N-Done}
-    {e,\sigma \eval \overline{t,\sigma',\phi_1}  \Quad
-     t,\sigma' \stride \overline{t',\sigma'',\phi_2}}
-    {e,\sigma \normalise \overline{t,\sigma',\phi_1}}
+    {e,\sigma \eval \overline{t,\sigma',\highlight{\phi_1}}  \Quad
+     t,\sigma' \stride \overline{t',\sigma'',\highlight{\phi_2}}}
+    {e,\sigma \normalise \overline{t,\sigma',\highlight{\phi_1}}}
     [\sigma'=\sigma'' \land t=t']
 
 \newrule{Sym-N-Repeat}
-    {e,\sigma \eval \overline{t,\sigma',\phi_1}  \Quad
-     t,\sigma' \stride \overline{t',\sigma'',\phi_2 } \Quad
-     t',\sigma'' \normalise \overline{t'',\sigma''',\phi_3}}
-    {e,\sigma \normalise \overline{t'',\sigma''',\phi_1 \land \phi_2 \land \phi_3}}
+    {e,\sigma \eval \overline{t,\sigma',\highlight{\phi_1}}  \Quad
+     t,\sigma' \stride \overline{t',\sigma'',\highlight{\phi_2} } \Quad
+     t',\sigma'' \normalise \overline{t'',\sigma''',\highlight{\phi_3}}}
+    {e,\sigma \normalise \overline{t'',\sigma''',\highlight{\phi_1 \land \phi_2 \land \phi_3}}}
     [\sigma'\neq \sigma''\vee t\neq t']
 
 
@@ -225,78 +225,78 @@
 
 
 \newmacro{RelationH}
-  {t,\sigma \handle{} \overline{t',\sigma',i,\phi}}
+  {t,\sigma \handle{} \overline{t',\sigma',\highlight{i,\phi}}}
 
 
 \newrule{Sym-H-Change}
   { \text{fresh }s}
-  {\Edit v,\sigma \handle{} \Edit s,\sigma,s,\True}
+  {\Edit v,\sigma \handle{} \Edit s,\sigma,\highlight{s,\True}}
   [v,s:\tau]
 
 % \newrule{Sym-H-Empty}
 %   { }
-%   {\Edit v,\sigma \handle{\Empty} \Enter \tau,\sigma,\True}
+%   {\Edit v,\sigma \handle{\Empty} \Enter \tau,\highlight{\sigma,\True}}
 %   [v : \tau]
 
 \newrule{Sym-H-Fill}
   { \text{fresh }s}
-  {\Enter \tau,\sigma \handle{} \Edit s,\sigma,s,\True}
+  {\Enter \tau,\sigma \handle{} \Edit s,\sigma,\highlight{s,\True}}
   [s:\tau]
 
 \newrule{Sym-H-Update}
   { \text{fresh }s}
-  {\Update l,\sigma \handle{} \Update l,\sigma[l \mapsto s],s,\True}
+  {\Update l,\sigma \handle{} \Update l,\sigma[l \mapsto s],\highlight{s,\True}}
   [\sigma(l),s:\tau]
 
 \newrule{Sym-H-PassThen}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi}}
-  {t_1 \Then e_2,\sigma \handle{} \overline{t_1' \Then e_2,\sigma',i,\phi}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}}}
+  {t_1 \Then e_2,\sigma \handle{} \overline{t_1' \Then e_2,\sigma',\highlight{i,\phi}}}
 
 \newrule{Sym-H-PassNext}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}}
   [\Value{(t_1,\sigma)} = \bot]
 
 \newrule{Sym-H-PassNext1}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
-  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\phi}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
+  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\highlight{\phi}}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}}
   [\Value{(t_1,\sigma)} = v_1 \land \Failing{(t_2,\sigma')}]
 
 \newrule{Sym-H-Next}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
-  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\phi}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',i,\phi}\cup\overline{t_2,\sigma',s,\phi\land s=\Continue}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
+  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\highlight{\phi}}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}\cup\overline{t_2,\sigma',\highlight{s,\phi \land s=\Continue}}}
   [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
 \newrule{Sym-H-And}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi} \Quad
-   t_2,\sigma \handle{} \overline{t_2',i,\sigma'',i,\phi}}
-  {t_1 \And t_2,\sigma \handle{} \overline{t_1' \And t_2,\sigma',\First i,\phi}\cup \overline{t_1 \And t_2',\sigma'',\Second i,\phi}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
+   t_2,\sigma \handle{} \overline{t_2',i,\sigma'',\highlight{i,\phi}}}
+  {t_1 \And t_2,\sigma \handle{} \overline{t_1' \And t_2,\sigma',\highlight{\First i,\phi}}\cup \overline{t_1 \And t_2',\sigma'',\highlight{\Second i,\phi}}}
 
 \newrule{Sym-H-Or}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',i,\phi_1}\Quad
-  t_2,\sigma \handle{} \overline{t_2',\sigma'',i,\phi_2 }}
-  {t_1 \Or t_2,\sigma \handle{} \overline{t_1' \Or t_2,\sigma',\First i,\phi_1}\cup\overline{t_1 \Or t_2',\sigma'',\Second i,\phi_2}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi_1}}\Quad
+  t_2,\sigma \handle{} \overline{t_2',\sigma'',\highlight{i,\phi_2} }}
+  {t_1 \Or t_2,\sigma \handle{} \overline{t_1' \Or t_2,\sigma',\highlight{\First i,\phi_1}}\cup\overline{t_1 \Or t_2',\sigma'',\highlight{\Second i,\phi_2}}}
 
 
 \newrule{Sym-H-PickLeft}
-  {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
-   e_2,\sigma \normalise \overline{t_2,\sigma_2,\phi_1}}
-  {e_1 \Xor e_2,\sigma \handle{} t_1,\sigma_1,s,\phi_1\land s=\Left}
+  {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+  {e_1 \Xor e_2,\sigma \handle{} t_1,\sigma_1,\highlight{s,\phi_1 \land s=\Left}}
   [\neg\Failing(t_1,\sigma_1)\land \Failing(t_2,\sigma_2)]
 
 \newrule{Sym-H-PickRight}
-  {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
-   e_2,\sigma \normalise \overline{t_2,\sigma_2,\phi_1}}
-  {e_1 \Xor e_2,\sigma \handle{} t_2,\sigma_2,s,\phi_2\land s=\Right}
+  {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+  {e_1 \Xor e_2,\sigma \handle{} t_2,\sigma_2,\highlight{s,\phi_2 \land s=\Right}}
   [\neg\Failing(t_2,\sigma_1)\land \Failing(t_1,\sigma_1)]
 
 \newrule{Sym-H-Pick}
-  {e_1,\sigma \normalise \overline{t_1,\sigma_1,\phi_1} \Quad
-   e_2,\sigma \normalise \overline{t_2,\sigma_2,\phi_1}}
-  {e_1 \Xor e_2,\sigma \handle{} \overline{t_1,\sigma_1,s,\phi_1\land s=\Left}\cup\overline{t_2,\sigma_2,s,\phi_2\land s=\Right}}
+  {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+  {e_1 \Xor e_2,\sigma \handle{} \overline{t_1,\sigma_1,\highlight{s,\phi_1 \land s=\Left}}\cup\overline{t_2,\sigma_2,\highlight{s,\phi_2 \land s=\Right}}}
   [\neg\Failing(t_1,\sigma_1)\land\neg\Failing(t_2,\sigma_2)]
 
 
@@ -304,10 +304,10 @@
 
 
 \newmacro{RelationI}
-  {t,\sigma \drive{} \overline{t',\sigma',i,\phi}}
+  {t,\sigma \drive{} \overline{t',\sigma',\highlight{i,\phi}}}
 
 
 \newrule{Sym-I-Handle}
-  {t,\sigma \handle{} \overline{t',\sigma',i,\phi_1} \Quad
-   t',\sigma' \normalise \overline{t'',\sigma'',\phi_2}}
-  {t,\sigma \drive{} \overline{t'',\sigma'',i,\phi_1 \land \phi_2}}
+  {t,\sigma \handle{} \overline{t',\sigma',\highlight{i,\phi_1}} \Quad
+   t',\sigma' \normalise \overline{t'',\sigma'',\highlight{\phi_2}}}
+  {t,\sigma \drive{} \overline{t'',\sigma'',\highlight{i,\phi_1 \land \phi_2}}}

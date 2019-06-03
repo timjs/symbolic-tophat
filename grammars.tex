@@ -169,7 +169,7 @@
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
       &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - empty list, cons\\
       &   & \mid & c \Mid l \Mid t                                     & – constant, location, task \\
-      &   & \mid & \highlight{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
+      &   & \mid & \highlight{s \Mid u\ v \Mid v_1\ o\ v_2}            & – symbol, unary op, binary op\\
   \end{grammar}
 }
 
@@ -273,7 +273,7 @@
   \begin{grammar}
     \noalign{Path conditions}
     \addlinespace
-      & \highlight{\ensuremath{\phi}} &::= & c \Mid s                   & – constant, symbol\\
+      & \highlight{\phi} &::= & c \Mid s                   & – constant, symbol\\
       % &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
       &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2  & – symbolic unary, binary operation
   \end{grammar}
