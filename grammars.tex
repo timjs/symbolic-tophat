@@ -49,27 +49,31 @@
 
 \newmacro{G-Language-Compact}{
   \begin{grammar}
-    \noalign{Expressions}\\
-    & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2           & – abstraction, application \\
+    \noalign{Expressions}
+    \addlinespace
+    & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2                  & – abstraction, application \\
     &       & \mid  & x  \Mid  c \Mid \unit                        & – variable, constant, unit \\
     &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
     &       & \mid  & \If{e_1}{e_2}{e_3}                           & – branch \\
     &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
-    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & - empty list, cons\\
-    &       & \mid  & \text{head}\ e \Mid \text{tail}\ e           & - first element, list tail\\
+    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & – empty list, cons \\
+    &       & \mid  & \Head\ e \Mid \Tail\ e                       & – first element, list tail \\
     &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
-    &       & \mid  & p \Mid \colorbox{lightgray}{s}                                & – pretask, symbol \\
+    &       & \mid  & p \Mid \highlight{s}                         & – pretask, symbol \\
     \\
-    \noalign{Constants}\\
-    & c& ::= &  B  \Mid  I  \Mid  S                          & – boolean, integer, string\\
+    \noalign{Constants}
+    \addlinespace
+    & c& ::= &  B  \Mid  I  \Mid  S                                & – boolean, integer, string \\
     \\
-    \noalign{Unary Operations}\\
-    & u &::= &  \lnot \Mid - \Mid \# \Mid \text{unique}  & - not, negate, length, no duplicates\\
+    \noalign{Unary Operations}
+    \addlinespace
+    & u &::= &  \lnot \Mid - \Mid \# \Mid \Uniq                    & – not, negate, length, unique \\
     \\
-    \noalign{Binary Operations}\\
+    \noalign{Binary Operations}
+    \addlinespace
     & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
-    &       & \mid  & + \Mid - \Mid \times \Mid /                         & – numerical \\
-    &       & \mid  & \pp  \Mid \text{elem}                               & – append, element \\
+    &       & \mid  & + \Mid - \Mid \times \Mid /                  & – numerical \\
+    &       & \mid  & \pp  \Mid \in                                & – append, element \\
   \end{grammar}
 }
 
@@ -97,7 +101,8 @@
 
 \newmacro{G-Pretasks-Compact}{
   \begin{grammar}
-    \noalign{Pretasks}\\
+    \noalign{Pretasks}
+    \addlinespace
       & p    &::= & \Edit e \Mid \Enter \tau \Mid \Update e            & – editors: valued, unvalued shared \\
       &      &\mid& e_1 \Then e_2 \Mid e_1 \Next e_2                   & – steps: internal, external \\
       &      &\mid& \Fail \Mid e_1 \And e_2                            & – fail, composition \\
@@ -126,14 +131,15 @@
 
 \newmacro{G-Types-Compact}{
   \begin{grammar}
-    \noalign{Types}\\
-      & \tau  &  ::= & \tau_1 \to \tau_2 \Mid \beta & – function, basic \\
-      &       & \mid & \Reference \tau \Mid \Task \tau             & – reference, task \\
+    \noalign{Types}
+    \addlinespace
+      & \tau  &  ::= & \tau_1 \to \tau_2 \Mid \beta                      & – function, basic \\
+      &       & \mid & \Reference \tau \Mid \Task \tau                   & – reference, task \\
       \\
-    \noalign{Basic types}\\
-      & \beta &  ::= & \tau_1 \times \tau_2 \Mid [\ ]_\beta         & - product, list\\
-      &       & \mid & \Unit \Mid \Bool                           & – unit, boolean\\
-      &       & \mid & \Int \Mid   \String                       & – integer, string
+    \noalign{Basic types}
+    \addlinespace
+      & \beta &  ::= & \tau_1 \times \tau_2 \Mid \List \beta \Mid \Unit  & – product, list, unit \\
+      &       & \mid & \Bool \Mid \Int \Mid \String                      & – boolean, integer, string \\
   \end{grammar}
 }
 
@@ -158,11 +164,12 @@
 
 \newmacro{G-Values-Compact}{
   \begin{grammar}
-    \noalign{Values}\\
+    \noalign{Values}
+    \addlinespace
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
       &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - empty list, cons\\
       &   & \mid & c \Mid l \Mid t                                     & – constant, location, task \\
-      &   & \mid & \colorbox{lightgray}{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
+      &   & \mid & \highlight{$s \Mid u\ v \Mid v_1\ o\ v_2$}               & – symbol, unary op, binary op\\
   \end{grammar}
 }
 
@@ -190,7 +197,8 @@
 
 \newmacro{G-Tasks-Compact}{
   \begin{grammar}
-    \noalign{Tasks}\\
+    \noalign{Tasks}
+    \addlinespace
       & t &  ::= & \Edit v \Mid \Enter \tau \Mid \Update l           & – editors \\
       &   & \mid & t_1 \Then e_2 \Mid t_1 \Next e_2                  & – steps \\
       &   & \mid & \Fail \Mid t_1 \And t_2                           & – fail, combination \\
@@ -209,8 +217,9 @@
 
 \newmacro{G-Inputs-Compact}{
   \begin{grammar}
-    \noalign{Symbolic inputs}\\
-      & i    & ::=& \colorbox{lightgray}{$s$} \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
+    \noalign{Symbolic inputs}
+    \addlinespace
+      & i    & ::=& \highlight{$s$} \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
   \end{grammar}
 }
 
@@ -230,10 +239,12 @@
 
 \newmacro{G-CInputs-Compact}{
   \begin{grammar}
-    \noalign{Concrete inputs}\\
+    \noalign{Concrete inputs}
+    \addlinespace
       & j    & ::=& a \Mid \First j \Mid \Second j             & – action, to first, to second \\
       \\
-    \noalign{Concrete actions}\\
+    \noalign{Concrete actions}
+    \addlinespace
       & a  & ::=& c                    & – constant \\
       &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
   \end{grammar}
@@ -255,7 +266,8 @@
 
 \newmacro{G-Predicates-Compact}{
   \begin{grammar}
-    \noalign{Path conditions}\\
+    \noalign{Path conditions}
+    \addlinespace
       & \phi &::= & c \Mid s                   & – constant, symbol\\
       &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
       &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2  & – symbolic unary, binary operation
