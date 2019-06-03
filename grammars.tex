@@ -209,7 +209,7 @@
 \newmacro{G-Inputs}{
   \begin{grammar}
     Symbolic inputs
-      & i    & ::=& \fbox{$s$}           & – symbolic action \\
+      & i    & ::=& $s$                  & – symbolic action \\
       &      &\mid& \First i             & – pass to first \\
       &      &\mid& \Second i            & – pass to second
   \end{grammar}
@@ -219,7 +219,12 @@
   \begin{grammar}
     \noalign{Symbolic inputs}
     \addlinespace
-      & i    & ::=& \highlight{$s$} \Mid \First i \Mid \Second i  & – symbolic action, to first, to second
+      & i    & ::=& a \Mid \First i \Mid \Second i  & – symbolic action, to first, to second \\
+      \\
+    \noalign{Symbolic actions}
+    \addlinespace
+      & a  & ::=& \highlight{s}                     & – symbol \\
+      &    &\mid& \Continue \Mid \Left \Mid \Right  & – continue, go left, go right \\
   \end{grammar}
 }
 
@@ -246,7 +251,7 @@
     \noalign{Concrete actions}
     \addlinespace
       & a  & ::=& c                    & – constant \\
-      &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
+      &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right \\
   \end{grammar}
 }
 
@@ -257,8 +262,8 @@
       & \phi &::= & c                    & – constant \\
       &      &\mid& s                    & – symbol \\
       &      &\mid& \Continue            & – continue\\
-      &      &\mid& \Left             & – go left \\
-      &      &\mid& \Right            & – go right \\
+      &      &\mid& \Left                & – go left \\
+      &      &\mid& \Right               & – go right \\
       &      &\mid& u\ \phi              & – symbolic unary operation \\
       &      &\mid& \phi_1\ o\ \phi_2    & – symbolic binary operation \\
   \end{grammar}
@@ -268,8 +273,8 @@
   \begin{grammar}
     \noalign{Path conditions}
     \addlinespace
-      & \phi &::= & c \Mid s                   & – constant, symbol\\
-      &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
+      & \highlight{\ensuremath{\phi}} &::= & c \Mid s                   & – constant, symbol\\
+      % &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
       &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2  & – symbolic unary, binary operation
   \end{grammar}
 }
