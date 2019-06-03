@@ -49,7 +49,7 @@
 
 \newmacro{O-Inputs}{
   \begin{function}
-    \signature{\Inputs : \mathrm{Tasks} \times \mathrm{States} \to \powerset(\mathrm{Inputs})} \\
+    \signature{\Inputs : \mathrm{Tasks} \times \mathrm{States} \to \powerset{\mathrm{Inputs}}} \\
     \Inputs(\Edit v,\sigma)             &=& \set{v':\tau}                       \quad\where\ \Edit v : \Task\tau \\
     \Inputs(\Enter \tau,\sigma)         &=& \set{v':\tau} \\
     \Inputs(\Update l,\sigma)           &=& \obox{\set{v':\tau, \Empty}}{\set{v':\tau}} \quad\where\ \Update l : \Task\tau \\
