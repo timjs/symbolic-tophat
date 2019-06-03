@@ -187,7 +187,7 @@ We consider a task, state and path condition to be an end state if the task valu
 A recursive call is terminated when one of the following conditions is met.
 
 \begin{description}
-  \item[$\text{SAT }\phi$] When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
+  \item[$\Sat(\phi)$] When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
   In fact, no future state will be satisfiable, and we can therefore safely remove it.
   \item[$\Value(t,\sigma)$] When the current task produces a value, we are at an endpoint, which we can return.
   \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg go$] When the current task does not produce a value, and then it is equal to the previous task, apart from symbol names, the simulate function performs one look-ahead step in case the task is waiting for an independent symbol.
@@ -277,7 +277,7 @@ To better illustrate how the simulate function works, we apply it to Example~\re
 
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
-  $\text{SAT }\phi$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
+  $\Sat(\phi)$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
 \end{definition}
 
 Figure~\ref{diagram:simapp} gives a schematic overview of the application of simulate to
