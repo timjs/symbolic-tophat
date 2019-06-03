@@ -147,204 +147,204 @@
 
 \newrule{E-Value}
   {}
-  {v,\bar{\sigma}\bar{\eval} v,\bar{\sigma}}
+  {v,\hat{\sigma}\hat{\eval} v,\hat{\sigma}}
 
 
 \newrule{E-App}
-  {e_1,\bar{\sigma}\bar{\eval} \lambda x:\tau.\bar{e_1'},\bar{\sigma'}\Quad
-   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}\Quad
-   e_1'[x\mapsto v_2],\bar{\sigma''}\bar{\eval} \bar{v_1},\bar{\sigma'''}}
-  {e_1 e_2,\bar{\sigma} \bar{\eval} \bar{v_1},\bar{\sigma'''}}
+  {e_1,\hat{\sigma}\hat{\eval} \lambda x:\tau.\hat{e_1}',\hat{\sigma}'\Quad
+   e_2,\hat{\sigma}'\hat{\eval} \hat{v_2},\hat{\sigma}''\Quad
+   e_1'[x\mapsto v_2],\hat{\sigma}''\hat{\eval} \hat{v_1},\hat{\sigma}'''}
+  {e_1 e_2,\hat{\sigma} \hat{\eval} \hat{v_1},\hat{\sigma}'''}
 
 
 \newrule{E-IfTrue}
-  {e_1,\bar{\sigma}\bar{\eval} \True,\bar{\sigma'}\Quad
-   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
-  {\If{e_1}{e_2}{e_3},\bar{\sigma}\bar{\eval} \bar{v_2},\bar{\sigma''}}
+  {e_1,\hat{\sigma}\hat{\eval} \True,\hat{\sigma}'\Quad
+   e_2,\hat{\sigma}'\hat{\eval} \hat{v_2},\hat{\sigma}''}
+  {\If{e_1}{e_2}{e_3},\hat{\sigma}\hat{\eval} \hat{v_2},\hat{\sigma}''}
 
 \newrule{E-IfFalse}
-  {e_1,\bar{\sigma}\bar{\eval} \bar{v_1},\bar{\sigma'} \Quad
-   e_3,\bar{\sigma'}\bar{\eval} \bar{v_3},\bar{\sigma''}}
-  {\If{e_1}{e_2}{e_3},\bar{\sigma}\bar{\eval} \bar{v_3},\bar{\sigma''}}
+  {e_1,\hat{\sigma}\hat{\eval} \hat{v_1},\hat{\sigma}' \Quad
+   e_3,\hat{\sigma}'\hat{\eval} \hat{v_3},\hat{\sigma}''}
+  {\If{e_1}{e_2}{e_3},\hat{\sigma}\hat{\eval} \hat{v_3},\hat{\sigma}''}
 
 
 \newrule{E-Pair}
-  {e_1,\bar{\sigma}\bar{\eval} \bar{v_1},\bar{\sigma'} \Quad
-   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
-  {\tuple{e_1,e_2},\bar{\sigma}\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma''}}
+  {e_1,\hat{\sigma}\hat{\eval} \hat{v_1},\hat{\sigma}' \Quad
+   e_2,\hat{\sigma}'\hat{\eval} \hat{v_2},\hat{\sigma}''}
+  {\tuple{e_1,e_2},\hat{\sigma}\hat{\eval}\tuple{\hat{v_1},\hat{v_2}},\hat{\sigma}''}
 
 \newrule{E-First}
-  {e_1,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
-  {\Fst\tuple{e_1,e_2},\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
+  {e_1,\hat{\sigma}\hat{\eval}\hat{v_1},\hat{\sigma}'}
+  {\Fst\tuple{e_1,e_2},\hat{\sigma}\hat{\eval}\hat{v_1},\hat{\sigma}'}
 
 \newrule{E-Second}
-  {e_2,\bar{\sigma}\bar{\eval}\bar{v_2},\bar{\sigma'}}
-  {\Snd\tuple{e_1,e_2},\bar{\sigma}\bar{\eval} \bar{v_2},\bar{\sigma'} }
+  {e_2,\hat{\sigma}\hat{\eval}\hat{v_2},\hat{\sigma}'}
+  {\Snd\tuple{e_1,e_2},\hat{\sigma}\hat{\eval} \hat{v_2},\hat{\sigma}' }
 
 %%%%%%%%%
 
 \newrule{E-Cons}
-  {e_1,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}\Quad
-   e_2,\bar{\sigma'}\bar{\eval}\bar{v_2},\bar{\sigma''}}
-  {e_1 :: e_2,\bar{\sigma}\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma''}}
+  {e_1,\hat{\sigma}\hat{\eval}\hat{v_1},\hat{\sigma}'\Quad
+   e_2,\hat{\sigma}'\hat{\eval}\hat{v_2},\hat{\sigma}''}
+  {e_1 :: e_2,\hat{\sigma}\hat{\eval}\hat{v_1}::\hat{v_2},\hat{\sigma}''}
 
 \newrule{E-Head}
-  {e,\bar{\sigma}\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
-  {\Head e,\bar{\sigma}\bar{\eval}\bar{v_1},\bar{\sigma'}}
+  {e,\hat{\sigma}\hat{\eval} \hat{v_1}::\hat{v_2},\hat{\sigma}'}
+  {\Head e,\hat{\sigma}\hat{\eval}\hat{v_1},\hat{\sigma}'}
 
 \newrule{E-Tail}
-{e,\bar{\sigma}\bar{\eval} \bar{v_1}::\bar{v_2},\bar{\sigma'}}
-{\Tail e,\bar{\sigma}\bar{\eval}\bar{v_2},\bar{\sigma'}}
+{e,\hat{\sigma}\hat{\eval} \hat{v_1}::\hat{v_2},\hat{\sigma}'}
+{\Tail e,\hat{\sigma}\hat{\eval}\hat{v_2},\hat{\sigma}'}
 
 %%%%%%
 
 
 \newrule{E-Ref}
-  {e,\bar{\sigma}\bar{\eval} \bar{v},\bar{\sigma'} \Quad
-   l\not\in Dom(\bar{\sigma'})}
-  {\Ref e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}[l\mapsto \bar{v}]}
+  {e,\hat{\sigma}\hat{\eval} \hat{v},\hat{\sigma}' \Quad
+   l\not\in Dom(\hat{\sigma}')}
+  {\Ref e,\hat{\sigma}\hat{\eval} l,\hat{\sigma}'[l\mapsto \hat{v}]}
 
 \newrule{E-Deref}
-  {e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}}
-  {!e,\bar{\sigma}\bar{\eval} \bar{\sigma'}(l),\bar{\sigma'}}
+  {e,\hat{\sigma}\hat{\eval} l,\hat{\sigma}'}
+  {!e,\hat{\sigma}\hat{\eval} \hat{\sigma}'(l),\hat{\sigma}'}
 
 \newrule{E-Assign}
-  {e_1,\bar{\sigma}\bar{\eval} l,\bar{\sigma'} \Quad
-   e_2,\bar{\sigma'}\bar{\eval} \bar{v_2},\bar{\sigma''}}
-  {e_1:=e_2,\bar{\sigma}\bar{\eval} \unit,\bar{\sigma''}[l\mapsto \bar{v_2}]}
+  {e_1,\hat{\sigma}\hat{\eval} l,\hat{\sigma}' \Quad
+   e_2,\hat{\sigma}'\hat{\eval} \hat{v_2},\hat{\sigma}''}
+  {e_1:=e_2,\hat{\sigma}\hat{\eval} \unit,\hat{\sigma}''[l\mapsto \hat{v_2}]}
 
 \newrule{E-Edit}
-  {e,\bar{\sigma} \bar{\eval} \bar{v},\bar{\sigma'}}
-  {\Edit e , \bar{\sigma}\bar{\eval} \Edit \bar{v},\bar{\sigma'}}
+  {e,\hat{\sigma} \hat{\eval} \hat{v},\hat{\sigma}'}
+  {\Edit e , \hat{\sigma}\hat{\eval} \Edit \hat{v},\hat{\sigma}'}
 
 \newrule{E-Enter}
   {}
-  {\Enter \tau,\bar{\sigma} \bar{\eval} \Enter \tau,\bar{\sigma}}
+  {\Enter \tau,\hat{\sigma} \hat{\eval} \Enter \tau,\hat{\sigma}}
 
 \newrule{E-Update}
-  {e,\bar{\sigma}\bar{\eval} l,\bar{\sigma'}}
-  {\Update e ,\bar{\sigma}\bar{\eval} \Update l,\bar{\sigma'}}
+  {e,\hat{\sigma}\hat{\eval} l,\hat{\sigma}'}
+  {\Update e ,\hat{\sigma}\hat{\eval} \Update l,\hat{\sigma}'}
 
 
 \newrule{E-Fail}
   {}
-  {\Fail,\bar{\sigma} \bar{\eval} \Fail,\bar{\sigma}}
+  {\Fail,\hat{\sigma} \hat{\eval} \Fail,\hat{\sigma}}
 
 
 \newrule{E-Then}
-  {e_1 ,\bar{\sigma}\bar{\eval} \bar{t_1},\bar{\sigma'}}
-  {e_1 \Then e_2,\bar{\sigma}\bar{\eval}\bar{t_1} \Then e_2,\bar{\sigma'}}
+  {e_1 ,\hat{\sigma}\hat{\eval} \hat{t_1},\hat{\sigma}'}
+  {e_1 \Then e_2,\hat{\sigma}\hat{\eval}\hat{t_1} \Then e_2,\hat{\sigma}'}
 
 \newrule{E-Next}
-  {e_1 ,\bar{\sigma}\bar{\eval} \bar{t_1},\bar{\sigma'}}
-  {e_1 \Next e_2 ,\bar{\sigma}\bar{\eval} \bar{t_1} \Next e_2,\bar{\sigma'}}
+  {e_1 ,\hat{\sigma}\hat{\eval} \hat{t_1},\hat{\sigma}'}
+  {e_1 \Next e_2 ,\hat{\sigma}\hat{\eval} \hat{t_1} \Next e_2,\hat{\sigma}'}
 
 
 \newrule{E-And}
-  {e_1 ,\bar{\sigma}\bar{\eval}\bar{ t_1 },\bar{\sigma'}\Quad
-   e_2 ,\bar{\sigma'}\bar{\eval} \bar{t_2},\bar{\sigma''}}
-  {e_1 \And e_2 ,\bar{\sigma}\bar{\eval}\bar{ t_1} \And \bar{t_2},\bar{\sigma''}}
+  {e_1 ,\hat{\sigma}\hat{\eval}\hat{ t_1 },\hat{\sigma}'\Quad
+   e_2 ,\hat{\sigma}'\hat{\eval} \hat{t_2},\hat{\sigma}''}
+  {e_1 \And e_2 ,\hat{\sigma}\hat{\eval}\hat{ t_1} \And \hat{t_2},\hat{\sigma}''}
 
 
 \newrule{E-Or}
-  {e_1 ,\bar{\sigma}\bar{\eval}\bar{ t_1} ,\bar{\sigma'}\Quad
-   e_2 ,\bar{\sigma'}\bar{\eval} \bar{t_2},\bar{\sigma''}}
-  {e_1 \Or e_2 ,\bar{\sigma}\bar{\eval} \bar{t_1} \Or \bar{t_2},\bar{\sigma''}}
+  {e_1 ,\hat{\sigma}\hat{\eval}\hat{ t_1} ,\hat{\sigma}'\Quad
+   e_2 ,\hat{\sigma}'\hat{\eval} \hat{t_2},\hat{\sigma}''}
+  {e_1 \Or e_2 ,\hat{\sigma}\hat{\eval} \hat{t_1} \Or \hat{t_2},\hat{\sigma}''}
 
 \newrule{E-Xor}
   {}
-  {e_1 \Xor e_2 ,\bar{\sigma}\bar{\eval} e_1 \Xor e_2,\bar{\sigma}}
+  {e_1 \Xor e_2 ,\hat{\sigma}\hat{\eval} e_1 \Xor e_2,\hat{\sigma}}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newrule{S-Edit}
   { }
-  {\Edit v,\bar{\sigma} \bar{\stride} \Edit v,\bar{\sigma}}
+  {\Edit v,\hat{\sigma} \hat{\stride} \Edit v,\hat{\sigma}}
 
 \newrule{S-Fill}
   { }
-  {\Enter \tau,\bar{\sigma} \bar{\stride} \Enter \tau,\bar{\sigma}}
+  {\Enter \tau,\hat{\sigma} \hat{\stride} \Enter \tau,\hat{\sigma}}
 
 \newrule{S-Update}
   { }
-  {\Update l,\bar{\sigma} \bar{\stride} \Update l,\bar{\sigma}}
+  {\Update l,\hat{\sigma} \hat{\stride} \Update l,\hat{\sigma}}
 
 
 \newrule{S-Fail}
   { }
-  {\Fail,\bar{\sigma} \bar{\stride} \Fail,\bar{\sigma}}
+  {\Fail,\hat{\sigma} \hat{\stride} \Fail,\hat{\sigma}}
 
 
 \newrule{S-ThenStay}
-  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Then e_2,\bar{\sigma'}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot]
+  {t_1,\hat{\sigma} \hat{\stride} \hat{t_1}',\hat{\sigma}'}
+  {t_1 \Then e_2,\hat{\sigma} \hat{\stride} \hat{t_1}' \Then e_2,\hat{\sigma}'}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \bot]
 
 \newrule{S-ThenFail}
-  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'} \Quad
-   e_2\ \bar{v_1},\bar{\sigma'} \bar{\eval} \bar{t_2},\bar{\sigma''}}
-  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Then e_2,\bar{\sigma'}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1} \land \Failing(\bar{t_2},\bar{\sigma''})]
+  {t_1,\hat{\sigma} \hat{\stride} \hat{t_1}',\hat{\sigma}' \Quad
+   e_2\ \hat{v_1},\hat{\sigma}' \hat{\eval} \hat{t_2},\hat{\sigma}''}
+  {t_1 \Then e_2,\hat{\sigma} \hat{\stride} \hat{t_1}' \Then e_2,\hat{\sigma}'}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \hat{v_1} \land \Failing(\hat{t_2},\hat{\sigma}'')]
 
 \newrule{S-ThenCont}
-  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
-   e_2\ \bar{v_1},\bar{\sigma'} \bar{\eval} \bar{t_2 },\bar{\sigma''}}
-  {t_1 \Then e_2,\bar{\sigma} \bar{\stride} \bar{t_2},\bar{\sigma''}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1} \land \lnot\Failing(\bar{t_2},\bar{\sigma''})]
+  {t_1,\hat{\sigma} \hat{\stride} \hat{t_1}',\hat{\sigma}'  \Quad
+   e_2\ \hat{v_1},\hat{\sigma}' \hat{\eval} \hat{t_2 },\hat{\sigma}''}
+  {t_1 \Then e_2,\hat{\sigma} \hat{\stride} \hat{t_2},\hat{\sigma}''}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \hat{v_1} \land \lnot\Failing(\hat{t_2},\hat{\sigma}'')]
 
 \newrule{S-Next}
-  {t_1,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \Next e_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Next e_2,\bar{\sigma'}}
+  {t_1,\hat{\sigma} \hat{\stride} \hat{t_1}',\hat{\sigma}'}
+  {t_1 \Next e_2,\hat{\sigma} \hat{\stride} \hat{t_1}' \Next e_2,\hat{\sigma}'}
 
 
 \newrule{S-And}
-  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
-   t_2,\bar{\sigma'} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
-  {t_1 \And t_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \And \bar{t_2'},\bar{\sigma''}}
+  {t_1,\hat{\sigma}  \hat{\stride} \hat{t_1}',\hat{\sigma}'  \Quad
+   t_2,\hat{\sigma}' \hat{\stride} \hat{t_2}',\hat{\sigma}''}
+  {t_1 \And t_2,\hat{\sigma} \hat{\stride} \hat{t_1}' \And \hat{t_2}',\hat{\sigma}''}
 
 
 \newrule{S-OrLeft}
-  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_1'},\bar{\sigma'}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bar{v_1}]
+  {t_1,\hat{\sigma}  \hat{\stride} \hat{t_1}',\hat{\sigma}'}
+  {t_1 \Or t_2,\hat{\sigma} \hat{\stride} \hat{t_1}',\hat{\sigma}'}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \hat{v_1}]
 
 \newrule{S-OrRight}
-  {t_1,\bar{\sigma}  \bar{\stride} \bar{t_1'},\bar{\sigma'}  \Quad
-   t_2,\bar{\sigma'} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
-  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_2'},\bar{\sigma''}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot \land \Value(\bar{t_2'},\bar{\sigma''}) = \bar{v_2}]
+  {t_1,\hat{\sigma}  \hat{\stride} \hat{t_1}',\hat{\sigma}'  \Quad
+   t_2,\hat{\sigma}' \hat{\stride} \hat{t_2}',\hat{\sigma}''}
+  {t_1 \Or t_2,\hat{\sigma} \hat{\stride} \hat{t_2}',\hat{\sigma}''}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \bot \land \Value(\hat{t_2}',\hat{\sigma}'') = \hat{v_2}]
 
 \newrule{S-OrNone}
-  {t_1,\bar{\sigma}  \bar{\stride }\bar{t_1'},\bar{\sigma'}  \Quad
-   t_2,\bar{\sigma' }\bar{\stride} \bar{t_2'},\bar{\sigma''}}
-  {t_1 \Or t_2,\bar{\sigma} \bar{\stride} \bar{t_1'} \Or \bar{t_2'},\bar{\sigma''}}
-  [\Value(\bar{t_1'},\bar{\sigma'}) = \bot \land \Value(\bar{t_2'},\bar{\sigma''}) = \bot]
+  {t_1,\hat{\sigma}  \hat{\stride }\hat{t_1}',\hat{\sigma}'  \Quad
+   t_2,\hat{\sigma' }\hat{\stride} \hat{t_2}',\hat{\sigma}''}
+  {t_1 \Or t_2,\hat{\sigma} \hat{\stride} \hat{t_1}' \Or \hat{t_2}',\hat{\sigma}''}
+  [\Value(\hat{t_1}',\hat{\sigma}') = \bot \land \Value(\hat{t_2}',\hat{\sigma}'') = \bot]
 
 
 \newrule{S-Xor}
   { }
-  {e_1 \Xor e_2,\bar{\sigma} \bar{\stride} e_1 \Xor e_2,\bar{\sigma}}
+  {e_1 \Xor e_2,\hat{\sigma} \hat{\stride} e_1 \Xor e_2,\hat{\sigma}}
 
 \newrule{S-Eval}
-    {e,\bar{\sigma} \bar{\eval} \bar{e'},\bar{\sigma'}  \Quad
-     e',\bar{\sigma'} \bar{\stride} \bar{e''},\bar{\sigma''}}
-    {e,\bar{\sigma} \bar{\stride} \bar{e''},\bar{\sigma''}}
-    [e \neq \bar{e'}]
+    {e,\hat{\sigma} \hat{\eval} \hat{e}',\hat{\sigma}'  \Quad
+     e',\hat{\sigma}' \hat{\stride} \hat{e}'',\hat{\sigma}''}
+    {e,\hat{\sigma} \hat{\stride} \hat{e}'',\hat{\sigma}''}
+    [e \neq \hat{e}']
 
 %% Normalisation %%
 
 \newrule{N-Done}
-    {e,\bar{\sigma} \bar{\eval} \bar{t},\bar{\sigma'} \Quad
-     \bar{t},\bar{\sigma'} \bar{\stride} \bar{t'},\bar{\sigma''}}
-    {e,\bar{\sigma} \bar{\normalise} \bar{t},\bar{\sigma'}}
-    [\bar{\sigma'}=\bar{\sigma''} \land \bar{t}=\bar{t'}]
+    {e,\hat{\sigma} \hat{\eval} \hat{t},\hat{\sigma}' \Quad
+     \hat{t},\hat{\sigma}' \hat{\stride} \hat{t}',\hat{\sigma}''}
+    {e,\hat{\sigma} \hat{\normalise} \hat{t},\hat{\sigma}'}
+    [\hat{\sigma}'=\hat{\sigma}'' \land \hat{t}=\hat{t}']
 
 \newrule{N-Repeat}
-    {e,\bar{\sigma} \bar{\eval} \bar{t},\bar{\sigma'}  \Quad
-     \bar{t},\bar{\sigma'} \bar{\stride} \bar{t'},\bar{\sigma''}  \Quad
-     \bar{t'},\bar{\sigma''} \bar{\normalise} \bar{t''},\bar{\sigma'''}}
-    {e,\bar{\sigma} \bar{\normalise} \bar{t''},\bar{\sigma'''}}
-    [\bar{\sigma'}\neq \bar{\sigma''}\vee \bar{t}\neq \bar{t'}]
+    {e,\hat{\sigma} \hat{\eval} \hat{t},\hat{\sigma}'  \Quad
+     \hat{t},\hat{\sigma}' \hat{\stride} \hat{t}',\hat{\sigma}''  \Quad
+     \hat{t}',\hat{\sigma}'' \hat{\normalise} \hat{t}'',\hat{\sigma}'''}
+    {e,\hat{\sigma} \hat{\normalise} \hat{t}'',\hat{\sigma}'''}
+    [\hat{\sigma}'\neq \hat{\sigma}''\vee \hat{t}\neq \hat{t}']
 
 
 
@@ -353,7 +353,7 @@
 
 \newrule{H-Change}
   { }
-  {\Edit v,\bar{\sigma} \xrightarrow[]{v'} \Edit v',\bar{\sigma}}
+  {\Edit v,\hat{\sigma} \xrightarrow[]{v}' \Edit v',\hat{\sigma}}
   [v,v':\tau]
 
 \newrule{H-Empty}
@@ -363,12 +363,12 @@
 
 \newrule{H-Fill}
   { }
-  {\Enter \tau,\bar{\sigma} \xrightarrow[]{v} \Edit v,\bar{\sigma}}
+  {\Enter \tau,\hat{\sigma} \xrightarrow[]{v} \Edit v,\hat{\sigma}}
   [v:\tau]
 
 \newrule{H-Update}
   { }
-  {\Update l,\bar{\sigma} \xrightarrow[]{v} \Update l,\bar{\sigma}[l \mapsto v]}
+  {\Update l,\hat{\sigma} \xrightarrow[]{v} \Update l,\hat{\sigma}[l \mapsto v]}
   [\sigma(l),v:\tau]
 
 \newrule{H-PassThen}
@@ -380,38 +380,38 @@
   {t_1 \Next e_2,\sigma \xrightarrow[]{j} t_1' \Next e_2,\sigma'}
 
 \newrule{H-Next}
-  {e_2\ \bar{v_1},\sigma \bar{\normalise} \bar{t_2},\bar{\sigma'}}
-  {t_1 \Next e_2,\sigma \xrightarrow[]{\Continue} \bar{t_2},\bar{\sigma'}}
-  [\Value{(t_1,\sigma)} = \bar{v_1} \land \neg\Failing{(\bar{t_2},\bar{\sigma'})}]
+  {e_2\ \hat{v_1},\sigma \hat{\normalise} \hat{t_2},\hat{\sigma}'}
+  {t_1 \Next e_2,\sigma \xrightarrow[]{\Continue} \hat{t_2},\hat{\sigma}'}
+  [\Value{(t_1,\sigma)} = \hat{v_1} \land \neg\Failing{(\hat{t_2},\hat{\sigma}')}]
 
 
 \newrule{H-FirstAnd}
-  {t_1,\sigma \xrightarrow[]{j} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \And t_2,\sigma \xrightarrow[]{\First j} \bar{t_1'} \And t_2,\bar{\sigma'}}
+  {t_1,\sigma \xrightarrow[]{j} \hat{t_1}',\hat{\sigma}'}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\First j} \hat{t_1}' \And t_2,\hat{\sigma}'}
 
 \newrule{H-SecondAnd}
-  {t_2,\sigma \xrightarrow[]{j} \bar{t_2'},\bar{\sigma'}}
-  {t_1 \And t_2,\sigma \xrightarrow[]{\Second j} t_1 \And \bar{t_2'},\bar{\sigma'}}
+  {t_2,\sigma \xrightarrow[]{j} \hat{t_2}',\hat{\sigma}'}
+  {t_1 \And t_2,\sigma \xrightarrow[]{\Second j} t_1 \And \hat{t_2}',\hat{\sigma}'}
 
 
 \newrule{H-FirstOr}
-  {t_1,\sigma \xrightarrow[]{j} \bar{t_1'},\bar{\sigma'}}
-  {t_1 \Or t_2,\sigma \xrightarrow[]{\First j} \bar{t_1'} \Or t_2,\bar{\sigma'}}
+  {t_1,\sigma \xrightarrow[]{j} \hat{t_1}',\hat{\sigma}'}
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\First j} \hat{t_1}' \Or t_2,\hat{\sigma}'}
 
 \newrule{H-SecondOr}
-  {t_2,\sigma \xrightarrow[]{j} \bar{t_2'},\bar{\sigma'} }
-  {t_1 \Or t_2,\sigma \xrightarrow[]{\Second j} t_1 \Or \bar{t_2'},\bar{\sigma'}}
+  {t_2,\sigma \xrightarrow[]{j} \hat{t_2}',\hat{\sigma}' }
+  {t_1 \Or t_2,\sigma \xrightarrow[]{\Second j} t_1 \Or \hat{t_2}',\hat{\sigma}'}
 
 
 \newrule{H-PickLeft}
-  {e_1,\sigma \normalise \bar{t_1},\bar{\sigma'}}
-  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Left} \bar{t_1},\bar{\sigma'}}
-  [\neg\Failing(\bar{t_1},\bar{\sigma'})]
+  {e_1,\sigma \normalise \hat{t_1},\hat{\sigma}'}
+  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Left} \hat{t_1},\hat{\sigma}'}
+  [\neg\Failing(\hat{t_1},\hat{\sigma}')]
 
 \newrule{H-PickRight}
-  {e_2,\sigma \bar{\normalise} \bar{t_2},\bar{\sigma'}}
-  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Right} \bar{t_2},\bar{\sigma'}}
-  [\neg\Failing(\bar{t_2},\bar{\sigma'})]
+  {e_2,\sigma \hat{\normalise} \hat{t_2},\hat{\sigma}'}
+  {e_1 \Xor e_2,\sigma \xrightarrow[]{\Right} \hat{t_2},\hat{\sigma}'}
+  [\neg\Failing(\hat{t_2},\hat{\sigma}')]
 
 
 
@@ -419,6 +419,6 @@
 
 
 \newrule{I-Handle}
-  {t,\sigma \xrightarrow[]{j} \bar{t'},\bar{\sigma'} \Quad
-   \bar{t'},\bar{\sigma'} \bar{\normalise} \bar{t''},\bar{\sigma''}}
-  {t,\sigma \xRightarrow[]{j} \bar{t''},\bar{\sigma''}}
+  {t,\sigma \xrightarrow[]{j} \hat{t}',\hat{\sigma}' \Quad
+   \hat{t}',\hat{\sigma}' \hat{\normalise} \hat{t}'',\hat{\sigma}''}
+  {t,\sigma \xRightarrow[]{j} \hat{t}'',\hat{\sigma}''}
