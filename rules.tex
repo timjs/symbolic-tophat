@@ -22,7 +22,7 @@
   {e_1,\sigma\eval \overline{\lambda x:\tau.e_1',\sigma',\highlight{\phi_1}} \Quad
    e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}} \Quad
    e_1'[x\mapsto v_2],\sigma''\eval \overline{v_1,\sigma''',\highlight{\phi_3}}}
-  {e_1 e_2,\sigma \eval \overline{v_1,\sigma''',\highlight{\phi_1} \land \highlight{\phi_2} \land \highlight{\phi_3}}}
+  {e_1 e_2,\sigma \eval \overline{v_1,\sigma''',\highlight{\phi_1\land\phi_2\land\phi_3}}}
 
 \newrule{SE-If}
   {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
@@ -33,7 +33,7 @@
 \newrule{SE-Pair}
   {e_1,\sigma\eval \overline{v_1,\sigma',\highlight{\phi_1}} \Quad
    e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}}}
-  {\tuple{e_1,e_2},\sigma\eval\overline{\tuple{v_1,v_2},\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {\tuple{e_1,e_2},\sigma\eval\overline{\tuple{v_1,v_2},\sigma'',\highlight{\phi_1\land\phi_2}}}
 
 \newrule{SE-First}
   {e_1,\sigma\eval\overline{v_1,\sigma',\highlight{\phi}}}
@@ -49,7 +49,7 @@
 \newrule{SE-Cons}
   {e_1,\sigma \eval v_1,\sigma',\highlight{\phi_1}\Quad
    e_2,\sigma' \eval v_2,\sigma'',\highlight{\phi_2}}
-  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\highlight{\phi_1}\land\highlight{\phi_2}}
+  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\highlight{\phi_1\land\phi_2}}
 
 \newrule{SE-Head}
   {e,\sigma \eval v_1::v_2,\sigma',\highlight{\phi}}
@@ -73,7 +73,7 @@
 \newrule{SE-Assign}
   {e_1,\sigma\eval \overline{l,\sigma',\highlight{\phi_1}} \Quad
    e_2,\sigma'\eval \overline{v_2,\sigma'',\highlight{\phi_2}}}
-  {e_1:=e_2,\sigma\eval \overline{\unit,\sigma''[l\mapsto v_2],\highlight{\phi_1}\wedge\highlight{\phi_2}}}
+  {e_1:=e_2,\sigma\eval \overline{\unit,\sigma''[l\mapsto v_2],\highlight{\phi_1\wedge\phi_2}}}
 
 \newrule{SE-Edit}
   {e,\sigma \eval \overline{v,\sigma',\highlight{\phi}}}
@@ -81,7 +81,7 @@
 
 \newrule{SE-Enter}
   {}
-  {\Enter \tau,\sigma \eval \Enter \tau,\highlight{\sigma,\True}}
+  {\Enter \tau,\sigma \eval \Enter \tau,\sigma,\highlight{\True}}
 
 \newrule{SE-Update}
   {e,\sigma\eval \overline{l,\sigma',\highlight{\phi}}}
@@ -90,7 +90,7 @@
 
 \newrule{SE-Fail}
   {}
-  {\Fail,\sigma \eval \Fail,\highlight{\sigma,\True}}
+  {\Fail,\sigma \eval \Fail,\sigma,\highlight{\True}}
 
 
 \newrule{SE-Then}
@@ -105,17 +105,17 @@
 \newrule{SE-And}
   {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\highlight{\phi_1}} \Quad
    e_2 ,\sigma'\eval \overline{t_2,\sigma'',\highlight{\phi_2}}}
-  {e_1 \And e_2 ,\sigma\eval \overline{t_1 \And t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {e_1 \And e_2 ,\sigma\eval \overline{t_1 \And t_2,\sigma'',\highlight{\phi_1\land\phi_2}}}
 
 
 \newrule{SE-Or}
   {e_1 ,\sigma\eval \overline{t_1 ,\sigma',\highlight{\phi_1}} \Quad
    e_2 ,\sigma'\eval \overline{t_2,\sigma'',\highlight{\phi_2}}}
-  {e_1 \Or e_2 ,\sigma\eval \overline{t_1 \Or t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {e_1 \Or e_2 ,\sigma\eval \overline{t_1 \Or t_2,\sigma'',\highlight{\phi_1\land\phi_2}}}
 
 \newrule{SE-Xor}
   {}
-  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\highlight{\sigma,\True}}
+  {e_1 \Xor e_2 ,\sigma\eval e_1 \Xor e_2,\sigma,\highlight{\True}}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -126,20 +126,20 @@
 
 \newrule{SS-Edit}
   { }
-  {\Edit v,\sigma \stride \Edit v,\highlight{\sigma,\True}}
+  {\Edit v,\sigma \stride \Edit v,\sigma,\highlight{\True}}
 
 \newrule{SS-Fill}
   { }
-  {\Enter \tau,\sigma \stride \Enter \tau,\highlight{\sigma,\True}}
+  {\Enter \tau,\sigma \stride \Enter \tau,\sigma,\highlight{\True}}
 
 \newrule{SS-Update}
   { }
-  {\Update l,\sigma \stride \Update l,\highlight{\sigma,\True}}
+  {\Update l,\sigma \stride \Update l,\sigma,\highlight{\True}}
 
 
 \newrule{SS-Fail}
   { }
-  {\Fail,\sigma \stride \Fail,\highlight{\sigma,\True}}
+  {\Fail,\sigma \stride \Fail,\sigma,\highlight{\True}}
 
 
 \newrule{SS-ThenStay}
@@ -157,7 +157,7 @@
   {t_1,\sigma \stride \overline{t_1',\sigma',\highlight{\phi_1}} \Quad
    e_2\ v_1,\sigma' \eval \overline{t_2 ,\sigma'',\highlight{\phi_2}}}
    % t_2,\sigma'' \stride t_2',\sigma'''}
-  {t_1 \Then e_2,\sigma \stride \overline{t_2,\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {t_1 \Then e_2,\sigma \stride \overline{t_2,\sigma'',\highlight{\phi_1\land\phi_2}}}
   [\Value(t_1',\sigma') = v_1 \land \lnot\Failing(t_2,\sigma'')]
 
 \newrule{SS-Next}
@@ -168,7 +168,7 @@
 \newrule{SS-And}
   {t_1,\sigma  \stride \overline{t_1',\sigma',\highlight{\phi_1} } \Quad
    t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
-  {t_1 \And t_2,\sigma \stride \overline{t_1' \And t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {t_1 \And t_2,\sigma \stride \overline{t_1' \And t_2',\sigma'',\highlight{\phi_1\land\phi_2}}}
 
 
 \newrule{SS-OrLeft}
@@ -179,24 +179,24 @@
 \newrule{SS-OrRight}
   {t_1,\sigma  \stride \overline{t_1',\sigma',\highlight{\phi_1}}  \Quad
    t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
-  {t_1 \Or t_2,\sigma \stride \overline{t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {t_1 \Or t_2,\sigma \stride \overline{t_2',\sigma'',\highlight{\phi_1\land\phi_2}}}
   [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = v_2]
 
 \newrule{SS-OrNone}
   {t_1,\sigma  \stride \overline{t_1',\sigma' ,\highlight{\phi_1}} \Quad
    t_2,\sigma' \stride \overline{t_2',\sigma'',\highlight{\phi_2}}}
-  {t_1 \Or t_2,\sigma \stride \overline{t_1' \Or t_2',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+  {t_1 \Or t_2,\sigma \stride \overline{t_1' \Or t_2',\sigma'',\highlight{\phi_1\land\phi_2}}}
   [\Value(t_1',\sigma') = \bot \land \Value(t_2',\sigma'') = \bot]
 
 
 \newrule{SS-Xor}
-  { }
-  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\highlight{\sigma,\True}}
+  {\ }
+  {e_1 \Xor e_2,\sigma \stride e_1 \Xor e_2,\sigma,\highlight{\True}}
 
 \newrule{SS-Eval}
     {e,\sigma \eval \overline{e',\sigma',\highlight{\phi_1}}  \Quad
      e',\sigma' \stride \overline{e'',\sigma'',\highlight{\phi_2}}}
-    {e,\sigma \stride \overline{e'',\sigma'',\highlight{\phi_1} \land \highlight{\phi_2}}}
+    {e,\sigma \stride \overline{e'',\sigma'',\highlight{\phi_1\land\phi_2}}}
     [e \neq e']
 
 %% Normalisation %%
