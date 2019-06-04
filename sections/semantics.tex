@@ -415,14 +415,13 @@ Another feature we would like to support in the future are input-dependent predi
   Consider the following small program.
 
   \begin{TASK}
-    enter Int >>= \ x . if x>0 then edit "Thank you" else edit "error"
+    enter Int >>= \ x . if x > 0 then edit "Thank you" else edit "Error"
   \end{TASK}
 
   The user inputs an integer.
-  If the integer is larger than zero, we print a thank you message.
+  If the integer is larger than zero, the program prints a thank you message.
   If the integer is smaller than zero, an error is returned.
-
-  If we wanted to prove that, given a positive input, the program never returns "error", we need to be able to include the input in our predicate.
 \end{example}
 
-Currently our symbolic execution does not support this feature, but this is definitely future work.
+If we want to prove that given a positive input, the program never returns "Error", we need to be able to talk about inputs directly in predicates.
+Currently our symbolic execution does not support this feature, but we would like to add it in the future.
