@@ -363,15 +363,16 @@ In this example, all are trivially solvable.
 
 \subsection{Implementation}
 
-We implemented the presented language and its semantic rules in the functional programming language \HASKELL.
+We implemented our language and its symbolic execution semantics in \HASKELL.
 With help of a couple \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
-Our tool generates trees, like the one shown in Figure~\ref{diagram:simapp},
+Our tool generates execution trees, like the one shown in Figure~\ref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
-All path conditions are converted to \SMTLIB compatible statements and verified using the \ZTHREE \SMT~solver.
+All path conditions are converted to \SMTLIB compatible statements and are verified using the \ZTHREE \SMT~solver.
+As of now we do not have a parser, programs must be specified directly as abstract syntax trees.
 
-As is usually the case with symbolic execution, the number of paths grow quickly.
-\Cref{exm:solar-subsidy} and \cref{exm:flight-booking} generate respectively 2112 and 1166 paths,
-which take about a minute to calculate.
+As is usually the case with symbolic execution, the number of paths grows quickly.
+The examples of \cref{fig:thetaxman,fig:flight-booking} generate respectively 2112 and 1166 paths,
+which takes about a minute to calculate.
 Solving them, however, is almost instantaneous.
 
 
