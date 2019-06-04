@@ -367,7 +367,7 @@ As mentioned in the introduction, other work on symbolic execution often uses as
 \begin{example}
   Consider the following small example program.
   \begin{TASK}
-    enter Int >>= \ x . edit (ref x ) >>= \ store . assert (!store = x) (edit "Done")
+    enter Int >>= \ x . edit (ref x ) >>= \ l. assert (!l = x) (edit "Done")
   \end{TASK}
 
   This program asks the user to enter an integer.
