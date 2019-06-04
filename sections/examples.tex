@@ -146,21 +146,38 @@ The purpose of this example is to demonstrate how Symbolic TopHat handles refere
 We prove that when the program terminates, every passenger has exactly one seat, and that no two passengers have the same seat.
 This program is a simplified version of what we presented in earlier work \cite{Steenvoorden2019}.
 
-\begin{figure}[h]
-\begin{TASK}
+\lstset{emph={x}}
+\begin{TASK}[ float
+            , floatplacement=b
+            , escapechar=|
+            , numbers=right
+            , numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
+            , caption=Flight booking.
+            , label=fig:flight-booking
+            ]
   let maxSeats = 50 in
-  let bookedSeats = ref [] in
-  let bookSeat = enter Int >>= \ x .
-    if x `elem` !bookedSeats \/ x > maxSeats
+  let bookedSeats = ref [] in|\label{flight:make-ref}|
+  let bookSeat = enter Int >>= \ x .|\label{flight:enter-seat-number}|
+    if x `elem` !bookedSeats \/ x > maxSeats|\label{flight:guard-invalid-seats}|
       then fail else bookedSeats := x :: !bookedSeats in
   bookSeat <&> bookSeat <&> bookSeat >>= \ _ .
   edit (!bookedSeats)
 \end{TASK}
-\caption{Flight booking}
-\label{fig:flight-booking}
-\end{figure}
 
 The main program, shown in \cref{fig:flight-booking}, consists of three parallel seat booking tasks.
-There is a shared list that stores all seats that have been booked so far.
-In order to book a seat, a passenger has to enter a seat number.
-A guard makes sure that only free seats can be booked.
+There is a shared list that stores all seats that have been booked so far (\cref{flight:make-ref}).
+In order to book a seat, a passenger has to enter a seat number (\cref{flight:enter-seat-number}).
+A guard makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
+The main expression runs the seat booking task three times in parallel, simulating three concurrent customers.
+The program returns the list of booked seats.
+
+With the returned list, we can state the predicate to verify the correctness of the booking process.
+\setcounter{equation}{0}
+\begin{IEEEeqnarray}{rCl}
+\psi(l)
+   & =      & \# l \equiv 3 \label{flight-psi-exactly-three-seats}
+\\ & \wedge & \Uniq l \label{flight-psi-unique-seats}
+\end{IEEEeqnarray}
+The predicate specifies that every passenger got exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passenger got the same seat.
+The unary operators for list length (\#) and uniqueness ($\Uniq$) are available in the predicate language.
+List length is a capability of \SMTLIB, while $\Uniq$ is our own addition.
