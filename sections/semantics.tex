@@ -197,13 +197,13 @@ A recursive call is terminated when one of the following conditions is met.
 
 \begin{figure*}
   \begin{function}
-    \signature{\mathit{simulate} : \mathrm{Task} \times \mathrm{State} \times [\mathrm{Input}]  \times \mathrm{Predicate}
-      \rightarrow \powerset{\mathrm{Value} \times [\mathrm{Input}] \times \mathrm{Predicate}}} \\
+    \signature{\mathit{simulate} : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
+      \rightarrow \powerset{\mathrm{Valuse} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \mathit{simulate}(t, \sigma, I, \phi) &=&
       \bigcup \set{ \mathit{simulate'}(\True, t, I, \phi, t', \sigma', i', \phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
     \addlinespace
-    \signature{\mathit{simulate'} : \mathrm{Bool} \times \mathrm{Task} \times [\mathrm{Input}] \times \mathrm{Predicate} \times \mathrm{Task} \times \mathrm{State} \times \mathrm{Input} \times \mathrm{Predicate}
-      \rightarrow \powerset{\mathrm{Value} \times [\mathrm{Input}] \times \mathrm{Predicate}}} \\
+    \signature{\mathit{simulate'} : \mathrm{Booleans} \times \mathrm{Tasks} \times [\mathrm{Inputs}] \times \mathrm{Predicates} \times \mathrm{Tasks} \times \mathrm{States} \times \mathrm{Inputs} \times \mathrm{Predicates}
+      \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \mathit{simulate'}(\mathit{again}, t, I, \phi, t', i', \sigma', \phi') &=& \\
       \multicolumn{3}{L}{ \left\{
         \begin{array}{lrclclcr}
