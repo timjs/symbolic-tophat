@@ -327,18 +327,17 @@ In the implementation we use \ZTHREE,
 although any other \SMT~solver supporting \SMTLIB could be used.
 
 For Example~\ref{example:abs}, we would like to prove that after any interaction path $I$,
-the value of the resulting task $t'$ should be bigger than $0$.
-% \begin{equation*}
-%   \forall I. \Value(t',\sigma') > 0
-% \end{equation*}
-As shown in Figure~\ref{diagram:simapp}, there are three branches we need to validate.
-For each of the three branches,
-we send the predicate over the end value (i.e. $\Value(t',\sigma') > 0$),
-and the branch conditions to the \SMT~solver:
+the path conditions $\phi$ imply that the value $v$ of the resulting task $t'$ is bigger than $0$, i.e:
+\begin{equation*}
+  \phi \implies v  > 0 \Quad \where v = \Value(t',\sigma')
+\end{equation*}
+As shown in Figure~\ref{diagram:simapp}, there are three paths we need to verify.
+For each of the three paths,
+therefore, we send the following three statements to the \SMT~solver for verification:
 \begin{enumerate}
-  \item $s_0 > 0  \land  (s_0 > 0)$
-  \item $s_1 > 0  \land  (s_0 \leq 0 \land s_1 > 0)$
-  \item $s_2 > 0  \land  (s_0 \leq 0 \land s_1 \leq 0 \land s_2 > 0)$
+  \item $s_0 > 0                                   \implies s_0 > 0  $
+  \item $s_0 \leq 0 \land s_1 > 0                  \implies s_1 > 0  $
+  \item $s_0 \leq 0 \land s_1 \leq 0 \land s_2 > 0 \implies s_2 > 0  $
 \end{enumerate}
 In this example, all are trivially solvable.
 
@@ -352,7 +351,7 @@ Our tool generates trees, like the one shown in Figure~\ref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
 All path conditions are converted to \SMTLIB compatible statements and verified using the \ZTHREE \SMT~solver.
 
-As is usually the case with symbolic execution, the number of branches grow quickly.
+As is usually the case with symbolic execution, the number of paths grow quickly.
 \Cref{exm:solar-subsidy} and \cref{exm:flight-booking} generate respectively 2112 and 1166 paths,
 which take about a minute to calculate.
 Solving them, however, is almost instantaneous.
@@ -367,7 +366,7 @@ As mentioned in the introduction, other work on symbolic execution often uses as
 \begin{example}
   Consider the following small example program.
   \begin{TASK}
-    enter Int >>= \ x . edit (ref x ) >>= \ l. assert (!l = x) (edit "Done")
+    enter Int >>= \ x . edit (ref x ) >>= \ l. assert (!l == x) (edit "Done")
   \end{TASK}
 
   This program asks the user to enter an integer.
