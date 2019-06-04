@@ -380,6 +380,7 @@ Solving them, however, is almost instantaneous.
 \subsection{Outlook}
 \label{subsec:outlook}
 
+\paragraph{Assertions}
 Other work on symbolic execution often uses assertions, which are included in the program itself.
 One could imagine an assertion statement \TS{assert $\psi$ t} in \TOPHAT that roughly works as follows.
 First the \SAT solver verifies the property $\psi$ against the current path condition.
@@ -394,26 +395,21 @@ Then the program continues with task $t$.
 
   This program asks the user to enter an integer.
   The entered value is then stored in a reference.
-  The assertion that follows, ensures that the store holds the correct value.
-  Afterwards, the string "Done" is returned to the user.
+  The assertion that follows ensures that the store has been updated correctly.
+  Finally the string "Done" is returned.
 \end{example}
 
-The assertion in the example above has access to all variables that are in scope.
-This is not the case when programmers are only allowed to define properties over the resulting value of tasks.
-We can overcome this however, by returning the values we are interested in at the end of the program.
-
+Assertions have access to all variables in scope, unlike properties as we have currently implemented them.
+We can overcome this by returning all values we are interested in at the end of the program.
 \begin{TASK}
   enter Int >>= \ x . edit (ref x ) >>= \ store . edit "Done" >>= \ _ . edit (x,!store)
 \end{TASK}
-
 We can now verify that the property $\psi(v) = \Fst v \equiv \Snd v$ holds.
+This demonstrates that our approach has expressive power similar to assertions.
+Having assertions in our language would be more convenient for programmers however, and we would like add them in the future.
 
-This shows that our approach has the same power as using assertions.
-
-We would like to extend our symbolic execution with assertions however.
-This is much more convenient for programmers to use.
-
-Another feature we would like to support in the future, is input dependent predicates.
+\paragraph{Input-dependent predicates}
+Another feature we would like to support in the future are input-dependent predicates.
 
 \begin{example}
   Consider the following small program.
