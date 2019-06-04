@@ -19,7 +19,7 @@ it is guaranteed that his will hold for all paths.
 Consider the following example program.
 
 \begin{TASK}
-  enter Int >>= \ x if x > 0 then edit x else fail
+  enter Int >>= \ x. if x > 0 then edit x else fail
 \end{TASK}
 
 It asks the user to input a value of type $\Int$.
