@@ -56,7 +56,7 @@
     &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
     &       & \mid  & \If{e_1}{e_2}{e_3}                           & – branch \\
     &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
-    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & – empty list, cons \\
+    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & – nil, cons \\
     &       & \mid  & \Head\ e \Mid \Tail\ e                       & – first element, list tail \\
     &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
     &       & \mid  & p \Mid \highlight{s}                         & – pretask, symbol \\
@@ -167,9 +167,9 @@
     \noalign{Values}
     \addlinespace
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
-      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - empty list, cons\\
-      &   & \mid & c \Mid l \Mid t                                     & – constant, location, task \\
-      &   & \mid & \highlight{s \Mid u\ v \Mid v_1\ o\ v_2}            & – symbol, unary op, binary op\\
+      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - nil, cons\\
+      &   & \mid & c \Mid l \Mid t \Mid \highlight{s}                  & – constant, location, task, symbol \\
+      &   & \mid & \highlight{u\ v \Mid v_1\ o\ v_2}                   & – symbolic unary/binary operation\\
   \end{grammar}
 }
 
@@ -273,8 +273,10 @@
   \begin{grammar}
     \noalign{Path conditions}
     \addlinespace
-      & \highlight{\phi} &::= & c \Mid s                   & – constant, symbol\\
+      & \highlight{\phi} &::= & c \Mid s              & – constant, symbol\\
       % &      &\mid& \Continue  \Mid \Left \Mid \Right          & – continue, go left, go right\\
-      &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2  & – symbolic unary, binary operation
+      &      &\mid& \unit \Mid \tuple{\phi_1, \phi_2} & – unit, pairs \\
+      &      &\mid& [\ ]_\beta \Mid \phi_1 :: \phi2   & – nil, cons \\
+      &      &\mid& u\ \phi \Mid \phi_1\ o\ \phi_2    & – symbolic unary/binary operation \\
   \end{grammar}
 }
