@@ -117,12 +117,24 @@ First, the citizen has to enter their personal information (\cref{fig:taxman-cit
 In the original demonstrator this included the citizen service number, name, and home address.
 The current date was obtained from the system.
 For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used only for display.
+For simplicity, a date is specified as the number of days since 1 january 2000.
 
 In the next step, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address (\cref{fig:taxman-documents-and-company-confirm}).
 Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
 The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date.
 The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
-\fixme{Write property}
+
+The result of the overall task is a tuple with the subsidy amount, the officer's decision, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
+Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
+The predicate has 5 free variables, which correspond to the returned values.
+\begin{IEEEeqnarray}{rCl}
+\psi(s,d,c,a,i,t)
+   & =      & s \geq 0 \implies c \label{tax-psi-confirmed}
+\\ & \wedge & s \geq 0 \implies a \label{tax-psi-approved}
+\\ & \wedge & a \implies c \wedge t - i \leq 356 \label{tax-psi-approve-conditions}
+\\ & \wedge & s \leq 600 \label{tax-psi-max-subsidy}
+\end{IEEEeqnarray}
+The predicate states that (\ref{tax-psi-confirmed}) if subsidy has been payed the roofing company must have confirmed, (\ref{tax-psi-approved}) if subsidy has been payed the officer must have approved, (\ref{tax-psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date is within 356 days of the invoice date, and (\ref{tax-psi-max-subsidy}) the subsidy is maximal 600 EUR.
 
 
 
