@@ -380,7 +380,11 @@ Solving them, however, is almost instantaneous.
 \subsection{Outlook}
 \label{subsec:outlook}
 
-As mentioned in the introduction, other work on symbolic execution often uses assertions written by the programmer in the program.
+Other work on symbolic execution often uses assertions, which are included in the program itself.
+One could imagine an assertion statement \TS{assert $\psi$ t} in \TOPHAT that roughly works as follows.
+First the \SAT solver verifies the property $\psi$ against the current path condition.
+If the assertion fails, an error message is generated.
+Then the program continues with task $t$.
 
 \begin{example}
   Consider the following small example program.
@@ -402,9 +406,9 @@ We can overcome this however, by returning the values we are interested in at th
   enter Int >>= \ x . edit (ref x ) >>= \ store . edit "Done" >>= \ _ . edit (x,!store)
 \end{TASK}
 
-We can now verify that the property $\lambda v . \Fst v = \Snd v$ holds.
+We can now verify that the property $\psi(v) = \Fst v \equiv \Snd v$ holds.
 
-This shows that our approach as the same power as using assertions.
+This shows that our approach has the same power as using assertions.
 
 We would like to extend our symbolic execution with assertions however.
 This is much more convenient for programmers to use.
