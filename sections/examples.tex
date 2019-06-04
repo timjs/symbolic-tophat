@@ -128,6 +128,7 @@ The result of the program is the amount of the subsidy, together with all inform
 The result of the overall task is a tuple with the subsidy amount, the officer's decision, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
 Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
 The predicate has 5 free variables, which correspond to the returned values.
+\setcounter{equation}{0}
 \begin{IEEEeqnarray}{rCl}
 \psi(s,d,c,a,i,t)
    & =      & s \geq 0 \implies c \label{tax-psi-confirmed}
