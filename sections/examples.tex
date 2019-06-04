@@ -16,7 +16,7 @@ Programs in \TOPHAT are called tasks.
 The smallest elements of a task is called an editor.
 
 Editors are the basic method for communicating with the outside world.
-There are three different Editors.
+There are three different editors.
 \begin{description}
   \item[$\Edit v$] Valued editor.\\
     This editor holds a value $v$ of a certain type.
@@ -110,9 +110,11 @@ This example proves that a citizen will get subsidy only under the following con
 \end{TASK}
 
 \Cref{fig:thetaxman} shows the program.
+To enhance readability of the example,
+we omit type annotations and make use of pattern matching on tuples.
 It works as follows.
 First, the citizen has to enter their personal information (\cref{fig:taxman-citizen-info}).
-In the original demonstrator this included the citicen service number, name, and home address.
+In the original demonstrator this included the citizen service number, name, and home address.
 The current date was obtained from the system.
 For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used only for display.
 

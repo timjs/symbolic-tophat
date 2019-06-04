@@ -5,20 +5,6 @@
 \section{Intuition}
 \label{sec:intuition}
 
-In order to verify that a particular \TOPHAT program behaves as intended,
-we would like to show that certain properties on the of a task hold.
-A common way to do this is to write test cases manually,
-or to generate random input and verify that the outcome fulfils the desired property.
-
-Writing tests manually is labour intensive and cumbersome.
-With random testing, there is no guarantee that all paths will be covered.
-
-To overcome these issues, we apply symbolic execution to prove that the desired properties hold.
-The idea of symbolic execution is simple.
-Instead of executing tasks with test input, we run them on symbolic input.
-This input consists of symbols that are allowed to be any value of the desired type.
-When the task branches, we record what path conditions must hold over the symbolic input.
-
 When a task has an observable value, we consider it done.
 Tasks only have an observable value when they consist merely of editors or pairs of editors.
 At this point, user interaction with the task can change its value, but it is impossible for the task to do anything meaningful with that new value.
@@ -33,7 +19,7 @@ it is guaranteed that his will hold for all paths.
 Consider the following example program.
 
 \begin{TASK}
-  enter Int >>= \ x if x > 0 then edit Enter x else fail
+  enter Int >>= \ x if x > 0 then edit x else fail
 \end{TASK}
 
 It asks the user to input a value of type $\Int$.
@@ -47,13 +33,13 @@ the only possible outcome is a value larger than zero.
 
 The symbolic execution enters a symbol $s$ as input into the editor on the left.
 The execution then arrives at a branching point.
-In order to take the then-branch, the condition $x>0$ needs to hold.
+In order to take the then-branch, the condition $s > 0$ needs to hold.
 This branch will then result in $\Edit s$.
-We can now observe the task value, $s$, which is guarded by $x>0$.
+We can now observe the task value, $s$, which is guarded by $s > 0$.
 The else branch applies if the condition does not hold.
 But this does not yield a value, it instead asks for additional input.
 
-So, from the symbolic execution we obtain that the only outcome of this program is $s \mid x>0$.
+So, from the symbolic execution we obtain that the only outcome of this program is $s > 0$.
 From that outcome, we can conclude that no matter what input is given, the only result value possible has to be larger than zero.
 \label{example:abs}
 \end{example}
