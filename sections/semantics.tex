@@ -317,12 +317,48 @@ Then, it finds that the task still does not return a value, but now, the tasks h
 Then the simulate function will perform one look-ahead step, by setting the $\mathit{again}$-parameter to $\False$.
 When this look-ahead does not return a value, we close the branch.
 
+
+
 \subsection{Solving}
 
-\fixme{Something about SMT.}
+To check the satisfiability $\Sat(\phi)$, as well as the properties stated about a program,
+we make use of an external \SMT~solver.
+In the implementation we use \ZTHREE,
+although any other \SMT~solver supporting \SMTLIB could be used.
+
+For Example~\ref{example:abs}, we would like to prove that after any interaction path $I$,
+the value of the resulting task $t'$ should be bigger than $0$.
+% \begin{equation*}
+%   \forall I. \Value(t',\sigma') > 0
+% \end{equation*}
+As shown in Figure~\ref{diagram:simapp}, there are three branches we need to validate.
+For each of the three branches,
+we send the predicate over the end value (i.e. $\Value(t',\sigma') > 0$),
+and the branch conditions to the \SMT~solver:
+\begin{enumerate}
+  \item $s_0 > 0  \land  (s_0 > 0)$
+  \item $s_1 > 0  \land  (s_0 \leq 0 \land s_1 > 0)$
+  \item $s_2 > 0  \land  (s_0 \leq 0 \land s_1 \leq 0 \land s_2 > 0)$
+\end{enumerate}
+In this example, all are trivially solvable.
+
+
 
 \subsection{Implementation}
-\fixme{todo}
+
+We implemented the presented language and its semantic rules in the functional programming language \HASKELL.
+With help of a couple \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
+Our tool generates trees, like the one shown in Figure~\ref{diagram:simapp},
+which keep track of intermediate normalisations, symbolic inputs, and path conditions.
+All path conditions are converted to \SMTLIB compatible statements and verified using the \ZTHREE \SMT~solver.
+
+As is usually the case with symbolic execution, the number of branches grow quickly.
+\Cref{exm:solar-subsidy} and \cref{exm:flight-booking} generate respectively 2112 and 1166 paths,
+which take about a minute to calculate.
+Solving them, however, is almost instantaneous.
+
+
+
 \subsection{Outlook}
 \label{subsec:outlook}
 
