@@ -79,9 +79,9 @@ In this section we study a simplified version of this, translated to \TOPHAT, to
 
 This example proves that a citizen will get subsidy only under the following conditions.
 \begin{itemize}
-\item The company has confirmed that they installed solar panels for the citizen.
+\item The roofing company has confirmed that they installed solar panels for the citizen.
 \item The tax officer has approved the request.
-\item The tax officer can only approve the request if the company has confirmed, and the request is filed within one year of the invoice date.
+\item The tax officer can only approve the request if the roofing company has confirmed, and the request is filed within one year of the invoice date.
 \item The amount of the granted subsidy is maximal 600 EUR.
 \end{itemize}
 
@@ -111,10 +111,14 @@ This example proves that a citizen will get subsidy only under the following con
 
 \Cref{fig:thetaxman} shows the program.
 It works as follows.
-First, the citizen has to enter their home address and today's date (\cref{fig:taxman-citizen-info}) \fixme{Write something about citizen information}.
-Then, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the solar panel company has to confirm that they have actually installed solar panels at the citizen's address (\cref{fig:taxman-documents-and-company-confirm}).
+First, the citizen has to enter their personal information (\cref{fig:taxman-citizen-info}).
+In the original demonstrator this included the citicen service number, name, and home address.
+The current date was obtained from the system.
+For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used only for display.
+
+In the next step, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address (\cref{fig:taxman-documents-and-company-confirm}).
 Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
-The officer can always decline the request, but they can only approve it if the company has confirmed and the application date is within one year after the invoice date.
+The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date.
 The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
 \fixme{Write property}
 
