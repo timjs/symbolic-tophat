@@ -41,8 +41,10 @@
     \Failing(t_1 \Next e_2,\sigma) &=& \Failing(t_1,\sigma) \\
     \Failing(t_1 \And t_2,\sigma)  &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
     \Failing(t_1 \Or t_2,\sigma)   &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
-    \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2')\\
-    &&\quad \where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
+    \Failing(e_1 \Xor e_2,\sigma)  &=& \bigvee \left( \set{\Failing(t_1,\sigma_1') \mid e_1, \sigma \normalise \overline{t_1,\sigma_1'}}\ \cup \\
+                          & & \phantom{\bigvee \left(} \set{\Failing(t_2,\sigma_2') \mid e_2, \sigma \normalise \overline{t_2,\sigma_2'}} \right)
+    % \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2')\\
+    % &&\quad \where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
   \end{function}
 }
 
