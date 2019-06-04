@@ -87,6 +87,7 @@ This example proves that a citizen will get subsidy only under the following con
 
 \lstset{emph={invoiceDate,today,confirmed,invoiceAmount,decision}}
 \begin{TASK}[ float
+            , floatplacement=b
             , escapechar=|
             , numbers=right
             , numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
@@ -145,7 +146,7 @@ The purpose of this example is to demonstrate how Symbolic TopHat handles refere
 We prove that when the program terminates, every passenger has exactly one seat, and that no two passengers have the same seat.
 This program is a simplified version of what we presented in earlier work \cite{Steenvoorden2019}.
 
-\begin{figure}
+\begin{figure}[h]
 \begin{TASK}
   let maxSeats = 50 in
   let bookedSeats = ref [] in
