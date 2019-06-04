@@ -85,35 +85,37 @@ This example proves that a citizen will get subsidy only under the following con
 \item The amount of the granted subsidy is maximal 600 EUR.
 \end{itemize}
 
-\begin{figure}
 \lstset{emph={invoiceDate,today,confirmed,invoiceAmount,decision}}
-\begin{TASK}
+\begin{TASK}[ float
+            , escapechar=|
+            , numbers=right
+            , numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
+            , caption=Subsidy request and approval workflow at the Dutch tax office.
+            , label=fig:thetaxman
+            ]
   let provideCitizenInformation = enter Date in
   let provideDocuments = enter Amount <&> enter Date in
   let companyConfirm = edit True <?> edit False in
   let officerApprove = \ invoiceDate. \ today. \ confirmed.
     edit False <?> if (today - invoiceDate < 365 /\ confirmed)
       then edit True else fail in
-  provideCitizenInformation >>= \ today.
-  provideDocuments <&> companyConfirm >>= \ <<<<invoiceAmount,
+  provideCitizenInformation >>= \ today.|\label{fig:taxman-citizen-info}|
+  provideDocuments <&> companyConfirm >>= \ <<<<invoiceAmount,|\label{fig:taxman-documents-and-company-confirm}|
     invoiceDate>>, confirmed>>.
-  officerApprove invoiceDate today confirmed >>= \ decision.
+  officerApprove invoiceDate today confirmed >>= \ decision.|\label{fig:taxman-officer-approve}|
   let subsidyAmount = if decision
     then min 600 (invoiceAmount / 10) else 0 in
-  edit <<subsidyAmount, decision, confirmed, invoiceAmount,
+  edit <<subsidyAmount, decision, confirmed, invoiceAmount,|\label{fig:taxman-result}|
     invoiceDate, today>>
 \end{TASK}
-\caption{Subsidy request and approval workflow at the Dutch tax office.}
-\label{fig:thetaxman}
-\end{figure}
 
 \Cref{fig:thetaxman} shows the program.
 It works as follows.
-First, the citizen has to enter their home address and today's date.
-Then, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the solar panel company has to confirm that they have actually installed solar panels at the citizen's address.
-Once the invoice and the confirmation are there, the tax officer has to approve the request.
+First, the citizen has to enter their home address and today's date (\cref{fig:taxman-citizen-info}) \fixme{Write something about citizen information}.
+Then, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the solar panel company has to confirm that they have actually installed solar panels at the citizen's address (\cref{fig:taxman-documents-and-company-confirm}).
+Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
 The officer can always decline the request, but they can only approve it if the company has confirmed and the application date is within one year after the invoice date.
-The result of the program is the amount of the subsidy, together with all information needed to prove the required properties.
+The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
 \fixme{Write property}
 
 
