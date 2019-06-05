@@ -110,30 +110,34 @@ It is unchanged with respect to the original.
 \end{figure}
 
 \begin{figure*}[b]
-  \small
-  \begin{gather*}
-    \boxed{\RelationSN} \Break
-    \userule{SN-Done} \Quad
-    \userule{SN-Repeat}
-  \end{gather*}
+  \begin{minipage}{\textwidth}
+    \small
+    \begin{gather*}
+      \boxed{\RelationSN} \Break
+      \userule{SN-Done} \Quad
+      \userule{SN-Repeat}
+    \end{gather*}
+  \end{minipage}
   \caption{Symbolic normalisation semantics}
   \label{fig:normalising}
 \end{figure*}
 
 \begin{figure*}[b]
-  \small
-  \begin{gather*}
-    \boxed{\RelationSH} \Break
-    \userule{SH-Change} \Quad
-    \userule{SH-Fill} \Quad
-    \userule{SH-Update}\Break
-    \userule{SH-Next} \Quad
-    \userule{SH-PickLeft} \Break
-    \userule{SH-PickRight}\Quad
-    \userule{SH-Pick}\Break
-    \userule{SH-And}\Quad
-    \userule{SH-Or}
-  \end{gather*}
+  \begin{minipage}{\textwidth}
+    \small
+    \begin{gather*}
+      \boxed{\RelationSH} \Break
+      \userule{SH-Change} \Quad
+      \userule{SH-Fill} \Quad
+      \userule{SH-Update}\Break
+      \userule{SH-Next} \Quad
+      \userule{SH-PickLeft} \Break
+      \userule{SH-PickRight}\Quad
+      \userule{SH-Pick}\Break
+      \userule{SH-And}\Quad
+      \userule{SH-Or}
+    \end{gather*}
+  \end{minipage}
   \caption{Symbolic execution rules for the handling semantics}
   \label{fig:handling}
 \end{figure*}
