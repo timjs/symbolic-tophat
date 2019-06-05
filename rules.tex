@@ -287,19 +287,19 @@
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
    e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
   {e_1 \Xor e_2,\sigma \handle{} t_1,\sigma_1,\highlight{\Left,\phi_1}}
-  [\neg\Failing(t_1,\sigma_1)\land \Failing(t_2,\sigma_2)]
+  [\neg\Failing(t_1,\sigma_1) \land \Failing(t_2,\sigma_2)]
 
 \newrule{SH-PickRight}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
    e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
   {e_1 \Xor e_2,\sigma \handle{} t_2,\sigma_2,\highlight{\Right,\phi_2}}
-  [\neg\Failing(t_2,\sigma_1)\land \Failing(t_1,\sigma_1)]
+  [\Failing(t_1,\sigma_1) \land \neg\Failing(t_2,\sigma_1)]
 
 \newrule{SH-Pick}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
    e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
   {e_1 \Xor e_2,\sigma \handle{} \highlight{\overline{t_1,\sigma_1,\Left,\phi_1}\cup\overline{t_2,\sigma_2,\Right,\phi_2}}}
-  [\neg\Failing(t_1,\sigma_1)\land\neg\Failing(t_2,\sigma_2)]
+  [\neg\Failing(t_1,\sigma_1) \land \neg\Failing(t_2,\sigma_2)]
 
 
 %% Driving %%

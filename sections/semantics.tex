@@ -84,6 +84,7 @@ Threading $\sigma''$ through the evaluation of $e_3$ would violate soundness wit
 
 \subsection{Observations}
 \label{subsec:observations}
+
 The symbolic normalisation and driving semantics make use of observations on tasks.
 This is no different from how the concrete \TOPHAT semantics works.
 
@@ -130,10 +131,10 @@ It is unchanged with respect to the original.
       \userule{SH-Change} \Quad
       \userule{SH-Fill} \Quad
       \userule{SH-Update}\Break
-      \userule{SH-Next} \Quad
-      \userule{SH-PickLeft} \Break
-      \userule{SH-PickRight}\Quad
-      \userule{SH-Pick}\Break
+      \userule{SH-PickLeft} \Quad
+      \userule{SH-PickRight} \Break
+      \userule{SH-Pick} \Quad
+      \userule{SH-Next} \Break
       \userule{SH-And}\Quad
       \userule{SH-Or}
     \end{gather*}
@@ -157,10 +158,8 @@ Therefore, each of these results should be failing to make an user choice failin
 \subsection{Normalisation}
 
 The normalisation semantics prepares tasks to receive input.
-Very little changes had to be made to these semantics in order to accommodate symbolic execution.
-
+Very little changes have to be made to these semantics in order to accommodate symbolic execution.
 Just as with the evaluation semantics, we now gather sets of results, each guarded by a path condition on the symbolic input.
-
 Figure~\ref{fig:normalising} lists the normalisation semantics.
 For the striding semantics, we refer to the appendix.
 
@@ -168,27 +167,32 @@ For the striding semantics, we refer to the appendix.
 
 \subsection{Handling}
 
-The handling semantics deals with user input, in the case of \TOPHAT.
-When dealing with symbolic execution, of course there is no user input.
-Instead, we enter in symbols, where user input is expected.
-The result of the semantics now also lists the symbol that was entered.
-
+The original handling semantics deal with user input.
+In the symbolic case there is no user input.
+We put symbols where user input is expected.
+So, instead of having concrete events as the input of the handling semantics,
+we now have symbolic events as outputs.
 Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
 A complete overview of the rules can be found in the appendix.
 
-The three rules for the editors clearly show how symbols are entered into the symbolic execution.
-The \refrule{SH-Fill} rule for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
+The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
+clearly show how symbols are entered into the symbolic execution.
+The first one for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
 
 There are several task combinators where the result depends on the user input.
-For example, the parallel combinator $\And$ receives an input for either the left or the right branch.
+For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
 To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
 It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
 
-The same principle applies to the external choice combinator $\Xor$, however, in this case, we still need three rules.
-This is due to the fact that users are not allowed to step to a task that is failing.
-Therefore, we have one rule for the case where none of the options are failing, one rule when only the right fails and one rule for the case where the left is failing.
+The same principle applies to the external choice combinator ($\Xor$).
+The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick}
+are needed to disallow users to step to a failing task.
+There is one rule for the case where only the right fails, one rule for the case where the left is failing, and one for the case none of the options are failing.
 
-\begin{figure}[b]
+After input has been handled, tasks are normalised.
+The combination of those two steps is taken care of by the driving semantics, listed in Figure~\ref{fig:driving}.
+
+\begin{figure}[h]
   \small
   \begin{gather*}
     \boxed{\RelationSI} \Break
@@ -197,9 +201,6 @@ Therefore, we have one rule for the case where none of the options are failing, 
   \caption{Symbolic driving semantics}
   \label{fig:driving}
 \end{figure}
-
-After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving semantics, listed in Figure~\ref{fig:driving}.
 
 
 
