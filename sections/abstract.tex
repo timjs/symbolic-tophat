@@ -2,22 +2,24 @@
 
 % Context
 Task Oriented Programming (TOP) is a relatively new programming paradigm that provides an abstraction over workflow programs.
-TOP is typically applied to domains where correctly functioning software is essential, it could have huge financial or strategical consequences.
+TOP is typically applied to domains where correctly functioning software is essential, it could have financial or strategical consequences.
 % Inquiry
 We aim to improve the quality of software written in TOP.
 Currently, only testing is available as a measure to verify that programs are behaving as intended.
 % Approach
 Instead, we propose to apply formal techniques, namely symbolic execution, to guarantee that no aberrant behaviour will occur.
-In order to do this, we develop a symbolic execution semantics for the TopHat language.
+In order to do this, we develop a symbolic execution semantics for TopHat,
+a formal language implementing TOP.
 % Knowledge
 The symbolic execution allows us to prove that certain properties always hold for programs in TopHat.
+
 % Grounding
 The symbolic execution semantics is shown to be correct, by proving soundness and completeness with respect to the original semantics of TopHat.
 We also present an implementation of the symbolic execution for TopHat in Haskell.
 By running example programs, we validate our approach.
 % Importance
-This work represents a huge step forward in the formal verification of TOP software.
-Ensuring qualtiy is sessential in the domains that TOP is commonly applied to.
+This work represents a step forward in the formal verification of TOP software.
+Ensuring quality is essential in the domains that TOP is commonly applied to.
 
 
 % Context: What is the broad context of the work? What is the importance of the general research area?
