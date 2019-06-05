@@ -1,63 +1,54 @@
 % !TEX root=../main.tex
 
-
-
 \section{Introduction}
 
-The Task Oriented Programming paradigm (\TOP) is a useful abstraction over worflow programs.
-The idea of \TOP is to describe what work needs to be done, in what order.
-Then from this specification, the whole system can be generated.
-The iTasks framework~\cite{DBLP:conf/ppdp/PlasmeijerLMAK12} is an implementation of the paradigm in the functional programming language Clean.
+The Task Oriented Programming paradigm (\TOP) is a useful abstraction over workflow programs.
+The idea of \TOP is to describe what work needs to be done, in what order, by which person.
+Then, from this specification, an application can be generated.
+The \ITASKS framework~\cite{DBLP:conf/ppdp/PlasmeijerLMAK12} is an implementation of the paradigm in the functional programming language Clean.
 The many applications developed in the iTasks framework clearly demonstrate the usefullness and need for this new programming paradigm.
-
 It is being used by the Netherlands Royal Navy~\cite{jansen2018dynamic}, Dutch Tax Office~\cite{conf/sfp/StutterheimAP17} and the Dutch Coastal Guard~\cite{lijnse2012incidone}. % of moeten we hier verwijzen naar Consequence Management – Declarative Modelling of Maritime C2-systems
 Furthermore, it has potential for application in domains like health-care and IoT~\cite{DBLP:conf/cgo/KoopmanLP18}.
-Applications used in these type of domains and by these kind of organisations are often critical, where programming mistakes can have huge consequences.
-Currently, iTasks programs are verified by running manually written test-cases. % do we have a source?
-It is evident that testing alone is not sufficient.
 
-\fixme{Order.}
-
+Applications used in these type of domains and by these kind of organisations are often critical, where programming mistakes can have consequences.
+% Currently, iTasks programs are verified by running manually written test-cases. % do we have a source?
+% It is evident that testing alone is not sufficient.
 In order to verify that a particular \TOPHAT program behaves as intended,
 we would like to show that certain properties on the of a task hold.
 A common way to do this is to write test cases manually,
 or to generate random input and verify that the outcome fulfils the desired property.
 Writing tests manually is labour intensive and cumbersome.
+To test graphical and interactive applications one needs testers to click through the application,
+maybe making use of a way to register and replay user events.
 With random testing, there is no guarantee that all paths will be covered.
 
 To overcome these issues, we apply symbolic execution to prove that the desired properties hold.
-The idea of symbolic execution is simple.
-Instead of executing tasks with test input, we run them on symbolic input.
-This input consists of symbols that are allowed to be any value of the desired type.
-When the task branches, we record what path conditions must hold over the symbolic input.
+Instead of executing tasks with test input, or letting an user interactively test the application,
+we run tasks on symbolic input.
+This input consists of symbolic tokens that are allowed to be any value of the desired type.
+When a task branches, we record what path conditions must hold over the symbolic input.
 
-In this paper we propose a more formal approach to verification.
 By means of symbolic execution, we can guarantee that certain conditions over the outcome of a \TOP program hold.
-Since iTasks does not have a formal semantics, we instead apply symbolic execution to \TOPHAT~\cite{Steenvoorden2019}.
-This \TOP implementation does have a formal semantics, and is therefore suitable for formal verification.
+Since iTasks does not have a formal semantics, we instead apply symbolic execution to \TOPHAT~\cite{Steenvoorden2019},
+by systematically changing the semantic rules of the original language.
+
+
 
 \subsection{Contributions}
 
+In this paper we propose a symbolic approach to verification instead of specifying or carrying out manual tests.
+Our contributions to verification of interactive programs is as follows:
+
 \begin{itemize}
-  \item Symbolic execution semantics for \TOPHAT
-  \item Soundness and completeness proof of the symbolic semantics with respect to \TOPHAT
-  \item Implementation in Haskell of the symbolic execution semantics
+  \item Provide symbolic execution semantics for \TOPHAT, a workflow specification language in spirit of \TOP.
+  \item Prove soundness and completeness of the symbolic semantics with respect to the original \TOPHAT semantics.
+  \item Release an implementation of the symbolic execution semantics in Haskell.
 \end{itemize}
 
-\subsection{Scope}
-
-In other work on symbolic execution semantics, it is often possible to write in-program assertions.
-These assertions are verified using the path and input constraints, and the analysis returns which assertions have been violated.
-In this paper, we limit ourselves to one general predicates over all end states instead.
-This requires minimal changes to the existing semantics, but is equally as powerful.
-Assertions can be easily rewritten, as demonstrated in Section~\ref{subsec:outlook}.
-
-We also limit ourselves to predicates that must hold, regardless of the input.
-In the future, we would like to support predicates that depend on the specific input.
-The outlook of our work on symbolic execution semantics is further described in Section~\ref{subsec:outlook}.
 
 
 \subsection{Structure}
+
 Section~\ref{sec:examples} will give a brief overview of \TOPHAT and introduce two examples to demonstrate the goal of our analysis.
 Section~\ref{sec:intuition} describes the intuition behind symbolic execution and how it is applied to \TOPHAT.
 Then in Section~\ref{sec:language}, the \TOPHAT language is defined.
