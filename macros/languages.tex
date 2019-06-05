@@ -3,8 +3,16 @@
 
 %% Styles %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\lstdefinestyle{common}
+  {escapechar=|
+  ,numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
+  ,aboveskip=0pt
+  ,belowskip=0pt
+  }
+
 \lstdefinestyle{natural}
-  {columns=fullflexible
+  {style=common
+  ,columns=fullflexible
   ,gobble=2
   ,breaklines=true
   ,breakatwhitespace=true
