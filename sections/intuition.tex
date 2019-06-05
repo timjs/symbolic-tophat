@@ -12,34 +12,33 @@ The basic elements of tasks are editors.
 Using combinators, tasks can be combined into larger tasks.
 
 The task language is embedded in a simply typed lambda calculus with references, conditionals, booleans, integers, strings, pairs, lists and unary and binary operations on these types.
-The references present in the host language allow tasks to communicate with each other, sharing information across task boundaries.
+References allow tasks to communicate with each other, sharing information across task boundaries.
 The full syntax of the host language is listed in Section~\ref{sec:language}.
 Next, we discuss the main constructs of the task language.
 
 
 \subsection{Editors}
 
-Editors are the basic method for communicating with the outside world.
+Editors are the basic method for programs to communicate with the outside world.
 They are an abstraction over widgets in a \GUI library or on webpage forms.
-Users can change the value hold by an editor,
-in the same way they can manipulate widgets in a \GUI.
-The appearance of an editor is driven by its type.
-A string editor can be represented by an ordinary input field,
-a date by a calendar, and a location by a pin on a map.
-\TOP implementations should be able to derive this automatically.
+Users can change the value held by an editor, in the same way they can manipulate widgets in a \GUI.
 
-There are three different editors.
+When a \TOP implementation generates an application from a task specification, it derives user interfaces for the editors.
+The appearance of an editor is influenced by its type.
+For example, an editor for a string can be represented by a simple input field, a date by a calendar, and a location by a pin on a map.
+
+There are three different editors in \TOPHAT.
 \begin{description}
   \item[$\Edit v$] Valued editor.\\
     This editor holds a value $v$ of a certain type.
-    A new value of that type can be given as input.
+    The user can replace the value by a new value of the same type.
   \item[$\Enter \tau$] Unvalued editor.\\
     This editor holds no value, and can receive a value of type $\tau$.
-    It will then turn into a valued editor.
+    When that happens, it turns into a valued editor.
   \item[$\Update l$] Shared editor.\\
-    This editor refers to a shared location $l$.
+    This editor refers to a store location $l$.
     Its observable value is the value stored at that location.
-    It can receive a new value, this value will then be stored at location $l$.
+    When it receives a new value, this value will be stored at location $l$.
 \end{description}
 
 
