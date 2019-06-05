@@ -1,25 +1,25 @@
 % !TEX root=../main.tex
 
 % Context
-Task Oriented Programming (TOP) is a relatively new programming paradigm that provides an abstraction over workflow programs.
-TOP is typically applied to domains where correctly functioning software is essential, it could have financial or strategical consequences.
+Task Oriented Programming (TOP) is a programming paradigm that allows declarative specification of workflows.
+TOP is typically used in domains where functional correctness is essential, and where failure can have financial or strategical consequences.
 % Inquiry
-We aim to improve the quality of software written in TOP.
-Currently, only testing is available as a measure to verify that programs are behaving as intended.
+In this paper we aim to make formal verification of software written in TOP easier.
+Currently, only testing is used to verify that programs are behaving as intended.
 % Approach
-Instead, we propose to apply formal techniques, namely symbolic execution, to guarantee that no aberrant behaviour will occur.
-In order to do this, we develop a symbolic execution semantics for TopHat,
-a formal language implementing TOP.
+We use symbolic execution to guarantee that no aberrant behaviour can occur.
+In previous work we presented TopHat, a formal language that implements the core aspects of TOP.
+In this paper we develop a symbolic execution semantics for TopHat.
 % Knowledge
-The symbolic execution allows us to prove that certain properties always hold for programs in TopHat.
+Symbolic execution allows to prove that a given property holds for all possible execution paths of TopHat programs.
 
 % Grounding
-The symbolic execution semantics is shown to be correct, by proving soundness and completeness with respect to the original semantics of TopHat.
-We also present an implementation of the symbolic execution for TopHat in Haskell.
+We show that the symbolic execution semantics is consistent with the original TopHat semantics, by proving soundness and completeness.
+We present an implementation of the symbolic execution semantics in Haskell.
 By running example programs, we validate our approach.
 % Importance
 This work represents a step forward in the formal verification of TOP software.
-Ensuring quality is essential in the domains that TOP is commonly applied to.
+Ensuring correctness is important in the domains that TOP is commonly applied to.
 
 
 % Context: What is the broad context of the work? What is the importance of the general research area?
