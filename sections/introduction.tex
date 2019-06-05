@@ -2,35 +2,32 @@
 
 \section{Introduction}
 
-The Task Oriented Programming paradigm (\TOP) is a useful abstraction over workflow programs.
-The idea of \TOP is to describe what work needs to be done, in what order, by which person.
-Then, from this specification, an application can be generated.
+The Task Oriented Programming paradigm (\TOP) is an abstraction over workflow specifications.
+The idea of \TOP is to describe the work that needs to be done, in which order, by which person.
+From this specification, an application can be generated that helps to coordinate people and machines to execute the work.
 The \ITASKS framework~\cite{DBLP:conf/ppdp/PlasmeijerLMAK12} is an implementation of the paradigm in the functional programming language Clean.
-The many applications developed in the iTasks framework clearly demonstrate the usefullness and need for this new programming paradigm.
-It is being used by the Netherlands Royal Navy~\cite{jansen2018dynamic}, Dutch Tax Office~\cite{conf/sfp/StutterheimAP17} and the Dutch Coastal Guard~\cite{lijnse2012incidone}. % of moeten we hier verwijzen naar Consequence Management – Declarative Modelling of Maritime C2-systems
-Furthermore, it has potential for application in domains like health-care and IoT~\cite{DBLP:conf/cgo/KoopmanLP18}.
+The usefulness of \TOP has been demonstrated in several projects that applied it to implement various applications.
+It has been used by the Netherlands Royal Navy~\cite{jansen2018dynamic}, the Dutch Tax Office~\cite{conf/sfp/StutterheimAP17} and the Dutch Coast Guard~\cite{lijnse2012incidone}. % of moeten we hier verwijzen naar Consequence Management – Declarative Modelling of Maritime C2-systems
+Furthermore, it has potential for application in domains like healthcare and Internet of Things~\cite{DBLP:conf/cgo/KoopmanLP18}.
 
-Applications used in these type of domains and by these kind of organisations are often critical, where programming mistakes can have consequences.
+Applications in these kinds of domains are often mission critical, where programming mistakes can have severe consequences.
 % Currently, iTasks programs are verified by running manually written test-cases. % do we have a source?
 % It is evident that testing alone is not sufficient.
-In order to verify that a particular \TOPHAT program behaves as intended,
-we would like to show that certain properties on the of a task hold.
-A common way to do this is to write test cases manually,
-or to generate random input and verify that the outcome fulfils the desired property.
-Writing tests manually is labour intensive and cumbersome.
-To test graphical and interactive applications one needs testers to click through the application,
-maybe making use of a way to register and replay user events.
-With random testing, there is no guarantee that all paths will be covered.
+In order to verify that a \TOPHAT program behaves as intended, we would like to show that it satisfies a given property.
+A common way to do this is to write test cases, or to generate random input, and verify that all outcomes fulfil the property.
+Writing tests manually is time consuming and cumbersome.
+Testing interactive applications needs people to operate the application, maybe making use of a way to record and replay interactions.
+With this kind of testing there is no guarantee that all possible execution paths are covered.
 
-To overcome these issues, we apply symbolic execution to prove that the desired properties hold.
-Instead of executing tasks with test input, or letting an user interactively test the application,
+To overcome these issues, we apply symbolic execution.
+Instead of executing tasks with test input, or letting a user interactively test the application,
 we run tasks on symbolic input.
-This input consists of symbolic tokens that are allowed to be any value of the desired type.
-When a task branches, we record what path conditions must hold over the symbolic input.
+Symbolic input consists of tokens that represent any value of a certain type.
+When a program branches, the execution engine records the conditions over the symbolic input that lead to the different branches.
+These conditions can then be compared to a given predicate to check if the predicate holds under all conditions.
 
-By means of symbolic execution, we can guarantee that certain conditions over the outcome of a \TOP program hold.
-Since iTasks does not have a formal semantics, we instead apply symbolic execution to \TOPHAT~\cite{Steenvoorden2019},
-by systematically changing the semantic rules of the original language.
+In this way we can guarantee that given predicates over the outcome of a \TOP program always hold.
+Since iTasks does not have a formal semantics, we instead apply symbolic execution to \TOPHAT~\cite{Steenvoorden2019}, by systematically changing the semantic rules of the original language.
 
 
 
