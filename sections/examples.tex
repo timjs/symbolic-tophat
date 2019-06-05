@@ -1,75 +1,50 @@
 % !TEX root=../main.tex
 
-
 \section{Examples}
 \label{sec:examples}
 
-This section will briefly introduce the task-oriented programming language \TOPHAT,
-accompanied by two examples to illustrate how the language works and what kind of properties we would like to prove.
+In this section we study three examples to illustrate how the language works and what kind of properties we would like to prove.
 
-\subsection{\TOPHAT}
 
-\TOPHAT is a task-oriented programming language.
-Its aim is to model real world collaboration.
 
-Programs in \TOPHAT are called tasks.
-The smallest elements of a task is called an editor.
+\subsection{Absolute value}
 
-Editors are the basic method for communicating with the outside world.
-There are three different editors.
-\begin{description}
-  \item[$\Edit v$] Valued editor.\\
-    This editor holds a value $v$ of a certain type.
-    A new value of that type can be given as input.
-  \item[$\Enter \tau$] Unvalued editor.\\
-    This editor holds no value, and can receive a value of type $\tau$.
-    It will then turn into a valued editor.
-  \item[$\Update l$] Shared editor.\\
-    This editor refers to a shared location $l$.
-    Its observable value is the value stored at that location.
-    It can receive a new value, this value will then be stored at location $l$.
-\end{description}
+\begin{example}
+\label{exm:abs}
+Consider the following example program.
+\begin{TASK}
+  enter Int >>= \ x. if x > 0 then edit x else fail
+\end{TASK}
 
-Editors can be combined into tasks using combinators.
-These combinators describe the way people collaborate.
-The following combinators are available in \TOPHAT.
+It asks the user to input a value of type $\Int$.
+This value is then passed on to the right hand side.
+If the value is larger than zero, as determined by the condition $x>0$,
+an editor containing the entered value is returned.
+Otherwise, the user is asked to input a different value, until the condition holds.
+\end{example}
 
-\begin{description}
-  \item[$t \Then e$] Step.\\
-  Users can work on task $t$.
-  As soon as $t$ yields a value, that value is passed on to the right hand side, with which it continues.
-  \item[$t \Next e$] User Step.\\
-  Users can work on task $t$.
-  When they are done, and $t$ yields a value, the user can send a continue event to the combinator.
-  The value of $t$ is then passed on to the right hand side, with which it continues.
-  \item[$t_1 \And t_1$] Composition.\\
-  Users can work on tasks $t_1$ and $t_2$ at the same time.
-  \item[$t_1 \Or t_2$] Choice.\\
-  The system chooses between $t_1$ or $t_2$. If either of those returns a value, the system chooses that task.
-  \item[$e_1 \Xor e_1$] User choice.\\
-  A user has to make a choice between either the left or the right hand side.
-  The user continues to work on the chosen task.
-\end{description}
+Imagine we would like to prove that no matter what value is given as input,
+the only possible outcome is a value larger than zero.
 
-In addition to editors and combinators, \TOPHAT also contains a fail task $\Fail$.
-This task is used by programmers to indicate that a task is not reachable or viable.
-For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed onto that task.
+The symbolic execution enters a symbol $s$ as input into the editor on the left.
+The execution then arrives at a branching point.
+In order to take the then-branch, the condition $s > 0$ needs to hold.
+This branch will then result in $\Edit s$.
+We can now observe a task value, which is $s$.
+We record this endpoint together with its path condition $s > 0$.
+The else branch applies if the condition does not hold.
+But this leads to a failing task.
+Therefore, the step is not taken and the programs stays the same.
+Next, the user is still asked to enter an integer value.
 
-This language of tasks and combinators is embedded in the simply typed lambda calculus, augmented with references, pairs, if-then-else, booleans, integers and string, and unary and binary operations on these constants.
-The full syntax of this host language is listed in Section~\ref{expressions}.
+The execution results in a list of all possible program results,
+guarded by certain constraints on the symbolic input.
+If these possible outcomes agree with the stated property,
+it is guaranteed that his will hold for all paths.
 
-The references present in the host language allow tasks to communicate with each other,
-sharing information that is globally available.
+So, from the symbolic execution we obtain that the only outcome of this program is $s > 0$.
+From that outcome, we can conclude that no matter what input is given, the only result value possible has to be larger than zero.
 
-Finally, several observations can be made over tasks.
-Using the value function $\Value$, the current value of a task can be determined.
-The value function is a partial function, since not all tasks have a value.
-For example, $\Enter \tau$ holds no value.
-We can also observe wether or not a task is failing, by means of the failing function $\Failing$.
-The step combinator makes use of both functions in order to determine if it can step.
-First, it uses $\Value$ to see if the left hand side produces a value.
-If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side using that value.
-The complete definition of the value and failing function are listed in Section~\ref{subsec:observations}.
 
 
 \subsection{Tax subsidy request}
@@ -86,29 +61,28 @@ This example proves that a citizen will get subsidy only under the following con
 \end{itemize}
 
 \lstset{emph={invoiceDate,today,confirmed,invoiceAmount,decision}}
-\begin{TASK}[ float
-            , floatplacement=b
-            , escapechar=|
-            , numbers=right
-            , numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
-            , caption=Subsidy request and approval workflow at the Dutch tax office.
-            , label=fig:thetaxman
+\begin{TASK}[float=t
+            ,numbers=right
+            ,caption=Subsidy request and approval workflow at the Dutch tax office.
+            ,label=fig:thetaxman
             ]
   let provideCitizenInformation = enter Date in
   let provideDocuments = enter Amount <&> enter Date in
   let companyConfirm = edit True <?> edit False in
   let officerApprove = \ invoiceDate. \ today. \ confirmed.
-    edit False <?> if (today - invoiceDate < 365 /\ confirmed)
+    edit False <?> if (today - invoiceDate < 365 /\ confirmed) |\label{fig:taxman-officer-approve-def}|
       then edit True else fail in
   provideCitizenInformation >>= \ today.|\label{fig:taxman-citizen-info}|
-  provideDocuments <&> companyConfirm >>= \ <<<<invoiceAmount,|\label{fig:taxman-documents-and-company-confirm}|
-    invoiceDate>>, confirmed>>.
+  provideDocuments <&> companyConfirm >>= |\label{fig:taxman-documents-and-company-confirm}|
+    \ <<<<invoiceAmount, invoiceDate>>, confirmed>>.
   officerApprove invoiceDate today confirmed >>= \ decision.|\label{fig:taxman-officer-approve}|
   let subsidyAmount = if decision
     then min 600 (invoiceAmount / 10) else 0 in
   edit <<subsidyAmount, decision, confirmed, invoiceAmount,|\label{fig:taxman-result}|
     invoiceDate, today>>
 \end{TASK}
+
+\fixme{Spacing...}
 
 \Cref{fig:thetaxman} shows the program.
 To enhance readability of the example,
@@ -118,25 +92,25 @@ First, the citizen has to enter their personal information (\cref{fig:taxman-cit
 In the original demonstrator this included the citizen service number, name, and home address.
 The current date was obtained from the system.
 For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used only for display.
-For simplicity, a date is specified as the number of days since 1 january 2000.
+For simplicity, a date is specified using an integer representing the number of days since 1 January 2000.
 
-In the next step, in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address (\cref{fig:taxman-documents-and-company-confirm}).
+In the next step (\cref{fig:taxman-documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
 Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
-The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date.
+The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (\cref{fig:taxman-officer-approve-def}).
 The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
 
 The result of the overall task is a tuple with the subsidy amount, the officer's decision, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
 Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
 The predicate has 5 free variables, which correspond to the returned values.
 \setcounter{equation}{0}
-\begin{IEEEeqnarray}{rCl}
+\begin{align}
 \psi(s,d,c,a,i,t)
-   & =      & s \geq 0 \implies c \label{tax-psi-confirmed}
-\\ & \wedge & s \geq 0 \implies a \label{tax-psi-approved}
-\\ & \wedge & a \implies c \wedge t - i \leq 356 \label{tax-psi-approve-conditions}
-\\ & \wedge & s \leq 600 \label{tax-psi-max-subsidy}
-\\ & \wedge & \lnot a \implies s \equiv 0 \label{tax-psi-unapproved}
-\end{IEEEeqnarray}
+   & =      s \geq 0 \implies c \label{tax-psi-confirmed}
+\\ & \wedge s \geq 0 \implies a \label{tax-psi-approved}
+\\ & \wedge a \implies c \wedge t - i \leq 356 \label{tax-psi-approve-conditions}
+\\ & \wedge s \leq 600 \label{tax-psi-max-subsidy}
+\\ & \wedge \lnot a \implies s \equiv 0 \label{tax-psi-unapproved}
+\end{align}
 The predicate $\psi$ states that (\ref{tax-psi-confirmed}) if subsidy has been payed, the roofing company must have confirmed, (\ref{tax-psi-approved}) if subsidy has been payed, the officer must have approved, (\ref{tax-psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date is within 356 days of the invoice date, and (\ref{tax-psi-max-subsidy}) the subsidy is maximal 600 EUR.
 Finally, (\ref{tax-psi-unapproved}) if the officer has not approved, the subsidy must be 0.
 
@@ -149,14 +123,10 @@ The purpose of this example is to demonstrate how Symbolic TopHat handles refere
 We prove that when the program terminates, every passenger has exactly one seat, and that no two passengers have the same seat.
 This program is a simplified version of what we presented in earlier work \cite{Steenvoorden2019}.
 
-\lstset{emph={x}}
-\begin{TASK}[ float
-            , floatplacement=b
-            , escapechar=|
-            , numbers=right
-            , numbersep=-9pt % to make numbers appear inside the column; otherwise they are in the margin
-            , caption=Flight booking.
-            , label=fig:flight-booking
+\begin{TASK}[float=h
+            ,numbers=right
+            ,caption=Flight booking.
+            ,label=fig:flight-booking
             ]
   let maxSeats = 50 in
   let bookedSeats = ref [] in|\label{flight:make-ref}|
@@ -167,7 +137,7 @@ This program is a simplified version of what we presented in earlier work \cite{
   edit (!bookedSeats)
 \end{TASK}
 
-The program, shown in \cref{fig:flight-booking}, consists of three parallel seat booking tasks.
+The program, shown in \cref{fig:flight-booking}, consists of three parallel seat booking tasks (\cref{flight:main-expression}).
 There is a shared list that stores all seats that have been booked so far (\cref{flight:make-ref}).
 In order to book a seat, a passenger has to enter a seat number (\cref{flight:enter-seat-number}).
 A guard makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
@@ -176,11 +146,11 @@ The program returns the list of booked seats.
 
 With the returned list, we can state the predicate to verify the correctness of the booking process.
 \setcounter{equation}{0}
-\begin{IEEEeqnarray}{rCl}
+\begin{align}
 \psi(l)
-   & =      & \# l \equiv 3 \label{flight-psi-exactly-three-seats}
-\\ & \wedge & \Uniq l \label{flight-psi-unique-seats}
-\end{IEEEeqnarray}
+   & =      \Len l \equiv 3 \label{flight-psi-exactly-three-seats}
+\\ & \wedge \Uniq l \label{flight-psi-unique-seats}
+\end{align}
 The predicate specifies that every passenger got exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passenger got the same seat.
-The unary operators for list length (\#) and uniqueness ($\Uniq$) are available in the predicate language.
+The unary operators for list length ($\Len$) and uniqueness ($\Uniq$) are available in the predicate language.
 List length is a capability of \SMTLIB, while $\Uniq$ is our own addition.

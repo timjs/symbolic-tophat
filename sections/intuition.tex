@@ -1,45 +1,98 @@
 % !TEX root=../main.tex
 
-
-
 \section{Intuition}
 \label{sec:intuition}
 
-When a task has an observable value, we consider it done.
-Tasks only have an observable value when they consist merely of editors or pairs of editors.
-At this point, user interaction with the task can change its value, but it is impossible for the task to do anything meaningful with that new value.
-This is the point where symbolic execution terminates.
+This section will briefly introduce the task-oriented programming language \TOPHAT,
+and discuss our vision on symbolic evaluation of this language.
 
-The execution results in a list of all possible program results,
-guarded by certain constraints on the symbolic input.
-If these possible outcomes agree with the stated property,
-it is guaranteed that his will hold for all paths.
+\TOPHAT is a task-oriented programming language.
+Its aim is to model real world collaboration.
+Programs in \TOPHAT are called tasks.
+The smallest elements of tasks are called editors.
+Using combinators, tasks can be combined into greater tasks.
 
-\begin{example}
-Consider the following example program.
+This language of tasks and combinators is embedded in the simply typed lambda calculus,
+augmented with references, if-then-else, booleans, integers, strings, pairs, lists and unary and binary operations on these basic types.
+The references present in the host language allow tasks to communicate with each other,
+sharing information that is globally available.
+The full syntax of this host language is listed in Section~\ref{sec:language}.
+Next, we discuss the main constructs of the task language.
 
-\begin{TASK}
-  enter Int >>= \ x. if x > 0 then edit x else fail
-\end{TASK}
 
-It asks the user to input a value of type $\Int$.
-This value is then passed on to the right hand side.
-If the value is larger than zero, as determined by the condition $x>0$,
-an editor containing the entered value is returned.
-Otherwise, the user is asked to input a different value, until the condition holds.
+\subsection{Editors}
 
-Imagine we would like to prove that no matter what value is given as input,
-the only possible outcome is a value larger than zero.
+Editors are the basic method for communicating with the outside world.
+They are an abstraction over widgets in a \GUI library or on webpage forms.
+Users can change the value hold by an editor,
+in the same way they can manipulate widgets in a \GUI.
+The appearance of an editor is driven by its type.
+A string editor can be represented by an ordinary input field,
+a date by a calendar, and a location by a pin on a map.
+\TOP implementations should be able to derive this automatically.
 
-The symbolic execution enters a symbol $s$ as input into the editor on the left.
-The execution then arrives at a branching point.
-In order to take the then-branch, the condition $s > 0$ needs to hold.
-This branch will then result in $\Edit s$.
-We can now observe the task value, $s$, which is guarded by $s > 0$.
-The else branch applies if the condition does not hold.
-But this does not yield a value, it instead asks for additional input.
+There are three different editors.
+\begin{description}
+  \item[$\Edit v$] Valued editor.\\
+    This editor holds a value $v$ of a certain type.
+    A new value of that type can be given as input.
+  \item[$\Enter \tau$] Unvalued editor.\\
+    This editor holds no value, and can receive a value of type $\tau$.
+    It will then turn into a valued editor.
+  \item[$\Update l$] Shared editor.\\
+    This editor refers to a shared location $l$.
+    Its observable value is the value stored at that location.
+    It can receive a new value, this value will then be stored at location $l$.
+\end{description}
 
-So, from the symbolic execution we obtain that the only outcome of this program is $s > 0$.
-From that outcome, we can conclude that no matter what input is given, the only result value possible has to be larger than zero.
-\label{example:abs}
-\end{example}
+
+
+\subsection{Combinators}
+
+Editors can be combined into bigger tasks using combinators.
+These combinators describe the way people collaborate.
+Tasks can be performed after each other or next to each other.
+Also, one can make a choice to perform one of two tasks.
+
+The following combinators are available in \TOPHAT.
+\begin{description}
+  \item[$t \Then e$] Step.\\
+    Users can work on task $t$.
+    As soon as $t$ yields a value, that value is passed on to the right hand side expression $e$, with which it continues.
+  \item[$t \Next e$] User Step.\\
+    Users can work on task $t$.
+    When $t$ yields a value, users can send a continue event to the combinator.
+    The value of $t$ is then passed on to the right hand side, with which it continues.
+  \item[$t_1 \And t_1$] Composition.\\
+    Users can work on tasks $t_1$ and $t_2$ at the same time.
+  \item[$t_1 \Or t_2$] Choice.\\
+    The system chooses between $t_1$ or $t_2$,
+    based on which task first has an observable value.
+    If both of the task have a value, the system chooses the left one.
+  \item[$e_1 \Xor e_1$] User choice.\\
+    A user has to make a choice between either the left or the right hand side.
+    The user continues to work on the chosen task.
+\end{description}
+
+In addition to editors and combinators, \TOPHAT also contains a fail task ($\Fail$).
+This task is used by programmers to indicate that a task is not reachable or viable.
+For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed onto that task.
+
+
+
+\subsection{Observations}
+
+Several observations can be made on tasks.
+Using the value function $\Value$, the current value of a task can be determined.
+The value function is a partial function, since not all tasks have a value.
+For example, $\Enter \tau$ holds no value,
+where $\Edit v$ has value $v$.
+In particular, steps do not have a value.
+One can also observe wether or not a task is failing, by means of the failing function $\Failing$.
+Although $\Fail$ is clearly failing,
+a parallel combination of failing tasks is also failing ($\Fail \And \Fail$).
+
+The step combinator makes use of both functions in order to determine if it can step.
+First, it uses $\Value$ to see if the left hand side produces a value.
+If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side using that value.
+The complete definition of the value and failing function are discussed in Section~\ref{subsec:observations}.
