@@ -7,12 +7,12 @@ In this section we study three examples to illustrate how the language works and
 
 
 
-\subsection{Absolute value}
+\subsection{Positive value}
 
 Consider the program in \cref{lst:abs}.
 
 \begin{TASK}[float=h
-            ,caption=Absolute value
+            ,caption=A task that only accepts positive values as inputs.
             ,label=lst:abs
             ]
   enter Int >>= \ x. if x > 0 then edit x else fail
@@ -20,31 +20,27 @@ Consider the program in \cref{lst:abs}.
 
 It asks the user to input a value of type $\Int$.
 This value is then passed on to the right hand side.
-If the value is larger than zero, as determined by the condition $x>0$,
-an editor containing the entered value is returned.
-Otherwise, the user is asked to input a different value, until the condition holds.
+If the value is greater than zero, an editor containing the entered value is returned.
+Otherwise the step does not proceed and the user has to enter a different value.
 
-Imagine we would like to prove that no matter what value is given as input,
-the only possible outcome is a value larger than zero.
+Imagine that we would like to prove that no matter which value is given as input,
+the only possible outcome is a value greater than zero.
 
-The symbolic execution enters a symbol $s$ as input into the editor on the left.
-The execution then arrives at a branching point.
+Symbolic execution of this program proceeds as follows.
+The symbolic execution engine generates a symbolic input $s$ for the editor on the left.
+The engine then arrives at the conditional.
 In order to take the then-branch, the condition $s > 0$ needs to hold.
-This branch will then result in $\Edit s$.
-We can now observe a task value, which is $s$.
-We record this endpoint together with its path condition $s > 0$.
-The else branch applies if the condition does not hold.
-But this leads to a failing task.
+This branch will then result in $\Edit s$, in which case the program has an observable value.
+The engine records this endpoint together with its path condition $s > 0$.
+The else-branch applies if the condition does not hold, but this leads to a failing task.
 Therefore, the step is not taken and the programs stays the same.
-Next, the user is still asked to enter an integer value.
+No additional program state is generated.
 
-The execution results in a list of all possible program results,
-guarded by certain constraints on the symbolic input.
-If these possible outcomes agree with the stated property,
-it is guaranteed that his will hold for all paths.
+Symbolic execution returns a list of all possible program end states, together with the path conditions that led to them.
+If all end states agree with the desired property, it is guaranteed that the property holds for all possible inputs.
 
-So, from the symbolic execution we obtain that the only outcome of this program is $s > 0$.
-From that outcome, we can conclude that no matter what input is given, the only result value possible has to be larger than zero.
+In this example, the only end state is the expression $\Edit s$ with path condition $s > 0$.
+From that we can conclude that no matter what input is given, the only result value possible has to be greater than zero.
 
 
 
