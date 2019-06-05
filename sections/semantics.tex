@@ -1,28 +1,40 @@
 % !TEX root=../main.tex
 
-
 \section{Semantics}
 \label{sec:semantics}
 
 In this section we discuss the symbolic execution semantics for \TOPHAT.
 The structure of the symbolic semantics closely resembles that of the concrete semantics.
 It consists of three main layers.
-A big step symbolic evaluation semantics.
-This corresponds with the host language.
-A big step symbolic normalisation semantics at the task level.
-And finally a small step driving semantics that processes user inputs one by one.
+\begin{enumerate*}
+  \item A big step symbolic evaluation semantics.
+  This corresponds with the host language.
+  \item A big step symbolic normalisation semantics at the task level.
+  And finally
+  \item a small step driving semantics that processes user inputs one by one.
+\end{enumerate*}
 
 They are all listed in the coming sections.
 Besides simply listing them, we will also point out what is interesting about them,
 and what changes were made with respect to the concrete semantics.
 
+
+
 \subsection{Symbolic evaluation}
 
 The host language is a simply typed lambda calculus with references and basic operations.
-
-%explain how we convert old rules to new rules.
 Most of the symbolic evaluation rules closely resemble the concrete semantics.
-Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic rule to illustrate how to convert one to the other.
+The original evaluation relation ($\hat{\eval}$) had the form $\RelationE$,
+where an expression $e$ in a state $\hat{\sigma}$ evaluates to a value $\hat{v}$ in state $\hat{\sigma}'$.
+The hat distinguishes the old concrete and the new symbolic variants.
+The new relation ($\eval$) adds path conditions $\phi$ to the output and reads $\RelationSE$.
+
+Note that in the symbolic case, it is possible to generate multiple outcomes.
+This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
+The set that results from the symbolic execution can be interpreted as follows.
+Each element is a possible (end)point in the execution of a task.
+It is guarded by a condition $\phi$ over the symbolic input.
+Only if $\phi$ holds, can we arrive at the value $v$ and state $\sigma'$.
 
 \begin{figure}[h]
   \small
@@ -34,27 +46,20 @@ Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics an
   \label{fig:oldToNewSemantics}
 \end{figure}
 
+Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic rule to illustrate how to convert one to the other.
 The \refrule{E-Edit} rule evaluates the expression held in an editor to a value.
 The \refrule{SE-Edit} does the same, but since we are doing a symbolic execution, the expression could contain symbols.
 We therefore do not know beforehand which concrete value will be produced, or even which path the execution will take.
 If the expression contains a conditional that depends on a symbol, it is possible that there are multiple result values, instead of just one.
-This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
 
-Figure~\ref{fig:eval} lists the rule for conditional.
-From this rule, one can clearly see that both branches are calculated, since at this point we do not know, what the condition will evaluate to.
-Note that both $e_2$ and $e_3$ are evaluated using the same state $\sigma'$,
-which is the resulting state after evaluating $e_1$.
-Threading $\sigma''$ through the evaluation of $e_3$ would violate soundness with respect to the original semantics (see also \cref{sec:soundess}).
-
-The set that results from the symbolic execution can be interpreted as follows.
-Each element is a possible (end)point in the execution of a task.
-It is guarded by a condition $\phi$ over the symbolic input.
-Only if $\phi$ holds, can we arrive at the value $v$ and state $\sigma'$.
+% Figure~\ref{fig:eval} lists the rule for conditional.
+% From this rule, one can clearly see that both branches are calculated, since at this point we do not know, what the condition will evaluate to.
 
 As mentioned, the symbolic rules closely resemble the concrete semantics.
 They follow directly from the concrete semantics, as described above.
 Therefore, they are not listed here, but a full overview of the rules can be found in the appendix.
-One rule does differ, which is listed in Figure~\ref{fig:eval}.
+One rule does differ.
+This is the rule for $\If{-}{-}{}$ and is listed in Figure~\ref{fig:eval}.
 
 \begin{figure}[h]
   \small
@@ -66,12 +71,16 @@ One rule does differ, which is listed in Figure~\ref{fig:eval}.
   \label{fig:eval}
 \end{figure}
 
-Instead of two separate rules, one for the then and one for the else branch, we now have one \refrule{SE-If rule}.
+Instead of two separate rules, one for the $\THEN$ and one for the $\ELSE$ branch, we now have one \refrule{SE-If} rule.
 Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
 Instead, we keep both options open.
+We calculate the $\THEN$-branch, and add to the path condition that we can only reach this point if $v_1$ becomes $\True$.
+And we do the same for the $\ELSE$-branch, except we now require that $v_1$ has to become $\False$, in order for this result to apply.
+Note that both $e_2$ and $e_3$ are evaluated using the same state $\sigma'$,
+which is the resulting state after evaluating $e_1$.
+Threading $\sigma''$ through the evaluation of $e_3$ would violate soundness with respect to the original semantics (see also \cref{sec:soundess}).
 
-We calculate the then-branch, and add to the path condition that we can only reach this point if $v_1$ becomes $\True$.
-And we do the same for the else-branch, except we now require that $v_1$ has to become $\False$, in order for this result to apply.
+
 
 \subsection{Observations}
 \label{subsec:observations}
@@ -79,45 +88,28 @@ The symbolic normalisation and driving semantics make use of observations on tas
 This is no different from how the concrete \TOPHAT semantics works.
 
 We can observe the value of a task using the partial function $\Value$.
-Its definition is given in Figure~\ref{fig:value}, which is unchanged with respect to the original.
+Its definition is given in Figure~\ref{fig:value}.
+It is unchanged with respect to the original.
 
 \begin{figure}[h]
   \small
   \begin{center}
     \usemacro{O-Value}
   \end{center}
-  \caption{Task value observation function $\Value$}
+  \caption{Task value observation functions $\Value$.}
   \label{fig:value}
 \end{figure}
-
-We can observe if a task is failing using the function $\Failing$.
-Its definition is given in Figure~\ref{fig:failing}.
-Checking if an user choice is failing changes due to the usage of symbolic normalisation.
-Symbolic normalisation possibly yields multiple results.
-Each of these results should be failing to make an user choice failing.
 
 \begin{figure}[h]
   \small
   \begin{center}
     \usemacro{O-Failing}
   \end{center}
-  \caption{Task failing observation function $\Failing$}
+  \caption{Task failing observation function $\Failing$.}
   \label{fig:failing}
 \end{figure}
 
-\subsection{Normalisation}
-
-The normalisation semantics prepares tasks to receive input.
-Very little changes had to be made to these semantics in order to accommodate symbolic execution.
-
-Just as with the evaluation semantics, we now gather sets of results, each guarded by a path condition on the symbolic input.
-
-Figure~\ref{fig:normalising} lists the normalisation semantics.
-For the striding semantics, we refer to the appendix.
-
-
-
-\begin{figure*}
+\begin{figure*}[b]
   \small
   \begin{gather*}
     \boxed{\RelationSN} \Break
@@ -128,18 +120,7 @@ For the striding semantics, we refer to the appendix.
   \label{fig:normalising}
 \end{figure*}
 
-
-\subsection{Handling}
-
-The handling semantics deals with user input, in the case of \TOPHAT.
-When dealing with symbolic execution, of course there is no user input.
-Instead, we enter in symbols, where user input is expected.
-The result of the semantics now also lists the symbol that was entered.
-
-Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
-A complete overview of the rules can be found in the appendix.
-
-\begin{figure*}
+\begin{figure*}[b]
   \small
   \begin{gather*}
     \boxed{\RelationSH} \Break
@@ -157,6 +138,40 @@ A complete overview of the rules can be found in the appendix.
   \label{fig:handling}
 \end{figure*}
 
+We can observe if a task is failing using the function $\Failing$.
+Its definition is given in Figure~\ref{fig:failing}.
+A task is failing if it is the fail task ($\Fail$),
+or if it consists of only failing tasks.
+With respect to the original definition,
+checking if an user choice is failing changes.
+This is due to the usage of symbolic normalisation to peek into the future.
+Symbolic normalisation possibly yields multiple results.
+Therefore, each of these results should be failing to make an user choice failing.
+
+
+
+\subsection{Normalisation}
+
+The normalisation semantics prepares tasks to receive input.
+Very little changes had to be made to these semantics in order to accommodate symbolic execution.
+
+Just as with the evaluation semantics, we now gather sets of results, each guarded by a path condition on the symbolic input.
+
+Figure~\ref{fig:normalising} lists the normalisation semantics.
+For the striding semantics, we refer to the appendix.
+
+
+
+\subsection{Handling}
+
+The handling semantics deals with user input, in the case of \TOPHAT.
+When dealing with symbolic execution, of course there is no user input.
+Instead, we enter in symbols, where user input is expected.
+The result of the semantics now also lists the symbol that was entered.
+
+Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
+A complete overview of the rules can be found in the appendix.
+
 The three rules for the editors clearly show how symbols are entered into the symbolic execution.
 The \refrule{SH-Fill} rule for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
 
@@ -169,8 +184,7 @@ The same principle applies to the external choice combinator $\Xor$, however, in
 This is due to the fact that users are not allowed to step to a task that is failing.
 Therefore, we have one rule for the case where none of the options are failing, one rule when only the right fails and one rule for the case where the left is failing.
 
-
-\begin{figure}[h]
+\begin{figure}[b]
   \small
   \begin{gather*}
     \boxed{\RelationSI} \Break
@@ -184,35 +198,8 @@ After input has been handled, tasks are normalised.
 The combination of those two steps is taken care of by the driving semantics, listed in Figure~\ref{fig:driving}.
 
 
-\subsection{Simulating}
-\label{subsec:driving}
 
-The symbolic execution semantics listed above is a small step semantics:
-each time it is executed, it simulates one symbolic user input.
-In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is \emph{done}.
-We define a task to be done, when it has an observable value.
-The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states and path conditions.
-It accumulates all symbolic user inputs and returns the observable task value $v$, the path condition $\phi$, and the current state $\sigma$.
-We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
-A recursive call is terminated when one of the following conditions is met.
-
-\begin{description}
-  \item[$\Sat(\phi)$]
-    When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
-    In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
-
-  \item[$\Value(t,\sigma)$]
-    When the current task produces a value, we are at an endpoint, which we can return.
-
-  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \mathit{again}$]
-    When the current task does not produce a value, and then it is equal to the previous task, apart from symbol names in editors, the simulate function performs one look-ahead step in case the task is waiting for an independent symbol.
-    This one step look-ahead is encoded by the $\mathit{again}$-parameter.
-    When this parameter is set to $\False$, one step look-ahead has been performed and simulate does not continue further.
-    If a value is found, it is returned, otherwise the branch that is being explored will be pruned.
-\end{description}
-%We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
-
-\begin{figure*}
+\begin{figure*}[t]
   \begin{function}
     \signature{\mathit{simulate} : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Valuse} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
@@ -237,18 +224,12 @@ A recursive call is terminated when one of the following conditions is met.
   \label{fig:simulate}
 \end{figure*}
 
-To better illustrate how the simulate function works, we apply it to Example~\ref{example:abs}.
-
 \begin{figure*}
   \small
-
 \tikzstyle{level 1}=[level distance=5cm, sibling distance=3cm]
 \tikzstyle{level 2}=[level distance=5cm, sibling distance=3cm]
-
-
 \tikzstyle{bag} = [text width=4em, text centered]
 \tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
-
 \begin{tikzpicture}[grow=right, sloped]
 \node[bag] {$i=s_0$}
     child[missing] {node {}}
@@ -298,6 +279,38 @@ To better illustrate how the simulate function works, we apply it to Example~\re
 \caption{Application of the simulation function to Example~\ref{example:abs}}
 \label{diagram:simapp}
 \end{figure*}
+
+
+
+\subsection{Simulating}
+\label{subsec:driving}
+
+The symbolic execution semantics listed above is a small step semantics:
+each time it is executed, it simulates one symbolic user input.
+In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is \emph{done}.
+We define a task to be done, when it has an observable value.
+The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states and path conditions.
+It accumulates all symbolic user inputs and returns the observable task value $v$, the path condition $\phi$, and the current state $\sigma$.
+We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
+A recursive call is terminated when one of the following conditions is met.
+
+\begin{description}
+  \item[$\Sat(\phi)$]
+    When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
+    In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
+
+  \item[$\Value(t,\sigma)$]
+    When the current task produces a value, we are at an endpoint, which we can return.
+
+  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \mathit{again}$]
+    When the current task does not produce a value, and then it is equal to the previous task, apart from symbol names in editors, the simulate function performs one look-ahead step in case the task is waiting for an independent symbol.
+    This one step look-ahead is encoded by the $\mathit{again}$-parameter.
+    When this parameter is set to $\False$, one step look-ahead has been performed and simulate does not continue further.
+    If a value is found, it is returned, otherwise the branch that is being explored will be pruned.
+\end{description}
+%We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
+
+To better illustrate how the simulate function works, we apply it to Example~\ref{example:abs}.
 
 \fixme{What does this do here? --TS}
 \begin{definition}[Satisfiability of predicates]
