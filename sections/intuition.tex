@@ -3,20 +3,17 @@
 \section{Intuition}
 \label{sec:intuition}
 
-This section will briefly introduce the task-oriented programming language \TOPHAT,
-and discuss our vision on symbolic evaluation of this language.
+This section briefly introduces the task-oriented programming language \TOPHAT,
+and discuss our vision about symbolic evaluation of this language.
 
-\TOPHAT is a task-oriented programming language.
-Its aim is to model real world collaboration.
-Programs in \TOPHAT are called tasks.
-The smallest elements of tasks are called editors.
-Using combinators, tasks can be combined into greater tasks.
+The \TOPHAT language consists two parts, the host language and the task language.
+Programs in \TOPHAT are called \emph{tasks}.
+The basic elements of tasks are editors.
+Using combinators, tasks can be combined into larger tasks.
 
-This language of tasks and combinators is embedded in the simply typed lambda calculus,
-augmented with references, if-then-else, booleans, integers, strings, pairs, lists and unary and binary operations on these basic types.
-The references present in the host language allow tasks to communicate with each other,
-sharing information that is globally available.
-The full syntax of this host language is listed in Section~\ref{sec:language}.
+The task language is embedded in a simply typed lambda calculus with references, conditionals, booleans, integers, strings, pairs, lists and unary and binary operations on these types.
+The references present in the host language allow tasks to communicate with each other, sharing information across task boundaries.
+The full syntax of the host language is listed in Section~\ref{sec:language}.
 Next, we discuss the main constructs of the task language.
 
 
