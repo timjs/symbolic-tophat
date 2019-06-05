@@ -33,22 +33,21 @@ Since iTasks does not have a formal semantics, we instead apply symbolic executi
 
 \subsection{Contributions}
 
-In this paper we propose a symbolic approach to verification instead of specifying or carrying out manual tests.
-Our contributions to verification of interactive programs is as follows:
+This paper makes the following contributions.
 
 \begin{itemize}
-  \item Provide symbolic execution semantics for \TOPHAT, a workflow specification language in spirit of \TOP.
-  \item Prove soundness and completeness of the symbolic semantics with respect to the original \TOPHAT semantics.
-  \item Release an implementation of the symbolic execution semantics in Haskell.
+  \item We present a symbolic execution semantics for \TOPHAT.
+  \item We prove soundness and completeness of the symbolic semantics with respect to the original \TOPHAT semantics.
+  \item We present an implementation of the symbolic execution semantics in Haskell.
 \end{itemize}
 
 
 
 \subsection{Structure}
 
-Section~\ref{sec:examples} will give a brief overview of \TOPHAT and introduce two examples to demonstrate the goal of our analysis.
 Section~\ref{sec:intuition} describes the intuition behind symbolic execution and how it is applied to \TOPHAT.
-Then in Section~\ref{sec:language}, the \TOPHAT language is defined.
+Section~\ref{sec:examples} will give a brief overview of \TOPHAT and introduce some examples to demonstrate the goal of our analysis.
+In Section~\ref{sec:language}, the \TOPHAT language is defined.
 Section~\ref{sec:semantics} goes on to define the formal semantics of the symbolic execution.
-In Section~\ref{sec:properties}, soundness and completeness is shown for the symbolic execution semantics with respect to the original \TOPHAT semantics.
-Then in Section~\ref{sec:relatedwork} related work is discussed, and Section~\ref{sec:conclusion} concludes.
+In Section~\ref{sec:properties}, soundness and completeness are shown for the symbolic execution semantics with respect to the original \TOPHAT semantics.
+In Section~\ref{sec:relatedwork} related work is discussed, and Section~\ref{sec:conclusion} concludes.
