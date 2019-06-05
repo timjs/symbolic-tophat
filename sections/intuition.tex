@@ -70,9 +70,9 @@ The following combinators are available in \TOPHAT.
     The user continues to work on the chosen task.
 \end{description}
 
-In addition to editors and combinators, \TOPHAT also contains a fail task ($\Fail$).
-This task is used by programmers to indicate that a task is not reachable or viable.
-For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed onto that task.
+In addition to editors and combinators, \TOPHAT also contains the fail task ($\Fail$).
+Programmers can use this task to indicate that a task is not reachable or viable.
+For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed to that task.
 
 
 
@@ -81,14 +81,12 @@ For example, when the right hand side of a step combinator is $\Fail$, the step 
 Several observations can be made on tasks.
 Using the value function $\Value$, the current value of a task can be determined.
 The value function is a partial function, since not all tasks have a value.
-For example, $\Enter \tau$ holds no value,
-where $\Edit v$ has value $v$.
-In particular, steps do not have a value.
-One can also observe wether or not a task is failing, by means of the failing function $\Failing$.
-Although $\Fail$ is clearly failing,
-a parallel combination of failing tasks is also failing ($\Fail \And \Fail$).
+For example empty editors and steps do not have a value.
+
+One can also observe whether or not a task is failing, by means of the failing function $\Failing$.
+The task $\Fail$ is failing, as is a parallel combination of failing tasks ($\Fail \And \Fail$).
 
 The step combinator makes use of both functions in order to determine if it can step.
 First, it uses $\Value$ to see if the left hand side produces a value.
-If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side using that value.
+If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side.
 The complete definition of the value and failing function are discussed in Section~\ref{subsec:observations}.
