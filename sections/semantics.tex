@@ -50,7 +50,7 @@ If the expression contains a conditional that depends on a symbol, there can be 
 % From this rule, one can clearly see that both branches are calculated, since at this point we do not know, what the condition will evaluate to.
 
 Most symbolic rules closely resemble their concrete counterparts, and follow directly from them.
-The rules are not listed here, a full overview can be found in \cref{sec:complete-symbolic-semantics}.
+The rules are not listed here, a full overview can be found in \cref{sec:symbolic-evaluation-rules}.
 
 The only interesting rule is the one for conditionals, listed in \cref{fig:eval}.
 \begin{figure}[h]
@@ -153,30 +153,26 @@ For the striding semantics, we refer to the appendix.
 
 \subsection{Handling}
 
-The original handling semantics deal with user input.
-In the symbolic case there is no user input.
-We put symbols where user input is expected.
-So, instead of having concrete events as the input of the handling semantics,
-we now have symbolic events as outputs.
-Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
-A complete overview of the rules can be found in the appendix.
+The handling semantics deals with user input.
+In the symbolic case there are symbols in place of concrete inputs.
+A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
+\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
 
 The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
-clearly show how symbols are entered into the symbolic execution.
-The first one for example, generates a fresh symbol $s$, and then returns an editor containing that symbol.
+clearly show how symbols enter the symbolic execution.
+The first one for example generates a fresh symbol $s$ and returns an editor containing it.
 
-There are several task combinators where the result depends on the user input.
+There are several task combinators where the result depends on user input.
 For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
 To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
 It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
 
 The same principle applies to the external choice combinator ($\Xor$).
-The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick}
-are needed to disallow users to step to a failing task.
-There is one rule for the case where only the right fails, one rule for the case where the left is failing, and one for the case none of the options are failing.
+The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
+There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
 
 After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving semantics, listed in Figure~\ref{fig:driving}.
+The combination of those two steps is taken care of by the driving semantics, listed in \cref{fig:driving}.
 
 \begin{figure}[h]
   \small
