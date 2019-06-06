@@ -5,8 +5,8 @@
 \section{Properties}
 \label{sec:properties}
 
-In this section, we describe what it means for the symbolic execution semantics to be correct.
-We demonstrate it to be sound and complete with respect to the original semantics of \TOPHAT.
+In this section we describe what it means for the symbolic execution semantics to be correct.
+We prove it sound and complete with respect to the concrete semantics of \TOPHAT.
 % Furthermore, we demonstrate that the pruning performed in Section~\ref{subsec:driving} is safe,
 % and only removes branches that are either unfeasible, or infinite.
 
@@ -66,7 +66,7 @@ We demonstrate it to be sound and complete with respect to the original semantic
 % \\
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to relate the two semantics, we use the of concrete inputs listed in Figure~\ref{fig:inputsConcrete}.
+In order to relate the two semantics, we use the concrete inputs listed in \cref{fig:inputsConcrete}.
 
 \begin{figure}[h]
   \usemacro{G-CInputs-Compact}
@@ -102,8 +102,8 @@ In order to relate the two semantics, we use the of concrete inputs listed in Fi
 % \end{theorem}
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to validate the symbolic execution semantics, we want to show that for every symbolic execution, there exists a corresponding concrete one.
-This soundness property is expressed by Theorem~\ref{thm:sounddrive}.
+In order to validate the symbolic execution semantics, we want to show that for every symbolic execution there exists a corresponding concrete one.
+This soundness property is expressed by \cref{thm:sounddrive}.
 
 \begin{theorem}[Soundness of driving]
   \label{thm:sounddrive}
@@ -116,7 +116,7 @@ This soundness property is expressed by Theorem~\ref{thm:sounddrive}.
 
 The proof for this lemma is rather straightforward.
 Since the driving semantics makes use of the handling and the normalisation semantics, we require two lemmas.
-One showing that the handling semantics is sound, Lemma~\ref{lem:soundhandle}, and one showing that the normalisation semantics is sound, Lemma~\ref{lem:soundnorm}.
+One showing that the handling semantics is sound, \cref{lem:soundhandle}, and one showing that the normalisation semantics is sound, \cref{lem:soundnorm}.
 
 \begin{lemma}[Soundness of handling]
   \label{lem:soundhandle}
@@ -127,8 +127,8 @@ One showing that the handling semantics is sound, Lemma~\ref{lem:soundhandle}, a
   $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
 \end{lemma}
 
-Lemma~\ref{lem:soundhandle} is proven by induction over $t$.
-The full proof is listed in the appendix.
+\Cref{lem:soundhandle} is proven by induction over $t$.
+The full proof is listed in \cref{sec:soundness-proofs}.
 
 \begin{lemma}[Soundness of normalisation]
   \label{lem:soundnorm}
@@ -140,8 +140,8 @@ The full proof is listed in the appendix.
 
 \end{lemma}
 
-Since Lemma~\ref{lem:soundnorm} makes use of both the striding and the evaluation semantics,
-we are required to show soundness for those too.
+Since \cref{lem:soundnorm} makes use of both the striding and the evaluation semantics,
+we must show soundness for those too.
 
 \begin{lemma}[Soundness of striding]
   \label{lem:soundstride}
@@ -162,7 +162,7 @@ we are required to show soundness for those too.
 
 \end{lemma}
 
-The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.
+The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.
 
 
 
@@ -171,7 +171,7 @@ The full proof of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed 
 \subsection{Completeness}
 
 We also want to show that for every concrete execution, a symbolic one exists.
-This completeness property is listed in Theorem~\ref{thm:completeDrive}.
+This completeness property is listed in \cref{thm:completeDrive}.
 
 % \begin{theorem}[Completeness of symbolic execution]
 % For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
@@ -184,12 +184,12 @@ This completeness property is listed in Theorem~\ref{thm:completeDrive}.
 
 \begin{theorem}[Completeness of driving]
   \label{thm:completeDrive}
-  $\forall t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
+  For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
   there exists an $i\sim j$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
 \end{theorem}
 
-Where with $i\sim j$ we mean that the symbolic input $i$ follows the same direction as the concrete input does.
-This relation is properly defined below.
+Where with $i\sim j$ we mean that the symbolic input $i$ follows the same direction as the concrete input.
+This relation is defined below.
 
 \begin{definition}[Input simulation]
   A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
@@ -198,45 +198,43 @@ This relation is properly defined below.
   $i\sim j\implies \Second i \sim \Second j$
 \end{definition}
 
-The proof of Theorem~\ref{thm:completeDrive} is rather simple.
-We show that handling is complete, Lemma~\ref{lem:completeHandle},
-and that the subsequent normalisation is complete too, Lemma~\ref{lem:completeNormalise}.
+The proof of \cref{thm:completeDrive} is rather simple.
+We show that handling is complete (\cref{lem:completeHandle})
+and that the subsequent normalisation is complete (\cref{lem:completeNormalise}).
 
 
 \begin{lemma}[Completeness of handling]
   \label{lem:completeHandle}
-  $\forall t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
+  For all $t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
   there exists an $i\sim j$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
 \end{lemma}
 
-Lemma~\ref{lem:completeHandle} is shown by induction over $t$.
-In essence, we merely need to show that every concrete execution also is a symbolic one.
-The only change needed to convert from concrete to symbolic, is the adaption of the input.
+\Cref{lem:completeHandle} is proved by induction over $t$.
+We only need to show that every concrete execution is also a symbolic one.
+The only change needed to convert from concrete to symbolic is the adaption of the input.
 
-Since handling makes use of the normalisation, striding and eventually the evaluation semantics,
-we need to prove that they too are complete.
+Since handling makes use of normalisation, striding, and evaluation, we need to prove that they too are complete.
 These properties are listed in \cref{lem:completeNormalise,lem:completeStride,lem:completeEval}
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}
-  $\forall e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
+  For all $e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
   there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of striding]
   \label{lem:completeStride}
-  $\forall t,\sigma$ such that $t,\sigma \bar{\stride}t',\sigma'$
+  For all $t,\sigma$ such that $t,\sigma \bar{\stride}t',\sigma'$
   there exists a symbolic execution $t,\sigma''\eval t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
-  $\forall e,\sigma$ such that $t,\sigma \bar{\eval}v,\sigma'$
+  For all $e,\sigma$ such that $t,\sigma \bar{\eval}v,\sigma'$
   there exists a symbolic execution $t,\sigma''\eval v',\sigma''',\phi$.
 \end{lemma}
 
 
-Proof for \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} is trivial,
-since every concrete execution in these semantics is also a symbolic one.
+The proofs of \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} are trivial, since every concrete execution in these semantics is also a symbolic one.
