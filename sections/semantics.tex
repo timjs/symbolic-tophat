@@ -5,18 +5,10 @@
 
 In this section we discuss the symbolic execution semantics for \TOPHAT.
 The structure of the symbolic semantics closely resembles that of the concrete semantics.
-It consists of three main layers.
-\begin{enumerate*}
-  \item A big step symbolic evaluation semantics.
-  This corresponds with the host language.
-  \item A big step symbolic normalisation semantics at the task level.
-  And finally
-  \item a small step driving semantics that processes user inputs one by one.
-\end{enumerate*}
+It consists of three layers, a big step symbolic evaluation semantics for the host language, a big step symbolic normalisation semantics for the task language, and a small step driving semantics that processes user inputs.
 
-They are all listed in the coming sections.
-Besides simply listing them, we will also point out what is interesting about them,
-and what changes were made with respect to the concrete semantics.
+They are described in the following sections.
+We will study their interesting aspects, and the changes made with respect to the concrete semantics.
 
 
 
