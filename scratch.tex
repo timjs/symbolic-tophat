@@ -1,0 +1,11 @@
+When a task has an observable value, we consider it done.
+Tasks only have an observable value when they consist merely of editors or pairs of editors.
+At this point, user interaction with the task can change its value, but it is impossible for the task to do anything meaningful with that new value.
+This is the point where symbolic execution terminates.
+
+
+
+\begin{definition}[Satisfiability of predicates]
+  \label{def:Sat}
+  $\Sat(\phi)$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
+\end{definition}
