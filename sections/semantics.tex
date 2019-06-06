@@ -404,11 +404,11 @@ Then the program continues with task $t$.
 \end{example}
 
 Assertions have access to all variables in scope, unlike properties as we have currently implemented them.
-We can overcome this by returning all values we are interested in at the end of the program.
+We can overcome this by returning all values of interest at the end of the program.
 \begin{TASK}
   enter Int >>= \ x . edit (ref x ) >>= \ store . edit "Done" >>= \ _ . edit (x,!store)
 \end{TASK}
-We can now verify that the property $\psi(x,s) = x \equiv s$ holds.
+It is now possible to verify that the property $\psi(x,s) = x \equiv s$ holds.
 This demonstrates that our approach has expressive power similar to assertions.
 Having assertions in our language would be more convenient for programmers however, and we would like add them in the future.
 
@@ -431,4 +431,4 @@ Another feature we would like to support in the future are input-dependent predi
 \end{example}
 
 If we want to prove that given a positive input, the program never returns "Error", we need to be able to talk about inputs directly in predicates.
-Currently our symbolic execution does not support this feature, but we would like to add it in the future.
+Currently our symbolic execution does not support this.
