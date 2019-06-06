@@ -87,7 +87,7 @@ The program works as follows.
 First, the citizen has to enter their personal information (\cref{fig:taxman-citizen-info}).
 In the original demonstrator this included the citizen service number, name, and home address.
 The current date was obtained from the system.
-For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used only for display.
+For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used just for display.
 For simplicity, a date is specified using an integer representing the number of days since 1 January 2000.
 
 In the next step (\cref{fig:taxman-documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
@@ -134,9 +134,9 @@ This program is a simplified version of what we presented in earlier work \cite{
 \end{TASK}
 
 The program, shown in \cref{fig:flight-booking}, consists of three parallel seat booking tasks (\cref{flight:main-expression}).
-There is a shared list that stores all seats that have been booked so far (\cref{flight:make-ref}).
+There is a shared list that stores all booked seats so far (\cref{flight:make-ref}).
 In order to book a seat, a passenger has to enter a seat number (\cref{flight:enter-seat-number}).
-A guard makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
+A guard expression makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
 The main expression runs the seat booking task three times in parallel (\cref{flight:main-expression}), simulating three concurrent customers.
 The program returns the list of booked seats.
 
