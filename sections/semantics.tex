@@ -76,11 +76,10 @@ which is the resulting state after evaluating $e_1$.
 \subsection{Observations}
 \label{subsec:observations}
 
-The symbolic normalisation and driving semantics make use of observations on tasks.
-This is no different from how the concrete \TOPHAT semantics works.
+The symbolic normalisation and driving semantics make use of observations on tasks, just like the concrete semantics.
 
-We can observe the value of a task using the partial function $\Value$.
-Its definition is given in Figure~\ref{fig:value}.
+The partial function $\Value$ can be used to observe the value of a task.
+Its definition is given in \cref{fig:value}.
 It is unchanged with respect to the original.
 
 \begin{figure}[h]
@@ -88,7 +87,7 @@ It is unchanged with respect to the original.
   \begin{center}
     \usemacro{O-Value}
   \end{center}
-  \caption{Task value observation functions $\Value$.}
+  \caption{Task value observation function $\Value$.}
   \label{fig:value}
 \end{figure}
 
@@ -134,15 +133,11 @@ It is unchanged with respect to the original.
   \label{fig:handling}
 \end{figure*}
 
-We can observe if a task is failing using the function $\Failing$.
+The function $\Failing$ observes if a task is failing.
 Its definition is given in Figure~\ref{fig:failing}.
-A task is failing if it is the fail task ($\Fail$),
-or if it consists of only failing tasks.
-With respect to the original definition,
-checking if an user choice is failing changes.
-This is due to the usage of symbolic normalisation to peek into the future.
-Symbolic normalisation possibly yields multiple results.
-Therefore, each of these results should be failing to make an user choice failing.
+A task is failing if it is the fail task ($\Fail$), or if it consists of only failing tasks.
+This function differs from its concrete counterpart in the clause for user choice.
+As symbolic normalisation can yield multiple results, all of the results must be failing to make a user choice failing.
 
 
 
