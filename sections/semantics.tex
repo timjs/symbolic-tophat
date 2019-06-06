@@ -139,7 +139,7 @@ It is unchanged with respect to the original.
       \userule{SH-Or}
     \end{gather*}
   \end{minipage}
-  \caption{Symbolic execution rules for the handling semantics}
+  \caption{Symbolic handling semantics}
   \label{fig:handling}
 \end{figure*}
 
@@ -206,22 +206,22 @@ The combination of those two steps is taken care of by the driving semantics, li
 
 \begin{figure*}[t]
   \begin{function}
-    \signature{\mathit{simulate} : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
+    \signature{\Simulate : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Valuse} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
-    \mathit{simulate}(t, \sigma, I, \phi) &=&
-      \bigcup \set{ \mathit{simulate'}(\True, t, I, \phi, t', \sigma', i', \phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
+    \Simulate(t, \sigma, I, \phi) &=&
+      \bigcup \set{ \Simulate'(\True, t, I, \phi, t', \sigma', i', \phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
     \addlinespace
-    \signature{\mathit{simulate'} : \mathrm{Booleans} \times \mathrm{Tasks} \times [\mathrm{Inputs}] \times \mathrm{Predicates} \times \mathrm{Tasks} \times \mathrm{States} \times \mathrm{Inputs} \times \mathrm{Predicates}
+    \signature{\Simulate' : \mathrm{Booleans} \times \mathrm{Tasks} \times [\mathrm{Inputs}] \times \mathrm{Predicates} \times \mathrm{Tasks} \times \mathrm{States} \times \mathrm{Inputs} \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
-    \mathit{simulate'}(\mathit{again}, t, I, \phi, t', i', \sigma', \phi') &=& \\
+    \Simulate'(\Again, t, I, \phi, t', i', \sigma', \phi') &=& \\
       \multicolumn{3}{L}{ \left\{
         \begin{array}{lrclclcr}
           \nothing                                                                                              & \neg\Sat(\phi'\land\phi) &&&&&&\\
           \set{(v, I\oplus[i'], \phi\land\phi')}                                                                & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
-          \mathit{simulate}(t', \sigma', I\oplus[i'], \phi\land\phi')                                           & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
-          \bigcup \set{\mathit{simulate'}(\False, t', I\oplus[i'], \phi\land\phi', t'', \sigma'', i'', \phi'')
-            \mid  t',\sigma' \drive{} t'', \sigma'', i'', \phi''}                                               & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \mathit{again}\\
-          \nothing                                                                                              & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg\mathit{again}
+          \Simulate(t', \sigma', I\oplus[i'], \phi\land\phi')                                           & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
+          \bigcup \set{\Simulate'(\False, t', I\oplus[i'], \phi\land\phi', t'', \sigma'', i'', \phi'')
+            \mid  t',\sigma' \drive{} t'', \sigma'', i'', \phi''}                                               & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \Again\\
+          \nothing                                                                                              & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg\Again
         \end{array}
         \right.}
   \end{function}
@@ -249,7 +249,11 @@ The combination of those two steps is taken care of by the driving semantics, li
                         {$\nothing$}] {}
                     edge from parent
                     node[above] {$\phi''=s_2\leq 0$}
-                    node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Edit s_0 \Then\ldots = \Edit s_1\Then\ldots$\\ $\mathit{again}=\False$ \end{tabular}}
+                    node[below] {\begin{tabular}{R@{\ }C@{\ }L}
+                      \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
+                      \Edit s_0 \Then\ldots               &=&  \Edit s_1\Then\ldots \\
+                      \Again                              &=& \False
+                    \end{tabular}}
                 }
                 child {
                     node[end, label=right:
@@ -260,7 +264,11 @@ The combination of those two steps is taken care of by the driving semantics, li
                 }
                 edge from parent
                 node[above] {$\phi'=s_1\leq0$}
-                node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Edit s_0 \Then\ldots = \Edit s_1\Then\ldots$\\ $\mathit{again}=\True$\end{tabular}}
+                node[below] {\begin{tabular}{R@{\ }C@{\ }L}
+                  \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
+                  \Edit s_0 \Then\ldots               &=&  \Edit s_1\Then\ldots \\
+                  \Again                              &=& \True
+                \end{tabular}}
             }
             child {
                 node[end, label=right:
@@ -271,7 +279,10 @@ The combination of those two steps is taken care of by the driving semantics, li
             }
             edge from parent
             node[above] {$\phi=s_0\leq 0$}
-            node[below]  {\begin{tabular}{c} $\Value(\Edit s_0\Then\ldots,\sigma)=\bot$\\ $\Enter \Int \Then\ldots\neq \Edit s_0\Then\ldots$\end{tabular}}
+            node[below] {\begin{tabular}{R@{\ }C@{\ }L}
+              \Value(\Edit s_0\Then\ldots,\sigma) &=   & \bot \\
+              \Enter \Int \Then\ldots             &\neq& \Edit s_0\Then\ldots
+            \end{tabular}}
     }
     child {
         node[end, label=right:
@@ -281,7 +292,7 @@ The combination of those two steps is taken care of by the driving semantics, li
             node[below]  {$\Value(\Edit s_0,\sigma)=s_0$}
     };
 \end{tikzpicture}
-\caption{Application of the simulation function to Example~\ref{example:abs}}
+\caption{Application of the simulation function to \cref{lst:abs}}
 \label{diagram:simapp}
 \end{figure*}
 
