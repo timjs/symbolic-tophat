@@ -370,14 +370,13 @@ we make use of an external \SMT~solver.
 In the implementation we use \ZTHREE,
 although any other \SMT~solver supporting \SMTLIB could be used.
 
-For Example~\ref{example:abs}, we would like to prove that after any interaction path $I$,
+For \cref{lst:abs}, we would like to prove that after any interaction path $I$,
 the path conditions $\phi$ imply that the value $v$ of the resulting task $t'$ is bigger than $0$, i.e:
 \begin{equation*}
   \phi \implies v  > 0 \Quad \where v = \Value(t',\sigma')
 \end{equation*}
 As shown in Figure~\ref{diagram:simapp}, there are three paths we need to verify.
-For each of the three paths,
-therefore, we send the following three statements to the \SMT~solver for verification:
+Therefore, we send the following three statements to the \SMT~solver for verification:
 \begin{enumerate}
   \item $s_0 > 0                                   \implies s_0 > 0  $
   \item $s_0 \leq 0 \land s_1 > 0                  \implies s_1 > 0  $
@@ -391,7 +390,7 @@ In this example, all are trivially solvable.
 
 We implemented our language and its symbolic execution semantics in \HASKELL.
 With the help of a couple \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
-Our tool generates execution trees, like the one shown in Figure~\ref{diagram:simapp},
+Our tool generates execution trees like the one shown in Figure~\ref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
 All path conditions are converted to \SMTLIB compatible statements and are verified using the \ZTHREE \SMT~solver.
 As of now we do not have a parser, programs must be specified directly as abstract syntax trees.
@@ -406,20 +405,8 @@ Solving them, however, is almost instantaneous.
 \subsection{Outlook}
 \label{subsec:outlook}
 
-
-\paragraph{Scope}
-
-In other work on symbolic execution semantics, it is often possible to write in-program assertions.
-These assertions are verified using the path and input constraints, and the analysis returns which assertions have been violated.
-In this paper, we limit ourselves to one general predicates over all end states instead.
-This requires minimal changes to the existing semantics, but is equally as powerful.
-Assertions can be easily rewritten, as demonstrated in Section~\ref{subsec:outlook}.
-
-We also limit ourselves to predicates that must hold, regardless of the input.
-In the future, we would like to support predicates that depend on the specific input.
-The outlook of our work on symbolic execution semantics is further described in Section~\ref{subsec:outlook}.
-
 \paragraph{Assertions}
+
 Other work on symbolic execution often uses assertions, which are included in the program itself.
 One could imagine an assertion statement \TS{assert $\psi$ t} in \TOPHAT that roughly works as follows.
 First the \SAT solver verifies the property $\psi$ against the current path condition.
@@ -443,11 +430,14 @@ We can overcome this by returning all values we are interested in at the end of 
 \begin{TASK}
   enter Int >>= \ x . edit (ref x ) >>= \ store . edit "Done" >>= \ _ . edit (x,!store)
 \end{TASK}
-We can now verify that the property $\psi(v) = \Fst v \equiv \Snd v$ holds.
+We can now verify that the property $\psi(x,s) = x \equiv s$ holds.
 This demonstrates that our approach has expressive power similar to assertions.
 Having assertions in our language would be more convenient for programmers however, and we would like add them in the future.
 
+
+
 \paragraph{Input-dependent predicates}
+
 Another feature we would like to support in the future are input-dependent predicates.
 
 \begin{example}

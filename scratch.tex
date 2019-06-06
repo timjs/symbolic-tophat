@@ -5,6 +5,17 @@ This is the point where symbolic execution terminates.
 
 
 
+In other work on symbolic execution semantics, it is often possible to write in-program assertions.
+These assertions are verified using the path and input constraints, and the analysis returns which assertions have been violated.
+In this paper, we limit ourselves to one general predicates over all end states instead.
+This requires minimal changes to the existing semantics, but is equally as powerful.
+
+We also limit ourselves to predicates that must hold, regardless of the input.
+In the future, we would like to support predicates that depend on the specific input.
+The outlook of our work on symbolic execution semantics is further described in Section~\ref{subsec:outlook}.
+
+
+
 \begin{definition}[Satisfiability of predicates]
   \label{def:Sat}
   $\Sat(\phi)$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
