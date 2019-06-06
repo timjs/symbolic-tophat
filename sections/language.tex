@@ -67,7 +67,7 @@ The type of symbols is kept track of in the environment $\Gamma$.
 \subsection{Inputs}
 
 In symbolic execution, we do not know what the input of a program will be.
-In the case of \TOPHAT, this means that we do not know the user input, but have to put in symbols as placeholders.
+In our case this means that we do not know which events will be sent to editors.
 This is reflected in the definition of symbolic inputs and actions in \cref{fig:syntaxinputs}
 
 \begin{figure}[h]
@@ -77,11 +77,10 @@ This is reflected in the definition of symbolic inputs and actions in \cref{fig:
   \label{fig:syntaxinputs}
 \end{figure}
 
-Inputs are still the same and consist of a potential path or an action.
-Paths are tagged with one or more $\First$ or $\Second$'s.
-Actions do not contain concrete values any more, but only symbols $s$.
-This symbol is a placeholder for all concrete inputs.
-This means that editors can no longer be set to a value $v$, but will instead hold a symbol $s$ after user input.
+Inputs are still the same and consist of paths and actions.
+Paths are tagged with one or more $\First$ and $\Second$.
+Actions no longer contain concrete values, but only symbols.
+This means that instead of concrete values, editors can only hold symbols.
 
 
 
