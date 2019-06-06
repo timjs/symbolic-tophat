@@ -18,15 +18,18 @@ The host language is a simply typed lambda calculus with references and basic op
 Most of the symbolic evaluation rules closely resemble the concrete semantics.
 The original evaluation relation ($\hat{\eval}$) had the form $\RelationE$,
 where an expression $e$ in a state $\hat{\sigma}$ evaluates to a value $\hat{v}$ in state $\hat{\sigma}'$.
+\fixme{consistent use of $\hat{v}$}
 The hat distinguishes the old concrete and the new symbolic variants.
-The new relation ($\eval$) adds path conditions $\phi$ to the output and reads $\RelationSE$.
+The new relation ($\eval$) adds path conditions $\phi$ to the output and has the form $\RelationSE$.
 
-Note that in the symbolic case, it is possible to generate multiple outcomes.
+The symbolic semantics can generate multiple outcomes.
 This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
-The set that results from the symbolic execution can be interpreted as follows.
-Each element is a possible (end)point in the execution of a task.
+The set that results from symbolic execution can be interpreted as follows.
+Each element is a possible endpoint in the execution of a task.
 It is guarded by a condition $\phi$ over the symbolic input.
-Only if $\phi$ holds, can we arrive at the value $v$ and state $\sigma'$.
+Execution only arrives at the value $v$ and state $\sigma'$ when the inputs satisfy $\phi$.
+
+To illustrate the difference between concrete and symbolic evaluation, \cref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
 
 \begin{figure}[h]
   \small
@@ -38,21 +41,18 @@ Only if $\phi$ holds, can we arrive at the value $v$ and state $\sigma'$.
   \label{fig:oldToNewSemantics}
 \end{figure}
 
-Figure~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic rule to illustrate how to convert one to the other.
 The \refrule{E-Edit} rule evaluates the expression held in an editor to a value.
-The \refrule{SE-Edit} does the same, but since we are doing a symbolic execution, the expression could contain symbols.
+The \refrule{SE-Edit} does the same, but since it is concerned with symbolic execution, the expression can contain symbols.
 We therefore do not know beforehand which concrete value will be produced, or even which path the execution will take.
-If the expression contains a conditional that depends on a symbol, it is possible that there are multiple result values, instead of just one.
+If the expression contains a conditional that depends on a symbol, there can be multiple possible result values.
 
 % Figure~\ref{fig:eval} lists the rule for conditional.
 % From this rule, one can clearly see that both branches are calculated, since at this point we do not know, what the condition will evaluate to.
 
-As mentioned, the symbolic rules closely resemble the concrete semantics.
-They follow directly from the concrete semantics, as described above.
-Therefore, they are not listed here, but a full overview of the rules can be found in the appendix.
-One rule does differ.
-This is the rule for $\If{-}{-}{}$ and is listed in Figure~\ref{fig:eval}.
+Most symbolic rules closely resemble their concrete counterparts, and follow directly from them.
+The rules are not listed here, a full overview can be found in \cref{sec:complete-symbolic-semantics}.
 
+The only interesting rule is the one for conditionals, listed in \cref{fig:eval}.
 \begin{figure}[h]
   \small
   \begin{gather*}
@@ -62,15 +62,14 @@ This is the rule for $\If{-}{-}{}$ and is listed in Figure~\ref{fig:eval}.
   \caption{Part of the symbolic evaluation semantics}
   \label{fig:eval}
 \end{figure}
-
-Instead of two separate rules, one for the $\THEN$ and one for the $\ELSE$ branch, we now have one \refrule{SE-If} rule.
-Since $e_1$ can contain symbols, it could very well be that we are unable to determine what value the condition evaluates to.
-Instead, we keep both options open.
-We calculate the $\THEN$-branch, and add to the path condition that we can only reach this point if $v_1$ becomes $\True$.
-And we do the same for the $\ELSE$-branch, except we now require that $v_1$ has to become $\False$, in order for this result to apply.
+The concrete semantics has two separate rules for the $\THEN$ and the $\ELSE$ branch.
+The symbolic semantics has one combined rule \refrule{SE-If}.
+Since $e_1$ can contain symbols, it can evaluate to multiple values.
+The rule keeps track of all options.
+It calculates the $\THEN$-branch, and records in the path condition that execution can only reach this branch if $v_1$ becomes $\True$.
+Similarly for the $\ELSE$-branch, except it require that $v_1$ becomes $\False$.
 Note that both $e_2$ and $e_3$ are evaluated using the same state $\sigma'$,
 which is the resulting state after evaluating $e_1$.
-Threading $\sigma''$ through the evaluation of $e_3$ would violate soundness with respect to the original semantics (see also \cref{sec:soundess}).
 
 
 
