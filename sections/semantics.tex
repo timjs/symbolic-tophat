@@ -134,7 +134,7 @@ It is unchanged with respect to the original.
 \end{figure*}
 
 The function $\Failing$ observes if a task is failing.
-Its definition is given in Figure~\ref{fig:failing}.
+Its definition is given in \cref{fig:failing}.
 A task is failing if it is the fail task ($\Fail$), or if it consists of only failing tasks.
 This function differs from its concrete counterpart in the clause for user choice.
 As symbolic normalisation can yield multiple results, all of the results must be failing to make a user choice failing.
@@ -287,7 +287,7 @@ The symbolic driving semantics is a small step semantics.
 Every step simulates one symbolic input.
 In order to compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
 We define a task to be done when it has an observable value: $\Value(t', \sigma') \neq \bot$.
-The simulation function listed in Figure~\ref{fig:simulate} is recursively called to produce a list of end states and path conditions.
+The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
 It accumulates all symbolic inputs and returns for each possible execution the observable task value $v$, the path condition $\phi$, and the state $\sigma$.
 We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
 
@@ -353,7 +353,7 @@ the path conditions $\phi$ imply that the value $v$ of the resulting task $t'$ i
 \begin{equation*}
   \phi \implies v  > 0 \Quad \where v = \Value(t',\sigma')
 \end{equation*}
-As shown in Figure~\ref{diagram:simapp}, there are three paths we need to verify.
+As shown in \cref{diagram:simapp}, there are three paths we need to verify.
 Therefore, we send the following three statements to the \SMT~solver for verification:
 \begin{enumerate}
   \item $s_0 > 0                                   \implies s_0 > 0  $
@@ -368,7 +368,7 @@ In this example all are trivially solvable.
 
 We implemented our language and its symbolic execution semantics in \HASKELL.
 With the help of a couple \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
-Our tool generates execution trees like the one shown in Figure~\ref{diagram:simapp},
+Our tool generates execution trees like the one shown in \cref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
 All path conditions are converted to \SMTLIB compatible statements and are verified using the \ZTHREE \SMT~solver.
 As of now we do not have a parser, programs must be specified directly as abstract syntax trees.

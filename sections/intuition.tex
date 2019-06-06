@@ -13,7 +13,7 @@ Using combinators, tasks can be combined into larger tasks.
 
 The task language is embedded in a simply typed lambda calculus with references, conditionals, booleans, integers, strings, pairs, lists and unary and binary operations on these types.
 References allow tasks to communicate with each other, sharing information across task boundaries.
-The full syntax of the host language is listed in Section~\ref{sec:language}.
+The full syntax of the host language is listed in \cref{sec:language}.
 Next, we discuss the main constructs of the task language.
 
 
@@ -89,4 +89,4 @@ The task $\Fail$ is failing, as is a parallel combination of failing tasks ($\Fa
 The step combinator makes use of both functions in order to determine if it can step.
 First, it uses $\Value$ to see if the left hand side produces a value.
 If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side.
-The complete definition of the value and failing function are discussed in Section~\ref{subsec:observations}.
+The complete definition of the value and failing function are discussed in \cref{subsec:observations}.
