@@ -56,6 +56,27 @@
 
 
 
+
+
+
+% version.tex must define the command \version
+\IfFileExists{version.tex}
+  {\input{version.tex}}
+  {\newcommand{\version}{unknown version}}
+
+\hypersetup
+{ pdfcreator=\version
+}
+
+\usepackage{fancyhdr}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{v.\version}
+
+
+
+
+
+
 \begin{document}
 
 %% Title information
