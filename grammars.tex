@@ -14,7 +14,7 @@
     \addlinespace
       &      &\mid& u\ e_1               & – unary operation \\
       &      &\mid& e_1\ o\ e_2          & – binary operation \\
-      &      &\mid& \If{e_1}{e_2}{e_3}   & – branch \\
+      &      &\mid& \If{e_1}{e_2}{e_3}   & – conditional \\
     \addlinespace
       &      &\mid& \unit                & – unit \\
       &      &\mid& \tuple{e_1, e_2}     & – pair \\
@@ -54,7 +54,7 @@
     & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2                  & – abstraction, application \\
     &       & \mid  & x  \Mid  c \Mid \unit                        & – variable, constant, unit \\
     &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
-    &       & \mid  & \If{e_1}{e_2}{e_3}                           & – branch \\
+    &       & \mid  & \If{e_1}{e_2}{e_3}                           & – conditional \\
     &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
     &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & – nil, cons \\
     &       & \mid  & \Head\ e \Mid \Tail\ e                       & – first element, list tail \\
@@ -73,7 +73,7 @@
     \addlinespace
     & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
     &       & \mid  & + \Mid - \Mid \times \Mid /                  & – numerical \\
-    &       & \mid  & \pp  \Mid \in                                & – append, element \\
+    &       & \mid  & \pp  \Mid \in                                & – append, elementhood \\
   \end{grammar}
 }
 
@@ -103,7 +103,7 @@
   \begin{grammar}
     \noalign{Pretasks}
     \addlinespace
-      & p    &::= & \Edit e \Mid \Enter \tau \Mid \Update e            & – editors: valued, unvalued shared \\
+      & p    &::= & \Edit e \Mid \Enter \tau \Mid \Update e            & – editors: valued, unvalued, shared \\
       &      &\mid& e_1 \Then e_2 \Mid e_1 \Next e_2                   & – steps: internal, external \\
       &      &\mid& \Fail \Mid e_1 \And e_2                            & – fail, composition \\
       &      &\mid& e_1 \Or e_2 \Mid e_1 \Xor e_2                      & – choice: internal, external\\
