@@ -301,67 +301,64 @@ The combination of those two steps is taken care of by the driving semantics, li
 \subsection{Simulating}
 \label{subsec:driving}
 
-The symbolic execution semantics listed above is a small step semantics:
+The symbolic driving semantics are a small step semantics:
 each time it is executed, it simulates one symbolic user input.
-In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is \emph{done}.
-We define a task to be done, when it has an observable value.
-The simulation function listed in Figure~\ref{fig:simulate}, is recursively called to produce a list of end states and path conditions.
+In order to compute every possible symbolic execution, the driving semantics needs to be applied repeatedly, until the task is done.
+We define a task to be done, when it has an observable value,
+i.e. $\Value(t', \sigma') \neq \bot$.
+The simulation function listed in Figure~\ref{fig:simulate} is recursively called to produce a list of end states and path conditions.
 It accumulates all symbolic user inputs and returns the observable task value $v$, the path condition $\phi$, and the current state $\sigma$.
 We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
 A recursive call is terminated when one of the following conditions is met.
 
 \begin{description}
-  \item[$\Sat(\phi)$]
+  \item[$\neg\Sat(\phi)$]
     When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
     In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
 
   \item[$\Value(t,\sigma)$]
     When the current task produces a value, we are at an endpoint, which we can return.
 
-  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \mathit{again}$]
-    When the current task does not produce a value, and then it is equal to the previous task, apart from symbol names in editors, the simulate function performs one look-ahead step in case the task is waiting for an independent symbol.
-    This one step look-ahead is encoded by the $\mathit{again}$-parameter.
-    When this parameter is set to $\False$, one step look-ahead has been performed and simulate does not continue further.
+  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \Again$]
+    When the current task does not produce a value, and it is equal to the previous task apart from symbol names in editors,
+    the $\Simulate$ function performs one look-ahead step in case the task is waiting for an independent symbol.
+    This one step look-ahead is encoded by the $\Again$-parameter.
+    When this parameter is set to $\False$, one step look-ahead has been performed and $\Simulate$ does not continue further.
     If a value is found, it is returned, otherwise the branch that is being explored will be pruned.
 \end{description}
 %We prove that both criteria only remove paths that are invalid or infinite in Section~\ref{sec:properties}.
 
-To better illustrate how the simulate function works, we apply it to Example~\ref{example:abs}.
-
-\fixme{What does this do here? --TS}
-\begin{definition}[Satisfiability of predicates]
-  \label{def:Sat}
-  $\Sat(\phi)$ if and only if there exits a mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that $M\phi\equiv\True$
-\end{definition}
-
-Figure~\ref{diagram:simapp} gives a schematic overview of the application of simulate to
-Simulate will first call the drive semantics, to calculate what input the task takes.
+To better illustrate how the $\Simulate$ function works, we apply it to \cref{lst:abs}.
+Figure~\ref{diagram:simapp} gives a schematic overview of the application of $\Simulate$.
+First, it will call the drive semantics to calculate what input the task takes.
 Users can enter a fresh symbol $s_0$, as listed on the left.
 The symbolic execution then branches, since we reach a conditional.
 Two cases are generated. Either $s_0>0$, the upper branch, or $s_0\leq0$, the  branch to the right.
 In the first case, the resulting task has a value, and the symbolic execution ends, returning that value, and the input observed.
 In the second case, the resulting task does not have a value, and the new task is different from the previous task.
-Therefore, we recurse, and simulate is called again.
+Therefore, we recurse, and $\Simulate$ is called again.
 
 We can now input a fresh symbol $s_1$. Again, $s_1$ can either be larger than zero, or smaller or equal.
-In the first case, again the resulting task has a value, and the execution ends.
+In the first case, the resulting task has a value, and the execution ends.
 In the second case however, the task does not have a value, and we find that the task has not been altered (apart from the new symbol).
-This will result in a recursive call to simulate', where we set the $\mathit{again}$-parameter to $\False$.
+This will result in a recursive call to $\Simulate'$, where we set the $\Again$-parameter to $\False$.
 
-Again, we can input a fresh symbol $s_2$. And again, $s_2$ can be larger than zero, or smaller or equal to it.
+Once more, we can input a fresh symbol $s_2$, and $s_2$ can be larger than zero, or smaller or equal to it.
 In the first case, we have a value and we are done.
-In the second case, we do not have a value, the task again has not changed, but the $\mathit{again}$-parameter is $\False$ and therefore, we do not proceed with the symbolic execution of this branch.
+In the second case, we do not have a value, the task again has not changed, but the $\Again$-parameter is $\False$ and therefore, we do not proceed with the symbolic execution of this branch.
 
+\separate
 This example tells is a few things.
 From manual inspection, it is clear that only the first iteration returns an interesting result.
 When $s_0$ is larger than zero, the task results in a value, that is larger than zero.
 When the input is smaller than or equal to zero, we can only input a new value, until that value is larger than zero.
 So this means, we are back where we started from.
+
 Why does the simulation still proceed then?
 Since the editor $\Enter$ changes to $\Edit$, the tasks are not the same anymore.
-This causes simulate to run an extra iteration.
+This causes $\Simulate$ to run an extra iteration.
 Then, it finds that the task still does not return a value, but now, the tasks have changed.
-Then the simulate function will perform one look-ahead step, by setting the $\mathit{again}$-parameter to $\False$.
+Then $\Simulate$ will perform one look-ahead step, by setting the $\Again$-parameter to $\False$.
 When this look-ahead does not return a value, we close the branch.
 
 
