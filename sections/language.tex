@@ -86,9 +86,8 @@ This means that instead of concrete values, editors can only hold symbols.
 
 \subsection{Path conditions}
 
-When the execution of a \TOPHAT program takes a certain path, there are always certain conditions to arrive at that point.
-A user selects the left task, a user enters a value that is used to select the next task, etc.
-Since this information is not available during symbolic execution, we need to record how the path depends on the input.
+Concrete execution of \TOPHAT programs is driven by concrete inputs, which select one branch of conditionals, or make a choice.
+Since no concrete information is available during symbolic execution, the execution engine records how each execution path depends on the symbolic input.
 This is done by means of path conditions.
 \Cref{fig:syntaxpredicates} lists the syntax for path conditions.
 
@@ -99,5 +98,5 @@ This is done by means of path conditions.
   \label{fig:syntaxpredicates}
 \end{figure}
 
-Path conditions are a subset of those values that are of a basic type $\beta$.
+Path conditions are a subset of the values of basic type $\beta$.
 They can contain symbols, constants, pairs, lists, and operations on them.
