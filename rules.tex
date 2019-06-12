@@ -259,16 +259,16 @@
   {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}}
   [\Value{(t_1,\sigma)} = \bot]
 
-\newrule{SH-PassNext1}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
-  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\highlight{\phi}}}
-  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma',\highlight{i,\phi}}}
-  [\Value{(t_1,\sigma)} = v_1 \land \Failing{(t_2,\sigma')}]
+\newrule{SH-PassNextFail}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma_1',\highlight{i,\phi}} \Quad
+  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma_2',\highlight{\vphantom{i}\_}}}
+  {t_1 \Next e_2,\sigma \handle{} \overline{t_1' \Next e_2,\sigma_1',\highlight{i,\phi}}}
+  [\Value{(t_1,\sigma)} = v_1 \land \Failing{(t_2,\sigma_2')}]
 
 \newrule{SH-Next}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
-  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma',\highlight{\phi}}}
-  {t_1 \Next e_2,\sigma \handle{} \highlight{\overline{t_1' \Next e_2,\sigma',i,\phi}\cup\overline{t_2,\sigma',\Continue,\phi}}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma_1',\highlight{i_1,\phi_1}} \Quad
+  e_2\ v_1,\sigma \normalise \overline{t_2,\sigma_2',\highlight{\phi_2}}}
+  {t_1 \Next e_2,\sigma \handle{} \highlight{\overline{t_1' \Next e_2,\sigma_1',i_1,\phi_1}\cup\overline{t_2,\sigma_2',\Continue,\phi_2}}}
   [\Value{(t_1,\sigma)} = v_1 \land \neg\Failing{(t_2,\sigma')}]
 
 
