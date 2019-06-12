@@ -30,7 +30,7 @@ Execution only arrives at the value $v$ and state $\sigma'$ when the inputs sati
 
 To illustrate the difference between concrete and symbolic evaluation, \cref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \userule{E-Edit}\Quad
@@ -52,7 +52,7 @@ Most symbolic rules closely resemble their concrete counterparts, and follow dir
 The rules are not listed here, a full overview can be found in \cref{sec:symbolic-evaluation-rules}.
 
 The only interesting rule is the one for conditionals, listed in \cref{fig:eval}.
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \boxed{\RelationSE} \Break
@@ -81,7 +81,7 @@ The partial function $\Value$ can be used to observe the value of a task.
 Its definition is given in \cref{fig:value}.
 It is unchanged with respect to the original.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{center}
     \usemacro{O-Value}
@@ -90,7 +90,7 @@ It is unchanged with respect to the original.
   \label{fig:value}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{center}
     \usemacro{O-Failing}
@@ -173,7 +173,7 @@ There is one rule for the case where only the right fails, one rule when the lef
 After input has been handled, tasks are normalised.
 The combination of those two steps is taken care of by the driving semantics, listed in \cref{fig:driving}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \boxed{\RelationSI} \Break

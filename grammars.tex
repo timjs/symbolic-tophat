@@ -167,9 +167,9 @@
     \noalign{Values}
     \addlinespace
       & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
-      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2                          & - nil, cons\\
-      &   & \mid & c \Mid l \Mid t \Mid \highlight{s}                  & – constant, location, task, symbol \\
-      &   & \mid & \highlight{u\ v \Mid v_1\ o\ v_2}                   & – symbolic unary/binary operation\\
+      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2 \Mid c                   & - nil, cons, constant \\
+      &   & \mid & l \Mid t \Mid \highlight{s}                         & – location, task, symbol \\
+      &   & \mid & \highlight{u\ v \Mid v_1\ o\ v_2}                   & – unary/binary operation \\
   \end{grammar}
 }
 
