@@ -171,7 +171,18 @@ The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed
 \subsection{Completeness}
 
 We also want to show that for every concrete execution, a symbolic one exists.
-This completeness property is listed in \cref{thm:completeDrive}.
+
+In order to state this Theorem, we require a simulation relation $i\sim j$, which means that the symbolic input $i$ follows the same direction as the concrete input $j$.
+This relation is defined below.
+
+\begin{definition}[Input simulation]
+  A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
+  $s\sim a$, where $s$ is a symbol and $a$ a concrete action.\\
+  $i\sim j\implies \First i \sim \First j$\\
+  $i\sim j\implies \Second i \sim \Second j$
+\end{definition}
+
+This allows us to define the completeness property as listed in \cref{thm:completeDrive}.
 
 % \begin{theorem}[Completeness of symbolic execution]
 % For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
@@ -182,21 +193,14 @@ This completeness property is listed in \cref{thm:completeDrive}.
 %
 % \fixme{Proof of thm 5.2 is required for this thm}
 
+
+
 \begin{theorem}[Completeness of driving]
   \label{thm:completeDrive}
-  For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} t',\sigma'$
-  there exists an $i\sim j$ such that $t,\sigma''\drive{i} t'',\sigma''',\phi$.
+  For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} \hat{t'},\hat{\sigma'}$
+  there exists an $i\sim j$ such that $t,\sigma''\drive{} t'',\sigma''',i,\phi$.
 \end{theorem}
 
-Where with $i\sim j$ we mean that the symbolic input $i$ follows the same direction as the concrete input.
-This relation is defined below.
-
-\begin{definition}[Input simulation]
-  A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
-  $s\sim a$, where $s$ is a symbol and $a$ a concrete action.\\
-  $i\sim j\implies \First i \sim \First j$\\
-  $i\sim j\implies \Second i \sim \Second j$
-\end{definition}
 
 The proof of \cref{thm:completeDrive} is rather simple.
 We show that handling is complete (\cref{lem:completeHandle})
@@ -205,7 +209,7 @@ and that the subsequent normalisation is complete (\cref{lem:completeNormalise})
 
 \begin{lemma}[Completeness of handling]
   \label{lem:completeHandle}
-  For all $t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} t',\sigma'$
+  For all $t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} \hat{t'},\hat{\sigma'}$
   there exists an $i\sim j$ such that $t,\sigma''\handle{i} t'',\sigma''',\phi$.
 \end{lemma}
 
@@ -218,23 +222,24 @@ These properties are listed in \cref{lem:completeNormalise,lem:completeStride,le
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}
-  For all $e,\sigma$ such that $e,\sigma \bar{\normalise}t',\sigma'$
+  For all $e,\sigma$ such that $e,\sigma \bar{\normalise}\hat{t'},\hat{\sigma'}$
   there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of striding]
   \label{lem:completeStride}
-  For all $t,\sigma$ such that $t,\sigma \bar{\stride}t',\sigma'$
+  For all $t,\sigma$ such that $t,\sigma \bar{\stride}\hat{t'},\hat{\sigma'}$
   there exists a symbolic execution $t,\sigma''\eval t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
-  For all $e,\sigma$ such that $e,\sigma \bar{\eval}v,\sigma'$
+  For all $e,\sigma$ such that $e,\sigma \bar{\eval}\hat{v},\hat{\sigma'}$
   there exists a symbolic execution $e,\sigma''\eval v',\sigma''',\phi$.
 \end{lemma}
 
 
 The proofs of \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} are trivial, since every concrete execution in these semantics is also a symbolic one.
+The full proofs are listed in \cref{sec:completeness-proofs}.
