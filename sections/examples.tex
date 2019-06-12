@@ -28,7 +28,7 @@ Imagine that we would like to prove that no matter which value is given as input
 the only possible outcome is a value greater than zero.
 
 Symbolic execution of this program proceeds as follows.
-The symbolic execution engine generates a symbolic input $s$ for the editor on the left.
+The symbolic execution engine generates a fresh symbolic input $s$ for the editor on the left.
 The engine then arrives at the conditional.
 In order to take the then-branch, the condition $s > 0$ needs to hold.
 This branch will then result in $\Edit s$, in which case the program has an observable value.

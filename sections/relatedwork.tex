@@ -22,7 +22,7 @@ Hallahan et al solve this with a technique called \emph{defunctionalization}, wh
 Giantosis et al also require all source code to be present, but they only analyze first-order functions.
 They can execute higher-order functions, but only with concrete arguments.
 Our method also requires closed well-typed terms, so we never execute a higher-order function in isolation.
-Furthermore, we currently do not allow functions as task values.
+Furthermore, we currently do not allow functions and tasks as task values.
 Together, this means that symbolic values can never be functions.
 
 

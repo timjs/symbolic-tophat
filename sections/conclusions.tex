@@ -13,9 +13,9 @@ Our approach has been validated by proving the formal system correct, and by run
 There are many ways in which we would like to continue this line of work.
 
 First, we believe that more can be done with symbolic execution.
-Our current approach only allows proving predicates over task results.
-We would like to be able to relate properties to symbolic inputs.
-This would allow proving properties like when a user enters certain values, the task exhibits a certain behaviour.
+Our current approach only allows proving predicates over task results and input values.
+We cannot, however, prove properties that depend on the order of the inputs.
+Since the symbolic execution currently returns a list of symbolic inputs, we think this extension is feasible.
 
 Second, our symbolic execution only applies to \TOPHAT.
 We would like to see if we can fit it to iTasks.
