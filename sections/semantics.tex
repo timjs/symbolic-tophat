@@ -143,7 +143,7 @@ As symbolic normalisation can yield multiple results, all of the results must be
 \subsection{Normalisation}
 
 Normalization reduces tasks until they are ready to receive input.
-Very little had to be changed to accommodate symbolic execution.
+Very little has to be changed to accommodate symbolic execution.
 Just like the evaluation semantics it now gathers sets of results, each element guarded by a path condition.
 \Cref{fig:normalising} lists the normalisation semantics.
 For the striding semantics, we refer to the appendix.
@@ -153,7 +153,7 @@ For the striding semantics, we refer to the appendix.
 \subsection{Handling}
 
 The handling semantics deals with user input.
-In the symbolic case there are symbols in place of concrete inputs.
+In the symbolic case there are symbols instead of concrete inputs.
 A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
 \Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
 
@@ -366,7 +366,7 @@ In this example all are trivially solvable.
 \subsection{Implementation}
 
 We implemented our language and its symbolic execution semantics in \HASKELL.
-With the help of a couple \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
+With the help of a couple of \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
 Our tool generates execution trees like the one shown in \cref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
 All path conditions are converted to \SMTLIB compatible statements and are verified using the \ZTHREE \SMT~solver.
