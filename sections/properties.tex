@@ -123,7 +123,7 @@ One showing that the handling semantics is sound, \cref{lem:soundhandle}, and on
 
   For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $t,\sigma\handle{i} \overline{t',\sigma',\phi}$,
-  we have $\phi M = \True$ implies
+  we have $M\phi$ implies
   $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
 \end{lemma}
 
@@ -135,7 +135,7 @@ The full proof is listed in \cref{sec:soundness-proofs}.
 
   For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $e,\sigma\normalise \overline{t,\sigma',\phi}$,
-  we have $\phi M =\True$ implies
+  we have $M\phi$ implies
   $e,M \sigma \bar{\normalise}t',\sigma''$, $t M \equiv t'$ and $\sigma' M \equiv \sigma''$.
 
 \end{lemma}
