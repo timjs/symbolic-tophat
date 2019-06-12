@@ -48,7 +48,7 @@ From that we can conclude that no matter what input is given, the only result va
 \subsection{Tax subsidy request}
 
 \citet{conf/sfp/StutterheimAP17} worked with the Dutch tax office to develop a demonstrator for a fictional but realistic law about solar panel subsidies.
-In this section we study a simplified version of this, translated to \TOPHAT, to illustrate how symbolic TopHat can be used to prove that the program implements the law.
+In this section we study a simplified version of this, translated to \TOPHAT, to illustrate how symbolic execution can be used to prove that the program implements the law.
 
 This example proves that a citizen will get subsidy only under the following conditions.
 \begin{itemize}
@@ -58,7 +58,7 @@ This example proves that a citizen will get subsidy only under the following con
 \item The amount of the granted subsidy is maximal 600 EUR.
 \end{itemize}
 
-\lstset{emph={invoiceDate,today,confirmed,invoiceAmount,decision}}
+\lstset{emph={invoiceDate,today,confirmed,invoiceAmount,approved}}
 \begin{TASK}[float=h
             ,numbers=right
             ,caption=Subsidy request and approval workflow at the Dutch tax office.
@@ -73,11 +73,10 @@ This example proves that a citizen will get subsidy only under the following con
   provideCitizenInformation >>= \ today.|\label{fig:taxman-citizen-info}|
   provideDocuments <&> companyConfirm >>= |\label{fig:taxman-documents-and-company-confirm}|
     \ <<<<invoiceAmount, invoiceDate>>, confirmed>>.
-  officerApprove invoiceDate today confirmed >>= \ decision.|\label{fig:taxman-officer-approve}|
-  let subsidyAmount = if decision
+  officerApprove invoiceDate today confirmed >>= \ approved.|\label{fig:taxman-officer-approve}|
+  let subsidyAmount = if approved
     then min 600 (invoiceAmount / 10) else 0 in
-  edit <<subsidyAmount, decision, confirmed, invoiceAmount,|\label{fig:taxman-result}|
-    invoiceDate, today>>
+  edit <<subsidyAmount, approved, confirmed, invoiceDate, today>>|\label{fig:taxman-result}|
 \end{TASK}
 
 \Cref{fig:thetaxman} shows the program.
@@ -86,28 +85,27 @@ we omit type annotations and make use of pattern matching on tuples.
 The program works as follows.
 First, the citizen has to enter their personal information (\cref{fig:taxman-citizen-info}).
 In the original demonstrator this included the citizen service number, name, and home address.
-The current date was obtained from the system.
-For the example here we simplified it so that the citizen only has to enter the current date, because the other information were used just for display.
-For simplicity, a date is specified using an integer representing the number of days since 1 January 2000.
+Here, we simplified the example so that the citizen only has to enter the invoice date.
+A date is specified using an integer representing the number of days since 1 January 2000.
 
 In the next step (\cref{fig:taxman-documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
 Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
 The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (\cref{fig:taxman-officer-approve-def}).
 The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
 
-The result of the overall task is a tuple with the subsidy amount, the officer's decision, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
+The result of the overall task is a tuple with the subsidy amount, the officer's approval, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
 Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
 The predicate has 5 free variables, which correspond to the returned values.
 \setcounter{equation}{0}
 \begin{align}
-\psi(s,d,c,a,i,t)
+\psi(s,a,c,i,t)
    & =      s \geq 0 \implies c \label{tax-psi-confirmed}
 \\ & \wedge s \geq 0 \implies a \label{tax-psi-approved}
 \\ & \wedge a \implies c \wedge t - i \leq 356 \label{tax-psi-approve-conditions}
 \\ & \wedge s \leq 600 \label{tax-psi-max-subsidy}
 \\ & \wedge \lnot a \implies s \equiv 0 \label{tax-psi-unapproved}
 \end{align}
-The predicate $\psi$ states that (\ref{tax-psi-confirmed}) if subsidy has been payed, the roofing company must have confirmed, (\ref{tax-psi-approved}) if subsidy has been payed, the officer must have approved, (\ref{tax-psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date is within 356 days of the invoice date, and (\ref{tax-psi-max-subsidy}) the subsidy is maximal 600 EUR.
+The predicate $\psi$ states that (\ref{tax-psi-confirmed}) if subsidy $s$ has been payed, the roofing company must have confirmed $c$, (\ref{tax-psi-approved}) if subsidy has been payed, the officer must have approved $a$, (\ref{tax-psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date $t$ is within 356 days of the invoice date $i$, and (\ref{tax-psi-max-subsidy}) the subsidy is maximal 600 EUR.
 Finally, (\ref{tax-psi-unapproved}) if the officer has not approved, the subsidy must be 0.
 
 
@@ -115,7 +113,7 @@ Finally, (\ref{tax-psi-unapproved}) if the officer has not approved, the subsidy
 \subsection{Flight booking}
 
 In this section we develop a small flight booking system.
-The purpose of this example is to demonstrate how Symbolic TopHat handles references and lists.
+The purpose of this example is to demonstrate how symbolic execution handles references and lists.
 We prove that when the program terminates, every passenger has exactly one seat, and that no two passengers have the same seat.
 This program is a simplified version of what we presented in earlier work \cite{Steenvoorden2019}.
 
@@ -137,6 +135,7 @@ The program, shown in \cref{fig:flight-booking}, consists of three parallel seat
 There is a shared list that stores all booked seats so far (\cref{flight:make-ref}).
 In order to book a seat, a passenger has to enter a seat number (\cref{flight:enter-seat-number}).
 A guard expression makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
+The exclamation mark denotes dereferencing.
 The main expression runs the seat booking task three times in parallel (\cref{flight:main-expression}), simulating three concurrent customers.
 The program returns the list of booked seats.
 
@@ -147,6 +146,6 @@ With the returned list, we can state the predicate to verify the correctness of 
    & =      \Len l \equiv 3 \label{flight-psi-exactly-three-seats}
 \\ & \wedge \Uniq l \label{flight-psi-unique-seats}
 \end{align}
-The predicate specifies that every passenger got exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passenger got the same seat.
+The predicate specifies that all three passengers got exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passenger got the same seat.
 The unary operators for list length ($\Len$) and uniqueness ($\Uniq$) are available in the predicate language.
 List length is a capability of \SMTLIB, while $\Uniq$ is our own addition.
