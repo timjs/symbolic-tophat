@@ -273,31 +273,31 @@
 
 
 \newrule{SH-And}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi}} \Quad
-   t_2,\sigma \handle{} \overline{t_2',i,\sigma'',\highlight{i,\phi}}}
-  {t_1 \And t_2,\sigma \handle{} \highlight{\overline{t_1' \And t_2,\sigma',\First i,\phi}\cup \overline{t_1 \And t_2',\sigma'',\Second i,\phi}}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma_1',\highlight{i_1,\phi_1}} \Quad
+   t_2,\sigma \handle{} \overline{t_2',\sigma_2',\highlight{i_2,\phi_2}}}
+  {t_1 \And t_2,\sigma \handle{} \highlight{\overline{t_1' \And t_2,\sigma_1',\First i_1,\phi_1}\cup \overline{t_1 \And t_2',\sigma_2'',\Second i_2,\phi_2}}}
 
 \newrule{SH-Or}
-  {t_1,\sigma \handle{} \overline{t_1',\sigma',\highlight{i,\phi_1}}\Quad
-  t_2,\sigma \handle{} \overline{t_2',\sigma'',\highlight{i,\phi_2} }}
-  {t_1 \Or t_2,\sigma \handle{} \highlight{\overline{t_1' \Or t_2,\sigma',\First i,\phi_1}\cup\overline{t_1 \Or t_2',\sigma'',\Second i,\phi_2}}}
+  {t_1,\sigma \handle{} \overline{t_1',\sigma_1',\highlight{i_1,\phi_1}}\Quad
+  t_2,\sigma \handle{} \overline{t_2',\sigma_2',\highlight{i_2,\phi_2} }}
+  {t_1 \Or t_2,\sigma \handle{} \highlight{\overline{t_1' \Or t_2,\sigma_1',\First i_!,\phi_1}\cup\overline{t_1 \Or t_2',\sigma_2',\Second i_2,\phi_2}}}
 
 
 \newrule{SH-PickLeft}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
-   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_2}}}
   {e_1 \Xor e_2,\sigma \handle{} t_1,\sigma_1,\highlight{\Left,\phi_1}}
   [\neg\Failing(t_1,\sigma_1) \land \Failing(t_2,\sigma_2)]
 
 \newrule{SH-PickRight}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
-   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_2}}}
   {e_1 \Xor e_2,\sigma \handle{} t_2,\sigma_2,\highlight{\Right,\phi_2}}
-  [\Failing(t_1,\sigma_1) \land \neg\Failing(t_2,\sigma_1)]
+  [\Failing(t_1,\sigma_1) \land \neg\Failing(t_2,\sigma_2)]
 
 \newrule{SH-Pick}
   {e_1,\sigma \normalise \overline{t_1,\highlight{\sigma_1,\phi_1}} \Quad
-   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_1}}}
+   e_2,\sigma \normalise \overline{t_2,\highlight{\sigma_2,\phi_2}}}
   {e_1 \Xor e_2,\sigma \handle{} \highlight{\overline{t_1,\sigma_1,\Left,\phi_1}\cup\overline{t_2,\sigma_2,\Right,\phi_2}}}
   [\neg\Failing(t_1,\sigma_1) \land \neg\Failing(t_2,\sigma_2)]
 

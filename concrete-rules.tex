@@ -151,7 +151,7 @@
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newmacro{RelationE}
-  {e,\hat{\sigma} \hat{\eval} v,\hat{\sigma}'}
+  {e,\hat{\sigma} \hat{\eval} \hat{v},\hat{\sigma}'}
 
 
 \newrule{E-Value}
@@ -268,7 +268,7 @@
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newmacro{RelationS}
-  {t,\hat{\sigma} \hat{\stride} t',\hat{\sigma}'}
+  {t,\hat{\sigma} \hat{\stride} \hat{t'},\hat{\sigma}'}
 
 
 \newrule{S-Edit}
@@ -349,7 +349,7 @@
 %% Normalisation %%
 
 \newmacro{RelationN}
-  {e,\hat{\sigma} \hat{\normalise} t,\hat{\sigma}'}
+  {e,\hat{\sigma} \hat{\normalise} \hat{t},\hat{\sigma}'}
 
 
 \newrule{N-Done}
@@ -370,7 +370,7 @@
 %% Handling %%
 
 \newmacro{RelationH}
-  {t,\hat{\sigma} \hat{\handle{j}} t',\hat{\sigma}'}
+  {t,\hat{\sigma} \handle{j} \hat{t'},\hat{\sigma}'}
 
 
 \newrule{H-Change}
@@ -394,12 +394,12 @@
   [\sigma(l),v:\tau]
 
 \newrule{H-PassThen}
-  {t_1,\sigma \xrightarrow[]{j} t_1',\sigma'}
-  {t_1 \Then e_2,\sigma \xrightarrow[]{j} t_1' \Then e_2,\sigma'}
+  {t_1,\sigma \xrightarrow[]{j} \hat{t_1'},\sigma'}
+  {t_1 \Then e_2,\sigma \xrightarrow[]{j} \hat{t_1'} \Then e_2,\sigma'}
 
 \newrule{H-PassNext}
-  {t_1,\sigma \xrightarrow[]{j} t_1',\sigma'}
-  {t_1 \Next e_2,\sigma \xrightarrow[]{j} t_1' \Next e_2,\sigma'}
+  {t_1,\sigma \xrightarrow[]{j} \hat{t_1'},\sigma'}
+  {t_1 \Next e_2,\sigma \xrightarrow[]{j} \hat{t_1'} \Next e_2,\sigma'}
 
 \newrule{H-Next}
   {e_2\ \hat{v_1},\sigma \hat{\normalise} \hat{t_2},\hat{\sigma}'}
@@ -440,7 +440,7 @@
 %% Driving %%
 
 \newmacro{RelationI}
-  {\hat{t},\hat{\sigma} \hat{\drive{j}} \hat{t}',\hat{\sigma}'}
+  {\hat{t},\hat{\sigma} \drive{j} \hat{t}',\hat{\sigma}'}
 
 
 
