@@ -21,114 +21,114 @@
 \case{$e=\tuple{e_1,e_2}$}
   {One rule applies, namely \userule{SE-Pair}\\
   Provided that $M\phi_1\wedge M\phi_2$,
-  we need to demonstrate that  \userule{E-Pair} with $\bar{\sigma}=M\sigma$,
-  $M\tuple{v_1,v_2} \equiv \tuple{\bar{v_1},\bar{v_2}}$ and $M\sigma''\equiv\bar{\sigma''}$.
+  we need to demonstrate that  \userule{E-Pair} with $\hat{\sigma}=M\sigma$,
+  $M\tuple{v_1,v_2} \equiv \tuple{\hat{v_1},\hat{v_2}}$ and $M\sigma''\equiv\hat{\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}\land  M_1v_1\equiv \bar{v_1} \land  M_1\sigma'\equiv\bar{\sigma'}$ and
-  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}\land M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma''}$
+  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \hat{\eval}\hat{v_1},\hat{\sigma'}\land  M_1v_1\equiv \hat{v_1} \land  M_1\sigma'\equiv\hat{\sigma'}$ and
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \hat{\eval}\hat{v_2},\hat{\sigma''}\land M_2v_2\equiv \hat{v_2} \wedge M_2\sigma'\equiv\hat{\sigma''}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-  and we know that $M\sigma'\equiv \bar{\sigma'}$
-  we obtain that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}$,
-  $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}$, $M\sigma'\equiv \bar{\sigma'}$,
- $M v_1\equiv \bar{v_1}$ and $M v_2 \equiv \bar{v_2}$ and therefore $M\tuple{v_1,v_2} \equiv \tuple{\bar{v_1},\bar{v_2}}$.
-  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.
+  and we know that $M\sigma'\equiv \hat{\sigma'}$
+  we obtain that $e_1,M\sigma \hat{\eval}\hat{v_1},\hat{\sigma'}$,
+  $e_2,M\sigma'\hat{\eval}\hat{v_2},\hat{\sigma''}$, $M\sigma'\equiv \hat{\sigma'}$,
+ $M v_1\equiv \hat{v_1}$ and $M v_2 \equiv \hat{v_2}$ and therefore $M\tuple{v_1,v_2} \equiv \tuple{\hat{v_1},\hat{v_2}}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\hat{\sigma''}$.
   }
 
 \case{$e=\Fst e$}
 {
   One rule applies, namely \userule{SE-First}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{E-First} with $\bar{\sigma}=M\sigma$,
-  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we need to demonstrate that \userule{E-First} with $\hat{\sigma}=M\sigma$,
+  $M v_1\equiv \hat{v_1}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\bar{v_1},\bar{v_2}}\land M_1\sigma'\equiv\bar{\sigma'}$
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\hat{\eval}\tuple{\hat{v_1},\hat{v_2}},\hat{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\hat{v_1},\hat{v_2}}\land M_1\sigma'\equiv\hat{\sigma'}$
 
   Since $M$ satisfies $\phi$,
-  we directly obtain that $\Fst e,\sigma\bar{\eval}\bar{v_1}$,
-  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we directly obtain that $\Fst e,\sigma\hat{\eval}\hat{v_1}$,
+  $M v_1\equiv \hat{v_1}$ and $M\sigma'\equiv\hat{\sigma'}$.
   }
 
 \case{$e=\Snd e$}
 { One rule applies, namely \userule{SE-Second}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{E-Second} with $\bar{\sigma}=M\sigma$,
-  $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we need to demonstrate that \userule{E-Second} with $\hat{\sigma}=M\sigma$,
+  $M v_2\equiv \hat{v_2}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\tuple{\bar{v_1},\bar{v_2}},\bar{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\bar{v_1},\bar{v_2}}\land M_1\sigma'\equiv\bar{\sigma'}$
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\hat{\eval}\tuple{\hat{v_1},\hat{v_2}},\hat{\sigma'}\land M_1\tuple{v_1,v_2}\equiv \tuple{\hat{v_1},\hat{v_2}}\land M_1\sigma'\equiv\hat{\sigma'}$
 
   Since $M$ satisfies $\phi$,
-  we directly obtain that $\Snd e,\sigma\bar{\eval}\bar{v_2}$,
-  $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we directly obtain that $\Snd e,\sigma\hat{\eval}\hat{v_2}$,
+  $M v_2\equiv \hat{v_2}$ and $M\sigma'\equiv\hat{\sigma'}$.
   }
 
 \case{$e=e_1::e_2$}
   {One rule applies, namely \userule{SE-Cons}\\
   Provided that $M\phi$,
   we need to demonstrate that \userule{E-Cons} with $bar{\sigma}=M\sigma$,
-  $M v_1::v_2\equiv \bar{v_1}::\bar{v_2}$ and $M\sigma''\equiv\bar{\sigma''}$.
+  $M v_1::v_2\equiv \hat{v_1}::\hat{v_2}$ and $M\sigma''\equiv\hat{\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}\land  M_1v_1\equiv \bar{v_1} \land  M_1\sigma'\equiv\bar{\sigma'}$ and
-  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}\land M_2v_2\equiv \bar{v_2} \wedge M_2\sigma'\equiv\bar{\sigma''}$
+  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \hat{\eval}\hat{v_1},\hat{\sigma'}\land  M_1v_1\equiv \hat{v_1} \land  M_1\sigma'\equiv\hat{\sigma'}$ and
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \hat{\eval}\hat{v_2},\hat{\sigma''}\land M_2v_2\equiv \hat{v_2} \wedge M_2\sigma'\equiv\hat{\sigma''}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-  and we know that $M\sigma'\equiv \bar{\sigma'}$
-  we obtain that $e_1,M\sigma \bar{\eval}\bar{v_1},\bar{\sigma'}$,
-  $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}$, $M\sigma'\equiv \bar{\sigma'}$,
- $M v_1\equiv \bar{v_1}$ and $M v_2 \equiv \bar{v_2}$ and therefore $M(v_1::v_2) \equiv \bar{v_1}::\bar{v_2}$.
-  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.}
+  and we know that $M\sigma'\equiv \hat{\sigma'}$
+  we obtain that $e_1,M\sigma \hat{\eval}\hat{v_1},\hat{\sigma'}$,
+  $e_2,M\sigma'\hat{\eval}\hat{v_2},\hat{\sigma''}$, $M\sigma'\equiv \hat{\sigma'}$,
+ $M v_1\equiv \hat{v_1}$ and $M v_2 \equiv \hat{v_2}$ and therefore $M(v_1::v_2) \equiv \hat{v_1}::\hat{v_2}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\hat{\sigma''}$.}
 
 \case{$e=\Head e$}
   {One rule applies, namely \userule{SE-Head}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{E-Head} with $\bar{\sigma}=M\sigma$,
-  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we need to demonstrate that \userule{E-Head} with $\hat{\sigma}=M\sigma$,
+  $M v_1\equiv \hat{v_1}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma'}\land M_1 (v_1::v_2)\equiv \bar{v_1}::\bar{v_2}\land M_1\sigma'\equiv\bar{\sigma'}$
+  $\forall M_1 . M_1\phi \implies e, M_1\sigma\hat{\eval}\hat{v_1}::\hat{v_2},\hat{\sigma'}\land M_1 (v_1::v_2)\equiv \hat{v_1}::\hat{v_2}\land M_1\sigma'\equiv\hat{\sigma'}$
 
   Since $M$ satisfies $\phi$,
-  we directly obtain that $\Head e,\sigma\bar{\eval}\bar{v_1}$,
-  $M v_1\equiv \bar{v_1}$ and $M\sigma'\equiv\bar{\sigma'}$.}
+  we directly obtain that $\Head e,\sigma\hat{\eval}\hat{v_1}$,
+  $M v_1\equiv \hat{v_1}$ and $M\sigma'\equiv\hat{\sigma'}$.}
 
 \case{$e=\Tail e$}
   {One rule applies, namely \userule{SE-Tail}\\
     Provided that $M\phi$,
-    we need to demonstrate that \userule{E-Tail} with $\bar{\sigma}=M\sigma$,
-    $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+    we need to demonstrate that \userule{E-Tail} with $\hat{\sigma}=M\sigma$,
+    $M v_2\equiv \hat{v_2}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1\phi \implies e, M_1\sigma\bar{\eval}\bar{v_1}::\bar{v_2},\bar{\sigma'}\land M_1(v_1::v_2)\equiv \bar{v_1}::\bar{v_2}\land M_1\sigma'\equiv\bar{\sigma'}$
+    $\forall M_1 . M_1\phi \implies e, M_1\sigma\hat{\eval}\hat{v_1}::\hat{v_2},\hat{\sigma'}\land M_1(v_1::v_2)\equiv \hat{v_1}::\hat{v_2}\land M_1\sigma'\equiv\hat{\sigma'}$
 
     Since $M$ satisfies $\phi$,
-    we directly obtain that $\Tail e,\sigma\bar{\eval}\bar{v_2}$,
-    $M v_2\equiv \bar{v_2}$ and $M\sigma'\equiv\bar{\sigma'}$.}
+    we directly obtain that $\Tail e,\sigma\hat{\eval}\hat{v_2}$,
+    $M v_2\equiv \hat{v_2}$ and $M\sigma'\equiv\hat{\sigma'}$.}
 
 \case{$e=e_1 e_2$}
   {One rule applies, namely \userule{SE-App}\\
   Provided that $M\phi_1 \land M\phi_2\land M\phi_3$,
   we need to demonstrate that
-  \userule{E-App} with $\bar{\sigma}=M\sigma$,
-   $M v_1 \equiv \bar{v_1}$ and $M\sigma'''\equiv\bar{\sigma'''}$.
+  \userule{E-App} with $\hat{\sigma}=M\sigma$,
+   $M v_1 \equiv \hat{v_1}$ and $M\sigma'''\equiv\hat{\sigma'''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\bar{\eval}\lambda x : \tau.\bar{e_1'},\bar{\sigma'}
-  \land M_1\lambda x : \tau.e_1' \equiv \lambda x : \tau.\bar{e_1'} \land M_1\sigma'\equiv\bar{\sigma'}$
+  $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\hat{\eval}\lambda x : \tau.\hat{e_1'},\hat{\sigma'}
+  \land M_1\lambda x : \tau.e_1' \equiv \lambda x : \tau.\hat{e_1'} \land M_1\sigma'\equiv\hat{\sigma'}$
   and\\
-  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}
-  \land M_2 v_2 \equiv \bar{v_2} \land M_2\sigma'' \equiv\bar{\sigma''}$
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma'\hat{\eval}\hat{v_2},\hat{\sigma''}
+  \land M_2 v_2 \equiv \hat{v_2} \land M_2\sigma'' \equiv\hat{\sigma''}$
   and\\
-  $\forall M_3 . M_3\phi_3 \implies \bar{e_1'}[x\mapsto \bar{v_2}],M_3\sigma''\bar{\eval}\bar{v_1},\bar{\sigma'''}
-  \land M_3 v_1\equiv \bar{v_1} \land M_3 \sigma'''\equiv\bar{\sigma'''}$.
+  $\forall M_3 . M_3\phi_3 \implies \hat{e_1'}[x\mapsto \hat{v_2}],M_3\sigma''\hat{\eval}\hat{v_1},\hat{\sigma'''}
+  \land M_3 v_1\equiv \hat{v_1} \land M_3 \sigma'''\equiv\hat{\sigma'''}$.
 
   Since $M$ satisfies both $\phi_1$, $\phi_2$ and $\phi_3$, and we know that
-  $M\sigma' \equiv\bar{\sigma'}$ and $M\sigma'' \equiv\bar{\sigma''}$,
-  we obtain that $e_1,M\sigma \bar{\eval}\lambda x : \tau.\bar{e_1'},\bar{\sigma'}$, $e_2,M\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}$ and $\bar{e_1'}[x\mapsto \bar{v_2}],M\sigma'' \bar{\eval}\bar{v_1},\bar{\sigma'''}$.
-  We can then directly conclude that $M v_1 \equiv \bar{v_1}$ and $M\sigma'''\equiv\bar{\sigma'''}$.
+  $M\sigma' \equiv\hat{\sigma'}$ and $M\sigma'' \equiv\hat{\sigma''}$,
+  we obtain that $e_1,M\sigma \hat{\eval}\lambda x : \tau.\hat{e_1'},\hat{\sigma'}$, $e_2,M\sigma' \hat{\eval}\hat{v_2},\hat{\sigma''}$ and $\hat{e_1'}[x\mapsto \hat{v_2}],M\sigma'' \hat{\eval}\hat{v_1},\hat{\sigma'''}$.
+  We can then directly conclude that $M v_1 \equiv \hat{v_1}$ and $M\sigma'''\equiv\hat{\sigma'''}$.
   }
 
 \case{$e=\If{e_1}{e_2}{e_3}$}
@@ -136,182 +136,182 @@
 
    In case that $M\phi_1\land M\phi_2 \land Mv_1$,
    we need to demonstrate that
-   \userule{E-IfTrue} with $\bar{\sigma}=M\sigma$,
-   $M v_2 = \bar{v_2}$ and $M\sigma''=\bar{\sigma''}$.
+   \userule{E-IfTrue} with $\hat{\sigma}=M\sigma$,
+   $M v_2 = \hat{v_2}$ and $M\sigma''=\hat{\sigma''}$.
 
    From the induction hypothesis, we obtain the following.\\
-   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}
-   \land M_1v_1 \equiv \bar{v_1} \land M_1\sigma'\equiv\bar{\sigma'}$
+   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\hat{\eval}\hat{v_1},\hat{\sigma'}
+   \land M_1v_1 \equiv \hat{v_1} \land M_1\sigma'\equiv\hat{\sigma'}$
    and\\
-   $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}
-   \land M_2 v_2 \equiv \bar{v_2} \land M_2\sigma'' \equiv\bar{\sigma''}$.
+   $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma'\hat{\eval}\hat{v_2},\hat{\sigma''}
+   \land M_2 v_2 \equiv \hat{v_2} \land M_2\sigma'' \equiv\hat{\sigma''}$.
 
-   Since $M$ satisfies $\phi_1$, and $M v_1=\True$, we know from the application of the induction hypothesis above, that $\bar{v_1}=\True$.\\
-   Furthermore, $M$ satisfies $\phi_2$, so we directly obtain that $Mv_2=\bar{v_2}$ and $M\sigma''=\bar{\sigma''}$.
+   Since $M$ satisfies $\phi_1$, and $M v_1=\True$, we know from the application of the induction hypothesis above, that $\hat{v_1}=\True$.\\
+   Furthermore, $M$ satisfies $\phi_2$, so we directly obtain that $Mv_2=\hat{v_2}$ and $M\sigma''=\hat{\sigma''}$.
 
    In case that $M\phi_1\land M\phi_3 \land M\neg v_1$,
    we need to demonstrate that
-   \userule{E-IfFalse} with $\bar{\sigma}=M\sigma$,
-   $M v_3 = \bar{v_3}$ and $M\sigma''=\bar{\sigma''}$.\\
+   \userule{E-IfFalse} with $\hat{\sigma}=M\sigma$,
+   $M v_3 = \hat{v_3}$ and $M\sigma''=\hat{\sigma''}$.\\
 
    From the induction hypothesis, we obtain the following.\\
-   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\bar{\eval}\bar{v_1},\bar{\sigma'}
-   \land M_1v_1 \equiv \bar{v_1} \land M_1\sigma'\equiv\bar{\sigma'}$
+   $\forall M_1 . M_1\phi_1 \implies e_1,M_1\sigma\hat{\eval}\hat{v_1},\hat{\sigma'}
+   \land M_1v_1 \equiv \hat{v_1} \land M_1\sigma'\equiv\hat{\sigma'}$
    and\\
-   $\forall M_3 . M_3\phi_3 \implies e_3,M_3\sigma'\bar{\eval}\bar{v_3},\bar{\sigma''}
-   \land M_3 v_3 \equiv \bar{v_3} \land M_3\sigma'' \equiv\bar{\sigma''}$.
+   $\forall M_3 . M_3\phi_3 \implies e_3,M_3\sigma'\hat{\eval}\hat{v_3},\hat{\sigma''}
+   \land M_3 v_3 \equiv \hat{v_3} \land M_3\sigma'' \equiv\hat{\sigma''}$.
 
-   Since $M$ satisfies $\phi_1$, and $M v_1=\False$, we know from the application of the induction hypothesis above, that $\bar{v_1}=\False$.\\
-   Furthermore, $M$ satisfies $\phi_3$, so we directly obtain that $Mv_3=\bar{v_3}$ and $M\sigma''=\bar{\sigma''}$.
+   Since $M$ satisfies $\phi_1$, and $M v_1=\False$, we know from the application of the induction hypothesis above, that $\hat{v_1}=\False$.\\
+   Furthermore, $M$ satisfies $\phi_3$, so we directly obtain that $Mv_3=\hat{v_3}$ and $M\sigma''=\hat{\sigma''}$.
   }
 
 \case{$e=\Ref e$}
   {One rule applies, namely \userule{SE-Ref}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{E-Ref} with $\bar{\sigma}=M\sigma$,
-  $M l \equiv l$ and $M\sigma'[l\mapsto v]\equiv\bar{\sigma'}[l\mapsto\bar{v}]$.
+  we need to demonstrate that \userule{E-Ref} with $\hat{\sigma}=M\sigma$,
+  $M l \equiv l$ and $M\sigma'[l\mapsto v]\equiv\hat{\sigma'}[l\mapsto\hat{v}]$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}\bar{v},\bar{\sigma'}\land  M_1v\equiv \bar{v} \wedge  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}\hat{v},\hat{\sigma'}\land  M_1v\equiv \hat{v} \wedge  M_1\sigma'\equiv\hat{\sigma'}$.
 
   We assume that the assignment of location references happens in a deterministic manner, and that we can therefore conclude that exactly the same $l$ is used in both cases. Since $l$ cannot contain any symbols, $M l \equiv l$ holds trivially.
 
   Since $M$ satisfies $\phi$,
-  we obtain that $e,M\sigma \bar{\eval}\bar{v},\bar{\sigma'}$ and $M v\equiv \bar{v}$.
-  This, together with $M \sigma' \equiv\bar{\sigma'}$ obtained from the induction hypothesis, we can conclude that $M\sigma'[l\mapsto v]\equiv\bar{\sigma'}[l\mapsto\bar{v}]$.
+  we obtain that $e,M\sigma \hat{\eval}\hat{v},\hat{\sigma'}$ and $M v\equiv \hat{v}$.
+  This, together with $M \sigma' \equiv\hat{\sigma'}$ obtained from the induction hypothesis, we can conclude that $M\sigma'[l\mapsto v]\equiv\hat{\sigma'}[l\mapsto\hat{v}]$.
   }
 
 \case{$e=!e$}
   {One rule applies, namely \userule{SE-Deref}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{E-Deref} with $\bar{\sigma}=M\sigma$,
-  $M \sigma'(l) \equiv \bar{\sigma'}(l)$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{E-Deref} with $\hat{\sigma}=M\sigma$,
+  $M \sigma'(l) \equiv \hat{\sigma'}(l)$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}l,\bar{\sigma'}\land  M_1l\equiv l \land  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}l,\hat{\sigma'}\land  M_1l\equiv l \land  M_1\sigma'\equiv\hat{\sigma'}$.
 
   Note that since $l$ cannot contain any symbols, $M l \equiv l$ holds trivially.
 
   Since $M$ satisfies $\phi$,
-  we immediately obtain $e,M\sigma \bar{\eval}l,\bar{\sigma'}$,
-  and $M\sigma'\equiv\bar{\sigma'}$.
+  we immediately obtain $e,M\sigma \hat{\eval}l,\hat{\sigma'}$,
+  and $M\sigma'\equiv\hat{\sigma'}$.
 }
 
 \case{$e=e_1:=e_2$}
   {
   One rule applies, namely \userule{SE-Assign}\\
   Provided that $M\phi_1\wedge M\phi_2$,
-  we need to demonstrate that \userule{E-Assign} with $\bar{\sigma}=M\sigma$,
+  we need to demonstrate that \userule{E-Assign} with $\hat{\sigma}=M\sigma$,
   $M\unit \equiv \unit$, which holds true trivially,
-  and $M\sigma''[l\mapsto v_2]\equiv\bar{\sigma''}[l\mapsto\bar{v_2}]$.
+  and $M\sigma''[l\mapsto v_2]\equiv\hat{\sigma''}[l\mapsto\hat{v_2}]$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \bar{\eval}l,\bar{\sigma'}\land  M_1 l\equiv l \land  M_1\sigma'\equiv\bar{\sigma'}$ and\\
-  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \bar{\eval}\bar{v_2},\bar{\sigma''}\land M_2v_2\equiv \bar{v_2} \land M_2\sigma'\equiv\bar{\sigma''}$
+  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \hat{\eval}l,\hat{\sigma'}\land  M_1 l\equiv l \land  M_1\sigma'\equiv\hat{\sigma'}$ and\\
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma' \hat{\eval}\hat{v_2},\hat{\sigma''}\land M_2v_2\equiv \hat{v_2} \land M_2\sigma'\equiv\hat{\sigma''}$
 
-  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know that $M\sigma'\equiv \bar{\sigma'}$,
-  we obtain that $e_1,M\sigma \bar{\eval}l,\bar{\sigma'}$,
-  $e_2,M\sigma'\bar{\eval}\bar{v_2},\bar{\sigma''}$,
-  $M l\equiv l$, $M v_2 \equiv \bar{v_2}$ and $M\sigma''\equiv\bar{\sigma''}$ and therefore $M\sigma''[l\mapsto v_2]\equiv\bar{\sigma''}[l\mapsto\bar{v_2}]$.
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know that $M\sigma'\equiv \hat{\sigma'}$,
+  we obtain that $e_1,M\sigma \hat{\eval}l,\hat{\sigma'}$,
+  $e_2,M\sigma'\hat{\eval}\hat{v_2},\hat{\sigma''}$,
+  $M l\equiv l$, $M v_2 \equiv \hat{v_2}$ and $M\sigma''\equiv\hat{\sigma''}$ and therefore $M\sigma''[l\mapsto v_2]\equiv\hat{\sigma''}[l\mapsto\hat{v_2}]$.
   }
 
 \case{$e=\Edit e$}
   {One rule applies, namely \userule{SE-Edit}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{E-Edit} with $\bar{\sigma}=M\sigma$,
-  $M \Edit v \equiv \Edit \bar{v}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  we need to demonstrate that \userule{E-Edit} with $\hat{\sigma}=M\sigma$,
+  $M \Edit v \equiv \Edit \hat{v}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}\bar{v},\bar{\sigma'}\land  M_1v\equiv \bar{v} \land  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}\hat{v},\hat{\sigma'}\land  M_1v\equiv \hat{v} \land  M_1\sigma'\equiv\hat{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
-  we obtain that $e,M\sigma \bar{\eval}\bar{v},\bar{\sigma'}$,
-  $M \Edit v\equiv \Edit \bar{v}$.
-  We can furthermore directly conclude that $\sigma' M\equiv\bar{\sigma'}$.
+  we obtain that $e,M\sigma \hat{\eval}\hat{v},\hat{\sigma'}$,
+  $M \Edit v\equiv \Edit \hat{v}$.
+  We can furthermore directly conclude that $\sigma' M\equiv\hat{\sigma'}$.
 
   }
 
 \case{$e=\Enter \tau$}
   {
   One rule applies, namely \userule{SE-Enter}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{E-Enter} with $\bar{\sigma}=M\sigma$,
+  Provided that $M\phi$, we need to demonstrate that \userule{E-Enter} with $\hat{\sigma}=M\sigma$,
   $M \Enter \tau \equiv \Enter \tau$, which holds trivially since types do not hold symbols,
-  and $M\sigma\equiv\bar{\sigma}$, which also hols trivially from the premise.
+  and $M\sigma\equiv\hat{\sigma}$, which also hols trivially from the premise.
   }
 
 \case{$e=\Update e$}
   {One rule applies, namely \userule{SE-Update}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{E-Update} with $\bar{\sigma}=M\sigma$,
-  $M \Update l \equiv \Update l$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{E-Update} with $\hat{\sigma}=M\sigma$,
+  $M \Update l \equiv \Update l$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}l,\bar{\sigma'}\land  M_1 l\equiv l \land  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}l,\hat{\sigma'}\land  M_1 l\equiv l \land  M_1\sigma'\equiv\hat{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
-  we obtain that $e,M\sigma \bar{\eval}l,\bar{\sigma'}$,
+  we obtain that $e,M\sigma \hat{\eval}l,\hat{\sigma'}$,
   and $M \Update l\equiv \Update l$.
-  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+  We can furthermore directly conclude that $M \sigma' \equiv\hat{\sigma'}$.
 
   }
 
 \case{$e=e_1\Then e_2$}
   {One rule applies, namely \userule{SE-Then}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{E-Then} with $\bar{\sigma}=M\sigma$,
-  $M t_1\Then e_2 \equiv \bar{t_1}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{E-Then} with $\hat{\sigma}=M\sigma$,
+  $M t_1\Then e_2 \equiv \hat{t_1}\Then e_2$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\and  M_1 t_1\equiv \bar{t_1} \land  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}\and  M_1 t_1\equiv \hat{t_1} \land  M_1\sigma'\equiv\hat{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
-  we obtain that $e,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$
-  and $M t_1\Then e_2 \equiv \bar{t_1}\Then e_2$.
-  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+  we obtain that $e,M\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}$
+  and $M t_1\Then e_2 \equiv \hat{t_1}\Then e_2$.
+  We can furthermore directly conclude that $M \sigma' \equiv\hat{\sigma'}$.
 
   }
 
 \case{$e=e_1\Next e_2$}
   {One rule applies, namely \userule{SE-Next}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{E-Next} with $\bar{\sigma}=M\sigma$,
-  $M t_1\Next e_2 \equiv \bar{t_1}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{E-Next} with $\hat{\sigma}=M\sigma$,
+  $M t_1\Next e_2 \equiv \hat{t_1}\Then e_2$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\land  M_1 t_1\equiv \bar{t_1} \land  M_1\sigma'\equiv\bar{\sigma'}$.
+  $\forall M_1 .  M_1\phi \implies e, M_1\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}\land  M_1 t_1\equiv \hat{t_1} \land  M_1\sigma'\equiv\hat{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
-  we obtain that $e,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$
-  and $M t_1\Next e_2 \equiv \bar{t_1}\Next e_2$.
-  We can furthermore directly conclude that $M \sigma' \equiv\bar{\sigma'}$.
+  we obtain that $e,M\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}$
+  and $M t_1\Next e_2 \equiv \hat{t_1}\Next e_2$.
+  We can furthermore directly conclude that $M \sigma' \equiv\hat{\sigma'}$.
 
   }
 
 \case{$e=e_1\Or e_2$}
   {One rule applies, namely \userule{SE-Or}\\
-  Provided that $M\phi_1\wedge M\phi_2$, we need to demonstrate that \userule{E-Or} with $\bar{\sigma}=M\sigma$, $M t_1\Or t_2 \equiv \bar{t_1}\Or\bar{t_2}$ and $M\sigma''\equiv\bar{\sigma''}$.
+  Provided that $M\phi_1\wedge M\phi_2$, we need to demonstrate that \userule{E-Or} with $\hat{\sigma}=M\sigma$, $M t_1\Or t_2 \equiv \hat{t_1}\Or\hat{t_2}$ and $M\sigma''\equiv\hat{\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\land  M_1 t_1\equiv \bar{t_1} \land  M_1\sigma'\equiv\bar{\sigma'}$ and\\
-  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}\land M_2t_2\equiv \bar{t_2} \land M_2\sigma'\equiv\bar{\sigma'}$
+  $\forall M_1 .  M_1\phi_1 \implies e_1, M_1\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}\land  M_1 t_1\equiv \hat{t_1} \land  M_1\sigma'\equiv\hat{\sigma'}$ and\\
+  $\forall M_2 . M_2\phi_2 \implies e_2,M_2\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}\land M_2t_2\equiv \hat{t_2} \land M_2\sigma'\equiv\hat{\sigma'}$
 
-  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know that $M\sigma'\equiv \bar{\sigma'}$,
-  we obtain that $e_1,M\sigma \bar{\eval}\bar{t_1},\bar{\sigma'}$,
-  $e_2,M\sigma'\bar{\eval}\bar{t_2},\bar{\sigma}$, $M t_1\equiv \bar{t_1}$ and $M t_2 \equiv \bar{t_2}$ and therefore $M t_1\Or t_2 \equiv \bar{t_1}\Or\bar{t_2}$.
-  From the IH we directly obtain that $M \sigma'' \equiv\bar{\sigma''}$.
+  Since $M$ satisfies both $\phi_1$ and $\phi_2$, and we know that $M\sigma'\equiv \hat{\sigma'}$,
+  we obtain that $e_1,M\sigma \hat{\eval}\hat{t_1},\hat{\sigma'}$,
+  $e_2,M\sigma'\hat{\eval}\hat{t_2},\hat{\sigma}$, $M t_1\equiv \hat{t_1}$ and $M t_2 \equiv \hat{t_2}$ and therefore $M t_1\Or t_2 \equiv \hat{t_1}\Or\hat{t_2}$.
+  From the IH we directly obtain that $M \sigma'' \equiv\hat{\sigma''}$.
 
   }
 
 \case{$e=e_1\Xor e_2$}
   {  One rule applies, namely \userule{SE-Xor}\\
-    Provided that $M\phi$, we need to demonstrate that \userule{E-Xor} with $\bar{\sigma}=M\sigma$,
-    $M e_1\Xor e_2 \equiv \bar{e_1}\Xor\bar{e_2}$,
+    Provided that $M\phi$, we need to demonstrate that \userule{E-Xor} with $\hat{\sigma}=M\sigma$,
+    $M e_1\Xor e_2 \equiv \hat{e_1}\Xor\hat{e_2}$,
     which holds trivially,
-    and $M\sigma\equiv\bar{\sigma}$, which also holds trivially from the premise.
+    and $M\sigma\equiv\hat{\sigma}$, which also holds trivially from the premise.
 
   }
 
 \case{$e=\Fail$}
   {  One rule applies, namely \userule{SE-Fail}\\
-    Provided that $M\phi$, we need to demonstrate that \userule{E-Fail} with $\bar{\sigma}=M\sigma$,
+    Provided that $M\phi$, we need to demonstrate that \userule{E-Fail} with $\hat{\sigma}=M\sigma$,
     $M \Fail \equiv \Fail$, which holds trivially since fail do not hold symbols,
-    and $M\sigma\equiv\bar{\sigma}$, which also hols trivially from the premise.
+    and $M\sigma\equiv\hat{\sigma}$, which also hols trivially from the premise.
 
   }
 \end{proof}
@@ -327,51 +327,51 @@
   \case{\userule{SS-ThenStay}}
     {Provided that $M\phi\equiv\True$
     we need to demonstrate that
-    \userule{S-ThenStay} with $\bar{\sigma}=M\sigma$,
-    $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2 $ and $ M\sigma'\equiv \bar{\sigma'}$.
+    \userule{S-ThenStay} with $\hat{\sigma}=M\sigma$,
+    $M t_1'\Then e_2 \equiv \hat{t_1'}\Then e_2 $ and $ M\sigma'\equiv \hat{\sigma'}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.
 
     Since $M$ satisfies $\phi$,
     we know that
-    $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$
-    and $M t_1'\equiv\bar{t_1'}$,
-    and therefore also $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2$,
-    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \bar{\sigma'}$.
+    $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$
+    and $M t_1'\equiv\hat{t_1'}$,
+    and therefore also $M t_1'\Then e_2 \equiv \hat{t_1'}\Then e_2$,
+    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \hat{\sigma'}$.
     }
   \case{\userule{SS-ThenFail}}
     {Provided that $M\phi\equiv\True$
     we need to demonstrate that
-    \userule{S-ThenFail} with $\bar{\sigma}=M\sigma$,
-    $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+    \userule{S-ThenFail} with $\hat{\sigma}=M\sigma$,
+    $M t_1'\Then e_2 \equiv \hat{t_1'}\Then e_2$ and $M\sigma'\equiv \hat{\sigma'}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.
 
     Since $M$ satisfies $\phi$,
     we know that
-    $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$
-    and $M t_1'\equiv\bar{t_1'}$,
-    and therefore also $M t_1'\Then e_2 \equiv \bar{t_1'}\Then e_2$,
-    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \bar{\sigma'}$.
+    $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$
+    and $M t_1'\equiv\hat{t_1'}$,
+    and therefore also $M t_1'\Then e_2 \equiv \hat{t_1'}\Then e_2$,
+    and from the induction hypothesis, we directly obtain  $M\sigma'\equiv \hat{\sigma'}$.
     }
   \case{\userule{SS-ThenCont}}
     {Provided that $M\phi_1\land M\phi_2$
     we need to demonstrate that
-    \userule{S-ThenCont} with $\bar{\sigma}=M\sigma$,
-    $M t_2 \equiv \bar{t_2}\Then e_2$ and $M\sigma''\equiv \bar{\sigma''}$.
+    \userule{S-ThenCont} with $\hat{\sigma}=M\sigma$,
+    $M t_2 \equiv \hat{t_2}\Then e_2$ and $M\sigma''\equiv \hat{\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\implies M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.\\
+    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\implies M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.\\
     From Lemma~\ref{lem:soundeval} we know that\\
-    $\forall M_2 . M_2 \phi_2 \implies e_2\bar{v_1}M_2\sigma'\bar{\eval}\bar{t_2},\bar{\sigma''}\and M_2 t_2\equiv \bar{t_2}\land M_2\sigma''\equiv \bar{\sigma''}$.
+    $\forall M_2 . M_2 \phi_2 \implies e_2\hat{v_1}M_2\sigma'\hat{\eval}\hat{t_2},\hat{\sigma''}\and M_2 t_2\equiv \hat{t_2}\land M_2\sigma''\equiv \hat{\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$,
     we know that
-    $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$ and $e_2\bar{v_1}M\sigma'\bar{\eval}\bar{t_2},\bar{\sigma''}$,
-    $M t_2\equiv\bar{t_2}$,
-    and from the induction hypothesis, we directly obtain  $M\sigma''\equiv \bar{\sigma''}$.
+    $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$ and $e_2\hat{v_1}M\sigma'\hat{\eval}\hat{t_2},\hat{\sigma''}$,
+    $M t_2\equiv\hat{t_2}$,
+    and from the induction hypothesis, we directly obtain  $M\sigma''\equiv \hat{\sigma''}$.
 
     }
   }
@@ -382,112 +382,112 @@
   \case{\userule{SS-OrLeft}}
     {Provided that $M\phi\equiv\True$
     we need to demonstrate that
-    \userule{S-OrLeft} with $\bar{\sigma}=M\sigma$,
-    $M t_1'\equiv \bar{t_1'}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    \userule{S-OrLeft} with $\hat{\sigma}=M\sigma$,
+    $M t_1'\equiv \hat{t_1'}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\and M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+    $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\and M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, we know that $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$,
-    $M t_1'\equiv\bar{t_1'}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    Since $M$ satisfies $\phi$, we know that $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$,
+    $M t_1'\equiv\hat{t_1'}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
     }
   \case{\userule{SS-OrRight}}
     {Provided that $M\phi_1\land M\phi_2$
     we need to deomstrate that
-    \userule{S-OrRight} with $\bar{\sigma}=M\sigma$,
-    $M t_2'\equiv \bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+    \userule{S-OrRight} with $\hat{\sigma}=M\sigma$,
+    $M t_2'\equiv \hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$ and\\
-    $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \bar{\stride} \bar{t_2'},\bar{\sigma''}\land M_2 t_2'\equiv\bar{t_2'}\land M_2\sigma'' \equiv \bar{\sigma''}$.
+    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$ and\\
+    $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \hat{\stride} \hat{t_2'},\hat{\sigma''}\land M_2 t_2'\equiv\hat{t_2'}\land M_2\sigma'' \equiv \hat{\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$,
     we know that
-    $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$ and $t_2,M\sigma'\bar{\stride}\bar{t_2'},\bar{\sigma''}$,
-    $M t_2'\equiv\bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+    $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$ and $t_2,M\sigma'\hat{\stride}\hat{t_2'},\hat{\sigma''}$,
+    $M t_2'\equiv\hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
     }
   \case{\userule{SS-OrNone}}
     {Provided that $M\phi_1\land M\phi_2$
     we need to demonstrate that
-    \userule{S-OrNone} with $\bar{\sigma}=M\sigma$,
-    $M t_1'\Or t_2'\equiv \bar{t_1'}\Or\bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+    \userule{S-OrNone} with $\hat{\sigma}=M\sigma$,
+    $M t_1'\Or t_2'\equiv \hat{t_1'}\Or\hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$ and\\
-    $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \bar{\stride} \bar{t_2'},\bar{\sigma''}\land M_2 t_2'\equiv\bar{t_2'}\land M_2\sigma'' \equiv \bar{\sigma''}$.
+    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$ and\\
+    $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \hat{\stride} \hat{t_2'},\hat{\sigma''}\land M_2 t_2'\equiv\hat{t_2'}\land M_2\sigma'' \equiv \hat{\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-    we know that $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$ and $t_2,M\sigma'\bar{\stride}\bar{t_2'},\bar{\sigma''}$,
-    $M t_1'\Or t_2'\equiv \bar{t_1'}\Or\bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+    we know that $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$ and $t_2,M\sigma'\hat{\stride}\hat{t_2'},\hat{\sigma''}$,
+    $M t_1'\Or t_2'\equiv \hat{t_1'}\Or\hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
     }
   }
 
 \case{$t=\Edit v$}
   {One rule applies, namely \userule{SS-Edit}\\
-  Provided that $M\True$, we need to demonstrate that \userule{S-Edit} with $\bar{\sigma}=M\sigma$,
-  $M\Edit v \equiv \Edit \bar{v}$ and $M\sigma \equiv \bar{\sigma}$.
+  Provided that $M\True$, we need to demonstrate that \userule{S-Edit} with $\hat{\sigma}=M\sigma$,
+  $M\Edit v \equiv \Edit \hat{v}$ and $M\sigma \equiv \hat{\sigma}$.
   This holds trivially.
 
   }
 
 \case{$t=\Enter \tau$}
   {One rule applies, namely \userule{SS-Fill}\\
-  Provided that $M\True$, we need to demonstrate \userule{S-Fill} with $\bar{\sigma}=M\sigma$,
-  $M\Enter \tau \equiv \Enter \tau$ and $M\sigma \equiv \bar{\sigma}$.
+  Provided that $M\True$, we need to demonstrate \userule{S-Fill} with $\hat{\sigma}=M\sigma$,
+  $M\Enter \tau \equiv \Enter \tau$ and $M\sigma \equiv \hat{\sigma}$.
   This holds trivially.
   }
 
 \case{$t=\Update l$}
   {One rule applies, namely \userule{SS-Update}\\
-  Provided that $M\True$, we need to demonstrate \userule{S-Update} with $\bar{\sigma}=M\sigma$,
-  $M\Update l \equiv \Update l$ and $M\sigma \equiv \bar{\sigma}$.
+  Provided that $M\True$, we need to demonstrate \userule{S-Update} with $\hat{\sigma}=M\sigma$,
+  $M\Update l \equiv \Update l$ and $M\sigma \equiv \hat{\sigma}$.
   This holds trivially.
   }
 
 \case{$t=\Fail$}
   {One rule applies, namely \userule{SS-Fail}\\
-  Provided that $M\True$, we need to demonstrate that \userule{S-Fail} with $\bar{\sigma}=M\sigma$,
-  $M\Fail \equiv \Fail$ and $M\sigma \equiv \bar{\sigma}$.
+  Provided that $M\True$, we need to demonstrate that \userule{S-Fail} with $\hat{\sigma}=M\sigma$,
+  $M\Fail \equiv \Fail$ and $M\sigma \equiv \hat{\sigma}$.
   This holds trivially.
   }
 
 \case{$t=e_1\Xor e_2$}
   {One rule applies, namely \userule{SS-Xor}\\
-  Provided that $M\True$, we need to demonstrate that \userule{S-Xor} with $\bar{\sigma}=M\sigma$,
-  $M e_1\Xor e_2 \equiv e_1\Xor e_2$ and $M\sigma \equiv \bar{\sigma}$.
+  Provided that $M\True$, we need to demonstrate that \userule{S-Xor} with $\hat{\sigma}=M\sigma$,
+  $M e_1\Xor e_2 \equiv e_1\Xor e_2$ and $M\sigma \equiv \hat{\sigma}$.
   This holds trivially.
   }
 
 \case{$t=t_1\Next e_2$}
   {One rule applies, namely \userule{SS-Next}\\
   Provided that $M\phi$,
-  we need to demonstrate that \userule{S-Xor} with $\bar{\sigma}=M\sigma$,
-  $M t_1'\Next e_2\equiv \bar{t_1'}\Next e_2$ and $M \sigma'\equiv\bar{\sigma'}$.
+  we need to demonstrate that \userule{S-Xor} with $\hat{\sigma}=M\sigma$,
+  $M t_1'\Next e_2\equiv \hat{t_1'}\Next e_2$ and $M \sigma'\equiv\hat{\sigma'}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+  $\forall M_1 . M_1 \phi \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.
 
-  Since $M$ satisfies $\phi$, we directly obtain $t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$,
-  $M t_1'\Next e_2\equiv \bar{t_1'}\Next e_2$ and $M \sigma'\equiv\bar{\sigma'}$.
+  Since $M$ satisfies $\phi$, we directly obtain $t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$,
+  $M t_1'\Next e_2\equiv \hat{t_1'}\Next e_2$ and $M \sigma'\equiv\hat{\sigma'}$.
 
   }
 
 \case{$t=t_1\And t_2$}
   {One rule applies, namely \userule{SS-And}\\
   Provided that $M\phi_1\land M\phi_2$
-  we need to demonstrate $\userule{S-And}$ with $\bar{\sigma}=M\sigma$,
-  $M t_1'\And t_2'\equiv \bar{t_1'}\And\bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+  we need to demonstrate $\userule{S-And}$ with $\hat{\sigma}=M\sigma$,
+  $M t_1'\And t_2'\equiv \hat{t_1'}\And\hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}\and M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$ and\\
-  $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \bar{\stride} \bar{t_2'},\bar{\sigma''}\and M_2 t_2'\equiv\bar{t_2'}\land M_2\sigma'' \equiv \bar{\sigma''}$.
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}\and M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$ and\\
+  $\forall M_2 . M_2 \phi_2 \implies t_2,M_2\sigma' \hat{\stride} \hat{t_2'},\hat{\sigma''}\and M_2 t_2'\equiv\hat{t_2'}\land M_2\sigma'' \equiv \hat{\sigma''}$.
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-  we know that $t_1,M\sigma \bar{\stride} \bar{t_1'},\bar{\sigma'}$ and $t_2,M\sigma'\bar{\stride}\bar{t_2'},\bar{\sigma''}$,
-  $M t_1'\Or t_2'\equiv \bar{t_1'}\Or\bar{t_2'}$ and $M\sigma''\equiv \bar{\sigma''}$.
+  we know that $t_1,M\sigma \hat{\stride} \hat{t_1'},\hat{\sigma'}$ and $t_2,M\sigma'\hat{\stride}\hat{t_2'},\hat{\sigma''}$,
+  $M t_1'\Or t_2'\equiv \hat{t_1'}\Or\hat{t_2'}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
   }
 
@@ -503,33 +503,33 @@
 
   Provided that $M\phi_1\land M\phi_2$\\
   we need to demonstrate that
-  \userule{N-Done} with $\bar{\sigma}=M\sigma$,
-  $M t\equiv \bar{t}$ and $M\sigma'\equiv \bar{\sigma'}$.
+  \userule{N-Done} with $\hat{\sigma}=M\sigma$,
+  $M t\equiv \hat{t}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
   By Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{\eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
-  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \hat{\eval}\hat{t},\hat{\sigma'}\land M_1 t \equiv \hat{t} \land M_1 \sigma'\equiv \hat{\sigma'}$ and\\
+  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\hat{\stride}\hat{t'},\hat{\sigma''}\land M_2 t'\equiv\hat{t'}\land M_2\sigma''\equiv \hat{\sigma''}$.
 
-  We assume $M$ to satisfy both $\phi_1$ and $\phi_2$, we have $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$ since $M\sigma\equiv \bar{\sigma}$.
+  We assume $M$ to satisfy both $\phi_1$ and $\phi_2$, we have $e,M\sigma \hat{\eval}\hat{t},\hat{\sigma'}$ since $M\sigma\equiv \hat{\sigma}$.
 
   The only induction step is when\\
   \userule{SN-Repeat} applies.
   In this case, where we have that $M\phi_1\land M\phi_2 \land M\phi_3$,
   we need to demonstrate that
-  \userule{N-Repeat} with $\bar{\sigma}=M\sigma$,
-  $M t''\equiv \bar{t''}$ and $M\sigma'''\equiv \bar{\sigma'''}$.
+  \userule{N-Repeat} with $\hat{\sigma}=M\sigma$,
+  $M t''\equiv \hat{t''}$ and $M\sigma'''\equiv \hat{\sigma'''}$.
 
   Again by Lemma~\ref{lem:soundeval} and Lemma~\ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \bar{\eval}\bar{t},\bar{\sigma'}\land M_1 t \equiv \bar{t} \land M_1 \sigma'\equiv \bar{\sigma'}$ and\\
-  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}\land M_2 t'\equiv\bar{t'}\land M_2\sigma''\equiv \bar{\sigma''}$.\\
-  Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \implies t',M_3\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}\land M_3 t''\equiv \bar{t''}\land M_3 \sigma'''\equiv \bar{\sigma'''}$.
+  $\forall M_1. M_1\phi_1 \implies e,M_1\sigma \hat{\eval}\hat{t},\hat{\sigma'}\land M_1 t \equiv \hat{t} \land M_1 \sigma'\equiv \hat{\sigma'}$ and\\
+  $\forall M_2.M_2\phi_2\implies t,M_2\sigma'\hat{\stride}\hat{t'},\hat{\sigma''}\land M_2 t'\equiv\hat{t'}\land M_2\sigma''\equiv \hat{\sigma''}$.\\
+  Furthermore, we know by applying the induction hypothesis that $\forall M_3.M_3\phi_3 \implies t',M_3\sigma''\hat{\normalise} \hat{t''},\hat{\sigma'''}\land M_3 t''\equiv \hat{t''}\land M_3 \sigma'''\equiv \hat{\sigma'''}$.
 
   Since $M$ satisfies $\phi_1$, $\phi_2$ and $\phi_3$,
   we can conclude that
 
-  $e,M\sigma \bar{\eval}\bar{t},\bar{\sigma'}$, $M t \equiv \bar{t} \land M \sigma'\equiv \bar{\sigma'}$ and $t,M\sigma'\bar{\stride}\bar{t'},\bar{\sigma''}$ and $M t'\equiv\bar{t'}\land M\sigma''\equiv \bar{\sigma''}$.
-  This finally gives us $t',M\sigma''\bar{\normalise} \bar{t''},\bar{\sigma'''}$ from which we can conclude that which we needed to prove,
-  namely $M t''\equiv \bar{t''}\land M\sigma'''\equiv \bar{\sigma'''}$.
+  $e,M\sigma \hat{\eval}\hat{t},\hat{\sigma'}$, $M t \equiv \hat{t} \land M \sigma'\equiv \hat{\sigma'}$ and $t,M\sigma'\hat{\stride}\hat{t'},\hat{\sigma''}$ and $M t'\equiv\hat{t'}\land M\sigma''\equiv \hat{\sigma''}$.
+  This finally gives us $t',M\sigma''\hat{\normalise} \hat{t''},\hat{\sigma'''}$ from which we can conclude that which we needed to prove,
+  namely $M t''\equiv \hat{t''}\land M\sigma'''\equiv \hat{\sigma'''}$.
 \end{proof}
 
 
@@ -539,8 +539,8 @@
 
   \case{$t=\Edit v$}
     {One rule applies, namely \userule{SH-Change}\\
-    Provided that $M\True$ we need to demonstrate that \userule{H-Change} with $\bar{\sigma}=M\sigma$ and $M s = v'$,
-    $M \Edit s\equiv \Edit v'$ and $ M\sigma\equiv \bar{\sigma}$.
+    Provided that $M\True$ we need to demonstrate that \userule{H-Change} with $\hat{\sigma}=M\sigma$ and $M s = v'$,
+    $M \Edit s\equiv \Edit v'$ and $ M\sigma\equiv \hat{\sigma}$.
 
     This follows trivially from the premise.
 
@@ -548,8 +548,8 @@
 
   \case{$t=\Enter \tau$}
   {One rule applies, namely \userule{SH-Fill}\\
-  Provided that $M\True$ we need to demonstrate that \userule{H-Fill} with $\bar{\sigma}=M\sigma$ and $M s = v$,
-  $M \Edit s \equiv \Edit v$ and $ M\sigma\equiv \bar{\sigma}$.
+  Provided that $M\True$ we need to demonstrate that \userule{H-Fill} with $\hat{\sigma}=M\sigma$ and $M s = v$,
+  $M \Edit s \equiv \Edit v$ and $ M\sigma\equiv \hat{\sigma}$.
 
   This follows trivially from the premise.
 
@@ -558,11 +558,11 @@
   \case{$t=\Update l$}
   {One rule applies, namely \userule{SH-Update}\\
   Provided that $M\True$
-  we need to demonstrate that  \userule{H-Update} with $\bar{\sigma}=M\sigma$ and $M s = v$,
-  $M \Update l \equiv \Update l$ and $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$.
+  we need to demonstrate that  \userule{H-Update} with $\hat{\sigma}=M\sigma$ and $M s = v$,
+  $M \Update l \equiv \Update l$ and $ M\sigma[l\mapsto s]\equiv \hat{\sigma}[l\mapsto v]$.
 
-  \userule{H-Update} with $\bar{\sigma}=M\sigma$ follows trivially.
-  $M \Update l \equiv \Update l$ follows trivially, since locations cannot contain symbols. $ M\sigma[l\mapsto s]\equiv \bar{\sigma}[l\mapsto v]$ can be concluded from the fact that $\bar{\sigma}=M\sigma$ and $M s = v$.
+  \userule{H-Update} with $\hat{\sigma}=M\sigma$ follows trivially.
+  $M \Update l \equiv \Update l$ follows trivially, since locations cannot contain symbols. $ M\sigma[l\mapsto s]\equiv \hat{\sigma}[l\mapsto v]$ can be concluded from the fact that $\hat{\sigma}=M\sigma$ and $M s = v$.
 
   }
 
@@ -572,46 +572,46 @@
 
   \case{\userule{SH-Next}}
 
-  {In the case $M\phi_1$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
-  $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  {In the case $M\phi_1$, we need to demonstrate that \userule{H-PassNext} with $\hat{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1' \Next e_2 \equiv \hat{t_1'}\Next e_2$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$, $M\sigma'\equiv\bar{\sigma'}$,
-  which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \hat{t_1'},\hat{\sigma'}$, $M\sigma'\equiv\hat{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Next e_2 \equiv \hat{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \hat{t_1'}$.
 
-  In the case $M\phi_2$, we need to demonstrate that \userule{H-Next} with $\bar{\sigma}=M\sigma$,
-  $M t_2 \equiv \bar{t_2}$ and $M\sigma'\equiv\bar{\sigma'}$.
+  In the case $M\phi_2$, we need to demonstrate that \userule{H-Next} with $\hat{\sigma}=M\sigma$,
+  $M t_2 \equiv \hat{t_2}$ and $M\sigma'\equiv\hat{\sigma'}$.
 
-  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,M\sigma\hat{\normalise}\hat{t_2},\hat{\sigma'}\land M t_2\equiv\hat{t_2}\land M \sigma'\equiv\hat{\sigma'}$.
 
   This gives us exactly what we needed to prove this case.
     }
 
   \case{\userule{SH-PassNext}}
   {
-  Provided that $M\phi$, we need to demonstrate that \userule{H-PassNext} with $\bar{\sigma}=M\sigma$ and $j= M i$,
-  $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{H-PassNext} with $\hat{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1' \Next e_2 \equiv \hat{t_1'}\Next e_2$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$, $M\sigma'\equiv\bar{\sigma'}$,
-  which we needed to show, as well as $M t_1' \Next e_2 \equiv \bar{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \hat{t_1'},\hat{\sigma'}$, $M\sigma'\equiv\hat{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Next e_2 \equiv \hat{t_1'}\Next e_2$ since this can be concluded from $M t_1'\equiv \hat{t_1'}$.
   }
   }
 
   \case{$t=t_1\Then e_2$}
   {One rule applies, namely \userule{SH-PassThen}\\
-  Provided that $M\phi$, we need to demonstrate that \userule{H-PassThen} with $\bar{\sigma}=M\sigma$ and $j= M i$,
-  $M t_1'\Then e_2\equiv \bar{t_1'}\Then e_2$ and $M\sigma'\equiv\bar{\sigma'}$.
+  Provided that $M\phi$, we need to demonstrate that \userule{H-PassThen} with $\hat{\sigma}=M\sigma$ and $j= M i$,
+  $M t_1'\Then e_2\equiv \hat{t_1'}\Then e_2$ and $M\sigma'\equiv\hat{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-  which we needed to show, as well as $M t_1' \Then e_2 \equiv \bar{t_1'}\Then e_2$ since this can be concluded from $M t_1'\equiv \bar{t_1'}$.
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma \xrightarrow[]{M i} \hat{t_1'},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+  which we needed to show, as well as $M t_1' \Then e_2 \equiv \hat{t_1'}\Then e_2$ since this can be concluded from $M t_1'\equiv \hat{t_1'}$.
 
   }
 
@@ -626,23 +626,23 @@
     }
 
     \case{\userule{SH-PickLeft}}
-    {Provided that $M(\phi_2\wedge s=\Left)$, we need to demonstrate that \userule{H-PickLeft} with $\bar{\sigma}=M\sigma$,
-    $M t_1\equiv \bar{t_1}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M(\phi_2\wedge s=\Left)$, we need to demonstrate that \userule{H-PickLeft} with $\hat{\sigma}=M\sigma$,
+    $M t_1\equiv \hat{t_1}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_1,M\sigma\bar{\normalise}\bar{t_1},\bar{\sigma'}\land M t_1\equiv\bar{t_1}\land M \sigma'\equiv\bar{\sigma'}$.
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_1,M\sigma\hat{\normalise}\hat{t_1},\hat{\sigma'}\land M t_1\equiv\hat{t_1}\land M \sigma'\equiv\hat{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, we have $e_1,M\sigma \bar{\normalise}[] \bar{t_1},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-    which we needed to show, as well as $M t_1 \equiv \bar{t_1}$.
+    Since $M$ satisfies $\phi$, we have $e_1,M\sigma \hat{\normalise}[] \hat{t_1},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+    which we needed to show, as well as $M t_1 \equiv \hat{t_1}$.
 
     }
     \case{\userule{SH-PickRight}}
-    {Provided that $M(\phi_2\wedge s=\Right)$ we need to demonstrate that \userule{H-PickRight} with $\bar{\sigma}=M\sigma$,
-    $M t_2\equiv \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M(\phi_2\wedge s=\Right)$ we need to demonstrate that \userule{H-PickRight} with $\hat{\sigma}=M\sigma$,
+    $M t_2\equiv \hat{t_2}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2,M\sigma\bar{\normalise}\bar{t_2},\bar{\sigma'}\land M t_2\equiv\bar{t_2}\land M \sigma'\equiv\bar{\sigma'}$.
+    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2,M\sigma\hat{\normalise}\hat{t_2},\hat{\sigma'}\land M t_2\equiv\hat{t_2}\land M \sigma'\equiv\hat{\sigma'}$.
 
-    Since $M$ satisfies $\phi$, we have $e_2,M\sigma \bar{\normalise}[] \bar{t_2},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-    which we needed to show, as well as $M t_2 \equiv \bar{t_2}$.
+    Since $M$ satisfies $\phi$, we have $e_2,M\sigma \hat{\normalise}[] \hat{t_2},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+    which we needed to show, as well as $M t_2 \equiv \hat{t_2}$.
     }
   }
 
@@ -650,47 +650,47 @@
   {
   In this case, two rules apply.\\
     \case{\userule{SH-FirstAnd}}
-    {Provided that $M\phi$, we need to demonstrate that \userule{H-FirstAnd} with $\bar{\sigma}=M\sigma$,
-    $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M\phi$, we need to demonstrate that \userule{H-FirstAnd} with $\hat{\sigma}=M\sigma$,
+    $M t_1'\And t_2\equiv \hat{t_1'}\And t_2$ and $M\sigma'\equiv \hat{\sigma'}$.
 
     By the induction hypothesis we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$
+    $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-    Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-    which we needed to show, as well as $M t_1'\And t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
+    Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \hat{t_1'},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+    which we needed to show, as well as $M t_1'\And t_2\equiv \hat{t_1'}\And t_2$, which follows from $M t_1' \equiv \hat{t_1'}$.
 
     }
     \case{\userule{SH-SecondAnd}}
-    {Provided that $M\phi$, we need to demonstrate that \userule{H-SecondAnd} with $\bar{\sigma}=M\sigma$,
-    $M t_1\And t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+    {Provided that $M\phi$, we need to demonstrate that \userule{H-SecondAnd} with $\hat{\sigma}=M\sigma$,
+    $M t_1\And t_2'\equiv t_1\And \hat{t_2}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
     By the induction hypothesis we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\land M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+    $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_2'},\hat{\sigma'}\land M_1 t_2'\equiv\hat{t_2'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-    Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-    which we needed to show, as well as $M t_1\And t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
+    Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \hat{t_2'},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+    which we needed to show, as well as $M t_1\And t_2'\equiv t_1\And \hat{t_2'}$, which follows from $M t_2' \equiv \hat{t_2'}$.}
   }
 
   \case{$t=e_1\Or e_2$}
   {One rule applies, namely \userule{SH-Or}\\
 
-  In the case that $M\phi_1$, we need to demonstrate that \userule{H-FirstOr} with $\bar{\sigma}=M\sigma$ and $M\First i =\First j$,
-  $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$ and $M\sigma'\equiv \bar{\sigma'}$.
+  In the case that $M\phi_1$, we need to demonstrate that \userule{H-FirstOr} with $\hat{\sigma}=M\sigma$ and $M\First i =\First j$,
+  $M t_1'\Or t_2\equiv \hat{t_1'}\And t_2$ and $M\sigma'\equiv \hat{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_1'},\bar{\sigma'}\land M_1 t_1'\equiv\bar{t_1'}\land M_1\sigma' \equiv \bar{\sigma'}$.
+  $\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_1'},\hat{\sigma'}\land M_1 t_1'\equiv\hat{t_1'}\land M_1\sigma' \equiv \hat{\sigma'}$.
 
-  Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \bar{t_1'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-  which we needed to show, as well as $M t_1'\Or t_2\equiv \bar{t_1'}\And t_2$, which follows from $M t_1' \equiv \bar{t_1'}$.
+  Since $M$ satisfies $\phi$, we have $t_1,M\sigma\xrightarrow[]{M i} \hat{t_1'},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+  which we needed to show, as well as $M t_1'\Or t_2\equiv \hat{t_1'}\And t_2$, which follows from $M t_1' \equiv \hat{t_1'}$.
 
-  In the case that $M\phi_2$, we need to demonstrate that \userule{H-SecondOr} with $\bar{\sigma}=M\sigma$ and $M\Second i = \Second j$,
-  $M t_1\Or t_2'\equiv t_1\And \bar{t_2}$ and $M\sigma'\equiv \bar{\sigma'}$.
+  In the case that $M\phi_2$, we need to demonstrate that \userule{H-SecondOr} with $\hat{\sigma}=M\sigma$ and $M\Second i = \Second j$,
+  $M t_1\Or t_2'\equiv t_1\And \hat{t_2}$ and $M\sigma'\equiv \hat{\sigma'}$.
 
   By the induction hypothesis we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \bar{t_2'},\bar{\sigma'}\land M_1 t_2'\equiv\bar{t_2'}\land M_1\sigma' \equiv \bar{\sigma'}$
+  $\forall M_1 . M_1 \phi_1 \implies t_2,M_1\sigma \xrightarrow[]{M_1 i} \hat{t_2'},\hat{\sigma'}\land M_1 t_2'\equiv\hat{t_2'}\land M_1\sigma' \equiv \hat{\sigma'}$
 
-  Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \bar{t_2'},\bar{\sigma'}$ and $M\sigma'\equiv\bar{\sigma'}$,
-  which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \bar{t_2'}$, which follows from $M t_2' \equiv \bar{t_2'}$.}
+  Since $M$ satisfies $\phi$, we have $t_2,M\sigma\xrightarrow[]{M i} \hat{t_2'},\hat{\sigma'}$ and $M\sigma'\equiv\hat{\sigma'}$,
+  which we needed to show, as well as $M t_1\Or t_2'\equiv t_1\And \hat{t_2'}$, which follows from $M t_2' \equiv \hat{t_2'}$.}
 
 
 \end{proof}
@@ -701,19 +701,19 @@
   We prove Lemma~\ref{thm:sounddrive} as follows.
   There is only one rule that applies, namely \userule{SI-Handle}.
 
-  Provided that $M\phi_1\land\phi_2$, we need to demonstrate that \userule{I-Handle} with $\bar{\sigma}=M\sigma$ and $j=M i$,
-  $M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
+  Provided that $M\phi_1\land\phi_2$, we need to demonstrate that \userule{I-Handle} with $\hat{\sigma}=M\sigma$ and $j=M i$,
+  $M t'' \equiv \hat{t''}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
 
   Lemma~\ref{lem:soundhandle} and Lemma~\ref{lem:soundnorm} respectively give us that\\
-$\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \bar{t'},\bar{\sigma'}\land M_1 t'\equiv\bar{t'}\land M_1\sigma' \equiv \bar{\sigma'}$ and \\
-$\forall M_2 . M_2 \phi_2 \implies t',M_2\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}\land M_2 t''\equiv\bar{t''}\land M_2\sigma'' \equiv \bar{\sigma''}$.
+$\forall M_1 . M_1 \phi_1 \implies t_1,M_1\sigma \xrightarrow[]{M_1 i} \hat{t'},\hat{\sigma'}\land M_1 t'\equiv\hat{t'}\land M_1\sigma' \equiv \hat{\sigma'}$ and \\
+$\forall M_2 . M_2 \phi_2 \implies t',M_2\sigma' \hat{\normalise} \hat{t''},\hat{\sigma''}\land M_2 t''\equiv\hat{t''}\land M_2\sigma'' \equiv \hat{\sigma''}$.
 
 Since $M$ satisfies both $\phi_1$ and $\phi_2$,
 we obtain exactly what we needed to prove,
 namely
-$t_1,M\sigma \xrightarrow[]{M i} \bar{t'},\bar{\sigma'}$,
-$t',M\sigma' \bar{\normalise} \bar{t''},\bar{\sigma''}$,
-$M t'' \equiv \bar{t''}$ and $M\sigma''\equiv \bar{\sigma''}$.
+$t_1,M\sigma \xrightarrow[]{M i} \hat{t'},\hat{\sigma'}$,
+$t',M\sigma' \hat{\normalise} \hat{t''},\hat{\sigma''}$,
+$M t'' \equiv \hat{t''}$ and $M\sigma''\equiv \hat{\sigma''}$.
 
 \end{proof}

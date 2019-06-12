@@ -165,9 +165,9 @@ In other words; every concrete evaluation is also a valid symbolic execution.
 \begin{proof}[Proof of Theorem~\ref{thm:completeDrive}]
   The driving semantics only consists of one rule, namely \userule{I-Handle}.\\
   By Lemma~\ref{lem:completeHandle} we obtain the following.\\
-  $t,\sigma\xrightarrow[j]{}\bar{t'},\bar{\sigma'}\implies \exists i . t,\sigma\handle{}t',\sigma',i,\phi \land i\sim j$\\
+  $t,\sigma\xrightarrow[j]{}\hat{t'},\hat{\sigma'}\implies \exists i . t,\sigma\handle{}t',\sigma',i,\phi \land i\sim j$\\
   Then by Lemma~\ref{lem:completeNormalise} we obtain the following.\\
-  $\bar{t'},\bar{\sigma'}\bar{\normalise}\bar{t''},\bar{\sigma''}\implies \bar{t'},\bar{\sigma'}\normalise t'',\sigma'',\phi'$\\
+  $\hat{t'},\hat{\sigma'}\hat{\normalise}\hat{t''},\hat{\sigma''}\implies \hat{t'},\hat{\sigma'}\normalise t'',\sigma'',\phi'$\\
   From the above, together with the SI-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\drive{} t',\sigma',i,\phi\land i\sim j$.
 
 \end{proof}
