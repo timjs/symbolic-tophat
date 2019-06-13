@@ -15,4 +15,4 @@ libraries = [
   "iTasks"]
 
 [executable]
-main = "Tax"
+main = "Test"
