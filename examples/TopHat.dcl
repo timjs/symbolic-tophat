@@ -72,11 +72,12 @@ select :: Message (List a) (Ref (List a)) -> Task (List a) | Storable a
 (&>) infixr 4 :: (Task a) (Task b) -> Task b | Storable a & Storable b
 
 (<|>) infixr 3 :: (Task a) (Task a) -> Task a | Storable a
-(<?>) infixr 3 :: (Task a) (Task a) -> Task a | Storable a
+(<?>) infixr 3 :: ( Button, Bool, Task a ) ( Button, Bool, Task a ) -> Task a | Storable a
 
 
 // Other ///////////////////////////////////////////////////////////////////////
 
+done :: a -> Task a | Storable a
 fail :: Task a | Storable a
 forever :: (Task a) -> Task a | Storable a
 (@) infix 5 :: User (Task a) -> Task a | Storable a

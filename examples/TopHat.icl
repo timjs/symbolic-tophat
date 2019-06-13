@@ -104,11 +104,15 @@ where
 (<|>) infixr 3 :: (Task a) (Task a) -> Task a | Storable a
 (<|>) x y = (-||-) x y <<@ 'I'.ApplyLayout 'I'.arrangeHorizontal
 
-(<?>) infixr 3 :: (Task a) (Task a) -> Task a | Storable a
-(<?>) fst snd = 'I'.return () >?> [ ( "Left" , always, const fst ), (  "Right", always, const snd ) ]
+(<?>) infixr 3 :: ( Button, Bool, Task a ) ( Button, Bool, Task a ) -> Task a | Storable a
+(<?>) ( m1, p1, t1 ) ( m2, p2, t2 ) =
+  'I'.return () >?> [ ( m1 , const p1, const t1 ), ( m2, const p2, const t2 ) ]
 
 
 // Other ///////////////////////////////////////////////////////////////////////
+
+done :: a -> Task a | Storable a
+done a = 'I'.return a
 
 fail :: Task a | Storable a
 fail = 'I'.transform (\_ -> 'I'.NoValue) ('I'.return ())
