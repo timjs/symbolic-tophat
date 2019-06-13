@@ -12,7 +12,12 @@ class Storable a | 'I'.iTask a
 :: Ref a :== 'I'.SDSLens Unit a a
 :: Task a :== 'I'.Task a
 
+:: User
+  = Internal
+  | Id 'I'.UserId
+
 :: Message :== String
+:: Button :== String
 
 
 // Editors /////////////////////////////////////////////////////////////////////
@@ -55,7 +60,7 @@ select :: Message (List a) (Ref (List a)) -> Task (List a) | Storable a
 
 // External //
 
-(>?>) infixl 1 :: (Task a) (List ( String, a -> Bool, a -> Task b )) -> Task b | Storable a & Storable b
+(>?>) infixl 1 :: (Task a) (List ( Button, a -> Bool, a -> Task b )) -> Task b | Storable a & Storable b
 (>?=) infixl 1 :: (Task a) (a -> Task b) -> Task b | Storable a & Storable b
 (>?|) infixl 1 :: (Task a) (Task b) -> Task b | Storable a & Storable b
 
@@ -74,6 +79,7 @@ select :: Message (List a) (Ref (List a)) -> Task (List a) | Storable a
 
 fail :: Task a | Storable a
 forever :: (Task a) -> Task a | Storable a
+(@) infix 5 :: User (Task a) -> Task a | Storable a
 
 
 // Startup /////////////////////////////////////////////////////////////////////
