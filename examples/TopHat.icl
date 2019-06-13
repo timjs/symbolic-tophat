@@ -45,8 +45,8 @@ ref label value = 'I'.sharedStore label value
 withRef :: a ((Ref a) -> Task b) -> Task b | Storable a & Storable b
 withRef value cont = 'I'.withShared value cont
 
-modify :: (Ref a) (a -> a) -> Task a | Storable a
-modify ref fun = 'I'.upd fun ref
+modify :: (Ref a) (a -> a) -> Task Unit | Storable a
+modify ref fun = void <| 'I'.upd fun ref
 
 watch :: Message (Ref a) -> Task a | Storable a
 watch label ref = 'I'.viewSharedInformation label [] ref

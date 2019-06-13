@@ -2,6 +2,7 @@ definition module Basics
 
 import StdBool
 import Data.List
+import Data.Functor
 
 
 // Synonyms ////////////////////////////////////////////////////////////////////

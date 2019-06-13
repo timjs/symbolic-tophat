@@ -34,7 +34,7 @@ withRef :: a ((Ref a) -> Task b) -> Task b | Storable a & Storable b
 
 (<<-) infixr 2
 (<<-) :== modify
-modify :: (Ref a) (a -> a) -> Task a | Storable a
+modify :: (Ref a) (a -> a) -> Task Unit | Storable a
 
 
 // Watch //
