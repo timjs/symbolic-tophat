@@ -19,11 +19,12 @@ bookedSeats = ref "list of booked seats" []
 
 // Tasks //
 
-bookSeat :: Task Unit
+bookSeat :: Task Int
 bookSeat =
-  enter "Seat number" <&> Internal @ watch "Already booked seats" bookedSeats >?>
-    [ ( "Continue", \( x, ss ) -> not (elem x ss) && 0 < x && x <= maxSeats, \(x, ss) ->
-        bookedSeats <<- cons x )
+  enter "Seat number" <&> Internal @ watch "Already booked seats" bookedSeats >>>
+    [ ( \( x, ss ) -> not (elem x ss) && 0 < x && x <= maxSeats, \(x, ss) ->
+        bookedSeats <<- cons x >>|
+        view "You picked" x )
     ]
 
 main =

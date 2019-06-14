@@ -106,13 +106,13 @@ where
 
 (<?>) infixr 3 :: ( Button, Bool, Task a ) ( Button, Bool, Task a ) -> Task a | Storable a
 (<?>) ( m1, p1, t1 ) ( m2, p2, t2 ) =
-  'I'.return () >?> [ ( m1 , const p1, const t1 ), ( m2, const p2, const t2 ) ]
+  view "Please make a choice" () >?> [ ( m1 , const p1, const t1 ), ( m2, const p2, const t2 ) ]
 
 
 // Other ///////////////////////////////////////////////////////////////////////
 
 done :: a -> Task a | Storable a
-done a = 'I'.return a
+done a = view "" a
 
 fail :: Task a | Storable a
 fail = 'I'.transform (\_ -> 'I'.NoValue) ('I'.return ())
