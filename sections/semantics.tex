@@ -72,33 +72,6 @@ which is the resulting state after evaluating $e_1$.
 
 
 
-\subsection{Observations}
-\label{subsec:observations}
-
-The symbolic normalisation and driving semantics make use of observations on tasks, just like the concrete semantics.
-
-The partial function $\Value$ can be used to observe the value of a task.
-Its definition is given in \cref{fig:value}.
-It is unchanged with respect to the original.
-
-\begin{figure}[ht]
-  \small
-  \begin{center}
-    \usemacro{O-Value}
-  \end{center}
-  \caption{Task value observation function $\Value$.}
-  \label{fig:value}
-\end{figure}
-
-\begin{figure}[ht]
-  \small
-  \begin{center}
-    \usemacro{O-Failing}
-  \end{center}
-  \caption{Task failing observation function $\Failing$.}
-  \label{fig:failing}
-\end{figure}
-
 \begin{figure*}[b]
   \begin{minipage}{\textwidth}
     \small
@@ -132,6 +105,35 @@ It is unchanged with respect to the original.
   \label{fig:handling}
 \end{figure*}
 
+
+
+\subsection{Observations}
+\label{subsec:observations}
+
+The symbolic normalisation and driving semantics make use of observations on tasks, just like the concrete semantics.
+
+The partial function $\Value$ can be used to observe the value of a task.
+Its definition is given in \cref{fig:value}.
+It is unchanged with respect to the original.
+
+\begin{figure}[ht]
+  \small
+  \begin{center}
+    \usemacro{O-Value}
+  \end{center}
+  \caption{Task value observation function $\Value$.}
+  \label{fig:value}
+\end{figure}
+
+\begin{figure}[ht]
+  \small
+  \begin{center}
+    \usemacro{O-Failing}
+  \end{center}
+  \caption{Task failing observation function $\Failing$.}
+  \label{fig:failing}
+\end{figure}
+
 The function $\Failing$ observes if a task is failing.
 Its definition is given in \cref{fig:failing}.
 A task is failing if it is the fail task ($\Fail$), or if it consists of only failing tasks.
@@ -150,41 +152,6 @@ Just like the evaluation semantics it now gathers sets of results, each element 
 Normalisation makes use of the small step striding semantics ($\stride$).
 It's details are not important here.
 For more background, we refer to the appendix.
-
-
-
-\subsection{Handling}
-
-The handling semantics ($\handle{}$) deals with user input.
-In the symbolic case there are symbols instead of concrete inputs.
-A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
-\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
-
-The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
-clearly show how symbols enter the symbolic execution.
-The first one for example generates a fresh symbol $s$ and returns an editor containing it.
-
-There are several task combinators where the result depends on user input.
-For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
-To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
-It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
-
-The same principle applies to the external choice combinator ($\Xor$).
-The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
-There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
-
-After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
-
-\begin{figure}[ht]
-  \small
-  \begin{gather*}
-    \boxed{\RelationSI} \Break
-    \userule{SI-Handle}
-  \end{gather*}
-  \caption{Symbolic driving semantics.}
-  \label{fig:driving}
-\end{figure}
 
 
 
@@ -213,7 +180,7 @@ The combination of those two steps is taken care of by the driving ($\drive{}$) 
   \label{fig:simulate}
 \end{figure*}
 
-\begin{figure*}
+\begin{figure*}[t]
   \small
 \tikzstyle{level 1}=[level distance=4.75cm, sibling distance=3cm]
 \tikzstyle{bag} = [text width=4em, text centered]
@@ -280,6 +247,41 @@ The combination of those two steps is taken care of by the driving ($\drive{}$) 
 \caption{Application of the simulation function to \cref{lst:abs}.}
 \label{diagram:simapp}
 \end{figure*}
+
+
+
+\subsection{Handling}
+
+The handling semantics ($\handle{}$) deals with user input.
+In the symbolic case there are symbols instead of concrete inputs.
+A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
+\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
+
+The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
+clearly show how symbols enter the symbolic execution.
+The first one for example generates a fresh symbol $s$ and returns an editor containing it.
+
+There are several task combinators where the result depends on user input.
+For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
+To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
+It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
+
+The same principle applies to the external choice combinator ($\Xor$).
+The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
+There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
+
+After input has been handled, tasks are normalised.
+The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
+
+\begin{figure}[ht]
+  \small
+  \begin{gather*}
+    \boxed{\RelationSI} \Break
+    \userule{SI-Handle}
+  \end{gather*}
+  \caption{Symbolic driving semantics.}
+  \label{fig:driving}
+\end{figure}
 
 
 

@@ -28,7 +28,7 @@ Second, unary and binary operations have been made explicit.
   \label{fig:syntaxtophat}
 \end{figure}
 
-Symbols are treated as values.
+Symbols are treated as values (\cref{fig:syntaxvalues}).
 They have therefore been added to the grammar of values.
 Also, every symbol has a type, and basic operations can take symbols as arguments.
 As a result, we must now also regard unary and binary operations as values.
@@ -43,19 +43,19 @@ where in the original they were left implicit.
   \label{fig:syntaxvalues}
 \end{figure}
 
-The types of \TOPHAT remain the same.
-However, we do need an additional typing rule, \refrule{T-Sym}, to type symbols,
+The types of \TOPHAT remain the same (\cref{fig:syntaxtypes}).
+However, we do need an additional typing rule, \refrule{T-Sym} in \cref{fig:typingsymbol}, to type symbols,
 since they are now part of our expression syntax.
 The type of symbols is kept track of in the environment $\Gamma$.
 
-\begin{figure}[ht]
+\begin{figure}[b]
   \small
   \usemacro{G-Types-Compact}
   \caption{Syntax of \TOPHAT types.}
   \label{fig:syntaxtypes}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[b]
   \small
   \highlight{\userule{T-Sym}}
   \caption{Additional typing rule for symbols.}
