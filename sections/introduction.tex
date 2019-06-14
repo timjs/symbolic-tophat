@@ -6,7 +6,8 @@ The Task-Oriented Programming paradigm (\TOP) is an abstraction over workflow sp
 The idea of \TOP is to describe the work that needs to be done, in which order, by which person.
 From this specification, an application can be generated that helps to coordinate people and machines to execute the work.
 The \ITASKS framework~\cite{DBLP:conf/ppdp/PlasmeijerLMAK12} is an implementation of the paradigm in the functional programming language Clean.
-In earlier work \cite{Steenvoorden2019}, we presented the programming language TopHat, written \TOPHAT, to distill the core features of TOP into a language suitable for formal treatment.
+In earlier work \cite{Steenvoorden2019}, we presented the programming language TopHat, written \TOPHAT, to distill the core features of \TOP into a language suitable for formal treatment.
+%
 The usefulness of \TOP has been demonstrated in several projects that applied it to implement various applications.
 It has been used by the Netherlands Royal Navy~\cite{jansen2018dynamic}, the Dutch Tax Office~\cite{conf/sfp/StutterheimAP17} and the Dutch Coast Guard~\cite{lijnse2012incidone}. % of moeten we hier verwijzen naar Consequence Management – Declarative Modelling of Maritime C2-systems
 Furthermore, it has potential for application in domains like healthcare and Internet of Things~\cite{DBLP:conf/cgo/KoopmanLP18}.
@@ -26,6 +27,7 @@ we run tasks on symbolic input.
 Symbolic input consists of tokens that represent any value of a certain type.
 When a program branches, the execution engine records the conditions over the symbolic input that lead to the different branches.
 These conditions can then be compared to a given predicate to check if the predicate holds under all conditions.
+We let an \SMT solver verify these statements.
 
 In this way we can guarantee that given predicates over the outcome of a \TOP program always hold.
 Since iTasks is not suitable for formal reasoning, we instead apply symbolic execution to \TOPHAT~\cite{Steenvoorden2019}, by systematically changing the semantic rules of the original language.
@@ -37,7 +39,7 @@ Since iTasks is not suitable for formal reasoning, we instead apply symbolic exe
 This paper makes the following contributions.
 
 \begin{itemize}
-  \item We present a symbolic execution semantics for \TOPHAT.
+  \item We present a symbolic execution semantics for \TOPHAT, a programming language for workflows embedded in the simply typed $\lambda$-calculus.
   \item We prove soundness and completeness of the symbolic semantics with respect to the original \TOPHAT semantics.
   \item We present an implementation of the symbolic execution semantics in Haskell.
 \end{itemize}

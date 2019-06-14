@@ -142,17 +142,20 @@ As symbolic normalisation can yield multiple results, all of the results must be
 
 \subsection{Normalisation}
 
-Normalization reduces tasks until they are ready to receive input.
+Normalization ($\normalise$) reduces tasks until they are ready to receive input.
 Very little has to be changed to accommodate symbolic execution.
 Just like the evaluation semantics it now gathers sets of results, each element guarded by a path condition.
 \Cref{fig:normalising} lists the normalisation semantics.
-For the striding semantics, we refer to the appendix.
+
+Normalisation makes use of the small step striding semantics ($\stride$).
+It's details are not important here.
+For more background, we refer to the appendix.
 
 
 
 \subsection{Handling}
 
-The handling semantics deals with user input.
+The handling semantics ($\handle{}$) deals with user input.
 In the symbolic case there are symbols instead of concrete inputs.
 A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
 \Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
@@ -171,7 +174,7 @@ The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-P
 There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
 
 After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving semantics, listed in \cref{fig:driving}.
+The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
 
 \begin{figure}[ht]
   \small
@@ -289,7 +292,8 @@ In order to compute every possible execution, the driving semantics needs to be 
 We define a task to be done when it has an observable value: $\Value(t', \sigma') \neq \bot$.
 The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
 It accumulates all symbolic inputs and returns for each possible execution the observable task value $v$, the path condition $\phi$, and the state $\sigma$.
-We consider a task, state and path condition to be an end state if the task value can be observed, and the path condition is satisfiable.
+We consider a task, state and path condition to be an end state if the task value can be observed,
+and the path condition is satisfiable, represented by the function $\Sat$.
 
 The recursion terminates when one of the following conditions is met.
 
