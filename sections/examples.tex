@@ -62,36 +62,48 @@ This example proves that a citizen will get subsidy only under the following con
 \begin{TASK}[float=h
             ,numbers=right
             ,caption=Subsidy request and approval workflow at the Dutch tax office.
-            ,label=fig:thetaxman
+            ,label=lst:tax
             ]
   let provideCitizenInformation = enter Date in
   let provideDocuments = enter Amount <&> enter Date in
   let companyConfirm = edit True <?> edit False in
   let officerApprove = \ invoiceDate. \ today. \ confirmed.
-    edit False <?> if (today - invoiceDate < 365 /\ confirmed) |\label{fig:taxman-officer-approve-def}|
-      then edit True else fail in
-  provideCitizenInformation >>= \ today.|\label{fig:taxman-citizen-info}|
-  provideDocuments <&> companyConfirm >>= |\label{fig:taxman-documents-and-company-confirm}|
+    edit False <?> if (today - invoiceDate < 365 /\ confirmed) |\label{lst:tax:officer-approve-def}|
+      then edit True
+      else fail in
+  provideCitizenInformation >>= \ today.|\label{lst:tax:citizen-info}|
+  provideDocuments <&> companyConfirm >>= |\label{lst:tax:documents-and-company-confirm}|
     \ <<<<invoiceAmount, invoiceDate>>, confirmed>>.
-  officerApprove invoiceDate today confirmed >>= \ approved.|\label{fig:taxman-officer-approve}|
+  officerApprove invoiceDate today confirmed >>= \ approved.|\label{lst:tax:officer-approve}|
   let subsidyAmount = if approved
     then min 600 (invoiceAmount / 10) else 0 in
-  edit <<subsidyAmount, approved, confirmed, invoiceDate, today>>|\label{fig:taxman-result}|
+  edit <<subsidyAmount, approved, confirmed, invoiceDate, today>>|\label{lst:tax:result}|
 \end{TASK}
 
-\Cref{fig:thetaxman} shows the program.
+\begin{figure}[b]
+  \includegraphics[width=\columnwidth]{figures/tax-enter}
+  \caption{
+    Graphical user interface for the task in \cref{lst:tax}.
+    In parallel, the citizen is asked to enter the invoice amount and the invoice date of the installed solar panels,
+    and the roofing company is asked to deny or confirm they actually installed the solar panels.
+  }
+  \label{fig:tax}
+\end{figure}
+
+\Cref{lst:tax} shows the program.
 To enhance readability of the example,
 we omit type annotations and make use of pattern matching on tuples.
 The program works as follows.
-First, the citizen has to enter their personal information (\cref{fig:taxman-citizen-info}).
+First, the citizen has to enter their personal information (\cref{lst:tax:citizen-info}).
 In the original demonstrator this included the citizen service number, name, and home address.
 Here, we simplified the example so that the citizen only has to enter the invoice date.
 A date is specified using an integer representing the number of days since 1 January 2000.
 
-In the next step (\cref{fig:taxman-documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
-Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{fig:taxman-officer-approve}).
-The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (\cref{fig:taxman-officer-approve-def}).
-The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{fig:taxman-result}).
+In the next step (\cref{lst:tax:documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
+Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{lst:tax:officer-approve}).
+The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (\cref{lst:tax:officer-approve-def}).
+The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{lst:tax:result}).
+The graphical user interface belonging to two steps in this process are shown in \cref{fig:tax}.
 
 The result of the overall task is a tuple with the subsidy amount, the officer's approval, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
 Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
@@ -99,14 +111,14 @@ The predicate has 5 free variables, which correspond to the returned values.
 \setcounter{equation}{0}
 \begin{align}
 \psi(s,a,c,i,t)
-   & =      s \geq 0 \implies c \label{tax-psi-confirmed}
-\\ & \wedge s \geq 0 \implies a \label{tax-psi-approved}
-\\ & \wedge a \implies c \wedge t - i \leq 356 \label{tax-psi-approve-conditions}
-\\ & \wedge s \leq 600 \label{tax-psi-max-subsidy}
-\\ & \wedge \lnot a \implies s \equiv 0 \label{tax-psi-unapproved}
+   & =      s \geq 0 \implies c \label{for:tax:psi-confirmed}
+\\ & \wedge s \geq 0 \implies a \label{for:tax:psi-approved}
+\\ & \wedge a \implies c \wedge t - i \leq 356 \label{for:tax:psi-approve-conditions}
+\\ & \wedge s \leq 600 \label{for:tax:psi-max-subsidy}
+\\ & \wedge \lnot a \implies s \equiv 0 \label{for:tax:psi-unapproved}
 \end{align}
-The predicate $\psi$ states that (\ref{tax-psi-confirmed}) if subsidy $s$ has been payed, the roofing company must have confirmed $c$, (\ref{tax-psi-approved}) if subsidy has been payed, the officer must have approved $a$, (\ref{tax-psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date $t$ is within 356 days of the invoice date $i$, and (\ref{tax-psi-max-subsidy}) the subsidy is maximal 600 EUR.
-Finally, (\ref{tax-psi-unapproved}) if the officer has not approved, the subsidy must be 0.
+The predicate $\psi$ states that (\ref{for:tax:psi-confirmed}) if subsidy $s$ has been payed, the roofing company must have confirmed $c$, (\ref{for:tax:psi-approved}) if subsidy has been payed, the officer must have approved $a$, (\ref{for:tax:psi-approve-conditions}) the officer can approve only if the roofing company has confirmed and today's date $t$ is within 356 days of the invoice date $i$, and (\ref{for:tax:psi-max-subsidy}) the subsidy is maximal 600 EUR.
+Finally, (\ref{for:tax:psi-unapproved}) if the officer has not approved, the subsidy must be 0.
 
 
 
@@ -117,27 +129,40 @@ The purpose of this example is to demonstrate how symbolic execution handles ref
 We prove that when the program terminates, every passenger has exactly one seat, and that no two passengers have the same seat.
 This program is a simplified version of what we presented in earlier work \cite{Steenvoorden2019}.
 
-\begin{TASK}[float=h
+\begin{TASK}[float=ht
             ,numbers=right
             ,caption=Flight booking.
-            ,label=fig:flight-booking
+            ,label=lst:flight-booking
             ]
   let maxSeats = 50 in
-  let bookedSeats = ref [] in|\label{flight:make-ref}|
-  let bookSeat = enter Int >>= \ x .|\label{flight:enter-seat-number}|
-    if x `elem` !bookedSeats \/ x > maxSeats|\label{flight:guard-invalid-seats}|
-      then fail else bookedSeats := x :: !bookedSeats in
-  bookSeat <&> bookSeat <&> bookSeat >>= \ _ .|\label{flight:main-expression}|
+  let bookedSeats = ref [] in|\label{lst:flight:make-ref}|
+  let bookSeat = enter Int >>= \ x .|\label{lst:flight:enter-seat-number}|
+    if not (x `elem` !bookedSeats) /\ x <= maxSeats|\label{lst:flight:guard-invalid-seats}|
+      then bookedSeats := x :: !bookedSeats >>= \ _ . edit x |\label{lst:flight:update-seats}|
+      else fail in
+  bookSeat <&> bookSeat <&> bookSeat >>= \ _ .|\label{lst:flight:main-expression}|
   edit (!bookedSeats)
 \end{TASK}
 
-The program, shown in \cref{fig:flight-booking}, consists of three parallel seat booking tasks (\cref{flight:main-expression}).
-There is a shared list that stores all booked seats so far (\cref{flight:make-ref}).
-In order to book a seat, a passenger has to enter a seat number (\cref{flight:enter-seat-number}).
-A guard expression makes sure that only free seats can be booked (\cref{flight:guard-invalid-seats}).
+The program, shown in \cref{lst:flight-booking}, consists of three parallel seat booking tasks (\cref{lst:flight:main-expression}).
+There is a shared list that stores all booked seats so far (\cref{lst:flight:make-ref}).
+In order to book a seat, a passenger has to enter a seat number (\cref{lst:flight:enter-seat-number}).
+A guard expression makes sure that only free seats can be booked (\cref{lst:flight:guard-invalid-seats}).
 The exclamation mark denotes dereferencing.
-The main expression runs the seat booking task three times in parallel (\cref{flight:main-expression}), simulating three concurrent customers.
+When the guard is true, the list of booked seats is updated, and the user can see his booked seat (\cref{lst:flight:update-seats}).
+The main expression runs the seat booking task three times in parallel (\cref{lst:flight:main-expression}), simulating three concurrent customers.
 The program returns the list of booked seats.
+The graphical user interface, generated from the specification in \cref{lst:flight-booking}, is shown in \cref{fig:flight-booking}.
+
+\begin{figure}[t]
+  \includegraphics[width=\columnwidth]{figures/flight-booking.png}
+  \caption{
+    Graphical user interface generated from the specification in \cref{lst:flight-booking}.
+    Three users are booking seats in parallel.
+    The first user booked seat 9, the second did not enter a seat number yet, and the third is about to book seat 4.
+  }
+  \label{fig:flight-booking}
+\end{figure}
 
 With the returned list, we can state the predicate to verify the correctness of the booking process.
 \setcounter{equation}{0}
