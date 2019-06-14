@@ -30,13 +30,13 @@ Execution only arrives at the value $v$ and state $\sigma'$ when the inputs sati
 
 To illustrate the difference between concrete and symbolic evaluation, \cref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \userule{E-Edit}\Quad
     \userule{SE-Edit}
   \end{gather*}
-  \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression}
+  \caption{The evaluation rule from the concrete and the symbolic semantics for the editor expression.}
   \label{fig:oldToNewSemantics}
 \end{figure}
 
@@ -52,13 +52,13 @@ Most symbolic rules closely resemble their concrete counterparts, and follow dir
 The rules are not listed here, a full overview can be found in \cref{sec:symbolic-evaluation-rules}.
 
 The only interesting rule is the one for conditionals, listed in \cref{fig:eval}.
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \boxed{\RelationSE} \Break
     \userule{SE-If}
   \end{gather*}
-  \caption{Part of the symbolic evaluation semantics}
+  \caption{Part of the symbolic evaluation semantics.}
   \label{fig:eval}
 \end{figure}
 The concrete semantics has two separate rules for the $\THEN$ and the $\ELSE$ branch.
@@ -81,7 +81,7 @@ The partial function $\Value$ can be used to observe the value of a task.
 Its definition is given in \cref{fig:value}.
 It is unchanged with respect to the original.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{center}
     \usemacro{O-Value}
@@ -90,7 +90,7 @@ It is unchanged with respect to the original.
   \label{fig:value}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{center}
     \usemacro{O-Failing}
@@ -108,7 +108,7 @@ It is unchanged with respect to the original.
       \userule{SN-Repeat}
     \end{gather*}
   \end{minipage}
-  \caption{Symbolic normalisation semantics}
+  \caption{Symbolic normalisation semantics.}
   \label{fig:normalising}
 \end{figure*}
 
@@ -128,7 +128,7 @@ It is unchanged with respect to the original.
       \userule{SH-Or}
     \end{gather*}
   \end{minipage}
-  \caption{Symbolic handling semantics}
+  \caption{Symbolic handling semantics.}
   \label{fig:handling}
 \end{figure*}
 
@@ -173,13 +173,13 @@ There is one rule for the case where only the right fails, one rule when the lef
 After input has been handled, tasks are normalised.
 The combination of those two steps is taken care of by the driving semantics, listed in \cref{fig:driving}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
   \small
   \begin{gather*}
     \boxed{\RelationSI} \Break
     \userule{SI-Handle}
   \end{gather*}
-  \caption{Symbolic driving semantics}
+  \caption{Symbolic driving semantics.}
   \label{fig:driving}
 \end{figure}
 
@@ -196,7 +196,7 @@ The combination of those two steps is taken care of by the driving semantics, li
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \Simulate'(\Again, t, I, \phi, t', i', \sigma', \phi') &=& \\
       \multicolumn{3}{L}{ \left\{
-        \begin{array}{lrclclcr}
+        \begin{array}{lr@{\ }c@{\ }l@{\ }c@{\ }l@{\ }c@{\ }r}
           \nothing                                                                                              & \neg\Sat(\phi'\land\phi) &&&&&&\\
           \set{(v, I\oplus[i'], \phi\land\phi')}                                                                & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
           \Simulate(t', \sigma', I\oplus[i'], \phi\land\phi')                                           & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
@@ -206,16 +206,16 @@ The combination of those two steps is taken care of by the driving semantics, li
         \end{array}
         \right.}
   \end{function}
-  \caption{Simulation function definition}
+  \caption{Simulation function definition.}
   \label{fig:simulate}
 \end{figure*}
 
 \begin{figure*}
   \small
-\tikzstyle{level 1}=[level distance=5cm, sibling distance=3cm]
-\tikzstyle{level 2}=[level distance=5cm, sibling distance=3cm]
+\tikzstyle{level 1}=[level distance=4.75cm, sibling distance=3cm]
 \tikzstyle{bag} = [text width=4em, text centered]
 \tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\hspace*{-1em}
 \begin{tikzpicture}[grow=right, sloped]
 \node[bag] {$i=s_0$}
     child[missing] {node {}}
@@ -232,12 +232,13 @@ The combination of those two steps is taken care of by the driving semantics, li
                     node[above] {$\phi''=s_2\leq 0$}
                     node[below] {\begin{tabular}{R@{\ }C@{\ }L}
                       \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
-                      \Edit s_0 \Then\ldots               &=&  \Edit s_1\Then\ldots \\
+                      \Edit s_0 \Then\ldots               &=& \Edit s_1\Then\ldots \\
                       \Again                              &=& \False
                     \end{tabular}}
                 }
                 child {
                     node[end, label=right:
+                        % {\begin{tabular}{l} $s_2$\\ $[s_0,s_1,s_2]$\\ $s_0\leq 0$\\$\quad\land\ s_1\leq 0$\\$\quad\land\ s_2>0$ \end{tabular}}] {}
                         {\begin{tabular}{l} $s_2$\\ $[s_0,s_1,s_2]$\\ $s_0\leq 0\land s_1\leq 0\land s_2>0$ \end{tabular}}] {}
                     edge from parent
                     node[above] {$\phi''=s_2>0$}
@@ -247,7 +248,7 @@ The combination of those two steps is taken care of by the driving semantics, li
                 node[above] {$\phi'=s_1\leq0$}
                 node[below] {\begin{tabular}{R@{\ }C@{\ }L}
                   \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
-                  \Edit s_0 \Then\ldots               &=&  \Edit s_1\Then\ldots \\
+                  \Edit s_0 \Then\ldots               &=& \Edit s_1\Then\ldots \\
                   \Again                              &=& \True
                 \end{tabular}}
             }
@@ -273,7 +274,7 @@ The combination of those two steps is taken care of by the driving semantics, li
             node[below]  {$\Value(\Edit s_0,\sigma)=s_0$}
     };
 \end{tikzpicture}
-\caption{Application of the simulation function to \cref{lst:abs}}
+\caption{Application of the simulation function to \cref{lst:abs}.}
 \label{diagram:simapp}
 \end{figure*}
 
@@ -373,7 +374,7 @@ All path conditions are converted to \SMTLIB compatible statements and are verif
 As of now we do not have a parser, programs must be specified directly as abstract syntax trees.
 
 As is usually the case with symbolic execution, the number of paths grows quickly.
-The examples in \cref{fig:thetaxman,fig:flight-booking} generate respectively 2112 and 1166 paths,
+The examples in \cref{lst:tax,lst:flight-booking} generate respectively 2112 and 1166 paths,
 which takes about a minute to calculate.
 Solving them, however, is almost instantaneous.
 

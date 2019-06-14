@@ -1,0 +1,18 @@
+[project]
+name = "tophat-examples"
+version = "0.1.0"
+authors = ["Tim Steenvoorden <tim@cs.ru.nl>"]
+
+sourcedir = "."
+libraries = [
+  "Dynamics",
+  "Generics",
+  "Platform",
+  "Platform/Deprecated/StdLib",
+  "TCPIP",
+  "ABCInterpreter",
+  "GraphCopy",
+  "iTasks"]
+
+[executable]
+main = "Flight"
