@@ -136,7 +136,7 @@ The full proof is listed in \cref{sec:soundness-proofs}.
   For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $e,\sigma\normalise \overline{t,\sigma',\phi}$,
   we have $M\phi$ implies
-  $e,M \sigma \bar{\normalise}t',\sigma''$, $t M \equiv t'$ and $\sigma' M \equiv \sigma''$.
+  $e,M \sigma \hat{\normalise}t',\sigma''$, $t M \equiv t'$ and $\sigma' M \equiv \sigma''$.
 
 \end{lemma}
 
@@ -148,8 +148,8 @@ we must show soundness for those too.
 
   For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $t,\sigma\stride \overline{t',\sigma',\phi}$,
-  $M \phi= \True$ implies
-  $t,M\sigma \bar{\stride}\bar{t'},\bar{\sigma'}$, $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
+  $M \phi$ implies
+  $t,M\sigma \hat{\stride}\bar{t'},\bar{\sigma'}$, $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
 
 \end{lemma}
 
@@ -158,7 +158,8 @@ we must show soundness for those too.
 
   For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
-  we have that $M\phi \implies t,M\sigma \bar{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
+  we have that $M\phi$ implies
+  $t,M\sigma \hat{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
 
 \end{lemma}
 
@@ -222,24 +223,24 @@ These properties are listed in \cref{lem:completeNormalise,lem:completeStride,le
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}
-  For all $e,\sigma$ such that $e,\sigma \bar{\normalise}\hat{t'},\hat{\sigma'}$
+  For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t'},\hat{\sigma'}$
   there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of striding]
   \label{lem:completeStride}
-  For all $t,\sigma$ such that $t,\sigma \bar{\stride}\hat{t'},\hat{\sigma'}$
+  For all $t,\sigma$ such that $t,\sigma \hat{\stride}\hat{t'},\hat{\sigma'}$
   there exists a symbolic execution $t,\sigma''\eval t'',\sigma''',\phi$.
 \end{lemma}
 
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
-  For all $e,\sigma$ such that $e,\sigma \bar{\eval}\hat{v},\hat{\sigma'}$
+  For all $e,\sigma$ such that $e,\sigma \hat{\eval}\hat{v},\hat{\sigma'}$
   there exists a symbolic execution $e,\sigma''\eval v',\sigma''',\phi$.
 \end{lemma}
 
 
-The proofs of \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} are trivial, since every concrete execution in these semantics is also a symbolic one.
+The proofs of \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} are trivial, since every concrete execution in these semantics is also a symbolic one.\todo{maybe just inline the proofs since they are only one line long?}
 The full proofs are listed in \cref{sec:completeness-proofs}.
