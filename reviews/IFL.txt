@@ -1,0 +1,184 @@
+SUBMISSION: 1
+TITLE: A symbolic execution semantics for TopHat
+
+
+----------------------- REVIEW 1 ---------------------
+SUBMISSION: 1
+TITLE: A symbolic execution semantics for TopHat
+AUTHORS: Nico Naus, Tim Steenvoorden and Markus Klinik
+
+----------- Overall evaluation -----------
+SCORE: 2 (accept)
+----- TEXT:
+Sec 2.1: it would be clearer to call these "stores" or "storage locations": "editors" may be useful motivation, but you've abstracted them to such an extent that they are really just storage locations.
+
+In section 2.1 also state clearly that editors are tasks.
+
+in Sec 2.2 the variable names are really confusing: do the variables "e", "e_1" etc range over editors only? I think not, but you're suggesting that by using this notation. Why not just use "t" and "t_i" for all the variables here. There are also examples of variables being repeated (e.g. in composition: that's a typo). See note on section 3.2 below: I see that I was wrong here …
+
+p2, top of col 2 "For example …" Do you really mean that? Don't you do the first thing and then fail?
+
+Sec 2.4. State clearly what types inputs can have. Any type, or from a restricted set?
+
+Sec 3.1 The explanation "a task that only accepts positive values as inputs" is misleading. As I understand from your informal explanation in Sec2.1, your program will only accept a positive integer to become \box x, but once it is \box x "the usr can replace the value by a new value of the same type" i.e. ANY integer. I must be misunderstanding something here, but needs clarity of explanation.
+
+Sec 3.2 I see from this that the term following the black triangle is a lambda expression, not a task. It would be REALLY helpful to have types given in the description. But is your informal typing still ok? Is the type of expressions for \diamond different from that for \black-diamond?
+
+In Sec 3.3. the terminology is different: you have ref {} and usage of !, neither of which is introduced in Sec 2. Can you rephrase in terms of the Sec 2 syntax, or do you have to introduce more concepts to make this work? If so, maybe better to drop the example: you have two already. Aha, you do say something about this. OK.
+
+Sec 4.1 Nice touch to highlight the way in which you have modified \top-hat to add symbolics.
+
+Sec 4.1. You say very little about types. It would be really helpful to have some indication of the most important type constraints on formation of tasks / task continuations. There's no need to spell out the rules for the simply typed \lambda-calculus :-)
+
+Section 5 is very clear, and makes aver good job of describing at a high level the changes that need to be made to produce the symbolic semantics from the concrete one.
+
+Section 5.8 "outlook" - better to say "future work"
+
+Section 6.1. Soundness. It is at first surprising that all symbolics executions have a concrete one corresponding to them: is it not possible to produce a set of symbolic choices through a series of conditionals that cannot be realised (e.g. by requiring x>0 in the first and x<0 in the second). I assume that I am missing something here but it would be useful to have an informal explanation here for why my argument is not valid.
+
+
+
+----------------------- REVIEW 2 ---------------------
+SUBMISSION: 1
+TITLE: A symbolic execution semantics for TopHat
+AUTHORS: Nico Naus, Tim Steenvoorden and Markus Klinik
+
+----------- Overall evaluation -----------
+SCORE: 0 (borderline paper)
+----- TEXT:
+This paper proposes a symbolic execution semantics, a kind of operational semantics, for the task oriented
+programming language "TopHat" and shows soundness and completeness of the proposed semantics with respect to
+another operational semantics, called the concrete semantics, of the language. Task oriented programming (Top) is
+a new kind of programming paradigm targeting to develop interactive multi-user systems whose main feature is
+to handle "Tasks" that is an abstraction of tasks (such as passing messages, accessing memory space, and
+combining values).
+
+TopHat seems to have been proposed in the authors' earlier paper, which will be presented in PPDP2019.
+Although the name of the paper is found in the website of PPDP2019, since it is not published yet,
+the reviewer could not refer (even from the author's website) it. Therefore, the reviewer would like
+to declare that this review report is not an evaluation on novelty of this submitted paper compared
+to the authors' PPDP2019 paper, but an evaluation on this paper alone.
+
+TopHat is designed as a programming language having the task processing mechanism based on the call-by-value
+lambda-calculus with reference types. According to the authors' explanation, TopHat of the current paper is
+an extension of the one given in the PPDP2019 paper, adding ability of handling symbolic inputs.
+This is to support symbolic execution, which is not considered in the previous paper.
+
+This paper first gives the concrete semantics for TopHat (without symbols), then defines symbolic execution
+semantics for the system with symbols. In the concrete semantics, the execution path of a given program is
+uniquely determined, since only concrete input values are considered and the evaluation order
+(even for binary operators that are intended to calculate in parallel) is completely fixed.
+On the other hand, in the symbolic execution semantics, a given program may have several branches in its execution,
+since the semantics allows symbolic inputs, which may have various values, and reflects parallel calculations.
+
+The theoretical results of the paper are the soundness and completeness properties of the symbolic execution semantics
+with respect to the concrete semantics.
+(1) The soundness property guarantees that a computation of the symbolic execution semantics can be simulated by
+that of the concrete semantics by fixing the input values of symbolic inputs and choices of branches
+of the computational path beforehand.
+(2) The completeness property means that a computation of the concrete semantics can be seen as a special case of
+the symbolic execution semantics (this property is trivially shown from their definitions).
+
+The paper also presents an implementation of TopHat based on the symbolic execution semantics.
+
+Cons.
+The paper gives a theoretical basis of TopHat proposed by the authors.
+This contribution would be important for developing a reasonable task oriented programming language.
+The proofs of the soundness and completeness properties look correct.
+Giving an implementation of the symbolic execution semantics in Haskell can be positively evaluated.
+It matches the scope of IFP.
+
+Pros.
+There is room for improving presentation. The current paper seems to be written for readers who are familiar with TopHat.
+This may due to the inaccessibility of the PPDP2019 paper, but the operational semantics presented in this paper
+have several evaluation relations, and these relationships are complicated and not easy to understand.
+It was hard to grasp the overall picture of the semantics because the intuitive meaning of each evaluation relation
+was unclear (although there are short explanations).
+There are a lot of typos and careless mistakes (what is ”Conference’17,July 2017, Washington, DC, USA" of each page?)
+
+As mentioned above, it is difficult to evaluate the novelty of the paper itself correctly, but, if one believes the authors' words,
+the paper would be a continuation of their PPDP2019 work of TopHat.
+The results of the paper will have some contribution toward to give a formal reasoning of task oriented programming.
+However it is also considered that the presentation should be improved for more easier access to TopHat by readers.
+Overall, the reviewer evaluates the paper as borderline.
+
+
+
+Detailed comments and typos:
+- page2,Left,line-11: "t_1 \bowtie t_1" -> "t_1 \bowtie t_2"
+- p2,L,l-5: "e_1 \diamond e_1" -> "e_1 \diamond e_2"
+- p5,subsec 4.3 the definition of \varphi:
+ "\varphi_1::\varphi2" -> "\varphi_1::\varphi_2"
+ This definition looks strange: according to it, the form \varphi_1 \land \varphi_2 is not a path condition.
+- p6,Figure12,SN-DONE: the right assumption is meaningless.
+- p6,Figure13,the last line: "t_1 \diamond t_2" should be "e_1 \diamond e_2"
+- p7,Figure15,the first line: "Valuse" -> "Values"
+- p9,Lem6.3: "-" -> "^"
+- p9,Lem6.4: "-" -> "^"
+- p9,Lem6.5: "-" -> "^"
+ It is better to write "implies" instead of \superset
+- p9,Lem6.9: "-" -> "^"
+ e is t, \sigma'' is \sigma, t'' is t', sigma''' is sigma'^, \varphi is True (I think)
+- p9,Lem6.10: "-" -> "^"
+ \sigma'' is \sigma, t'' is t'^, \sigma''' is \sigma'^, \varphi is True (I think)
+- p9,Lem6.11: "-" -> "^"
+ \sigma'' is \sigma, v' is v^, \sigma''' is \sigma'^, \varphi is True (I think)
+- p12: overlines are missing in SE-CONS,SE-HEAD,SE-TAIL
+- p15,B1:
+ T-FIRST, T-SECOND
+ they look strange. Is a term of the form fst(x) untypable?
+ If so, the example program of List2 is also untypable,
+ since a term of the form \lambda<x,y>.t[x,y] is an abbreviation of \lambda z.t[fst(z),snd(z)]
+ T-LOC: it is written twice
+- p15,B2:
+ E-IFFALSE: "v_1^" should be False
+- E-ENTER,E-FAIL,E-XOR: they are not necessary, since they are contained in E-VALUE
+
+
+
+----------------------- REVIEW 3 ---------------------
+SUBMISSION: 1
+TITLE: A symbolic execution semantics for TopHat
+AUTHORS: Nico Naus, Tim Steenvoorden and Markus Klinik
+
+----------- Overall evaluation -----------
+SCORE: 2 (accept)
+----- TEXT:
+This paper introduced TopHat which is a new symbolic
+execution engine for a task-oriented programming
+paradigm, based on Top. Top allows workflows, and
+input/output interactions, to be embedded in a FP
+pardigm. Though thi is the first-time I came across
+the task-oriented paradigm, I found the coding style
+to be quite expressive and natural.
+
+Top used a small set of combinators to build both
+IO interaction, sequencing, parallelism and choice points.
+
+The paper's main contributions are:
+ (i) a symbolic execution semantics
+ (ii) soundness + completeness of symbolic execution
+     wrt the original TOP semantics
+(iii) an implementation in Haskell
+
+Overall, I like the paper and think that it offered
+new symbolic execution results for task-oriented programming.
+The current contributions seem to be biased towards
+semantics + soundness/completeness.
+
+The implementation part is largely under-developed,
+since parser is absent and only small programs have
+been evaluated. I would be interested to know how
+higher-order features affect symbolic execution. This is
+especially important for symbolic execution based on FP
+paradigm. You have a discussion on it in related work
+but it would be good to see if good implementation
+is easily achievable.
+
+Coming from logic + Hoare-style verification background,
+I also can't help wondering if modular symbolic execution
+is something that you may want to consider for the future.
+If so, one may need to develop specification logics for
+pre/post conditions, and explore how symbolic excecution
+would be supported. Under this setting, I presume higher-order
+functions would pose some theoretical challenge.
