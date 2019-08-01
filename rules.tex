@@ -49,17 +49,17 @@
 %%%%%%%
 
 \newrule{SE-Cons}
-  {e_1,\sigma \eval v_1,\sigma',\highlight{\phi_1}\Quad
-   e_2,\sigma' \eval v_2,\sigma'',\highlight{\phi_2}}
-  {e_1 :: e_2,\sigma \eval v_1:: v_2,\sigma'',\highlight{\phi_1\land\phi_2}}
+  {e_1,\sigma \eval \overline{v_1,\sigma',\highlight{\phi_1}}\Quad
+   e_2,\sigma' \eval \overline{v_2,\sigma'',\highlight{\phi_2}}}
+  {e_1 :: e_2,\sigma \eval \overline{v_1:: v_2,\sigma'',\highlight{\phi_1\land\phi_2}}}
 
 \newrule{SE-Head}
-  {e,\sigma \eval v_1::v_2,\sigma',\highlight{\phi}}
-  {\Head e,\sigma \eval v_1,\sigma',\highlight{\phi}}
+  {e,\sigma \eval \overline{v_1::v_2,\sigma',\highlight{\phi}}}
+  {\Head e,\sigma \eval \overline{v_1,\sigma',\highlight{\phi}}}
 
 \newrule{SE-Tail}
-{e,\sigma \eval v_1::v_2,\sigma',\highlight{\phi}}
-{\Tail e,\sigma \eval v_2,\sigma',\highlight{\phi}}
+{e,\sigma \eval \overline{v_1::v_2,\sigma',\highlight{\phi}}}
+{\Tail e,\sigma \eval \overline{v_2,\sigma',\highlight{\phi}}}
 
 
 %%%%%
