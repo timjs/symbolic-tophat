@@ -62,13 +62,13 @@ The following combinators are available in \TOPHAT.
     When $t$ has a value, the step becomes enabled.
     Users can then send a continue event to the combinator.
     When that happens, the value of $t$ is passed to the right hand side, with which it continues.
-  \item[$t_1 \And t_1$] Composition.\\
+  \item[$t_1 \And t_2$] Composition.\\
     Users can work on tasks $t_1$ and $t_2$ in parallel.
   \item[$t_1 \Or t_2$] Choice.\\
     The system chooses between $t_1$ or $t_2$,
     based on which task first has a value.
     If both tasks have a value, the system chooses the left one.
-  \item[$e_1 \Xor e_1$] User choice.\\
+  \item[$e_1 \Xor e_2$] User choice.\\
     A user has to make a choice between either the left or the right hand side.
     The user continues to work on the chosen task.
 \end{description}

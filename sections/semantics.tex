@@ -158,7 +158,7 @@ For more background, we refer to the appendix.
 \begin{figure*}[t]
   \begin{function}
     \signature{\Simulate : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
-      \rightarrow \powerset{\mathrm{Valuse} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
+      \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \Simulate(t, \sigma, I, \phi) &=&
       \bigcup \set{ \Simulate'(\True, t, I, \phi, t', \sigma', i', \phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
     \addlinespace
