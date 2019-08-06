@@ -224,30 +224,20 @@ These properties are listed in \cref{lem:completeNormalise,lem:completeStride,le
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}
-  For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t'},\hat{\sigma'}$
-  there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
-\end{lemma}
-
-\begin{lemma}[Completeness of normalisation]
-  \label{lem:completeNormalise}
   For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t},\hat{\sigma}$
   there exists a symbolic execution $e,\sigma\normalise \hat{t},\hat{\sigma},\True$.
 \end{lemma}
 
-
 \begin{lemma}[Completeness of striding]
   \label{lem:completeStride}
-  For all $t,\sigma$ such that $t,\sigma \hat{\stride}\hat{t'},\hat{\sigma'}$
-  there exists a symbolic execution $t,\sigma''\eval t'',\sigma''',\phi$.
+  For all $t,\sigma$ such that $t,\sigma \hat{\stride}\hat{t},\hat{\sigma}$
+  there exists a symbolic execution $t,\sigma\eval \hat{t},\hat{\sigma},\True$.
 \end{lemma}
-
 
 \begin{lemma}[Completeness of evaluation]
   \label{lem:completeEval}
-  For all $e,\sigma$ such that $e,\sigma \hat{\eval}\hat{v},\hat{\sigma'}$
-  there exists a symbolic execution $e,\sigma''\eval v',\sigma''',\phi$.
+  For all $e,\sigma$ such that $e,\sigma \hat{\eval}\hat{v},\hat{\sigma}$
+  there exists a symbolic execution $e,\sigma\eval \hat{v},\hat{\sigma},\True$.
 \end{lemma}
 
-
-The proofs of \cref{lem:completeNormalise,lem:completeStride,lem:completeEval} are trivial, since every concrete execution in these semantics is also a symbolic one.\todo{maybe just inline the proofs since they are only one line long?}
-The full proofs are listed in \cref{sec:completeness-proofs}.
+\Cref{lem:completeNormalise,lem:completeStride,lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.
