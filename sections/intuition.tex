@@ -22,8 +22,9 @@ Next, we discuss the main constructs of the task language.
 
 \subsection{Editors}
 
-Editors are the basic method for programs to communicate with the outside world.
-They are an abstraction over widgets in a \GUI library or on webpage forms.
+Editors are the most basic tasks.
+They are used to communicate with the outside world.
+Editors are an abstraction over widgets in a \GUI library or on webpage forms.
 Users can change the value held by an editor, in the same way they can manipulate widgets in a \GUI.
 
 When a \TOP implementation generates an application from a task specification, it derives user interfaces for the editors.
@@ -53,10 +54,13 @@ Combinators describe the way people collaborate.
 Tasks can be performed in sequence or in parallel, or there is a choice between two tasks.
 
 The following combinators are available in \TOPHAT.
+Here, $t$ stands for tasks and $e$ for arbitrary expressions.
+The concrete syntax of the language is described in \cref{sec:expressions}
 \begin{description}
   \item[$t \Then e$] Step.\\
     Users can work on task $t$.
-    As soon as $t$ has a value, that value is passed on to the right hand side $e$, with which it continues.
+    As soon as $t$ has a value, that value is passed on to the right hand side $e$.
+    The expression $e$ is a function, taking the value as an argument, resulting in a new task.
   \item[$t \Next e$] User Step.\\
     Users can work on task $t$.
     When $t$ has a value, the step becomes enabled.
@@ -75,7 +79,7 @@ The following combinators are available in \TOPHAT.
 
 In addition to editors and combinators, \TOPHAT also contains the fail task ($\Fail$).
 Programmers can use this task to indicate that a task is not reachable or viable.
-For example, when the right hand side of a step combinator is $\Fail$, the step will not proceed to that task.
+When the right hand side of a step combinator evaluates to $\Fail$, the step will not proceed to that task.
 
 
 
@@ -96,14 +100,16 @@ The complete definition of the value and failing function are discussed in \cref
 
 
 
-\subsection{Inputs}
+\subsection{Input}
 
 Input events drive evaluation of tasks.
+Because tasks are typed, input is typed as well.
+Editors only accept input of the correct type.
 Examples are replacing a value in an editor,
 or sending a continue event to a user step.
 When the system receives a valid event, it gives this event to the current task, which reduces to a new task.
 Everything in between interaction steps is evaluated atomically with respect to inputs.
 % In this way the system communicates with the environment.
 
-Inputs are synchronous, which means the order of execution is completely determined by the order of the inputs.
-In particular, the order of inputs determine the progression of parallel branches.
+Input events are synchronous, which means the order of execution is completely determined by the order of the events.
+In particular, the order of input events determine the progression of parallel branches.

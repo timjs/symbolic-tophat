@@ -6,6 +6,16 @@
 In this section we discuss the symbolic execution semantics for \TOPHAT.
 The structure of the symbolic semantics closely resembles that of the concrete semantics.
 It consists of three layers, a big step symbolic evaluation semantics for the host language, a big step symbolic normalisation semantics for the task language, and a small step driving semantics that processes user inputs.
+\Cref{fig:semantic-functions} gives an overview of the relations between the different semantics.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\columnwidth,page=5]{figures/drawings-crop.pdf}
+  \caption{
+    Semantic functions defined in this report and their relation.
+  }
+  \label{fig:semantic-functions}
+\end{figure}
 
 They are described in the following sections.
 We will study their interesting aspects, and the changes made with respect to the concrete semantics.

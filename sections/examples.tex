@@ -9,11 +9,11 @@ In this section we study three examples to illustrate how the language \TOPHAT w
 
 \subsection{Positive value}
 
-This example demonstrates how to prove that a program only accepts positive values as inputs.
+This example demonstrates how to prove that the first observable value of a program can only be a positive number.
 Consider the program in \cref{lst:abs}.
 
 \begin{TASK}[float=h
-            ,caption=A task that only accepts positive values as inputs.
+            ,caption=A task that only steps on a positive input value.
             ,label=lst:abs
             ]
   enter Int >>= \ x. if x > 0 then edit x else fail
@@ -22,10 +22,12 @@ Consider the program in \cref{lst:abs}.
 It asks the user to input a value of type $\Int$.
 This value is then passed on to the right hand side.
 If the value is greater than zero, an editor containing the entered value is returned.
-Otherwise the step does not proceed and the user has to enter a different value.
+At this point, the task has an observable value, and we consider it done.
+Otherwise the step does not proceed and the task does not have an observable value.
+The user can enter a different input value.
 
 Imagine that we would like to prove that no matter which value is given as input,
-the only possible outcome is a value greater than zero.
+the first observable value has to be a value greater than zero.
 
 Symbolic execution of this program proceeds as follows.
 The symbolic execution engine generates a fresh symbolic input $s$ for the editor on the left.

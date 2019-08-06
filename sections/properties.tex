@@ -102,7 +102,8 @@ In order to relate the two semantics, we use the concrete inputs listed in \cref
 % \end{theorem}
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to validate the symbolic execution semantics, we want to show that for every symbolic execution there exists a corresponding concrete one.
+In order to validate the symbolic execution semantics,
+we want to show that for every individual symbolic execution step there exists a corresponding concrete one.
 This soundness property is expressed by \cref{thm:sounddrive}.
 
 \begin{theorem}[Soundness of driving]
@@ -225,6 +226,12 @@ These properties are listed in \cref{lem:completeNormalise,lem:completeStride,le
   \label{lem:completeNormalise}
   For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t'},\hat{\sigma'}$
   there exists a symbolic execution $t,\sigma''\normalise t'',\sigma''',\phi$.
+\end{lemma}
+
+\begin{lemma}[Completeness of normalisation]
+  \label{lem:completeNormalise}
+  For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t},\hat{\sigma}$
+  there exists a symbolic execution $e,\sigma\normalise \hat{t},\hat{\sigma},\True$.
 \end{lemma}
 
 
