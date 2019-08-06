@@ -4,8 +4,16 @@
 \label{sec:language}
 
 The language presented in this section is nearly identical to the original \TOPHAT language presented by \citet{Steenvoorden2019}.
-The main difference with the original grammar is the addition of symbolic inputs.
-The following subsections describe in detail how all elements of the \TOPHAT language deal with this addition.
+The main difference with the original grammar is the addition of symbolic values.
+
+Symbolic execution for functional programming languages struggles with higher order features.
+This topic is under active study, and is not the focus of our work.
+Therefore, we restrict symbols to only represent values of basic types.
+This restriction is of little importance in the domains we are interested in.
+Allowing users to enter higher order values is not useful in most workflow applications.
+Apart from input, all other higher order features are unrestricted.
+
+The following subsections describe in detail how all elements of the \TOPHAT language deal with the addition of symbols.
 
 
 
