@@ -32,7 +32,7 @@ Second, unary and binary operations have been made explicit.
   \small
   \usemacro{G-Language-Compact}
   \usemacro{G-Pretasks-Compact}
-  \caption{Syntax of \TOPHAT expressions.}
+  \caption{Syntax of Symbolic \TOPHAT expressions.}
   \label{fig:syntaxtophat}
 \end{figure}
 
@@ -47,7 +47,7 @@ where in the original they were left implicit.
   \small
   \usemacro{G-Values-Compact}
   \usemacro{G-Tasks-Compact}
-  \caption{Syntax of values in \TOPHAT.}
+  \caption{Syntax of values in Symbolic \TOPHAT.}
   \label{fig:syntaxvalues}
 \end{figure}
 
@@ -56,17 +56,17 @@ However, we do need an additional typing rule, \refrule{T-Sym} in \cref{fig:typi
 since they are now part of our expression syntax.
 The type of symbols is kept track of in the environment $\Gamma$.
 
-\begin{figure}[b]
+\begin{figure}[t]
   \small
   \usemacro{G-Types-Compact}
-  \caption{Syntax of \TOPHAT types.}
+  \caption{Syntax of Symbolic \TOPHAT types.}
   \label{fig:syntaxtypes}
 \end{figure}
 
-\begin{figure}[b]
+\begin{figure}[t]
   \small
   \highlight{\userule{T-Sym}}
-  \caption{Additional typing rule for symbols.}
+  \caption{Additional typing rule for Symbolic \TOPHAT.}
   \label{fig:typingsymbol}
 \end{figure}
 
@@ -81,7 +81,7 @@ This is reflected in the definition of symbolic inputs and actions in \cref{fig:
 \begin{figure}[ht]
   \small
   \usemacro{G-Inputs-Compact}
-  \caption{Syntax of symbolic inputs and actions.}
+  \caption{Syntax of inputs and actions in Symbolic \TOPHAT.}
   \label{fig:syntaxinputs}
 \end{figure}
 

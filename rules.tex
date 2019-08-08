@@ -4,8 +4,8 @@
 %% Typing %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newrule{T-Sym}
-  {s:\tau \in \Gamma}
-  {\Gamma,\Sigma \infers s:\tau}
+  {s:\beta \in \Gamma}
+  {\Gamma,\Sigma \infers s:\beta}
 
 
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -215,9 +215,9 @@
     [\sigma'=\sigma'' \land t=t']
 
 \newrule{SN-Repeat}
-    {e,\sigma \eval \overline{t,\sigma',\highlight{\phi_1}}  \Quad
-     t,\sigma' \stride \overline{t',\sigma'',\highlight{\phi_2} } \Quad
-     t',\sigma'' \normalise \overline{t'',\sigma''',\highlight{\phi_3}}}
+    {\upon{e,\sigma \eval \overline{t,\sigma',\highlight{\phi_1}}}
+     {{t,\sigma' \stride \overline{t',\sigma'',\highlight{\phi_2}}}
+     {t',\sigma'' \normalise \overline{t'',\sigma''',\highlight{\phi_3}}}}}
     {e,\sigma \normalise \overline{t'',\sigma''',\highlight{\phi_1 \land \phi_2 \land \phi_3}}}
     [\sigma'\neq \sigma''\vee t\neq t']
 

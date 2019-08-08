@@ -82,41 +82,6 @@ which is the resulting state after evaluating $e_1$.
 
 
 
-\begin{figure*}[b]
-  \begin{minipage}{\textwidth}
-    \small
-    \begin{gather*}
-      \boxed{\RelationSN} \Break
-      \userule{SN-Done} \Quad
-      \userule{SN-Repeat}
-    \end{gather*}
-  \end{minipage}
-  \caption{Symbolic normalisation semantics.}
-  \label{fig:normalising}
-\end{figure*}
-
-\begin{figure*}[b]
-  \begin{minipage}{\textwidth}
-    \small
-    \begin{gather*}
-      \boxed{\RelationSH} \Break
-      \userule{SH-Change} \Quad
-      \userule{SH-Fill} \Quad
-      \userule{SH-Update}\Break
-      \userule{SH-PickLeft} \Quad
-      \userule{SH-PickRight} \Break
-      \userule{SH-Pick} \Quad
-      \userule{SH-Next} \Break
-      \userule{SH-And}\Quad
-      \userule{SH-Or}
-    \end{gather*}
-  \end{minipage}
-  \caption{Symbolic handling semantics.}
-  \label{fig:handling}
-\end{figure*}
-
-
-
 \subsection{Observations}
 \label{subsec:observations}
 
@@ -159,11 +124,51 @@ Very little has to be changed to accommodate symbolic execution.
 Just like the evaluation semantics it now gathers sets of results, each element guarded by a path condition.
 \Cref{fig:normalising} lists the normalisation semantics.
 
+\begin{figure}[ht]
+  % \begin{minipage}{\textwidth}
+    \small
+    \begin{gather*}
+      \boxed{\RelationSN} \Break
+      \userule{SN-Done} \Break
+      \userule{SN-Repeat}
+    \end{gather*}
+  % \end{minipage}
+  \caption{Symbolic normalisation semantics.}
+  \label{fig:normalising}
+\end{figure}
+
 Normalisation makes use of the small step striding semantics ($\stride$).
 It's details are not important here.
 For more background, we refer to the appendix.
 
 
+
+\subsection{Handling}
+
+The handling semantics ($\handle{}$) deals with user input.
+In the symbolic case there are symbols instead of concrete inputs.
+A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
+\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
+
+\begin{figure*}[t]
+  \begin{minipage}{\textwidth}
+    \small
+    \begin{gather*}
+      \boxed{\RelationSH} \Break
+      \userule{SH-Change} \Quad
+      \userule{SH-Fill} \Quad
+      \userule{SH-Update}\Break
+      \userule{SH-PickLeft} \Quad
+      \userule{SH-PickRight} \Break
+      \userule{SH-Pick} \Quad
+      \userule{SH-Next} \Break
+      \userule{SH-And}\Quad
+      \userule{SH-Or}
+    \end{gather*}
+  \end{minipage}
+  \caption{Symbolic handling semantics.}
+  \label{fig:handling}
+\end{figure*}
 
 \begin{figure*}[t]
   \begin{function}
@@ -189,6 +194,63 @@ For more background, we refer to the appendix.
   \caption{Simulation function definition.}
   \label{fig:simulate}
 \end{figure*}
+
+The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
+clearly show how symbols enter the symbolic execution.
+The first one for example generates a fresh symbol $s$ and returns an editor containing it.
+
+There are several task combinators where the result depends on user input.
+For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
+To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
+It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
+
+The same principle applies to the external choice combinator ($\Xor$).
+The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
+There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
+
+After input has been handled, tasks are normalised.
+The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
+
+\begin{figure}[ht]
+  \small
+  \begin{gather*}
+    \boxed{\RelationSI} \Break
+    \userule{SI-Handle}
+  \end{gather*}
+  \caption{Symbolic driving semantics.}
+  \label{fig:driving}
+\end{figure}
+
+
+
+\subsection{Simulating}
+\label{subsec:driving}
+
+The symbolic driving semantics is a small step semantics.
+Every step simulates one symbolic input.
+In order to compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
+We define a task to be done when it has an observable value: $\Value(t', \sigma') \neq \bot$.
+The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
+It accumulates all symbolic inputs and returns for each possible execution the observable task value $v$, the path condition $\phi$, and the state $\sigma$.
+We consider a task, state and path condition to be an end state if the task value can be observed,
+and the path condition is satisfiable, represented by the function $\Sat$.
+
+The recursion terminates when one of the following conditions is met.
+
+\begin{description}
+  \item[$\neg\Sat(\phi)$]
+    When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
+    In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
+
+  \item[$\Value(t,\sigma)$]
+    When the current task has a value it is an end state, which we can return.
+
+  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \Again$]
+    When the current task does not produce a value, and it is equal to the previous task except from symbol names in editors, the $\Simulate$ function performs one look-ahead step in case the task is waiting for an independent symbol.
+    This one step look-ahead is encoded by the parameter $\Again$.
+    When this parameter is set to $\False$, one step look-ahead has been performed and $\Simulate$ does not continue further.
+    If the task has a value it is returned, otherwise the branch is pruned.
+\end{description}
 
 \begin{figure*}[t]
   \small
@@ -257,72 +319,6 @@ For more background, we refer to the appendix.
 \caption{Application of the simulation function to \cref{lst:abs}.}
 \label{diagram:simapp}
 \end{figure*}
-
-
-
-\subsection{Handling}
-
-The handling semantics ($\handle{}$) deals with user input.
-In the symbolic case there are symbols instead of concrete inputs.
-A complete overview of the rules can be found in \cref{sec:symbolic-handling-rules}.
-\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
-
-The three rules for the editors (\refrule{SH-Change}, \refrule{SH-Fill}, \refrule{SH-Update})
-clearly show how symbols enter the symbolic execution.
-The first one for example generates a fresh symbol $s$ and returns an editor containing it.
-
-There are several task combinators where the result depends on user input.
-For example, the parallel combinator ($\And$) receives an input for either the left or the right branch.
-To accommodate for all possibilities, the \refrule{SH-And} rule generates both cases.
-It tags the inputs for the first branch with $\First$ and inputs for the second branch with $\Second$.
-
-The same principle applies to the external choice combinator ($\Xor$).
-The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
-There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
-
-After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
-
-\begin{figure}[ht]
-  \small
-  \begin{gather*}
-    \boxed{\RelationSI} \Break
-    \userule{SI-Handle}
-  \end{gather*}
-  \caption{Symbolic driving semantics.}
-  \label{fig:driving}
-\end{figure}
-
-
-
-\subsection{Simulating}
-\label{subsec:driving}
-
-The symbolic driving semantics is a small step semantics.
-Every step simulates one symbolic input.
-In order to compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
-We define a task to be done when it has an observable value: $\Value(t', \sigma') \neq \bot$.
-The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
-It accumulates all symbolic inputs and returns for each possible execution the observable task value $v$, the path condition $\phi$, and the state $\sigma$.
-We consider a task, state and path condition to be an end state if the task value can be observed,
-and the path condition is satisfiable, represented by the function $\Sat$.
-
-The recursion terminates when one of the following conditions is met.
-
-\begin{description}
-  \item[$\neg\Sat(\phi)$]
-    When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
-    In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
-
-  \item[$\Value(t,\sigma)$]
-    When the current task has a value it is an end state, which we can return.
-
-  \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \Again$]
-    When the current task does not produce a value, and it is equal to the previous task except from symbol names in editors, the $\Simulate$ function performs one look-ahead step in case the task is waiting for an independent symbol.
-    This one step look-ahead is encoded by the parameter $\Again$.
-    When this parameter is set to $\False$, one step look-ahead has been performed and $\Simulate$ does not continue further.
-    If the task has a value it is returned, otherwise the branch is pruned.
-\end{description}
 
 To better illustrate how the $\Simulate$ function works, we study how it simulates \cref{lst:abs}.
 \Cref{diagram:simapp} gives a schematic overview of the application of $\Simulate$.

@@ -67,11 +67,11 @@
     \\
     \noalign{Unary Operations}
     \addlinespace
-    & u &::= &  \lnot \Mid - \Mid \Len \Mid \Uniq                  & – not, negate, length, unique \\
+    & \highlight{u} &::= &  \lnot \Mid - \Mid \Len \Mid \Uniq                  & – not, negate, length, unique \\
     \\
     \noalign{Binary Operations}
     \addlinespace
-    & o &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
+    & \highlight{o} &::= & < \Mid \le \Mid \equiv \Mid \nequiv \Mid \ge \Mid > & – equational \\
     &       & \mid  & + \Mid - \Mid \times \Mid /                  & – numerical \\
     &       & \mid  & \land  \Mid \lor                             & – conjunction, disjunction \\
     &       & \mid  & \pp  \Mid \in                                & – append, elementhood \\
@@ -104,7 +104,7 @@
   \begin{grammar}
     \noalign{Pretasks}
     \addlinespace
-      & p    &::= & \Edit e \Mid \Enter \tau \Mid \Update e            & – editors: valued, unvalued, shared \\
+      & p    &::= & \Edit e \Mid \highlight{\Enter \beta} \Mid \Update e            & – editors: valued, unvalued, shared \\
       &      &\mid& e_1 \Then e_2 \Mid e_1 \Next e_2                   & – steps: internal, external \\
       &      &\mid& \Fail \Mid e_1 \And e_2                            & – fail, composition \\
       &      &\mid& e_1 \Or e_2 \Mid e_1 \Xor e_2                      & – choice: internal, external\\
@@ -139,7 +139,7 @@
       \\
     \noalign{Basic types}
     \addlinespace
-      & \beta &  ::= & \tau_1 \times \tau_2 \Mid \List \beta \Mid \Unit  & – product, list, unit \\
+      & \beta &  ::= & \highlight{\beta_1 \times \beta_2 \Mid \List \beta} \Mid \Unit  & – product, list, unit \\
       &       & \mid & \Bool \Mid \Int \Mid \String                      & – boolean, integer, string \\
   \end{grammar}
 }
@@ -200,7 +200,7 @@
   \begin{grammar}
     \noalign{Tasks}
     \addlinespace
-      & t &  ::= & \Edit v \Mid \Enter \tau \Mid \Update l           & – editors \\
+      & t &  ::= & \Edit v \Mid \highlight{\Enter \beta} \Mid \Update l           & – editors \\
       &   & \mid & t_1 \Then e_2 \Mid t_1 \Next e_2                  & – steps \\
       &   & \mid & \Fail \Mid t_1 \And t_2                           & – fail, combination \\
       &   & \mid & t_1 \Or t_2 \Mid e_1 \Xor e_2                     & – choices \\
