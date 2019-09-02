@@ -76,7 +76,7 @@ The symbolic semantics has one combined rule \refrule{SE-If}.
 Since $e_1$ can contain symbols, it can evaluate to multiple values.
 The rule keeps track of all options.
 It calculates the $\THEN$-branch, and records in the path condition that execution can only reach this branch if $v_1$ becomes $\True$.
-Similarly for the $\ELSE$-branch, except it require that $v_1$ becomes $\False$.
+The rule does the same for the $\ELSE$-branch, except it requires that $v_1$ becomes $\False$.
 Note that both $e_2$ and $e_3$ are evaluated using the same state $\sigma'$,
 which is the resulting state after evaluating $e_1$.
 
@@ -138,7 +138,7 @@ Just like the evaluation semantics it now gathers sets of results, each element 
 \end{figure}
 
 Normalisation makes use of the small step striding semantics ($\stride$).
-It's details are not important here.
+Its details are not important here.
 For more background, we refer to the appendix.
 
 
@@ -206,7 +206,7 @@ It tags the inputs for the first branch with $\First$ and inputs for the second 
 
 The same principle applies to the external choice combinator ($\Xor$).
 The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-Pick} are needed to disallow choosing failing tasks.
-There is one rule for the case where only the right fails, one rule when the left is failing, and one for when none of the options are failing.
+There is one rule for the case where only the right is failing, one rule when the left is failing, and one for when none of the options are failing.
 
 After input has been handled, tasks are normalised.
 The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
