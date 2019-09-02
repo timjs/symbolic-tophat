@@ -115,7 +115,7 @@ The predicate has 5 free variables, which correspond to the returned values.
 \psi(s,a,c,i,t)
    & =      s \geq 0 \implies c \label{for:tax:psi-confirmed}
 \\ & \wedge s \geq 0 \implies a \label{for:tax:psi-approved}
-\\ & \wedge a \implies c \wedge t - i < 365 \label{for:tax:psi-approve-conditions}
+\\ & \wedge a \implies (c \wedge t - i < 365) \label{for:tax:psi-approve-conditions}
 \\ & \wedge s \leq 600 \label{for:tax:psi-max-subsidy}
 \\ & \wedge \lnot a \implies s \equiv 0 \label{for:tax:psi-unapproved}
 \end{align}
