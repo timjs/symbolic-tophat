@@ -175,19 +175,19 @@ A complete overview of the rules can be found in \cref{sec:symbolic-handling-rul
     \signature{\Simulate : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \Simulate\ (t, \sigma, I, \phi) &=&
-      \bigcup \set{ \Simulate'\ (\True, t, I, \phi, t', \sigma', i', \phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
+      \bigcup \set{ \Simulate'\ (\True, t, t', \sigma', I\oplus[i'], \phi\land\phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
     \addlinespace
-    \signature{\Simulate' : \mathrm{Booleans} \times \mathrm{Tasks} \times [\mathrm{Inputs}] \times \mathrm{Predicates} \times \mathrm{Tasks} \times \mathrm{States} \times \mathrm{Inputs} \times \mathrm{Predicates}
+    \signature{\Simulate' : \mathrm{Booleans} \times \mathrm{Tasks} \times \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}] \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
-    \Simulate'\ (\Again, t, I, \phi, t', i', \sigma', \phi') &=& \\
+    \Simulate'\ (\Again, t, t', \sigma', I, \phi) &=& \\
       \multicolumn{3}{L}{ \left\{
         \begin{array}{lr@{\ }c@{\ }l@{\ }c@{\ }l@{\ }c@{\ }r}
-          \nothing                                                                                              & \neg\Sat(\phi'\land\phi) &&&&&&\\
-          \set{(v, I\oplus[i'], \phi\land\phi')}                                                                & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = v &&&& \\
-          \Simulate\ (t', \sigma', I\oplus[i'], \phi\land\phi')                                           & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
-          \bigcup \set{\Simulate'\ (\False, t', I\oplus[i'], \phi\land\phi', t'', \sigma'', i'', \phi'')
-            \mid  t',\sigma' \drive{} t'', \sigma'', i'', \phi''}                                               & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \Again\\
-          \nothing                                                                                              & \Sat(\phi'\land\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg\Again
+          \nothing                                                                                    & \neg\Sat(\phi) &&&&&&\\
+          \set{(v, I, \phi)}                                                                & \Sat(\phi)     &\land& \Value(t',\sigma') = v &&&& \\
+          \Simulate\ (t', \sigma', I, \phi)                                                           & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
+          \bigcup \set{\Simulate'\ (\False, t', t'', \sigma'', I\oplus[i'], \phi\land\phi')
+            \mid  t',\sigma' \drive{} t'', \sigma'', i', \phi'}                                       & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \Again\\
+          \nothing                                                                                    & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg\Again
         \end{array}
         \right.}
   \end{function}
