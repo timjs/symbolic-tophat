@@ -1,25 +1,59 @@
 **A symbolic execution semantics for TopHat **
 
+1)
+
 Workflow systems are all around us.
 	They manage processes, people, machines and information
+	Behind me you see some places where workflow systems are used.
+	The dutch coastal guard
+	Hospital workflow software developer ChipSoft
+	The dutch tax office
+	The Netherlands royal navy.
+They all have the need for better workflow software, both in the way they are developed, and the quality of the applications themselves.
 
-For many years, our research team, lead by Rinus Plasmeijer, has been working to improve worflow applications, both in the way they are developed and the quality of these applications.
+
+2)
+
+For many years, our team, lead by Rinus Plasmeijer, has been working on exactly that.
+
+
+3)
 
 So what are workflow applications?
 	Users working together
 	Their work is structured in some way (parallel, sequential, choice, etc)
 	There is a representation of a system in data that is manipulated by the work done by the users
 
-Our efforts over the years lead to a new way of programming applications. We call this Task Oriented programming.
+Our efforts over the years lead to a new way of programming applications.
+
+4)
+
+We call this Task Oriented programming.
 The idea is that the smallest amounts of work, called editors, are combined using some combinator language, into tasks.
 Tasks can manipulate global data, pass along data, and interact with users.
 
 The advantage is that programmers only need to define what work needs to be done in which way. The rest of the application is deduced from this specification.
 
+
+5)
 If you’ve seen iTasks, then this all sounds familiar to you.
 In my research, I’m looking for ways in which we can further enhance the quality of Task Oriented Programming applications.
+
+5.a)
+
 To this end, my colleagues Tim Steenvoorden, Markus Klinik and I have developed the TopHat programming language.
 This language is a formal foundation for TOP, that allows us to apply formal methods to programs.
+The publication is to appear at ppdp'19 in a few weeks.
+
+For the rest of this talk,
+	I will first introduce the TOPHAT language,
+	Then we will take a look at an example program
+	After which, I will explain what symbolic execution is, for those who don't know
+	Then we will look at how this technique can be applied to TOPHAT.
+	We'll revisit the example,
+	After which I will conclude.
+
+6)
 
 To give you a sense of how the language works, I will show you part of its syntax, and an example program.
 TopHat is embedded in a simply typed lambda calculus with references.
