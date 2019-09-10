@@ -55,30 +55,48 @@ For the rest of this talk,
 
 6)
 
-To give you a sense of how the language works, I will show you part of its syntax, and an example program.
+
 TopHat is embedded in a simply typed lambda calculus with references.
 Editors are the basic elements of the task layer. They can hold a value, be empty, or refer to a shared location.
 There are three kinds of combinators available; Step, Parallel, Choice.
 
-Let us take a look at a small example.
+7)
+
+Let's take a look at a small example.
 We’ve developed this example together with the dutch tax office.
 In the Netherlands, it is possible to get a subsidy when you install solar panels on the roof of your home.
+
+8)
+
 There are a few requirements;
 	You need to apply within 365 days
 	Confirmation from the installation company is required
 	A tax officer needs to approve the application
 	The subsidy is at most 600 euros
 
+9)
 We’ve defined the following program.
+
+9a)
 	(go over the code)
+
+9b) 
+	And returns a tuple containing the subsidy, information about approval from tax and company, invoice date and the request date
+
+
 
 Now, when we consider this program, we were wondering, how can we be sure that this code adheres to the requirements mentioned before?
 We could provide test input, and check that the outcome is correct.
 Writing test cases is a lot of work, and even then we are not certain that the code always works correct; we could have overlooked a case.
-Random testing then perhaps? Then again, we have no guarantee that all cases are covered.
+
+We want something better! We want proof!
 
 In order to prove TopHat programs correct, we employ symbolic execution.
-The idea is that instead of running a program on concrete input, you execute it on symbolic input.
+
+10)
+
+So, what is symbolic execution? The idea is very simple.
+Instead of running a program on concrete input, you execute it on symbolic input.
 Consider the program excerpt on the left.
 	We have x,y
 	then conditional
@@ -86,23 +104,37 @@ Consider the program excerpt on the left.
 We do not know the value of x and y beforehand.
 Instead we record path conditions for each branch.
 
-***** this part needs some work!!!! ******
+10a) either ...
+10b) or ...
+10c) and then for every result, we want to prove that the first element is larger than the second.
+By checking each symbolic execution, we can prove that this is the case.
 
+Of course this is a very simple example, but it illustrates the idea behind it.
 
-This technique comes from imperative programming.
+11)
 
-How do we apply this to TopHat?
+Now, how do we apply this to TopHat?
 
-	Add symbols to expressions in the simply typed lamda calculus & inputs
-	Add path conditions to syntax
-	Add typing rule for symbls
-	combine if rules and combine pick rules
-	pass path conditions along
-	handle editor with symbols
-	add simulate function
- Allright, now how does this work for our tax example?
+12)
+	Taking a look at the semantics, we have to change two tings. 
+	Instead of editors accepting a value from the user, we now generate a symbol, since we do not know what the input will be.
+
+13)
+	And second, when we have a conditional, we do not know what path will be taken. So we take both, and record the path conditions.
+
+14)
+	Same for the choice combinator
+
+15)
+
+	This is the semantics and simulate that we end up with.
+
+16)
+ 	Allright, now how does this work for our tax example?
 
 First, we formulate the property that we want to prove:
+
+17)
 	(1) subsidy larger than zero only if confirmed by the company and
 	(2) subsidy larger than zero only if approved by the tax office and
 	(3) approval by tax office, only when company confirmed and
@@ -110,19 +142,27 @@ First, we formulate the property that we want to prove:
 	(4) the subsidy amount should never be larger than 600 and
 	(5) the subsidy is zero if tax office did not approve
 
+This predicate must hold for every result value.
+
 Then, we run the symbolic execution on the task.
+
+18)
+
 This results in a set of all symbolic executions.
+
+18a)
+	(explain this line)
+
+18b)
 
 In order to verify that all runs adhere to the predicate, we show that in each case, our predicate holds.
 
 
-We have validated our approach to prove soundness and completeness for the symbolic execution semantics.
-
-For completeness, this means that every concrete execution must be contained in a symbolic execution.
-For soundness, this means that every symbolic execution can be mapped to a concrete execution by substituting the symbols for concrete values.
+(???) We have validated our approach to prove soundness and completeness for the symbolic execution semantics.
 
 
-As I said in the beginning of this presentation, our goal is to improve both the development and the quality of workflow applications.
+19)
+As mentioned in the beginning of this presentation, our goal is to improve both the development and the quality of workflow applications.
 Applying symbolic execution in order to show that certain properties hold, is one small step in the big picture.
 
 As far as symbolic execution goes, we feel that we haven’t used its full potential for Task Oriented Programming yet.
@@ -132,7 +172,6 @@ And third, we are currently working on the application of symbolic execution as 
 
 And apart from symbolic execution, there are many more ideas on how we can improve quality and development of workflow systems.
 On the software analysis side, many questions remain. When are two tasks equal? And what does it mean when two tasks are equal? Can a certain part of a task be reached? Can we prove properties to hold at every point in the program?
-Many tasks in real life require recourses, like people, fuel and time. Can we calculate how much a task would use when we execute it?
 
 On the development side, our colleagues are currently investigating how to apply the Task Oriented Programming paradigm to embedded systems.
 There have also been efforts in the past to program tasks visually.
