@@ -42,7 +42,7 @@ In my research, I’m looking for ways in which we can further enhance the quali
 5.a)
 
 To this end, my colleagues Tim Steenvoorden, Markus Klinik and I have developed the TopHat programming language.
-This language is a formal foundation for TOP, that allows us to apply formal methods to programs.
+This language is a formal foundation for TOP, that allows us to apply formal methods.
 The publication is to appear at ppdp'19 in a few weeks.
 
 For the rest of this talk,
@@ -62,8 +62,7 @@ There are three kinds of combinators available; Step, Parallel, Choice.
 
 7)
 
-Let's take a look at a small example.
-We’ve developed this example together with the dutch tax office.
+Let's take a look at an example.
 In the Netherlands, it is possible to get a subsidy when you install solar panels on the roof of your home.
 
 8)
@@ -174,6 +173,5 @@ And apart from symbolic execution, there are many more ideas on how we can impro
 On the software analysis side, many questions remain. When are two tasks equal? And what does it mean when two tasks are equal? Can a certain part of a task be reached? Can we prove properties to hold at every point in the program?
 
 On the development side, our colleagues are currently investigating how to apply the Task Oriented Programming paradigm to embedded systems.
-There have also been efforts in the past to program tasks visually.
 
-All in all, Task oriented programming is a very interesting area of research, of which symbolic execution forms an interesting step.
+All in all, Task oriented programming is a very interesting area of research, of which symbolic execution forms an interesting step towards better quality software.
