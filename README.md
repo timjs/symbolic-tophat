@@ -1,4 +1,6 @@
-Symbolic execution for Task Oriented Programming.
+# Symbolic TopHat
+
+Symbolic execution and proof system for Task-Oriented Programming with TopHat.
 Article accepted for publication and presentation at [IFL'19](http://2019.iflconference.org).
 
 ## Abstract
