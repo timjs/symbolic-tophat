@@ -94,7 +94,7 @@
 %\titlenote{with title note}             %% \titlenote is optional;
                                         %% can be repeated if necessary;
                                         %% contents suppressed with 'anonymous'
-%\subtitle{Revisited edition}            %% \subtitle is optional
+\subtitle{Appendices}                   %% \subtitle is optional
 %\subtitlenote{with subtitle note}       %% \subtitlenote is optional;
                                         %% can be repeated if necessary;
                                         %% contents suppressed with 'anonymous'
@@ -176,10 +176,10 @@
 
 %% Abstract
 %% Must come before \maketitle command
-\begin{abstract}
-  \input{sections/abstract}
-\end{abstract}
-
+% \begin{abstract}
+%   \input{sections/abstract}
+% \end{abstract}
+%
 % \begin{teaserfigure}
 %    \includegraphics[width=\textwidth]{figures/declrequest-part.pdf}
 %    \caption{This is a teaser}
@@ -202,30 +202,32 @@
 %% environment and commands, and keywords command.
 \maketitle
 
-\input{sections/introduction}
-\input{sections/intuition}
-\input{sections/examples}
-\input{sections/language}
-\input{sections/semantics}
-\input{sections/properties}
-\input{sections/relatedwork}
-\input{sections/conclusions}
-
-
 %% Acknowledgments
-\begin{acks}                            %% acks environment is optional
-                                        %% contents suppressed with 'anonymous'
-  %% Commands \grantsponsor{<sponsorID>}{<name>}{<url>} and
-  %% \grantnum[<url>]{<sponsorID>}{<number>} should be used to
-  %% acknowledge financial support and will be used by metadata
-  %% extraction tools.
-  \small
-  \input{sections/acknowledgements}
-\end{acks}
-
+% \begin{acks}                            %% acks environment is optional
+%                                         %% contents suppressed with 'anonymous'
+%   %% Commands \grantsponsor{<sponsorID>}{<name>}{<url>} and
+%   %% \grantnum[<url>]{<sponsorID>}{<number>} should be used to
+%   %% acknowledge financial support and will be used by metadata
+%   %% extraction tools.
+%   \small
+%   \input{sections/acknowledgements}
+% \end{acks}
+%
 
 %% Bibliography
-\bibliography{bibliography}
+% \bibliography{bibliography}
+
+
+%% Appendix
+\appendix
+
+\onecolumn
+% \input{sections/proofs/unsat}
+% \input{sections/proofs/stuck}
+\input{sections/proofs/completesemantics}
+\input{sections/proofs/tophatsemantics}
+\input{sections/proofs/soundness}
+\input{sections/proofs/completeness}
 
 
 \end{document}
