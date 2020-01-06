@@ -370,7 +370,7 @@
 %% Handling %%
 
 \newmacro{RelationH}
-  {t,\hat{\sigma} \handle{j} \hat{t}',\hat{\sigma}'}
+  {\hat{t},\hat{\sigma} \handle{j} \hat{t}',\hat{\sigma}'}
 
 
 \newrule{H-Change}
@@ -394,35 +394,35 @@
   [\hat\sigma(l),v:\tau]
 
 \newrule{H-PassThen}
-  {t_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat\sigma'}
-  {t_1 \Then e_2,\hat\sigma \xrightarrow[]{j} \hat{t}_1' \Then e_2,\hat\sigma'}
+  {\hat{t}_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat\sigma'}
+  {\hat{t}_1 \Then e_2,\hat\sigma \xrightarrow[]{j} \hat{t}_1' \Then e_2,\hat\sigma'}
 
 \newrule{H-PassNext}
-  {t_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat\sigma'}
-  {t_1 \Next e_2,\hat\sigma \xrightarrow[]{j} \hat{t}_1' \Next e_2,\hat\sigma'}
+  {\hat{t}_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat\sigma'}
+  {\hat{t}_1 \Next e_2,\hat\sigma \xrightarrow[]{j} \hat{t}_1' \Next e_2,\hat\sigma'}
 
 \newrule{H-Next}
   {e_2\ \hat{v}_1,\hat\sigma \hat{\normalise} \hat{t}_2,\hat{\sigma}'}
-  {t_1 \Next e_2,\hat\sigma \xrightarrow[]{\Continue} \hat{t}_2,\hat{\sigma}'}
-  [\Value{(t_1,\hat\sigma)} = \hat{v}_1 \land \neg\Failing{(\hat{t}_2,\hat{\sigma}')}]
+  {\hat{t}_1 \Next e_2,\hat\sigma \xrightarrow[]{\Continue} \hat{t}_2,\hat{\sigma}'}
+  [\Value{(\hat{t}_1,\hat\sigma)} = \hat{v}_1 \land \neg\Failing{(\hat{t}_2,\hat{\sigma}')}]
 
 
 \newrule{H-FirstAnd}
-  {t_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat{\sigma}'}
-  {t_1 \And t_2,\hat\sigma \xrightarrow[]{\First j} \hat{t}_1' \And t_2,\hat{\sigma}'}
+  {\hat{t}_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat{\sigma}'}
+  {\hat{t}_1 \And \hat{t}_2,\hat\sigma \xrightarrow[]{\First j} \hat{t}_1' \And \hat{t}_2,\hat{\sigma}'}
 
 \newrule{H-SecondAnd}
-  {t_2,\hat\sigma \xrightarrow[]{j} \hat{t}_2',\hat{\sigma}'}
-  {t_1 \And t_2,\hat\sigma \xrightarrow[]{\Second j} t_1 \And \hat{t}_2',\hat{\sigma}'}
+  {\hat{t}_2,\hat\sigma \xrightarrow[]{j} \hat{t}_2',\hat{\sigma}'}
+  {\hat{t}_1 \And \hat{t}_2,\hat\sigma \xrightarrow[]{\Second j} \hat{t}_1 \And \hat{t}_2',\hat{\sigma}'}
 
 
 \newrule{H-FirstOr}
-  {t_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat{\sigma}'}
-  {t_1 \Or t_2,\hat\sigma \xrightarrow[]{\First j} \hat{t}_1' \Or t_2,\hat{\sigma}'}
+  {\hat{t}_1,\hat\sigma \xrightarrow[]{j} \hat{t}_1',\hat{\sigma}'}
+  {\hat{t}_1 \Or \hat{t}_2,\hat\sigma \xrightarrow[]{\First j} \hat{t}_1' \Or \hat{t}_2,\hat{\sigma}'}
 
 \newrule{H-SecondOr}
-  {t_2,\hat\sigma \xrightarrow[]{j} \hat{t}_2',\hat{\sigma}' }
-  {t_1 \Or t_2,\hat\sigma \xrightarrow[]{\Second j} t_1 \Or \hat{t}_2',\hat{\sigma}'}
+  {\hat{t}_2,\hat\sigma \xrightarrow[]{j} \hat{t}_2',\hat{\sigma}' }
+  {\hat{t}_1 \Or \hat{t}_2,\hat\sigma \xrightarrow[]{\Second j} \hat{t}_1 \Or \hat{t}_2',\hat{\sigma}'}
 
 
 \newrule{H-PickLeft}
