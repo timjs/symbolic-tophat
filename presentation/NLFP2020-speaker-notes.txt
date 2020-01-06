@@ -43,7 +43,7 @@
   using some combinator language, into tasks.
 - Tasks can manipulate global data, pass along data, and interact with users.
 - Programmers only need to define what work needs to be done in which way. The
-  rest of the application is deduced from this specification.
+  rest of the application is generated from this specification.
 
 
 6)
