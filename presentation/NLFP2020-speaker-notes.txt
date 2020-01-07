@@ -145,13 +145,13 @@ this is the case.
 
 15)
 
-- And second, when we have a conditional, we do not know what path will be
-  taken. So we take both, and record the path conditions.
+- Same for the choice combinator
 
 
 16)
 
-- Same for the choice combinator
+- And second, when we have a conditional, we do not know what path will be
+  taken. So we take both, and record the path conditions.
 
 
 17)
