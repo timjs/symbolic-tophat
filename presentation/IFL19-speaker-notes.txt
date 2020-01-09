@@ -1,0 +1,177 @@
+**A symbolic execution semantics for TopHat **
+
+1)
+
+Workflow systems are all around us.
+	They manage processes, people, machines and information
+	Behind me you see some places where workflow systems are used.
+	The dutch coastal guard
+	Hospital workflow software developer ChipSoft
+	The dutch tax office
+	The Netherlands royal navy.
+They all have the need for better workflow software, both in the way they are developed, and the quality of the applications themselves.
+
+
+2)
+
+For many years, our team, lead by Rinus Plasmeijer, has been working on exactly that.
+
+
+3)
+
+So what are workflow applications?
+	Users working together
+	Their work is structured in some way (parallel, sequential, choice, etc)
+	There is a representation of a system in data that is manipulated by the work done by the users
+
+Our efforts over the years lead to a new way of programming applications.
+
+4)
+
+We call this Task Oriented programming.
+The idea is that the smallest amounts of work, called editors, are combined using some combinator language, into tasks.
+Tasks can manipulate global data, pass along data, and interact with users.
+
+The advantage is that programmers only need to define what work needs to be done in which way. The rest of the application is deduced from this specification.
+
+
+5)
+If you’ve seen iTasks, then this all sounds familiar to you.
+In my research, I’m looking for ways in which we can further enhance the quality of Task Oriented Programming applications.
+
+5.a)
+
+To this end, my colleagues Tim Steenvoorden, Markus Klinik and I have developed the TopHat programming language.
+This language is a formal foundation for TOP, that allows us to apply formal methods.
+The publication is to appear at ppdp'19 in a few weeks.
+
+For the rest of this talk,
+	I will first introduce the TOPHAT language,
+	Then we will take a look at an example program
+	After which, I will explain what symbolic execution is, for those who don't know
+	Then we will look at how this technique can be applied to TOPHAT.
+	We'll revisit the example,
+	After which I will conclude.
+
+6)
+
+
+TopHat is embedded in a simply typed lambda calculus with references.
+Editors are the basic elements of the task layer. They can hold a value, be empty, or refer to a shared location.
+There are three kinds of combinators available; Step, Parallel, Choice.
+
+7)
+
+Let's take a look at an example.
+In the Netherlands, it is possible to get a subsidy when you install solar panels on the roof of your home.
+
+8)
+
+There are a few requirements;
+	You need to apply within 365 days
+	Confirmation from the installation company is required
+	A tax officer needs to approve the application
+	The subsidy is at most 600 euros
+
+9)
+We’ve defined the following program.
+
+9a)
+	(go over the code)
+
+9b) 
+	And returns a tuple containing the subsidy, information about approval from tax and company, invoice date and the request date
+
+
+
+Now, when we consider this program, we were wondering, how can we be sure that this code adheres to the requirements mentioned before?
+We could provide test input, and check that the outcome is correct.
+Writing test cases is a lot of work, and even then we are not certain that the code always works correct; we could have overlooked a case.
+
+We want something better! We want proof!
+
+In order to prove TopHat programs correct, we employ symbolic execution.
+
+10)
+
+So, what is symbolic execution? The idea is very simple.
+Instead of running a program on concrete input, you execute it on symbolic input.
+Consider the program excerpt on the left.
+	We have x,y
+	then conditional
+	then either y or x
+We do not know the value of x and y beforehand.
+Instead we record path conditions for each branch.
+
+10a) either ...
+10b) or ...
+10c) and then for every result, we want to prove that the first element is larger than the second.
+By checking each symbolic execution, we can prove that this is the case.
+
+Of course this is a very simple example, but it illustrates the idea behind it.
+
+11)
+
+Now, how do we apply this to TopHat?
+
+12)
+	Taking a look at the semantics, we have to change two tings. 
+	Instead of editors accepting a value from the user, we now generate a symbol, since we do not know what the input will be.
+
+13)
+	And second, when we have a conditional, we do not know what path will be taken. So we take both, and record the path conditions.
+
+14)
+	Same for the choice combinator
+
+15)
+
+	This is the semantics and simulate that we end up with.
+
+16)
+ 	Allright, now how does this work for our tax example?
+
+First, we formulate the property that we want to prove:
+
+17)
+	(1) subsidy larger than zero only if confirmed by the company and
+	(2) subsidy larger than zero only if approved by the tax office and
+	(3) approval by tax office, only when company confirmed and
+	(and) the invoice date should be within one year of todays date and
+	(4) the subsidy amount should never be larger than 600 and
+	(5) the subsidy is zero if tax office did not approve
+
+This predicate must hold for every result value.
+
+Then, we run the symbolic execution on the task.
+
+18)
+
+This results in a set of all symbolic executions.
+
+18a)
+	(explain this line)
+
+18b)
+
+In order to verify that all runs adhere to the predicate, we show that in each case, our predicate holds.
+
+
+(???) We have validated our approach to prove soundness and completeness for the symbolic execution semantics.
+
+
+19)
+As mentioned in the beginning of this presentation, our goal is to improve both the development and the quality of workflow applications.
+Applying symbolic execution in order to show that certain properties hold, is one small step in the big picture.
+
+As far as symbolic execution goes, we feel that we haven’t used its full potential for Task Oriented Programming yet.
+Currently, our symbolic execution only considers the resulting task value. We would like to be able to take input into account as well.
+Secondly, we would like to see if we can apply symbolic execution not only to TOPHAT, but also too iTasks.
+And third, we are currently working on the application of symbolic execution as a means to assist users when execution workflows. Symbolic execution can be used to calculate what next step a user should take, in order to come closer to some goal state.
+
+And apart from symbolic execution, there are many more ideas on how we can improve quality and development of workflow systems.
+On the software analysis side, many questions remain. When are two tasks equal? And what does it mean when two tasks are equal? Can a certain part of a task be reached? Can we prove properties to hold at every point in the program?
+
+On the development side, our colleagues are currently investigating how to apply the Task Oriented Programming paradigm to embedded systems.
+
+All in all, Task oriented programming is a very interesting area of research, of which symbolic execution forms an interesting step towards better quality software.
