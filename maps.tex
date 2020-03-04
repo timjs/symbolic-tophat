@@ -6,45 +6,45 @@
 \newmacro{O-Value}{
   \begin{function}
     \signature{\Value : \mathrm{Tasks} \times \mathrm{States} \rightharpoonup \mathrm{Values}} \\
-    \Value(\Edit v, \sigma)                &=& v \\
-    \Value(\Enter \tau, \sigma)            &=& \bot \\
-    \Value(\Update l, \sigma)              &=& \sigma(l) \\
-    \Value(\Fail, \sigma)                  &=& \bot \\
-    \Value(t_1 \Then e_2, \sigma)          &=& \bot \\
-    \Value(t_1 \Next e_2, \sigma)          &=& \bot \\
-    \Value(t_1 \And t_2, \sigma)           &=& \left\{
+    \Value(\Edit \simv, \sims)                &=& \simv \\
+    \Value(\Enter \beta, \sims)            &=& \bot \\
+    \Value(\Update l, \sims)              &=& \sims(l) \\
+    \Value(\Fail, \sims)                  &=& \bot \\
+    \Value(\simt_1 \Then \sime_2, \sims)          &=& \bot \\
+    \Value(\simt_1 \Next \sime_2, \sims)          &=& \bot \\
+    \Value(\simt_1 \And \simt_2, \sims)           &=& \left\{
       \begin{array}{ll}
-        \tuple{v_1, v_2}  & \ \when\ \Value(t_1, \sigma) = \
-        v_1 \land \Value(t_2, \sigma) = v_2 \\
+        \tuple{\simv_1, \simv_2}  & \ \when\ \Value(\simt_1, \sims) = \
+        \simv_1 \land \Value(\simt_2, \sims) = \simv_2 \\
         \bot                          & \ \otherwise
       \end{array}
     \right. \\
-    \Value(t_1 \Or t_2, \sigma)            &=& \left\{
+    \Value(\simt_1 \Or \simt_2, \sims)            &=& \left\{
       \begin{array}{ll}
-        v_1                           & \ \when\ \Value(t_1, \sigma) = v_1 \\
-        v_2                           & \ \when\ \Value(t_1, \sigma) = \bot \land \Value(t_2, \sigma) = v_2 \\
-        \obox{\tuple{v_1, v_2}}{\bot} & \ \otherwise
+        \simv_1                           & \ \when\ \Value(\simt_1, \sims) = \simv_1 \\
+        \simv_2                           & \ \when\ \Value(\simt_1, \sims) = \bot \land \Value(\simt_2, \sims) = \simv_2 \\
+        \obox{\tuple{\simv_1, \simv_2}}{\bot} & \ \otherwise
       \end{array}
     \right. \\
-    \Value(t_1 \Xor t_2, \sigma)           &=& \bot
+    \Value(\simt_1 \Xor \simt_2, \sims)           &=& \bot
   \end{function}
 }
 
 \newmacro{O-Failing}{
   \begin{function}
     \signature{\Failing : \mathrm{Tasks} \times \mathrm{States} \to \mathrm{Booleans}} \\
-    \Failing(\Edit v,\sigma)       &=& \False \\
-    \Failing(\Enter \tau,\sigma)   &=& \False \\
-    \Failing(\Update l,\sigma)     &=& \False \\
-    \Failing(\Fail,\sigma)         &=& \True \\
-    \Failing(t_1 \Then e_2,\sigma) &=& \Failing(t_1,\sigma) \\
-    \Failing(t_1 \Next e_2,\sigma) &=& \Failing(t_1,\sigma) \\
-    \Failing(t_1 \And t_2,\sigma)  &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
-    \Failing(t_1 \Or t_2,\sigma)   &=& \Failing(t_1,\sigma) \land \Failing(t_2,\sigma) \\
-    \Failing(e_1 \Xor e_2,\sigma)  &=& \highlight{\bigwedge \Big( \set{\Failing(t_1,\sigma_1') \mid e_1, \sigma \normalise \overline{t_1,\sigma_1'}}\ \cup} \\
-                          & & \highlight{\phantom{\bigwedge \Big(}\set{\Failing(t_2,\sigma_2') \mid e_2, \sigma \normalise \overline{t_2,\sigma_2'}} \Big)} \\
-    % \Failing(e_1 \Xor e_2,\sigma)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2')\\
-    % &&\quad \where\ e_1,\sigma \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sigma \normalise t_2,s_2'
+    \Failing(\Edit \simv,\sims)       &=& \False \\
+    \Failing(\Enter \beta,\sims)   &=& \False \\
+    \Failing(\Update l,\sims)     &=& \False \\
+    \Failing(\Fail,\sims)         &=& \True \\
+    \Failing(\simt_1 \Then \sime_2,\sims) &=& \Failing(\simt_1,\sims) \\
+    \Failing(\simt_1 \Next \sime_2,\sims) &=& \Failing(\simt_1,\sims) \\
+    \Failing(\simt_1 \And \simt_2,\sims)  &=& \Failing(\simt_1,\sims) \land \Failing(\simt_2,\sims) \\
+    \Failing(\simt_1 \Or \simt_2,\sims)   &=& \Failing(\simt_1,\sims) \land \Failing(\simt_2,\sims) \\
+    \Failing(\sime_1 \Xor \sime_2,\sims)  &=& \highlight{\bigwedge \Big( \set{\Failing(\simt_1,\sims_1') \mid \sime_1, \sims \normalise \overline{\simt_1,\sims_1'}}\ \cup} \\
+                          & & \highlight{\phantom{\bigwedge \Big(}\set{\Failing(\simt_2,\sims_2') \mid \sime_2, \sims \normalise \overline{\simt_2,\sims_2'}} \Big)} \\
+    % \Failing(e_1 \Xor e_2,\sims)  &=& \Failing(t_1,s_1') \land \Failing(t_2,s_2')\\
+    % &&\quad \where\ e_1,\sims \normalise t_1,s_1' \mathbf{\ and\ } e_2,\sims \normalise t_2,s_2'
   \end{function}
 }
 
@@ -52,16 +52,16 @@
 \newmacro{O-Inputs}{
   \begin{function}
     \signature{\Inputs : \mathrm{Tasks} \times \mathrm{States} \to \powerset{\mathrm{Inputs}}} \\
-    \Inputs(\Edit v,\sigma)             &=& \set{v':\tau}                       \quad\where\ \Edit v : \Task\tau \\
-    \Inputs(\Enter \tau,\sigma)         &=& \set{v':\tau} \\
-    \Inputs(\Update l,\sigma)           &=& \obox{\set{v':\tau, \Empty}}{\set{v':\tau}} \quad\where\ \Update l : \Task\tau \\
-    \Inputs(\Fail,\sigma)               &=& \nothing \\
-    \Inputs(t_1 \Then e_2,\sigma)       &=& \Inputs(t_1,\sigma) \\
-    \Inputs(t_1 \Next e_2,\sigma)       &=& \Inputs(t_1,\sigma) \cup \set{\Continue \mid \Value(t_1, \sigma) = v_1 \land \\
-                                         && e_2\ v_1, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, \sigma')} \\
-    \Inputs(t_1 \And t_2,\sigma)        &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
-    \Inputs(t_1 \Or t_2,\sigma)         &=& \set{\First\ i \mid i \in \Inputs(t_1,\sigma)} \cup \set{\Second\ i \mid i \in \Inputs(t_2,\sigma)} \\
-    \Inputs(e_1 \Xor e_2,\sigma)        &=& \set{\Left \mid e_1, \sigma \normalise t_1, \sigma',\phi \land \lnot\Failing(t_1, s')} \cup\\
-                                         && \set{\Right \mid e_2, \sigma \normalise t_2, \sigma',\phi \land \lnot\Failing(t_2, s')}
+    \Inputs(\Edit v,\sims)             &=& \set{\simv':\tau}                       \quad\where\ \Edit \simv : \Task\tau \\
+    \Inputs(\Enter \beta,\sims)         &=& \set{\simv':\tau} \\
+    \Inputs(\Update l,\sims)           &=& \obox{\set{\simv':\tau, \Empty}}{\set{\simv':\tau}} \quad\where\ \Update l : \Task\tau \\
+    \Inputs(\Fail,\sims)               &=& \nothing \\
+    \Inputs(\simt_1 \Then \sime_2,\sims)       &=& \Inputs(\simt_1,\sims) \\
+    \Inputs(\simt_1 \Next \sime_2,\sims)       &=& \Inputs(\simt_1,\sims) \cup \set{\Continue \mid \Value(\simt_1, \sims) = \simv_1 \land \\
+                                         && \sime_2\ \simv_1, \sims \normalise \simt_2, \sims',\phi \land \lnot\Failing(\simt_2, \sims')} \\
+    \Inputs(\simt_1 \And \simt_2,\sims)        &=& \set{\First\ \simi \mid \simi \in \Inputs(\simt_1,\sims)} \cup \set{\Second\ \simi \mid i \in \Inputs(\simt_2,\sims)} \\
+    \Inputs(\simt_1 \Or t_2,\sims)         &=& \set{\First\ \simi \mid \simi \in \Inputs(\simt_1,\sims)} \cup \set{\Second\ \simi \mid \simi \in \Inputs(\simt_2,\sims)} \\
+    \Inputs(\sime_1 \Xor \sime_2,\sims)        &=& \set{\Left \mid \sime_1, \sims \normalise \simt_1, \sims',\phi \land \lnot\Failing(\simt_1, \sims')} \cup\\
+                                         && \set{\Right \mid \sime_2, \sims \normalise \simt_2, \sims',\phi \land \lnot\Failing(\simt_2, \sims')}
   \end{function}
 }

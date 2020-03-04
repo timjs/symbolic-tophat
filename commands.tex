@@ -115,13 +115,39 @@
   {\;\downarrow\;}
 \newmathcommand{stride}[rel]
   % {\;\rightarrow\!\shortmid\;}
-  {\;\rightsquigarrow\;}
+  {\;\mapsto\;}
 \newmathcommand{normalise}[rel]
   {\;\Downarrow\;}
 \newmacro{handle}[1]
   {\mathrel{\;\xrightarrow{#1}\;}}
-\newmacro{drive}[1]
+\newmacro{interact}[1]
   {\mathrel{\;\xRightarrow{#1}\;}}
+
+  \newmathcommand{Leadsto}[rel]
+    {\raisebox{-0.25ex}{$\leadsto$}\mathllap{\raisebox{+0.25ex}{$\leadsto$}}}
+
+  \newmathcommand{simeval}[rel]
+    {\;\rotatebox[origin=c]{-90}{$\leadsto$}\;}
+  \newmathcommand{simstride}[rel]
+    {\;\mapstochar\kern+0.08em\leadsto\;}
+  \newmathcommand{simnormalise}[rel]
+    {\;\rotatebox[origin=c]{-90}{$\Leadsto$}\;}
+  \newmathcommand{simhandle}[rel]
+    {\;\leadsto\;}
+  \newmathcommand{siminteract}[rel]
+    {\;\Leadsto\;}
+
+
+    \newmathcommand{simi}[]
+      {\tilde{\imath}}
+    \newmathcommand{simt}[]
+        {\tilde{t}}
+    \newmathcommand{sims}[]
+        {\tilde{\sigma}}
+      \newmathcommand{sime}[]
+        {\tilde{e}}
+    \newmathcommand{simv}[]
+        {\tilde{v}}
 
 \newmathcommand{Simulate}[it]
   {simulate}

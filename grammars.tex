@@ -51,15 +51,15 @@
   \begin{grammar}
     \noalign{Expressions}
     \addlinespace
-    & e &::= & \lambda x:\tau.\ e  \Mid  e_1\ e_2                  & – abstraction, application \\
+    & \sime &::= & \lambda x:\tau.\ \sime  \Mid  \sime_1\ \sime_2                  & – abstraction, application \\
     &       & \mid  & x  \Mid  c \Mid \unit                        & – variable, constant, unit \\
-    &       & \mid  & u\ e_1 \Mid e_1\ o\ e_2                      & – unary, binary operation \\
-    &       & \mid  & \If{e_1}{e_2}{e_3}                           & – conditional \\
-    &       & \mid  & \tuple{e_1, e_2}  \Mid  \Fst e  \Mid  \Snd e & – pair, projections \\
-    &       & \mid  & [\ ]_\beta \Mid e_1 :: e_2                   & – nil, cons \\
-    &       & \mid  & \Head\ e \Mid \Tail\ e                       & – first element, list tail \\
-    &       & \mid  & \Ref e  \Mid  !e  \Mid  e_1 := e_2  \Mid  l  & – references, location \\
-    &       & \mid  & p \Mid \highlight{s}                         & – pretask, symbol \\
+    &       & \mid  & u\ \sime_1 \Mid \sime_1\ o\ \sime_2                      & – unary, binary operation \\
+    &       & \mid  & \If{\sime_1}{\sime_2}{\sime_3}                           & – conditional \\
+    &       & \mid  & \tuple{\sime_1, \sime_2}  \Mid  \Fst \sime  \Mid  \Snd \sime & – pair, projections \\
+    &       & \mid  & [\ ]_\beta \Mid \sime_1 :: \sime_2                   & – nil, cons \\
+    &       & \mid  & \Head\ \sime \Mid \Tail\ \sime                       & – first element, list tail \\
+    &       & \mid  & \Ref \sime  \Mid  !\sime  \Mid  \sime_1 := \sime_2  \Mid  l  & – references, location \\
+    &       & \mid  & \tilde{p} \Mid \highlight{s}                         & – pretask, symbol \\
     \\
     \noalign{Constants}
     \addlinespace
@@ -82,10 +82,10 @@
 \newmacro{G-Pretasks}{
   \begin{grammar}
     Pretasks
-      & p    &::= & \Edit e              & – valued editor \\
+      & \tilde{p}    &::= & \Edit \sime              & – valued editor \\
       % &      &\mid& \View e              & – valued read-only editor \\
-      &      &\mid& \Enter \tau          & – unvalued editor \\
-      &      &\mid& \Update e            & – shared editor \\
+      &      &\mid& \Enter \beta          & – unvalued editor \\
+      &      &\mid& \Update \sime            & – shared editor \\
       % &      &\mid& \Watch e             & – shared read-only editor \\
     \addlinespace
       &      &\mid& e_1 \Then e_2        & – step \\
@@ -104,10 +104,10 @@
   \begin{grammar}
     \noalign{Pretasks}
     \addlinespace
-      & p    &::= & \Edit e \Mid \highlight{\Enter \beta} \Mid \Update e            & – editors: valued, unvalued, shared \\
-      &      &\mid& e_1 \Then e_2 \Mid e_1 \Next e_2                   & – steps: internal, external \\
-      &      &\mid& \Fail \Mid e_1 \And e_2                            & – fail, composition \\
-      &      &\mid& e_1 \Or e_2 \Mid e_1 \Xor e_2                      & – choice: internal, external\\
+      & \tilde{p}    &::= & \Edit \sime \Mid \highlight{\Enter \beta} \Mid \Update \sime            & – editors: valued, unvalued, shared \\
+      &      &\mid& \sime_1 \Then \sime_2 \Mid \sime_1 \Next \sime_2                   & – steps: internal, external \\
+      &      &\mid& \Fail \Mid \sime_1 \And \sime_2                            & – fail, composition \\
+      &      &\mid& \sime_1 \Or \sime_2 \Mid \sime_1 \Xor \sime_2                      & – choice: internal, external\\
   \end{grammar}
 }
 
@@ -167,10 +167,10 @@
   \begin{grammar}
     \noalign{Values}
     \addlinespace
-      & v &  ::= & \lambda x:\tau.\ e \Mid \tuple{v_1, v_2} \Mid \unit & – abstraction, pair, unit \\
-      &   & \mid & [\ ]_\beta \Mid v_1 :: v_2 \Mid c                   & - nil, cons, constant \\
-      &   & \mid & l \Mid t \Mid \highlight{s}                         & – location, task, symbol \\
-      &   & \mid & \highlight{u\ v \Mid v_1\ o\ v_2}                   & – unary/binary operation \\
+      & \simv &  ::= & \lambda x:\tau.\ \sime \Mid \tuple{\simv_1, \simv_2} \Mid \unit & – abstraction, pair, unit \\
+      &   & \mid & [\ ]_\beta \Mid \simv_1 :: \simv_2 \Mid c                   & - nil, cons, constant \\
+      &   & \mid & l \Mid \simt \Mid \highlight{s}                         & – location, task, symbol \\
+      &   & \mid & \highlight{u\ \simv \Mid \simv_1\ o\ \simv_2}                   & – unary/binary operation \\
   \end{grammar}
 }
 
@@ -200,10 +200,10 @@
   \begin{grammar}
     \noalign{Tasks}
     \addlinespace
-      & t &  ::= & \Edit v \Mid \highlight{\Enter \beta} \Mid \Update l           & – editors \\
-      &   & \mid & t_1 \Then e_2 \Mid t_1 \Next e_2                  & – steps \\
-      &   & \mid & \Fail \Mid t_1 \And t_2                           & – fail, combination \\
-      &   & \mid & t_1 \Or t_2 \Mid e_1 \Xor e_2                     & – choices \\
+      & \simt &  ::= & \Edit \simv \Mid \highlight{\Enter \beta} \Mid \Update l           & – editors \\
+      &   & \mid & \simt_1 \Then \sime_2 \Mid \simt_1 \Next \sime_2                  & – steps \\
+      &   & \mid & \Fail \Mid \simt_1 \And \simt_2                           & – fail, combination \\
+      &   & \mid & \simt_1 \Or \simt_2 \Mid \sime_1 \Xor \sime_2                     & – choices \\
   \end{grammar}
 }
 
@@ -220,11 +220,11 @@
   \begin{grammar}
     \noalign{Symbolic inputs}
     \addlinespace
-      & i    & ::=& a \Mid \First i \Mid \Second i  & – symbolic action, to first, to second \\
+      & \simi    & ::=& \tilde{a} \Mid \First \simi \Mid \Second \simi  & – symbolic action, to first, to second \\
       \\
     \noalign{Symbolic actions}
     \addlinespace
-      & a  & ::=& \highlight{s}                     & – symbol \\
+      & \tilde{a}  & ::=& \highlight{s}                     & – symbol \\
       &    &\mid& \Continue \Mid \Left \Mid \Right  & – continue, go left, go right \\
   \end{grammar}
 }
@@ -232,11 +232,11 @@
 \newmacro{G-CInputs}{
   \begin{grammar}
     Concrete inputs
-      & j    & ::=& \bar{a}              & – concrete action \\
-      &      &\mid& \First j             & – pass to first \\
-      &      &\mid& \Second j            & – pass to second \\
+      & i    & ::=& a              & – concrete action \\
+      &      &\mid& \First i             & – pass to first \\
+      &      &\mid& \Second i           & – pass to second \\
     Concrete actions
-      & \bar{a} & ::=& c                    & – constant \\
+      & a & ::=& c                    & – constant \\
       &         &\mid& \Continue            & – continue with next task \\
       &         &\mid& \Left                & – go left \\
       &         &\mid& \Right               & – go right \\

@@ -10,7 +10,32 @@ It consists of three layers, a big step symbolic evaluation semantics for the ho
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\columnwidth,page=5]{figures/drawings-crop.pdf}
+  \begin{tikzpicture}[
+              > = stealth, % arrow head style
+              shorten > = 1pt, % don't touch arrow head to node
+              auto,
+              node distance = 2.3cm, % distance between nodes
+              semithick, % line style
+          ]
+
+          \node (interact)  {Interact ($\siminteract$)};
+          \node (handle) [above of=interact,yshift=-.9cm] {Handle ($\simhandle$)};
+          \node (normalise) [left of=interact,xshift=-1cm] {Normalise ($\simnormalise$)};
+          \node (stride) [left of=handle,xshift=-1cm] {Stride ($\simstride$)};
+          \node (evaluate) [left of=normalise,xshift=-1cm] {Evaluate ($\simeval$)};
+
+
+          \path[->,right] (interact) edge node {uses} (handle);
+          \path[->,above] (interact) edge node {uses} (normalise);
+
+          \path[->] (handle) edge node {uses} (normalise);
+
+          \path[->,right] (normalise) edge node {uses} (stride);
+          \path[->,above] (normalise) edge node {uses} (evaluate);
+
+          \path[->] (stride) edge node {uses} (evaluate);
+
+      \end{tikzpicture}
   \caption{
     Semantic functions defined in this report and their relation.
   }
@@ -175,7 +200,7 @@ A complete overview of the rules can be found in \cref{sec:symbolic-handling-rul
     \signature{\Simulate : \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}]  \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \Simulate\ (t, \sigma, I, \phi) &=&
-      \bigcup \set{ \Simulate'\ (\True, t, t', \sigma', I\oplus[i'], \phi\land\phi') \mid t, \sigma \drive{} t', \sigma', i', \phi' } \\
+      \bigcup \set{ \Simulate'\ (\True, t, t', \sigma', I\oplus[i'], \phi\land\phi') \mid t, \sigma \interact{} t', \sigma', i', \phi' } \\
     \addlinespace
     \signature{\Simulate' : \mathrm{Booleans} \times \mathrm{Tasks} \times \mathrm{Tasks} \times \mathrm{States} \times [\mathrm{Inputs}] \times \mathrm{Predicates}
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
@@ -186,7 +211,7 @@ A complete overview of the rules can be found in \cref{sec:symbolic-handling-rul
           \set{(v, I, \phi)}                                                                & \Sat(\phi)     &\land& \Value(t',\sigma') = v &&&& \\
           \Simulate\ (t', \sigma', I, \phi)                                                           & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' \neq t &&\\
           \bigcup \set{\Simulate'\ (\False, t', t'', \sigma'', I\oplus[i'], \phi\land\phi')
-            \mid  t',\sigma' \drive{} t'', \sigma'', i', \phi'}                                       & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \Again\\
+            \mid  t',\sigma' \siminteract t'', \sigma'', i', \phi'}                                       & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \Again\\
           \nothing                                                                                    & \Sat(\phi)     &\land& \Value(t',\sigma') = \bot &\land& t' = t    &\land& \neg\Again
         \end{array}
         \right.}
@@ -209,7 +234,7 @@ The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-P
 There is one rule for the case where only the right is failing, one rule when the left is failing, and one for when none of the options are failing.
 
 After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving ($\drive{}$) semantics, listed in \cref{fig:driving}.
+The combination of those two steps is taken care of by the driving ($\interact{}$) semantics, listed in \cref{fig:driving}.
 
 \begin{figure}[ht]
   \small

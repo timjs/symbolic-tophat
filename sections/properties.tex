@@ -110,7 +110,7 @@ This soundness property is expressed by \cref{thm:sounddrive}.
   \label{thm:sounddrive}
 \todo{update theorem}
   For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\drive{} \overline{t',\sigma',i,\phi}$
+  such that $t,\sigma\interact{} \overline{t',\sigma',i,\phi}$
   we have $M\phi$ implies
   $t,M\sigma \xRightarrow[]{M i} t'',\sigma''$, $Mt' \equiv t''$ and $M\sigma' \equiv \sigma''$.
 \end{theorem}
@@ -123,7 +123,7 @@ One showing that the handling semantics is sound, \cref{lem:soundhandle}, and on
   \label{lem:soundhandle}
 \todo{update this lemma}
   For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\handle{i} \overline{t',\sigma',\phi}$,
+  such that $t,\sigma\interact{i} \overline{t',\sigma',\phi}$,
   we have $M\phi$ implies
   $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
 \end{lemma}
@@ -201,7 +201,7 @@ This allows us to define the completeness property as listed in \cref{thm:comple
 \begin{theorem}[Completeness of driving]
   \label{thm:completeDrive} \todo{update theorem}
   For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} \hat{t'},\hat{\sigma'}$
-  there exists an $i\sim j$ such that $t,\sigma''\drive{} t'',\sigma''',i,\phi$.
+  there exists an $i\sim j$ such that $t,\sigma''\interact{} t'',\sigma''',i,\phi$.
 \end{theorem}
 
 
@@ -220,8 +220,8 @@ and that the subsequent normalisation is complete (\cref{lem:completeNormalise})
 We only need to show that every concrete execution is also a symbolic one.
 The only change needed to convert from concrete to symbolic is the adaption of the input.
 
-Since handling makes use of normalisation, striding, and evaluation, we need to prove that they too are complete.
-These properties are listed in \cref{lem:completeNormalise,lem:completeStride,lem:completeEval}
+Since handling makes use of normalisation and evaluation, we need to prove that they too are complete.
+These properties are listed in \cref{lem:completeNormalise,lem:completeEval}
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}\todo{update lemma}
