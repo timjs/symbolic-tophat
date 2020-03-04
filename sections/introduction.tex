@@ -10,13 +10,13 @@ In earlier work \cite{DBLP:conf/ppdp/SteenvoordenNK19}, we presented the program
 %
 The usefulness of \TOP has been demonstrated in several projects that applied it to implement various applications.
 It has been used by the Netherlands Royal Navy~\cite{jansen2018dynamic}, the Dutch Tax Office~\cite{conf/sfp/StutterheimAP17} and the Dutch Coast Guard~\cite{lijnse2012incidone}. % of moeten we hier verwijzen naar Consequence Management – Declarative Modelling of Maritime C2-systems
-Furthermore, it has potential for application in domains like healthcare and Internet of Things~\cite{DBLP:conf/cgo/KoopmanLP18}.
+Furthermore, it can potentially be applied in domains like healthcare and Internet of Things~\cite{DBLP:conf/cgo/KoopmanLP18}.
 
 Applications in these kinds of domains are often mission critical, where programming mistakes can have severe consequences.
 % Currently, iTasks programs are verified by running manually written test-cases. % do we have a source?
 % It is evident that testing alone is not sufficient.
-In order to verify that a \TOPHAT program behaves as intended, we would like to show that it satisfies a given property.
-A common way to do this is to write test cases, or to generate random input, and verify that all outcomes fulfil the property.
+To verify that a \TOPHAT program behaves as intended, we would like to show that it satisfies a given property.
+A common way to do this is to write test cases, or to generate random input, and verify that all outcomes satisfy the property.
 Writing tests manually is time consuming and cumbersome.
 Testing interactive applications needs people to operate the application, maybe making use of a way to record and replay interactions.
 With this kind of testing there is no guarantee that all possible execution paths are covered.

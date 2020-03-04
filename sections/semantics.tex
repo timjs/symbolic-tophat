@@ -28,15 +28,15 @@ The host language is a simply typed lambda calculus with references and basic op
 Most of the symbolic evaluation rules closely resemble the concrete semantics.
 The original evaluation relation ($\hat{\eval}$) had the form $\RelationE$,
 where an expression $e$ in a state $\hat{\sigma}$ evaluates to a value $\hat{v}$ in state $\hat{\sigma}'$.
-The hat distinguishes the old concrete and the new symbolic variants.
 The new relation ($\eval$) adds path conditions $\phi$ to the output and has the form $\RelationSE$.
+The hat distinguishes the old concrete and the new symbolic variants.``
 
 The symbolic semantics can generate multiple outcomes.
 This is denoted in the evaluation with a line over the result, which can be read as $\overline{v,\sigma',\phi} = \{(v_1,\sigma'_1,\phi_1),\cdots,(v_n,\sigma'_n,\phi_n)\}$.
 The set that results from symbolic execution can be interpreted as follows.
 Each element is a possible endpoint in the execution of a task.
 It is guarded by a condition $\phi$ over the symbolic input.
-Execution only arrives at the value $v$ and state $\sigma'$ when the inputs satisfy $\phi$.
+Execution only arrives at the symbolic value $v$ and symbolic state $\sigma'$ when the path condition $\phi$ is satisfied.
 
 To illustrate the difference between concrete and symbolic evaluation, \cref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
 
@@ -139,7 +139,7 @@ Just like the evaluation semantics it now gathers sets of results, each element 
 
 Normalisation makes use of the small step striding semantics ($\stride$).
 Its details are not important here.
-For more background, we refer to the appendix.\footnote{\url{https://github.com/timjs/symbolic-tophat/raw/master/appendix.pdf}}
+For more background, we refer to the appendix.
 
 
 
@@ -228,7 +228,7 @@ The combination of those two steps is taken care of by the driving ($\drive{}$) 
 
 The symbolic driving semantics is a small step semantics.
 Every step simulates one symbolic input.
-In order to compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
+To compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
 We define a task to be done when it has an observable value: $\Value(t', \sigma') \neq \bot$.
 The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
 It accumulates all symbolic inputs and returns for each possible execution the observable task value $v$, the path condition $\phi$, and the state $\sigma$.
@@ -240,13 +240,14 @@ The recursion terminates when one of the following conditions is met.
 \begin{description}
   \item[$\neg\Sat(\phi)$]
     When the path condition cannot be satisfied, we know that all future steps will not be satisfiable either.
-    In fact, no future path condition will be satisfiable, and we can therefore safely remove it.
+    All future steps will only add more restrictions to the path condition.
+    No future path condition will be satisfiable, and we can therefore safely remove it.
 
   \item[$\Value(t,\sigma)$]
     When the current task has a value it is an end state, which we can return.
 
   \item[$\Value(t',\sigma')=\bot\land t=t'\land \neg \Again$]
-    When the current task does not produce a value, and it is equal to the previous task except from symbol names in editors, the $\Simulate$ function performs one look-ahead step in case the task is waiting for an independent symbol.
+    When the current task does not produce a value, and it is equal to the previous task except from symbol names in editors, the $\Simulate$ function performs one look-ahead step in case the task does proceed when a fresh symbol is entered.
     This one step look-ahead is encoded by the parameter $\Again$.
     When this parameter is set to $\False$, one step look-ahead has been performed and $\Simulate$ does not continue further.
     If the task has a value it is returned, otherwise the branch is pruned.

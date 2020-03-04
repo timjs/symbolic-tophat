@@ -9,7 +9,7 @@ In this section we study three examples to illustrate how the language \TOPHAT w
 
 \subsection{Positive value}
 
-This example demonstrates how to prove that the first observable value of a program can only be a positive number.
+This example demonstrates how we can prove that the first observable value of a program can only be a positive number.
 Consider the program in \cref{lst:abs}.
 
 \begin{TASK}[float=h
@@ -26,24 +26,24 @@ At this point, the task has an observable value, and we consider it done.
 Otherwise the step does not proceed and the task does not have an observable value.
 The user can enter a different input value.
 
-Imagine that we would like to prove that no matter which value is given as input,
-the first observable value has to be a value greater than zero.
+Imagine that we want to prove that no matter which value is given as input,
+the first observable value is a value greater than zero.
 
 Symbolic execution of this program proceeds as follows.
 The symbolic execution engine generates a fresh symbolic input $s$ for the editor on the left.
 The engine then arrives at the conditional.
-In order to take the then-branch, the condition $s > 0$ needs to hold.
+To take the then-branch, the condition $s > 0$ needs to hold.
 This branch will then result in $\Edit s$, in which case the program has an observable value.
 The engine records this endpoint together with its path condition $s > 0$.
 The else-branch applies if the condition does not hold, but this leads to a failing task.
-Therefore, the step is not taken and the programs stays the same.
+Therefore, the step is not taken and the task expression is not altered.
 No additional program state is generated.
 
 Symbolic execution returns a list of all possible program end states, together with the path conditions that led to them.
-If all end states agree with the desired property, it is guaranteed that the property holds for all possible inputs.
+If all end states satisfy the desired property, it is guaranteed that the property holds for all possible inputs.
 
 In this example, the only end state is the expression $\Edit s$ with path condition $s > 0$.
-From that we can conclude that no matter what input is given, the only result value possible has to be greater than zero.
+From that we can conclude that no matter what input is given, the only result value possible is greater than zero.
 
 
 
@@ -60,20 +60,19 @@ This example proves that a citizen will get subsidy only under the following con
 \item The amount of the granted subsidy is at most 600 EUR.
 \end{itemize}
 
-\lstset{emph={invoiceDate,today,confirmed,invoiceAmount,approved}}
+\lstset{emph={invoiceDate,date,confirmed,invoiceAmount,approved}}
 \begin{TASK}[float=ht
             ,numbers=right
             ,caption=Subsidy request and approval workflow at the Dutch tax office.
             ,label=lst:tax
             ]
-  let provideCitizenInformation = enter Date in
-  let provideDocuments = enter Amount <&> enter Date in
+  let today = $\text{25 Sept 2020}$ in
+  let provideDocuments = enter Amount <&> enter Date in |\label{lst:tax:citizen-info}|
   let companyConfirm = edit True <?> edit False in
-  let officerApprove = \ invoiceDate. \ today. \ confirmed.
-    edit False <?> if (today - invoiceDate < 365 /\ confirmed) |\label{lst:tax:officer-approve-def}|
+  let officerApprove = \ invoiceDate. \ date. \ confirmed.
+    edit False <?> if (date - invoiceDate < 365 /\ confirmed) |\label{lst:tax:officer-approve-def}|
       then edit True
       else fail in
-  provideCitizenInformation >>= \ today.|\label{lst:tax:citizen-info}|
   provideDocuments <&> companyConfirm >>= |\label{lst:tax:documents-and-company-confirm}|
     \ <<<<invoiceAmount, invoiceDate>>, confirmed>>.
   officerApprove invoiceDate today confirmed >>= \ approved.|\label{lst:tax:officer-approve}|
@@ -114,7 +113,7 @@ The predicate has 5 free variables, which correspond to the returned values.
 \begin{align}
 \psi(s,a,c,i,t)
    & =      s \geq 0 \implies c \label{for:tax:psi-confirmed}
-\\ & \wedge s \geq 0 \implies a \label{for:tax:psi-approved}
+\\ & \wedge s > 0 \implies a \label{for:tax:psi-approved}
 \\ & \wedge a \implies (c \wedge t - i < 365) \label{for:tax:psi-approve-conditions}
 \\ & \wedge s \leq 600 \label{for:tax:psi-max-subsidy}
 \\ & \wedge \lnot a \implies s \equiv 0 \label{for:tax:psi-unapproved}
@@ -148,10 +147,10 @@ This program is a simplified version of what we presented in earlier work \cite{
 
 The program, shown in \cref{lst:flight-booking}, consists of three parallel seat booking tasks (\cref{lst:flight:main-expression}).
 There is a shared list that stores all booked seats so far (\cref{lst:flight:make-ref}).
-In order to book a seat, a passenger has to enter a seat number (\cref{lst:flight:enter-seat-number}).
+To book a seat, a passenger has to enter a seat number (\cref{lst:flight:enter-seat-number}).
 A guard expression makes sure that only free seats can be booked (\cref{lst:flight:guard-invalid-seats}).
 The exclamation mark denotes dereferencing.
-When the guard is true, the list of booked seats is updated, and the user can see his booked seat (\cref{lst:flight:update-seats}).
+When the guard is satisfied, the list of booked seats is updated, and the user can see his booked seat (\cref{lst:flight:update-seats}).
 The main expression runs the seat booking task three times in parallel (\cref{lst:flight:main-expression}), simulating three concurrent customers.
 The program returns the list of booked seats.
 The graphical user interface, generated from the specification in \cref{lst:flight-booking}, is shown in \cref{fig:flight-booking}.
@@ -173,6 +172,6 @@ With the returned list, we can state the predicate to verify the correctness of 
    & =      \Len l \equiv 3 \label{flight-psi-exactly-three-seats}
 \\ & \wedge \Uniq l \label{flight-psi-unique-seats}
 \end{align}
-The predicate specifies that all three passengers got exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passenger got the same seat.
+The predicate specifies that all three passengers booked exactly one seat (\ref{flight-psi-exactly-three-seats}), and that all seats are unique (\ref{flight-psi-unique-seats}), which means that no two passengers booked the same seat.
 The unary operators for list length ($\Len$) and uniqueness ($\Uniq$) are available in the predicate language.
 List length is a capability of \SMTLIB, while $\Uniq$ is our own addition.

@@ -1,5 +1,6 @@
 % !TEX root=../main.tex
 
+
 \section{Language}
 \label{sec:language}
 
@@ -7,10 +8,11 @@ The language presented in this section is nearly identical to the original \TOPH
 The main difference with the original grammar is the addition of symbolic values.
 
 Symbolic execution for functional programming languages struggles with higher order features.
-This topic is under active study, and is not the focus of our work.
+This topic is under active study, and is not the focus of our work \cite{HallahanXP2017, DBLP:conf/pldi/HallahanXBJP19}.
 Therefore, we restrict symbols to only represent values of basic types.
 This restriction is of little importance in the domains we are interested in.
 Allowing users to enter higher order values is not useful in most workflow applications.
+By restricting the input grammar to first-order values only, we ensure that no higher-order user input can be entered.
 Apart from input, all other higher order features are unrestricted.
 
 The following subsections describe in detail how all elements of the \TOPHAT language deal with the addition of symbols.
@@ -20,7 +22,7 @@ The following subsections describe in detail how all elements of the \TOPHAT lan
 \subsection{Expressions, values, and types}
 \label{sec:expressions}
 
-The syntax of \TOPHAT is listed in \cref{fig:syntaxtophat}.
+The syntax of \STOPHAT is listed in \cref{fig:syntaxtophat}.
 Two main changes have been made with regards to the original \TOPHAT grammar.
 The differences with the original syntax are highlighted in grey boxes.
 First, symbols $s$ have been added to the syntax of expressions.
@@ -51,7 +53,7 @@ where in the original they were left implicit.
   \label{fig:syntaxvalues}
 \end{figure}
 
-The types of \TOPHAT remain the same (\cref{fig:syntaxtypes}).
+The types of \STOPHAT remain the same (\cref{fig:syntaxtypes}).
 However, we do need an additional typing rule, \refrule{T-Sym} in \cref{fig:typingsymbol}, to type symbols,
 since they are now part of our expression syntax.
 The type of symbols is kept track of in the environment $\Gamma$.

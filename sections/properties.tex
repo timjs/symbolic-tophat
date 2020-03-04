@@ -66,7 +66,7 @@ We prove it sound and complete with respect to the concrete semantics of \TOPHAT
 % \\
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to relate the two semantics, we use the concrete inputs listed in \cref{fig:inputsConcrete}.
+To relate the two semantics, we use the concrete inputs listed in \cref{fig:inputsConcrete}.
 
 \begin{figure}[h]
   \usemacro{G-CInputs-Compact}
@@ -102,26 +102,26 @@ In order to relate the two semantics, we use the concrete inputs listed in \cref
 % \end{theorem}
 % \fixme{this cannot be proven untill the drive function is fixed}
 
-In order to validate the symbolic execution semantics,
+To validate the symbolic execution semantics,
 we want to show that for every individual symbolic execution step there exists a corresponding concrete one.
 This soundness property is expressed by \cref{thm:sounddrive}.
 
 \begin{theorem}[Soundness of driving]
   \label{thm:sounddrive}
-
+\todo{update theorem}
   For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $t,\sigma\drive{} \overline{t',\sigma',i,\phi}$
   we have $M\phi$ implies
   $t,M\sigma \xRightarrow[]{M i} t'',\sigma''$, $Mt' \equiv t''$ and $M\sigma' \equiv \sigma''$.
 \end{theorem}
 
-The proof for this lemma is rather straightforward.
+The proof for this theorem is rather straightforward.
 Since the driving semantics makes use of the handling and the normalisation semantics, we require two lemmas.
 One showing that the handling semantics is sound, \cref{lem:soundhandle}, and one showing that the normalisation semantics is sound, \cref{lem:soundnorm}.
 
 \begin{lemma}[Soundness of handling]
   \label{lem:soundhandle}
-
+\todo{update this lemma}
   For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $t,\sigma\handle{i} \overline{t',\sigma',\phi}$,
   we have $M\phi$ implies
@@ -133,7 +133,7 @@ The full proof is listed in \cref{sec:soundness-proofs}.
 
 \begin{lemma}[Soundness of normalisation]
   \label{lem:soundnorm}
-
+\todo{update this lemma}
   For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $e,\sigma\normalise \overline{t,\sigma',\phi}$,
   we have $M\phi$ implies
@@ -146,7 +146,7 @@ we must show soundness for those too.
 
 \begin{lemma}[Soundness of striding]
   \label{lem:soundstride}
-
+\todo{update lemma}
   For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $t,\sigma\stride \overline{t',\sigma',\phi}$,
   $M \phi$ implies
@@ -156,7 +156,7 @@ we must show soundness for those too.
 
 \begin{lemma}[Soundness of evaluation]
   \label{lem:soundeval}
-
+\todo{update lemma}
   For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
   such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
   we have that $M\phi$ implies
@@ -164,7 +164,7 @@ we must show soundness for those too.
 
 \end{lemma}
 
-The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.\footnote{\url{https://github.com/timjs/symbolic-tophat/raw/master/appendix.pdf}}
+The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.
 
 
 
@@ -174,10 +174,11 @@ The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed
 
 We also want to show that for every concrete execution, a symbolic one exists.
 
-In order to state this Theorem, we require a simulation relation $i\sim j$, which means that the symbolic input $i$ follows the same direction as the concrete input $j$.
+To state this Theorem, we require a simulation relation $i\sim j$, which means that the symbolic input $i$ follows the same direction as the concrete input $j$.
 This relation is defined below.
 
 \begin{definition}[Input simulation]
+  \todo{update this definition}
   A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
   $s\sim a$, where $s$ is a symbol and $a$ a concrete action.\\
   $i\sim j\implies \First i \sim \First j$\\
@@ -198,7 +199,7 @@ This allows us to define the completeness property as listed in \cref{thm:comple
 
 
 \begin{theorem}[Completeness of driving]
-  \label{thm:completeDrive}
+  \label{thm:completeDrive} \todo{update theorem}
   For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} \hat{t'},\hat{\sigma'}$
   there exists an $i\sim j$ such that $t,\sigma''\drive{} t'',\sigma''',i,\phi$.
 \end{theorem}
@@ -210,7 +211,7 @@ and that the subsequent normalisation is complete (\cref{lem:completeNormalise})
 
 
 \begin{lemma}[Completeness of handling]
-  \label{lem:completeHandle}
+  \label{lem:completeHandle} \todo{update lemma}
   For all $t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} \hat{t'},\hat{\sigma'}$
   there exists an $i\sim j$ such that $t,\sigma''\handle{} t'',\sigma''',i,\phi$.
 \end{lemma}
@@ -223,21 +224,15 @@ Since handling makes use of normalisation, striding, and evaluation, we need to 
 These properties are listed in \cref{lem:completeNormalise,lem:completeStride,lem:completeEval}
 
 \begin{lemma}[Completeness of normalisation]
-  \label{lem:completeNormalise}
+  \label{lem:completeNormalise}\todo{update lemma}
   For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t},\hat{\sigma}$
   there exists a symbolic execution $e,\sigma\normalise \hat{t},\hat{\sigma},\True$.
 \end{lemma}
 
-\begin{lemma}[Completeness of striding]
-  \label{lem:completeStride}
-  For all $t,\sigma$ such that $t,\sigma \hat{\stride}\hat{t},\hat{\sigma}$
-  there exists a symbolic execution $t,\sigma\eval \hat{t},\hat{\sigma},\True$.
-\end{lemma}
-
 \begin{lemma}[Completeness of evaluation]
-  \label{lem:completeEval}
+  \label{lem:completeEval}\todo{update lemma}
   For all $e,\sigma$ such that $e,\sigma \hat{\eval}\hat{v},\hat{\sigma}$
   there exists a symbolic execution $e,\sigma\eval \hat{v},\hat{\sigma},\True$.
 \end{lemma}
 
-\Cref{lem:completeNormalise,lem:completeStride,lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.
+\Cref{lem:completeNormalise,lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.

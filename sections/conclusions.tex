@@ -4,9 +4,11 @@
 
 \label{sec:conclusion}
 
-In this paper, we have demonstrated how to apply symbolic execution to \TOPHAT in order to verify individual programs.
+In this paper, we have demonstrated how to apply symbolic execution to \TOPHAT to verify individual programs.
 We have developed both a formal system and an implementation of a symbolic execution semantics.
 Our approach has been validated by proving the formal system correct, and by running the implementation on example programs.
+For these two example programs, a subsidy request workflow and a flight booking workflow, we have verified that they adhere to their specifications.
+
 
 \subsection{Future work}
 
@@ -24,7 +26,7 @@ iTasks does not have a formal semantics in the sense that \TOPHAT has.
 The current implementation in Clean is the closest thing available to a formal specification.
 There are also a few language features in iTasks that are not covered by \TOPHAT, for example loops.
 
-Third, we would like to apply different kinds of analysis all-together.
+Third, we would like to apply different kinds of analyses altogether.
 Can a certain part of the program be reached?
 Does a certain property hold at every point in the program?
 Are two programs equal? And what does it mean for two programs to be equal?
