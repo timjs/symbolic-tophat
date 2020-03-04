@@ -7,64 +7,6 @@
 
 In this section we describe what it means for the symbolic execution semantics to be correct.
 We prove it sound and complete with respect to the concrete semantics of \TOPHAT.
-% Furthermore, we demonstrate that the pruning performed in Section~\ref{subsec:driving} is safe,
-% and only removes branches that are either unfeasible, or infinite.
-
-% \subsection{Removal of Not SAT}
-%
-% Subsection~\ref{subsec:driving} describes two criteria that are used to prune away branches of the symbolic execution.
-% The first removes branches that result in a predicate that is not satisfiable.
-% As stated in Definition~\ref{def:Sat}, this means that there is no substitution for the symbols in the predicate,
-% that will make the predicate true.
-%
-% In other words, these symbolic branches have no counterpart in the concrete semantics, and are therefore invalid.
-% This property is described in the following theorem.
-%
-% \begin{theorem}[Not sat is safe to remove]
-%   \label{thm:notSat}
-%
-% For all tasks $t$ and states $\sigma$ such that
-% $t,\sigma\drive{}\overline{t',\sigma',i,\phi}$\quad
-% $t',\sigma'\drive{}\overline{t'',\sigma'',i',\phi'}$
-%
-% we have that $\neg\Sat(\phi\land\phi')$ implies
-% that there is no mapping $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-% $t,M\sigma\xrightarrow[]{Mi}\bar{t'},\bar{\sigma'}\xrightarrow[]{Mi'}\bar{t''},\bar{\sigma''}$
-%
-% \end{theorem}
-%
-% The proof for this theorem is listed in the appendix.
-%
-% It is important to note that this holds for all future states of the unsatisfiable symbolic executions too.
-% This can be concluded from the way in which the predicates are constructed, new predicates are put in conjunction with the old one.
-%
-% %%%%%%%%% STUCK properties  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% \subsection{When are branches stuck?}
-%
-% The second pruning criteria deals with terms that allow for infinite input streams,
-% but that will not result in a value.
-%
-% Observe the following small program. $\Edit 1 \Next \lambda x . \Edit x + 1$.
-%
-% The symbolic execution will tell us that we can do one of two things;
-% send a new symbolic value to the editor, or we can send $\Continue$,
-% to proceed to the right hand side of the expression.
-%
-% When we elect the first, sending a new symbolic value, we can then again send yet another
-% symbolic value to the editor. And then again, and again and again.
-%
-% No extra information is gained, $s_0$ and $s_1$ are erased from the program, and are not contained in the state or
-% predicate.
-%
-% \begin{lemma}[Stuck really is stuck]
-% For all tasks $t$ and states $\sigma$ such that $t,\sigma \handle{i} t',\sigma',\phi$,
-% then $t=t'$ and $\phi=\phi'$ implies that there is no step $t',\sigma'\handle{i'} t'',\sigma'',\phi'$ such that either $t'\neq t''$ or $\phi\neq\phi'$.
-% \label{lemma:stuck}
-% \end{lemma}
-% \fixme{$\phi'$ is not in scope on the left side of the implication.}
-% \\
-% \fixme{this cannot be proven untill the drive function is fixed}
 
 To relate the two semantics, we use the concrete inputs listed in \cref{fig:inputsConcrete}.
 
@@ -79,40 +21,17 @@ To relate the two semantics, we use the concrete inputs listed in \cref{fig:inpu
 \label{sec:soundess}
 
 
-
-
-%For completeness and soundness we define what it means to completely evaluate a task, given a list of concrete inputs.
-
-% \begin{function}
-%   \signature{\mathit{eval} :: \Task \times [\textrm{Concrete inputs}] \times \mathrm{State} \rightarrow \Task \times \mathrm{State}} \\
-%   \mathit{eval}\ t\ (j:js)\ \sigma = \begin{array}{ll}
-%                               (t',\sigma')      & \Value(t',\sigma') \equiv v \\
-%                               \mathit{eval}\ t'\ \sigma' & \Value(t',\sigma') \equiv \bot
-%                                   \end{array}
-%                               \textrm{with } t,s\xrightarrow[]{j} t',\sigma'
-% \end{function}
-
-% \begin{theorem}[Soundness of symbolic execution]
-% \label{thm:sound}
-%
-% For all tasks $t$, mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-% for all elements $(t',I,\sigma,\phi)\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$,
-% $M \phi\equiv\True$ implies
-% $eval\ t\ (M I)\ \emptyset=(t_n,\sigma_n)$,  $t_n=M t'$ and $\sigma_n=M \sigma$.
-% \end{theorem}
-% \fixme{this cannot be proven untill the drive function is fixed}
-
 To validate the symbolic execution semantics,
 we want to show that for every individual symbolic execution step there exists a corresponding concrete one.
 This soundness property is expressed by \cref{thm:sounddrive}.
 
-\begin{theorem}[Soundness of driving]
+\begin{theorem}[Soundness of interact]
   \label{thm:sounddrive}
-\todo{update theorem}
-  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\interact{} \overline{t',\sigma',i,\phi}$
-  we have $M\phi$ implies
-  $t,M\sigma \xRightarrow[]{M i} t'',\sigma''$, $Mt' \equiv t''$ and $M\sigma' \equiv \sigma''$.
+
+  For all concrete tasks $t$, concrete states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+    we have for all tuples $(\tilde{t}',\tilde{\sigma}',\simi,\phi)$ in $t,\sigma\siminteract \overline{\tilde{t}',\tilde{\sigma}',\simi,\phi}$ that
+    $M\phi$ implies
+    $t,\sigma \interact{M \simi} t',\sigma''$ and $M\tilde{t}' \equiv t'$ and $M\tilde{\sigma}' \equiv \sigma''$.
 \end{theorem}
 
 The proof for this theorem is rather straightforward.
@@ -121,11 +40,12 @@ One showing that the handling semantics is sound, \cref{lem:soundhandle}, and on
 
 \begin{lemma}[Soundness of handling]
   \label{lem:soundhandle}
-\todo{update this lemma}
-  For all tasks $t$, states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\interact{i} \overline{t',\sigma',\phi}$,
-  we have $M\phi$ implies
-  $t,M \sigma \xrightarrow[]{M i} t'',\sigma''$, $t'M \equiv t'' $ and $\sigma' M \equiv \sigma''$
+
+  For all concrete tasks $t$, concrete states $\sigma$ and mappings $M = [s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+    we have for all tuples $(\tilde{t}',\tilde{\sigma}',\simi,\phi)$ in
+    $t,\sigma\simhandle \overline{\tilde{t}',\tilde{\sigma}',\simi,\phi}$,
+    that $M\phi$ implies
+    $t,\sigma \handle{M \simi} t',\sigma'$ and $M\tilde{t}' \equiv t' $ and $M\tilde{\sigma}' \equiv \sigma'$.
 \end{lemma}
 
 \Cref{lem:soundhandle} is proven by induction over $t$.
@@ -133,11 +53,12 @@ The full proof is listed in \cref{sec:soundness-proofs}.
 
 \begin{lemma}[Soundness of normalisation]
   \label{lem:soundnorm}
-\todo{update this lemma}
-  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $e,\sigma\normalise \overline{t,\sigma',\phi}$,
-  we have $M\phi$ implies
-  $e,M \sigma \hat{\normalise}t',\sigma''$, $t M \equiv t'$ and $\sigma' M \equiv \sigma''$.
+
+  For all concrete expressions $e$, concrete states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+  we have for all tuples $(\tilde{t},\tilde{\sigma}',\phi)$ in
+  $e,\sigma\simnormalise \overline{\tilde{t},\tilde{\sigma}',\phi}$,
+  that $M\phi$ implies
+  $e,\sigma \normalise t',\sigma''$ and $M \tilde{t} \equiv t'$ and $M\tilde{\sigma}' \equiv \sigma''$.
 
 \end{lemma}
 
@@ -146,21 +67,22 @@ we must show soundness for those too.
 
 \begin{lemma}[Soundness of striding]
   \label{lem:soundstride}
-\todo{update lemma}
-  For all tasks $t$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $t,\sigma\stride \overline{t',\sigma',\phi}$,
-  $M \phi$ implies
-  $t,M\sigma \hat{\stride}\bar{t'},\bar{\sigma'}$, $M t'\ \equiv \bar{t'} \land M\sigma' \equiv \bar{\sigma'}$.
+  For all concrete tasks $t$, concrete states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+    we have for all tuples $(\tilde{t}',\tilde{\sigma}',\phi)$
+    in $t,\sigma\simstride \overline{\tilde{t}',\tilde{\sigma}',\phi}$,
+    that $M \phi$ implies
+    $t,\sigma \stride t',\sigma'$ and $M \tilde{t}' \equiv t' \land M\tilde{\sigma}' \equiv \sigma'$.
 
 \end{lemma}
 
 \begin{lemma}[Soundness of evaluation]
   \label{lem:soundeval}
-\todo{update lemma}
-  For all expressions $e$, states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
-  such that $e,\sigma\eval \overline{v,\sigma',\phi}$,
-  we have that $M\phi$ implies
-  $t,M\sigma \hat{\eval}\bar{v},\bar{\sigma'} \land Mv \equiv \bar{v} \wedge M\sigma' \equiv \bar{\sigma'}$.
+
+  For all concrete expressions $e$, concrete sta\-tes $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
+    we have for all tuples $(\tilde{v},\tilde{\sigma}',\phi)$
+    in $e,\sigma\simeval \overline{\tilde{v},\tilde{\sigma}',\phi}$,
+    that $M\phi$ implies
+    $e,\sigma \eval v,\sigma' \land M\tilde{v} \equiv v \wedge M\tilde{\sigma}' \equiv \sigma'$.
 
 \end{lemma}
 
@@ -178,30 +100,18 @@ To state this Theorem, we require a simulation relation $i\sim j$, which means t
 This relation is defined below.
 
 \begin{definition}[Input simulation]
-  \todo{update this definition}
-  A symbolic input $i$ simulates a concrete input $j$ denoted as $i\sim j$ in the following cases.\\
+  A symbolic input $\simi$ simulates a concrete input $i$ denoted as $\simi\sim i$ in the following cases.\\
   $s\sim a$, where $s$ is a symbol and $a$ a concrete action.\\
-  $i\sim j\implies \First i \sim \First j$\\
-  $i\sim j\implies \Second i \sim \Second j$
+  $\simi\sim i\implies \First \simi \sim \First i$\\
+  $\simi\sim i\implies \Second \simi \sim \Second i$
 \end{definition}
 
 This allows us to define the completeness property as listed in \cref{thm:completeDrive}.
 
-% \begin{theorem}[Completeness of symbolic execution]
-% For all tasks $t$ and input lists $[j_0,\cdots,j_n]$ such that $\mathit{eval}\ t\ [j_0,\cdots,j_n]\ \emptyset = (t',\sigma')$,
-% then there exists an element $(t'',I,\sigma'',\phi'')\in \mathit{drive}\ t\ [\ ]\ \emptyset\ \True$ and mapping $[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$ such that
-% $I[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]=[j_0,\cdots,j_n]$ and $t'=t''[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$.
-%   \label{thm:complete}
-% \end{theorem}
-%
-% \fixme{Proof of thm 5.2 is required for this thm}
-
-
-
-\begin{theorem}[Completeness of driving]
-  \label{thm:completeDrive} \todo{update theorem}
-  For all $t,\sigma,j$ such that $t,\sigma \xRightarrow[]{j} \hat{t'},\hat{\sigma'}$
-  there exists an $i\sim j$ such that $t,\sigma''\interact{} t'',\sigma''',i,\phi$.
+\begin{theorem}[Completeness of interact]
+  \label{thm:completeDrive}
+  For all concrete tasks $t$, concrete states $\sigma$ and concrete inputs $i$ such that $t,\sigma \interact{i} t',\sigma'$
+there exists an $\simi\sim i$, $\simt$, $\sims$ and $\phi$ such that $(\simt,\sims,\simi,\phi)$ in $t,\sigma\siminteract \overline{\simt,\sims,\simi,\phi}$.
 \end{theorem}
 
 
@@ -211,9 +121,9 @@ and that the subsequent normalisation is complete (\cref{lem:completeNormalise})
 
 
 \begin{lemma}[Completeness of handling]
-  \label{lem:completeHandle} \todo{update lemma}
-  For all $t,\sigma,j$ such that $t,\sigma \xrightarrow[]{j} \hat{t'},\hat{\sigma'}$
-  there exists an $i\sim j$ such that $t,\sigma''\handle{} t'',\sigma''',i,\phi$.
+  \label{lem:completeHandle}
+  For all concrete tasks $t$, concrete states $\sigma$ and concrete inputs $i$ such that $t,\sigma \handle{i} t',\sigma'$
+  there exists an $\simi\sim i$, $\simt$, $\sims$ and $\phi$ such that $(\simt,\sims,\simi,\phi)$ in $t,\sigma\simhandle \overline{\simt,\sims,\simi,\phi}$.
 \end{lemma}
 
 \Cref{lem:completeHandle} is proved by induction over $t$.
@@ -224,15 +134,17 @@ Since handling makes use of normalisation and evaluation, we need to prove that 
 These properties are listed in \cref{lem:completeNormalise,lem:completeEval}
 
 \begin{lemma}[Completeness of normalisation]
-  \label{lem:completeNormalise}\todo{update lemma}
-  For all $e,\sigma$ such that $e,\sigma \hat{\normalise}\hat{t},\hat{\sigma}$
-  there exists a symbolic execution $e,\sigma\normalise \hat{t},\hat{\sigma},\True$.
+  \label{lem:completeNormalise}
+  For all concrete expressions $e$ and concrete states $\sigma$ such that $e,\sigma\normalise t,\sigma$
+  there exists a symbolic execution result $(t,\sigma,\True)$ in $e,\sigma\simnormalise \overline{\simt,\sims,\phi}$.
+
 \end{lemma}
 
 \begin{lemma}[Completeness of evaluation]
-  \label{lem:completeEval}\todo{update lemma}
-  For all $e,\sigma$ such that $e,\sigma \hat{\eval}\hat{v},\hat{\sigma}$
-  there exists a symbolic execution $e,\sigma\eval \hat{v},\hat{\sigma},\True$.
+  \label{lem:completeEval}
+  For all concrete expressions $e$ and concrete states $\sigma$ such that $e,\sigma \eval v, \sigma$
+  there exists a symbolic execution result $(v,\sigma,\True)$ in $e,\sigma\simeval \overline{\simv,\sims,\phi}$.
+
 \end{lemma}
 
 \Cref{lem:completeNormalise,lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.
