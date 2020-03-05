@@ -6,7 +6,7 @@
 In this section we discuss the symbolic execution semantics for \TOPHAT.
 The structure of the symbolic semantics closely resembles that of the concrete semantics.
 It consists of three layers, a big step symbolic evaluation semantics for the host language, a big step symbolic normalisation semantics for the task language, and a small step driving semantics that processes user inputs.
-\Cref{fig:semantic-functions} gives an overview of the relations between the different semantics.
+Figure~\ref{fig:semantic-functions} gives an overview of the relations between the different semantics.
 
 \begin{figure}[h]
   \centering
@@ -38,7 +38,7 @@ Each element is a possible endpoint in the execution of a task.
 It is guarded by a condition $\phi$ over the symbolic input.
 Execution only arrives at the symbolic value $\simv$ and symbolic state $\sims'$ when the path condition $\phi$ is satisfied.
 
-To illustrate the difference between concrete and symbolic evaluation, \cref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
+To illustrate the difference between concrete and symbolic evaluation, Fig.~\ref{fig:oldToNewSemantics} lists one rule from the concrete semantics and its corresponding symbolic counterpart.
 
 \begin{figure}[ht]
   \small
@@ -61,7 +61,7 @@ If the expression contains a conditional that depends on a symbol, there can be 
 Most symbolic rules closely resemble their concrete counterparts, and follow directly from them.
 The rules are not listed here, a full overview can be found in the appendix online \footnote{\url{https://github.com/timjs/symbolic-tophat/raw/master/appendix.pdf}}.
 
-The only interesting rule is the one for conditionals, listed in \cref{fig:eval}.
+The only interesting rule is the one for conditionals, listed in Fig.~\ref{fig:eval}.
 \begin{figure}[ht]
   \small
   \begin{gather*}
@@ -88,7 +88,7 @@ which is the resulting state after evaluating $\sime_1$.
 The symbolic normalisation and driving semantics make use of observations on tasks, just like the concrete semantics.
 
 The partial function $\Value$ can be used to observe the value of a task.
-Its definition is given in \cref{fig:value}.
+Its definition is given in Fig.~\ref{fig:value}.
 It is unchanged with respect to the original.
 
 \begin{figure}[ht]
@@ -110,7 +110,7 @@ It is unchanged with respect to the original.
 \end{figure}
 
 The function $\Failing$ observes if a task is failing.
-Its definition is given in \cref{fig:failing}.
+Its definition is given in Fig.~\ref{fig:failing}.
 A task is failing if it is the fail task ($\Fail$), or if it consists of only failing tasks.
 This function differs from its concrete counterpart in the clause for user choice.
 As symbolic normalisation can yield multiple results, all of the results must be failing to make a user choice failing.
@@ -122,7 +122,7 @@ As symbolic normalisation can yield multiple results, all of the results must be
 Normalization ($\simnormalise$) reduces tasks until they are ready to receive input.
 Very little has to be changed to accommodate symbolic execution.
 Just like the evaluation semantics it now gathers sets of results, each element guarded by a path condition.
-\Cref{fig:normalising} lists the normalisation semantics.
+Figure~\ref{fig:normalising} lists the normalisation semantics.
 
 \begin{figure}[ht]
   % \begin{minipage}{\textwidth}
@@ -148,7 +148,7 @@ For more background, we refer to the appendix.
 The handling semantics ($\simhandle$) deals with user input.
 In the symbolic case there are symbols instead of concrete inputs.
 A complete overview of the rules can be found in the appendix online.
-\Cref{fig:handling} lists the interesting rules of the symbolic handling semantics.
+Figure~\ref{fig:handling} lists the interesting rules of the symbolic handling semantics.
 
 \begin{figure*}[t]
   \begin{minipage}{\textwidth}
@@ -209,7 +209,7 @@ The three rules \refrule{SH-PickLeft}, \refrule{SH-PickRight}, and \refrule{SH-P
 There is one rule for the case where only the right is failing, one rule when the left is failing, and one for when none of the options are failing.
 
 After input has been handled, tasks are normalised.
-The combination of those two steps is taken care of by the driving ($\interact{}$) semantics, listed in \cref{fig:driving}.
+The combination of those two steps is taken care of by the driving ($\interact{}$) semantics, listed in Fig.~\ref{fig:driving}.
 
 \begin{figure}[ht]
   \small
@@ -230,7 +230,7 @@ The symbolic driving semantics is a small step semantics.
 Every step simulates one symbolic input.
 To compute every possible execution, the driving semantics needs to be applied repeatedly, until the task is done.
 We define a task to be done when it has an observable value: $\Value(\simt', \sims') \neq \bot$.
-The simulation function listed in \cref{fig:simulate} is recursively called to produce a list of end states and path conditions.
+The simulation function listed in Fig.~\ref{fig:simulate} is recursively called to produce a list of end states and path conditions.
 It accumulates all symbolic inputs and returns for each possible execution the observable task value $\simv$, the path condition $\phi$, and the state $\sims$.
 We consider a task, state and path condition to be an end state if the task value can be observed,
 and the path condition is satisfiable, represented by the function $\Sat$.
@@ -256,12 +256,12 @@ The recursion terminates when one of the following conditions is met.
 \begin{figure*}[t]
   \small
 \includegraphics{figures/simulation}
-\caption{Application of the simulation function to \cref{lst:abs}.}
+\caption{Application of the simulation function to Listing~\ref{lst:abs}.}
 \label{diagram:simapp}
 \end{figure*}
 
-To better illustrate how the $\Simulate$ function works, we study how it simulates \cref{lst:abs}.
-\Cref{diagram:simapp} gives a schematic overview of the application of $\Simulate$.
+To better illustrate how the $\Simulate$ function works, we study how it simulates Listing~\ref{lst:abs}.
+Figure~\ref{diagram:simapp} gives a schematic overview of the application of $\Simulate$.
 First, it calls the drive semantics to calculate what input the task takes.
 Users can enter a fresh symbol $s_0$, as listed on the left.
 The symbolic execution then branches, since it reaches a conditional.
@@ -300,12 +300,12 @@ To check the satisfiability of path conditions $\Sat(\phi)$, as well as the prop
 we make use of an external \SMT~solver.
 In the implementation we use \ZTHREE, although any other \SMT~solver supporting \SMTLIB could be used.
 
-For \cref{lst:abs}, we would like to prove that after any input sequence $I$,
+For Listing~\ref{lst:abs}, we would like to prove that after any input sequence $I$,
 the path conditions $\phi$ imply that the value $v$ of the resulting task $t'$ is greater than $0$.\todo{should this be symbolic or concrete?}
 \begin{equation*}
   \phi \implies v  > 0 \Quad \where v = \Value(t',\sigma')
 \end{equation*}
-As shown in \cref{diagram:simapp}, there are three paths we need to verify.
+As shown in Fig.~\ref{diagram:simapp}, there are three paths we need to verify.
 Therefore, we send the following three statements to the \SMT~solver for verification:
 \begin{enumerate}
   \item $s_0 > 0                                   \implies s_0 > 0  $
@@ -320,13 +320,13 @@ In this example all are trivially solvable.
 
 We implemented our language and its symbolic execution semantics in \HASKELL.\footnote{\url{https://github.com/timjs/symbolic-tophat-haskell}}
 With the help of a couple of \GHC\ extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
-Our tool generates execution trees like the one shown in \cref{diagram:simapp},
+Our tool generates execution trees like the one shown in Fig.~\ref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
 All path conditions are converted to \SMTLIB\ compatible statements and are verified using the \ZTHREE\ \SMT~solver.
 As of now we do not have a parser, programs must be specified directly as abstract syntax trees.
 
 As is usually the case with symbolic execution, the number of paths grows quickly.
-The examples in \cref{lst:tax,lst:flight-booking} generate respectively 2112 and 1166 paths,
+The examples in Listings~\ref{lst:tax} and \ref{lst:flight-booking} generate respectively 2112 and 1166 paths,
 which takes about a minute to calculate.
 Solving them, however, is almost instantaneous.
 

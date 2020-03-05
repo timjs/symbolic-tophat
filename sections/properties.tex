@@ -8,7 +8,7 @@
 In this section we describe what it means for the symbolic execution semantics to be correct.
 We prove it sound and complete with respect to the concrete semantics of \TOPHAT.
 
-To relate the two semantics, we use the concrete inputs listed in \cref{fig:inputsConcrete}.
+To relate the two semantics, we use the concrete inputs listed in Fig.~\ref{fig:inputsConcrete}.
 
 \begin{figure}[h]
   \usemacro{G-CInputs-Compact}
@@ -23,7 +23,7 @@ To relate the two semantics, we use the concrete inputs listed in \cref{fig:inpu
 
 To validate the symbolic execution semantics,
 we want to show that for every individual symbolic execution step there exists a corresponding concrete one.
-This soundness property is expressed by \cref{thm:sounddrive}.
+This soundness property is expressed by Theorem~\ref{thm:sounddrive}.
 
 \begin{theorem}[Soundness of interact]
   \label{thm:sounddrive}
@@ -36,7 +36,7 @@ This soundness property is expressed by \cref{thm:sounddrive}.
 
 The proof for this theorem is rather straightforward.
 Since the driving semantics makes use of the handling and the normalisation semantics, we require two lemmas.
-One showing that the handling semantics is sound, \cref{lem:soundhandle}, and one showing that the normalisation semantics is sound, \cref{lem:soundnorm}.
+One showing that the handling semantics is sound, Lemma~\ref{lem:soundhandle}, and one showing that the normalisation semantics is sound, Lemma~\ref{lem:soundnorm}.
 
 \begin{lemma}[Soundness of handling]
   \label{lem:soundhandle}
@@ -48,7 +48,7 @@ One showing that the handling semantics is sound, \cref{lem:soundhandle}, and on
     $t,\sigma \handle{M \simi} t',\sigma'$ and $M\tilde{t}' \equiv t' $ and $M\tilde{\sigma}' \equiv \sigma'$.
 \end{lemma}
 
-\Cref{lem:soundhandle} is proven by induction over $t$.
+Lemma~\ref{lem:soundhandle} is proven by induction over $t$.
 The full proof is listed in the appendix online.
 
 \begin{lemma}[Soundness of normalisation]
@@ -62,7 +62,7 @@ The full proof is listed in the appendix online.
 
 \end{lemma}
 
-Since \cref{lem:soundnorm} makes use of both the striding and the evaluation semantics,
+Since Lemma~\ref{lem:soundnorm} makes use of both the striding and the evaluation semantics,
 we must show soundness for those too.
 
 \begin{lemma}[Soundness of striding]
@@ -86,7 +86,7 @@ we must show soundness for those too.
 
 \end{lemma}
 
-The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed in the appendix.
+The full proofs of Lemmas~\ref{lem:soundnorm}, \ref{lem:soundstride} and \ref{lem:soundeval} are listed in the appendix.
 
 
 
@@ -106,7 +106,7 @@ This relation is defined below.
   $\simi\sim i\implies \Second \simi \sim \Second i$
 \end{definition}
 
-This allows us to define the completeness property as listed in \cref{thm:completeDrive}.
+This allows us to define the completeness property as listed in Theorem~\ref{thm:completeDrive}.
 
 \begin{theorem}[Completeness of interact]
   \label{thm:completeDrive}
@@ -115,9 +115,9 @@ there exists an $\simi\sim i$, $\simt$, $\sims$ and $\phi$ such that $(\simt,\si
 \end{theorem}
 
 
-The proof of \cref{thm:completeDrive} is rather simple.
-We show that handling is complete (\cref{lem:completeHandle})
-and that the subsequent normalisation is complete (\cref{lem:completeNormalise}).
+The proof of Theorem~\ref{thm:completeDrive} is rather simple.
+We show that handling is complete (Lemma~\ref{lem:completeHandle})
+and that the subsequent normalisation is complete (Lemma~\ref{lem:completeNormalise}).
 
 
 \begin{lemma}[Completeness of handling]
@@ -126,12 +126,12 @@ and that the subsequent normalisation is complete (\cref{lem:completeNormalise})
   there exists an $\simi\sim i$, $\simt$, $\sims$ and $\phi$ such that $(\simt,\sims,\simi,\phi)$ in $t,\sigma\simhandle \overline{\simt,\sims,\simi,\phi}$.
 \end{lemma}
 
-\Cref{lem:completeHandle} is proved by induction over $t$.
+Lemma~\ref{lem:completeHandle} is proved by induction over $t$.
 We only need to show that every concrete execution is also a symbolic one.
 The only change needed to convert from concrete to symbolic is the adaption of the input.
 
 Since handling makes use of normalisation and evaluation, we need to prove that they too are complete.
-These properties are listed in \cref{lem:completeNormalise,lem:completeEval}
+These properties are listed in Lemmas~\ref{lem:completeNormalise} and \ref{lem:completeEval}
 
 \begin{lemma}[Completeness of normalisation]
   \label{lem:completeNormalise}
@@ -147,4 +147,4 @@ These properties are listed in \cref{lem:completeNormalise,lem:completeEval}
 
 \end{lemma}
 
-\Cref{lem:completeNormalise,lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.
+Lemmas~\ref{lem:completeNormalise} and \ref{lem:completeEval} follow trivially, since every concrete execution in these semantics is also a symbolic one.

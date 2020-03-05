@@ -16,7 +16,7 @@ References allow tasks to communicate with each other, sharing information acros
 The simply typed $\lambda$-calculus does not have recursion.
 By restricting references to only hold basic types,
 strong normalisation of the calculus is guaranteed.
-The full syntax of the host language is listed in \cref{sec:language}.
+The full syntax of the host language is listed in section~\ref{sec:language}.
 Next, we discuss the main constructs of the task language.
 
 
@@ -55,7 +55,7 @@ Tasks can be performed in sequence or in parallel, or there is a choice between 
 
 The following combinators are available in \TOPHAT.
 Here, $t$ stands for tasks and $e$ for arbitrary expressions.
-The concrete syntax of the language is described in \cref{sec:expressions}
+The concrete syntax of the language is described in section~\ref{sec:expressions}
 \begin{description}
   \item[$t \Then e$] Step.\\
     Users can work on task $t$.
@@ -96,7 +96,7 @@ The task $\Fail$ is failing, as is a parallel combination of failing tasks ($\Fa
 The step combinator makes use of both functions in order to determine if it can step.
 First, it uses $\Value$ to see if the left hand side produces a value.
 If that is the case, it uses the $\Failing$ function to see if it is safe to step to the right hand side.
-The complete definition of the value and failing function are discussed in \cref{subsec:observations}.
+The complete definition of the value and failing function are discussed in section~\ref{subsec:observations}.
 
 
 

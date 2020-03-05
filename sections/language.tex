@@ -22,7 +22,7 @@ The following subsections describe in detail how all elements of the \TOPHAT\ la
 \subsection{Expressions, values, and types}
 \label{sec:expressions}
 
-The syntax of \STOPHAT\ is listed in \cref{fig:syntaxtophat}.
+The syntax of \STOPHAT\ is listed in Fig.~\ref{fig:syntaxtophat}.
 Two main changes have been made with regards to the original \TOPHAT\ grammar.
 The differences with the original syntax are highlighted in grey boxes.
 First, symbols $s$ have been added to the syntax of expressions.
@@ -38,7 +38,7 @@ Second, unary and binary operations have been made explicit.
   \label{fig:syntaxtophat}
 \end{figure}
 
-Symbols are treated as values (\cref{fig:syntaxvalues}).
+Symbols are treated as values (Fig.~\ref{fig:syntaxvalues}).
 They have therefore been added to the grammar of values.
 Also, every symbol has a type, and basic operations can take symbols as arguments.
 As a result, we must now also regard unary and binary operations as values.
@@ -53,8 +53,8 @@ where in the original they were left implicit.
   \label{fig:syntaxvalues}
 \end{figure}
 
-The types of \STOPHAT\ remain the same (\cref{fig:syntaxtypes}).
-However, we do need an additional typing rule, \refrule{T-Sym} in \cref{fig:typingsymbol}, to type symbols,
+The types of \STOPHAT\ remain the same (Fig.~\ref{fig:syntaxtypes}).
+However, we do need an additional typing rule, \refrule{T-Sym} in Fig.~\ref{fig:typingsymbol}, to type symbols,
 since they are now part of our expression syntax.
 The type of symbols is kept track of in the environment $\Gamma$.
 
@@ -78,7 +78,7 @@ The type of symbols is kept track of in the environment $\Gamma$.
 
 In symbolic execution, we do not know what the input of a program will be.
 In our case this means that we do not know which events will be sent to editors.
-This is reflected in the definition of symbolic inputs and actions in \cref{fig:syntaxinputs}
+This is reflected in the definition of symbolic inputs and actions in Fig.~\ref{fig:syntaxinputs}
 
 \begin{figure}[ht]
   \small
@@ -99,7 +99,7 @@ This means that instead of concrete values, editors can only hold symbols.
 Concrete execution of \TOPHAT\ programs is driven by concrete inputs, which select one branch of conditionals, or make a choice.
 Since no concrete information is available during symbolic execution, the symbolic execution semantics records how each execution path depends on the symbolic input.
 This is done by means of path conditions.
-\Cref{fig:syntaxpredicates} lists the syntax of path conditions.
+Figure~\ref{fig:syntaxpredicates} lists the syntax of path conditions.
 
 \begin{figure}[ht]
   \small

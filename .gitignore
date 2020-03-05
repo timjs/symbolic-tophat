@@ -1,1 +1,16 @@
 examples/tophat-examples
+appendix.aux
+appendix.fdb_latexmk
+appendix.fls
+appendix.log
+appendix.out
+appendix.synctex.gz
+comment.cut
+main.aux
+main.bbl
+main.blg
+main.fdb_latexmk
+main.fls
+main.log
+main.out
+main.synctex.gz

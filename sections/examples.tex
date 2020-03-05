@@ -3,14 +3,14 @@
 \section{Examples}
 \label{sec:examples}
 
-In this section we study three examples to illustrate how the language \TOPHAT works and what kind of properties we would like to prove.
+In this section we study three examples to illustrate how the language \TOPHAT\ works and what kind of properties we would like to prove.
 
 
 
 \subsection{Positive value}
 
 This example demonstrates how we can prove that the first observable value of a program can only be a positive number.
-Consider the program in \cref{lst:abs}.
+Consider the program in Listing~\ref{lst:abs}.
 
 \begin{TASK}[float=h
             ,caption=A task that only steps on a positive input value.
@@ -84,27 +84,27 @@ This example proves that a citizen will get subsidy only under the following con
 \begin{figure}[ht]
   \includegraphics[width=\columnwidth]{figures/tax-enter}
   \caption{
-    Graphical user interface for the task in \cref{lst:tax}.
+    Graphical user interface for the task in Listing~\ref{lst:tax}.
     In parallel, the citizen is asked to enter the invoice amount and the invoice date of the installed solar panels,
     and the roofing company is asked to deny or confirm they actually installed the solar panels.
   }
   \label{fig:tax}
 \end{figure}
 
-\Cref{lst:tax} shows the program.
+Listing~\ref{lst:tax} shows the program.
 To enhance readability of the example,
 we omit type annotations and make use of pattern matching on tuples.
 The program works as follows.
-First, the citizen has to enter their personal information (\cref{lst:tax:citizen-info}).
+First, the citizen has to enter their personal information (Line~\ref{lst:tax:citizen-info}).
 In the original demonstrator this included the citizen service number, name, and home address.
 Here, we simplified the example so that the citizen only has to enter the invoice date.
 A date is specified using an integer representing the number of days since 1 January 2000.
 
-In the next step (\cref{lst:tax:documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
-Once the invoice and the confirmation are there, the tax officer has to approve the request (\cref{lst:tax:officer-approve}).
-The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (\cref{lst:tax:officer-approve-def}).
-The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (\cref{lst:tax:result}).
-The graphical user interface belonging to two steps in this process are shown in \cref{fig:tax}.
+In the next step (Line~\ref{lst:tax:documents-and-company-confirm}), in parallel the citizen has to provide the invoice documents of the installed solar panels, while the roofing company has to confirm that they have actually installed solar panels at the citizen's address.
+Once the invoice and the confirmation are there, the tax officer has to approve the request (Line~\ref{lst:tax:officer-approve}).
+The officer can always decline the request, but they can only approve it if the roofing company has confirmed and the application date is within one year of the invoice date (Line~\ref{lst:tax:officer-approve-def}).
+The result of the program is the amount of the subsidy, together with all information needed to prove the required properties (Line~\ref{lst:tax:result}).
+The graphical user interface belonging to two steps in this process are shown in Fig.~\ref{fig:tax}.
 
 The result of the overall task is a tuple with the subsidy amount, the officer's approval, the roofing company's confirmation, the invoice amount, the invoice date, and today's date.
 Returning all this information allows the following predicate to be stated, which verifies the correctness of the implementation.
@@ -145,20 +145,20 @@ This program is a simplified version of what we presented in earlier work \cite{
   edit (!bookedSeats)
 \end{TASK}
 
-The program, shown in \cref{lst:flight-booking}, consists of three parallel seat booking tasks (\cref{lst:flight:main-expression}).
-There is a shared list that stores all booked seats so far (\cref{lst:flight:make-ref}).
-To book a seat, a passenger has to enter a seat number (\cref{lst:flight:enter-seat-number}).
-A guard expression makes sure that only free seats can be booked (\cref{lst:flight:guard-invalid-seats}).
+The program, shown in Listing~\ref{lst:flight-booking}, consists of three parallel seat booking tasks (Line~\ref{lst:flight:main-expression}).
+There is a shared list that stores all booked seats so far (Line~\ref{lst:flight:make-ref}).
+To book a seat, a passenger has to enter a seat number (Line~\ref{lst:flight:enter-seat-number}).
+A guard expression makes sure that only free seats can be booked (Line~\ref{lst:flight:guard-invalid-seats}).
 The exclamation mark denotes dereferencing.
-When the guard is satisfied, the list of booked seats is updated, and the user can see his booked seat (\cref{lst:flight:update-seats}).
-The main expression runs the seat booking task three times in parallel (\cref{lst:flight:main-expression}), simulating three concurrent customers.
+When the guard is satisfied, the list of booked seats is updated, and the user can see his booked seat (Line~\ref{lst:flight:update-seats}).
+The main expression runs the seat booking task three times in parallel (Line~\ref{lst:flight:main-expression}), simulating three concurrent customers.
 The program returns the list of booked seats.
-The graphical user interface, generated from the specification in \cref{lst:flight-booking}, is shown in \cref{fig:flight-booking}.
+The graphical user interface, generated from the specification in Listing~\ref{lst:flight-booking}, is shown in Fig.~\ref{fig:flight-booking}.
 
 \begin{figure}[t]
   \includegraphics[width=\columnwidth]{figures/flight-booking.png}
   \caption{
-    Graphical user interface generated from the specification in \cref{lst:flight-booking}.
+    Graphical user interface generated from the specification in Listing~\ref{lst:flight-booking}.
     Three users are booking seats in parallel.
     The first user booked seat 9, the second did not enter a seat number yet, and the third is about to book seat 4.
   }
