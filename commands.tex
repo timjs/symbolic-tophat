@@ -111,64 +111,64 @@
 %% Semantic functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\newmathcommand{eval}[rel]
+\newmathcommand[rel]{eval}
   {\;\downarrow\;}
-\newmathcommand{stride}[rel]
+\newmathcommand[rel]{stride}
   % {\;\rightarrow\!\shortmid\;}
   {\;\mapsto\;}
-\newmathcommand{normalise}[rel]
+\newmathcommand[rel]{normalise}
   {\;\Downarrow\;}
 \newmacro{handle}[1]
   {\mathrel{\;\xrightarrow{#1}\;}}
 \newmacro{interact}[1]
   {\mathrel{\;\Rightarrow{#1}\;}}
 
-  \newmathcommand{Leadsto}[rel]
+  \newmathcommand[rel]{Leadsto}
    {\rotatebox[origin=c]{90}{\rotatebox[origin=c]{-90}{$\leadsto$}\!\rotatebox[origin=c]{-90}{$\leadsto$}}}
 
-  \newmathcommand{simeval}[rel]
+  \newmathcommand[rel]{simeval}
     {\;\rotatebox[origin=c]{-90}{$\leadsto$}\;}
-  \newmathcommand{simstride}[rel]
+  \newmathcommand[rel]{simstride}
     {\;\mapstochar\kern+0.08em\leadsto\;}
-  \newmathcommand{simnormalise}[rel]
+  \newmathcommand[rel]{simnormalise}
     {\;\rotatebox[origin=c]{-90}{$\Leadsto$}\;}
-  \newmathcommand{simhandle}[rel]
+  \newmathcommand[rel]{simhandle}
     {\;\leadsto\;}
-  \newmathcommand{siminteract}[rel]
+  \newmathcommand[rel]{siminteract}
     {\;\Leadsto\;}
 
 
-    \newmathcommand{simi}[]
-      {\tilde{\imath}}
-    \newmathcommand{simt}[]
-        {\tilde{t}}
-    \newmathcommand{sims}[]
-        {\tilde{\sigma}}
-      \newmathcommand{sime}[]
-        {\tilde{e}}
-    \newmathcommand{simv}[]
-        {\tilde{v}}
+\newmathcommand{simi}
+   {\tilde{\imath}}
+\newmathcommand{simt}
+   {\tilde{t}}
+\newmathcommand{sims}
+   {\tilde{\sigma}}
+\newmathcommand{sime}
+   {\tilde{e}}
+\newmathcommand{simv}
+   {\tilde{v}}
 
-\newmathcommand{Simulate}[it]
+\newmathcommand[it]{Simulate}
   {simulate}
-\newmathcommand{Again}[it]
+\newmathcommand[it]{Again}
   {again}
 
-\newmathcommand{Value}[cal]
+\newmathcommand[cal]{Value}
   {V}
-\newmathcommand{Inputs}[cal]
+\newmathcommand[cal]{Inputs}
   {I}
-\newmathcommand{Interface}[cal]
+\newmathcommand[cal]{Interface}
   {U}
-\newmathcommand{Failing}[cal]
+\newmathcommand[cal]{Failing}
   {F}
-\newmathcommand{Watching}[cal]
+\newmathcommand[cal]{Watching}
   {W}
 \newmathcommand{Dirty}
   {\Delta}
-\newmathcommand{UserInterface}[cal]
+\newmathcommand[cal]{UserInterface}
   {U}
-\newmathcommand{Sat}[cal]
+\newmathcommand[cal]{Sat}
   {S}
 
 

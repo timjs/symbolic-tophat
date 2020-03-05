@@ -6,6 +6,7 @@
 \newrule{T-Sym}
   {s:\beta \in \Gamma}
   {\Gamma,\Sigma \infers s:\tau}
+  {}
 
 
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -18,6 +19,7 @@
 \newrule{SE-Value}
   {}
   {\simv,\sims\simeval \simv,\highlight{\sims,\True}}
+  {}
 
 
 \newrule{SE-App}
@@ -25,12 +27,14 @@
    \sime_2,\sims'\simeval \overline{\simv_2,\sims'',\highlight{\phi_2}}
    \sime_1'[x\mapsto \simv_2],\sims''\simeval \overline{\simv_1,\sims''',{\phi_3}}}
   {\sime_1 \sime_2,\sims \simeval \overline{\simv_1,\sims''',\highlight{\phi_1\land\phi_2\land\phi_3}}}
+  {}
 
 \newrule{SE-If}
-{\sime_1,\sims\simeval \overline{\simv_1,\sims',\highlight{\phi_1}} \Quad
+  {\sime_1,\sims\simeval \overline{\simv_1,\sims',\highlight{\phi_1}} \Quad
    \highlight{\sime_2,\sims'\simeval \overline{\simv_2,\sims'',\phi_2}} \Quad
    \highlight{\sime_3,\sims'\simeval \overline{\simv_3,\sims''',\phi_3}}}
   {\If{\sime_1}{\sime_2}{\sime_3},\sims\simeval \highlight{\overline{\simv_2,\sims'',\phi_1 \land \phi_2\land \simv_1} \cup \overline{\simv_3,\sims''',\phi_1 \land \phi_3 \land \lnot \simv_1}}}
+  {}
 
 
 
@@ -38,14 +42,17 @@
   {\upon{\sime_1,\sims\simeval \overline{\simv_1,\sims',\highlight{\phi_1}}}
    {\sime_2,\sims'\simeval \overline{\simv_2,\sims'',\highlight{\phi_2}}}}
   {\tuple{\sime_1,\sime_2},\sims\simeval\overline{\tuple{\simv_1,\simv_2},\sims'',\highlight{\phi_1\land\phi_2}}}
+  {}
 
 \newrule{SE-First}
   {\sime,\sims\simeval\overline{\tuple{\simv_1,\simv_2},\sims',\highlight{\phi}}}
   {\Fst \sime,\sims\simeval\overline{\simv_1,\sims',\highlight{\phi}} }
+  {}
 
 \newrule{SE-Second}
   {\sime,\sims\simeval\overline{\tuple{\simv_1,\simv_2},\sims',\highlight{\phi}}}
   {\Snd\sime,\sims\simeval\overline{\simv_2,\sims',\highlight{\phi}} }
+  {}
 
 
 %%%%%%%
@@ -54,14 +61,17 @@
   {\sime_1,\sims \simeval \simv_1,\sims',\highlight{\phi_1}
    \sime_2,\sims' \simeval \simv_2,\sims'',\highlight{\phi_2}}
   {\sime_1 :: \sime_2,\sims \simeval \simv_1:: \simv_2,\sims'',\highlight{\phi_1\land\phi_2}}
+  {}
 
 \newrule{SE-Head}
   {\sime,\sims \simeval \simv_1::\simv_2,\sims',\highlight{\phi}}
   {\Head \sime,\sims \simeval \simv_1,\sims',\highlight{\phi}}
+  {}
 
 \newrule{SE-Tail}
-{\sime,\sims \simeval \simv_1::\simv_2,\sims',\highlight{\phi}}
-{\Tail \sime,\sims \simeval \simv_2,\sims',\highlight{\phi}}
+  {\sime,\sims \simeval \simv_1::\simv_2,\sims',\highlight{\phi}}
+  {\Tail \sime,\sims \simeval \simv_2,\sims',\highlight{\phi}}
+  {}
 
 
 %%%%%
@@ -69,50 +79,60 @@
   {\sime,\sims\simeval \overline{\simv,\sims',\highlight{\phi}}\Quad
    l\not\in Dom(\sigma')}
   {\Ref \sime,\sims\simeval \overline{l,\sims'[l\mapsto \simv],\highlight{\phi}}}
+  {}
 
 
 \newrule{SE-Deref}
   {\sime,\sims\simeval \overline{l,\sims',\highlight{\phi}}}
   {!\sime,\sims\simeval \overline{\sims'(l),\sims',\highlight{\phi}}}
+  {}
 
 \newrule{SE-Assign}
   {\sime_1,\sims\simeval \overline{l,\sims',\highlight{\phi_1}} \Quad
    \sime_2,\sims'\simeval \overline{\simv_2,\sims'',\highlight{\phi_2}}}
   {\sime_1:=\sime_2,\sims\simeval \overline{\unit,\sims''[l\mapsto \simv_2],\highlight{\phi_1\wedge\phi_2}}}
+  {}
 
 \newrule{SE-Edit}
   {\sime,\sims \simeval \overline{\simv,\sims',\highlight{\phi}}}
   {\Edit \sime , \sims\simeval \overline{\Edit \simv,\sims',\highlight{\phi}}}
+  {}
 
 \newrule{SE-Update}
   {\sime,\sims\simeval \overline{l,\sims',\highlight{\phi}}}
   {\Update \sime ,\sims\simeval \overline{\Update l,\sims',\highlight{\phi}}}
+  {}
 
 
 \newrule{SE-Fail}
   {}
   {\Fail,\sims \simeval \Fail,\sims,\highlight{\True}}
+  {}
 
 
 \newrule{SE-Then}
   {\sime_1 ,\sims\simeval \overline{\simt_1,\sims',\highlight{\phi}}}
   {\sime_1 \Then \sime_2,\sims \simeval \overline{\simt_1 \Then \sime_2,\sims',\highlight{\phi}}}
+  {}
 
 \newrule{SE-Next}
   {\sime_1 ,\sims\simeval \overline{\simt_1,\sims',\highlight{\phi}}}
   {\sime_1 \Next \sime_2 ,\sims\simeval \overline{\simt_1 \Next \sime_2,\sims',\highlight{\phi}}}
+  {}
 
 
 \newrule{SE-And}
   {\sime_1 ,\sims\simeval \overline{\simt_1 ,\sims',\highlight{\phi_1}} \Quad
    \sime_2 ,\sims'\simeval \overline{\simt_2,\sims'',\highlight{\phi_2}}}
   {\sime_1 \And \sime_2 ,\sims\simeval \overline{\simt_1 \And \simt_2,\sims'',\highlight{\phi_1\land\phi_2}}}
+  {}
 
 
 \newrule{SE-Or}
   {\sime_1 ,\sims\simeval \overline{\simt_1 ,\sims',\highlight{\phi_1}} \Quad
    \sime_2 ,\sims'\simeval \overline{\simt_2,\sims'',\highlight{\phi_2}}}
   {\sime_1 \Or \sime_2 ,\sims\simeval \overline{\simt_1 \Or \simt_2,\sims'',\highlight{\phi_1\land\phi_2}}}
+  {}
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -124,70 +144,78 @@
 \newrule{SS-Edit}
   { }
   {\Edit \simv,\sims \simstride \Edit \simv,\sims,\highlight{\True}}
+  {}
 
 \newrule{SS-Fill}
   { }
   {\Enter \beta,\sims \simstride \Enter \beta,\sims,\highlight{\True}}
+  {}
 
 \newrule{SS-Update}
   { }
   {\Update l,\sims \simstride \Update l,\sims,\highlight{\True}}
+  {}
 
 
 \newrule{SS-Fail}
   { }
   {\Fail,\sims \simstride \Fail,\sims,\highlight{\True}}
+  {}
 
 
 \newrule{SS-ThenStay}
   {\simt_1,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
   {\simt_1 \Then \sime_2,\sims \simstride \overline{\simt_1' \Then \sime_2,\sims',\highlight{\phi}}}
-  [{\Value\ (\simt_1',\sims') = \bot}]
+  {{\Value\ (\simt_1',\sims') = \bot}}
 
 \newrule{SS-ThenFail}
   {\simt_1,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi}} \Quad
    \sime_2\ \simv_1,\sims' \simeval \overline{\simt_2,\sims'',\highlight{\_}}}
   {\simt_1 \Then \sime_2,\sims \simstride \overline{\simt_1' \Then \sime_2,\sims',\highlight{\phi}}}
-  [\Value\ (\simt_1',\sims') = \simv_1 \land \Failing\ (\simt_2,\sims'')]
+  {\Value\ (\simt_1',\sims') = \simv_1 \land \Failing\ (\simt_2,\sims'')}
 
 \newrule{SS-ThenCont}
   {\simt_1,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi_1}} \Quad
    \sime_2\ \simv_1,\sims' \simeval \overline{\simt_2 ,\sims'',\highlight{\phi_2}}}
    % t_2,\sigma'' \stride t_2',\sigma'''}
   {\simt_1 \Then \sime_2,\sims \simstride \overline{t_2,\sigma'',\highlight{\phi_1\land\phi_2}}}
-  [\Value\ (\simt_1',\sims') = \simv_1 \land \lnot\Failing\ (\simt_2,\sims'')]
+  {\Value\ (\simt_1',\sims') = \simv_1 \land \lnot\Failing\ (\simt_2,\sims'')}
 
 \newrule{SS-Next}
   {\simt_1,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
   {\simt_1 \Next \sime_2,\sims \simstride \overline{\simt_1' \Next \sime_2,\sims',\highlight{\phi}}}
+  {}
 
 
 \newrule{SS-And}
   {\simt_1,\sims  \simstride \overline{\simt_1',\sims',\highlight{\phi_1 }} \Quad
    \simt_2,\sims' \simstride \overline{\simt_2',\sims'',\highlight{\phi_2}}}
   {\simt_1 \And \simt_2,\sims \simstride \overline{\simt_1' \And \simt_2',\sims'',\highlight{\phi_1\land\phi_2}}}
+  {}
 
 
 \newrule{SS-OrLeft}
- {\simt_1,\sims  \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
- {\simt_1 \Or \simt_2,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
- [{\Value\ (\simt_1',\sims') = \simv_1}]
+  {\simt_1,\sims  \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
+  {\simt_1 \Or \simt_2,\sims \simstride \overline{\simt_1',\sims',\highlight{\phi}}}
+  {{\Value\ (\simt_1',\sims') = \simv_1}}
 
 \newrule{SS-OrRight}
   {\simt_1,\sims  \simstride \overline{\simt_1',\sims',\highlight{\phi_1}}  \Quad
    \simt_2,\sims' \simstride \overline{\simt_2',\sims'',\highlight{\phi_2}}}
   {\simt_1 \Or \simt_2,\sims \simstride \overline{\simt_2',\sims'',\highlight{\phi_1\land\phi_2}}}
-  [\Value\ (\simt_1',\sims') = \bot\land \Value\ (\simt_2',\sims'') = \simv_2]
+  {\Value\ (\simt_1',\sims') = \bot\land \Value\ (\simt_2',\sims'') = \simv_2}
 
 \newrule{SS-OrNone}
   {\simt_1,\sims  \simstride \overline{\simt_1',\sims' ,\highlight{\phi_1}} \Quad
    \simt_2,\sims' \simstride \overline{\simt_2',\sims'',\highlight{\phi_2}}}
   {\simt_1 \Or \simt_2,\sims \simstride \overline{\simt_1' \Or \simt_2',\sims'',\highlight{\phi_1\land\phi_2}}}
-  [\Value\ (\simt_1',\sims') = \bot \land \Value\ (\simt_2',\sims'') = \bot]
+  {\Value\ (\simt_1',\sims') = \bot \land \Value\ (\simt_2',\sims'') = \bot}
 
 \newrule{SS-Xor}
   {\ }
   {\sime_1 \Xor \sime_2,\sims \simstride \sime_1 \Xor \sime_2,\sims,\highlight{\True}}
+  {}
+
 
 %% Normalisation %%
 
@@ -197,17 +225,17 @@
 
 
 \newrule{SN-Done}
-    {\sime,\sims \simeval \overline{\simt,\sims',\highlight{\phi_1}} \Quad
-     \simt,\sims' \simstride \overline{\simt',\sims'',\highlight{\phi_2}}}
-    {\sime,\sims \simnormalise \overline{\simt,\sims',\highlight{\phi_1\land\phi_2}}}
-    [\sims'=\sims'' \land \simt=\simt']
+  {\sime,\sims \simeval \overline{\simt,\sims',\highlight{\phi_1}} \Quad
+   \simt,\sims' \simstride \overline{\simt',\sims'',\highlight{\phi_2}}}
+  {\sime,\sims \simnormalise \overline{\simt,\sims',\highlight{\phi_1\land\phi_2}}}
+  {\sims'=\sims'' \land \simt=\simt'}
 
 \newrule{SN-Repeat}
-    {\upon{\sime,\sims \simeval \overline{\simt,\sims',\highlight{\phi_1}}}
-     {{\simt,\sims' \simstride \overline{\simt',\sims'',\highlight{\phi_2}}}
-     {\simt',\sims'' \simnormalise \overline{\simt'',\sims''',\highlight{\phi_3}}}}}
-    {\sime,\sims \simnormalise \overline{\simt'',\sims''',\highlight{\phi_1 \land \phi_2 \land \phi_3}}}
-    [\sims'\neq \sims''\vee \simt\neq \simt']
+  {\upon{\sime,\sims \simeval \overline{\simt,\sims',\highlight{\phi_1}}}
+   {{\simt,\sims' \simstride \overline{\simt',\sims'',\highlight{\phi_2}}}
+   {\simt',\sims'' \simnormalise \overline{\simt'',\sims''',\highlight{\phi_3}}}}}
+  {\sime,\sims \simnormalise \overline{\simt'',\sims''',\highlight{\phi_1 \land \phi_2 \land \phi_3}}}
+  {\sims'\neq \sims''\vee \simt\neq \simt'}
 
 
 %% Handling %%
@@ -220,71 +248,78 @@
 \newrule{SH-Change}
   { \text{fresh }s}
   {\Edit \simv,\sims \simhandle \Edit s,\sims,\highlight{s,\True}}
-  [\simv,s:\beta]
+  {\simv,s:\beta}
 
 \newrule{SH-Fill}
   { \text{fresh }s \Quad
     s:\beta}
   {\Enter \beta,\sims \simhandle \Edit s,\sims,\highlight{s,\True}}
+  {}
 
 \newrule{SH-Update}
   { \text{fresh }s \Quad
     \sims(l),s:\beta}
   {\Update l,\sims \simhandle \Update l,\sims[l \mapsto s],\highlight{s,\True}}
+  {}
 
 \newrule{SH-PassThen}
   {\simt_1,\sims \simhandle \overline{\simt_1',\sims',\simi,\phi}}
   {\simt_1 \Then \sime_2,\sims \simhandle \overline{\simt_1' \Then \sime_2,\sims',\highlight{\simi,\phi}}}
+  {}
 
 \newrule{SH-PassNext}
   {\simt_1,\sims \simhandle \overline{\simt_1',\sims',\simi,\phi} \Quad
    \Value\ {(\simt_1',\sims')} = \bot}
   {\simt_1 \Next \sime_2,\sims \simhandle \overline{\simt_1' \Next \sime_2,\sims',\highlight{\simi,\phi}}}
+  {}
 
 
 \newrule{SH-PassNextFail}
   {\upon{
    \simt_1,\sims \simhandle \overline{\simt_1',\sims_1,\simi,\phi} \Quad
    \Value\ {(\simt_1',\sims_1)} = \simv_1 }
-  {\sime_2\ \simv_1,\sims_1 \simnormalise \overline{\simt_2,\sims_2,{\vphantom{i}\_}} \Quad
+   {\sime_2\ \simv_1,\sims_1 \simnormalise \overline{\simt_2,\sims_2,{\vphantom{i}\_}} \Quad
    \Failing\ (\simt_2,\sims_2)}}
   {\simt_1 \Next \sime_2,\sims \simhandle \overline{\simt_1' \Next \sime_2,\sims_1,\simi,\phi}}
+  {}
 
 
 \newrule{SH-Next}
   {\simt_1,\sims \simhandle \overline{\simt_1',\sims_1,\highlight{\simi,\phi_1}} \Quad
    \sime_2\ \simv_1,\sims_1 \simnormalise \overline{\simt_2,\sims_2,\highlight{\phi_2}}}
   {\simt_1 \Next \sime_2,\sims \simhandle\highlight{\overline{\simt_1' \Next \sime_2,\sims_1,\simi,\phi_1} \cup\overline{\simt_2,\sims_2,\Continue,\phi_2}}}
-  [\Value\ {(\simt_1',\sims_1)} = \simv_1\land \neg\Failing\ (\simt_2,\sims_2)]
+  {\Value\ {(\simt_1',\sims_1)} = \simv_1\land \neg\Failing\ (\simt_2,\sims_2)}
 
 \newrule{SH-And}
   {\simt_1,\sims \simhandle \overline{\simt_1',\sims_1,\highlight{\simi_1,\phi_1}} \Quad
    \simt_2,\sims \simhandle \overline{\simt_2',\sims_2,\highlight{\simi_2,\phi_2}}}
   {\simt_1 \And \simt_2,\sims \simhandle \highlight{\overline{\simt_1' \And \simt_2,\sims_1,\First \simi_1,\phi_1}\cup \overline{\simt_1 \And \simt_2',\sims_2,\Second \simi_2,\phi_2}}}
+  {}
 
 \newrule{SH-Or}
   {\simt_1,\sims \simhandle \overline{\simt_1',\sims_1,\highlight{\simi_1,\phi_1}}\Quad
    \simt_2,\sims \simhandle \overline{\simt_2',\sims_2,\highlight{\simi_2,\phi_2}}}
   {\simt_1 \Or \simt_2,\sims \simhandle \highlight{\overline{\simt_1' \Or \simt_2,\sims_1,\First \simi_1,\phi_1}\cup\overline{\simt_1 \Or \simt_2',\sims_2,\Second \simi_2,\phi_2}}}
+  {}
 
 
 \newrule{SH-PickLeft}
   {\sime_1,\sims\simnormalise \overline{\simt_1,\sims_1,\highlight{\phi_1}} \Quad
    \sime_2,\sims \simnormalise \overline{\simt_2,\sims_2,\highlight{\phi_2}}}
   {\sime_1 \Xor \sime_2,\sims \simhandle \simt_1,\sims_1,\highlight{\Left,\phi_1}}
-  [\neg\Failing\ (\simt_1,\sims_1)\land \Failing\ (\simt_2,\sims_2) ]
+  {\neg\Failing\ (\simt_1,\sims_1)\land \Failing\ (\simt_2,\sims_2) }
 
 \newrule{SH-PickRight}
   {\sime_1,\sims \simnormalise \overline{\simt_1,\sims_1,\highlight{\phi_1}} \Quad
    \sime_2,\sims \simnormalise \overline{\simt_2,\sims_2,\highlight{\phi_2}}}
   {\sime_1 \Xor \sime_2,\sims \simhandle \simt_2,\sims_2,\highlight{\Right,\phi_2}}
-  [\Failing\ (\simt_1,\sims_1)\land \neg\Failing\ (\simt_2,\sims_2)]
+  {\Failing\ (\simt_1,\sims_1)\land \neg\Failing\ (\simt_2,\sims_2)}
 
 \newrule{SH-Pick}
   {\sime_1,\sims \simnormalise \overline{\simt_1,\sims_1,\highlight{\phi_1}} \Quad
    \sime_2,\sims \simnormalise \overline{\simt_2,\sims_2,\highlight{\phi_2}}}
   {\sime_1 \Xor \sime_2,\sims \simhandle \highlight{\overline{\simt_1,\sims_1,\Left,\phi_1}\cup\overline{\simt_2,\sims_2,\Right,\phi_2}}}
-  [ \neg\Failing\ (\simt_1,\sims_1)\land \neg\Failing\ (\simt_2,\sims_2) ]
+  { \neg\Failing\ (\simt_1,\sims_1)\land \neg\Failing\ (\simt_2,\sims_2) }
 
 %% Driving %%
 
@@ -297,10 +332,11 @@
   {\simt,\sims \simhandle \overline{\simt',\sims',\highlight{\simi,\phi_1}} \Quad
    \simt',\sims' \simnormalise \overline{\simt'',\sims'',\highlight{\phi_2}}}
   {\simt,\sims \siminteract \overline{\simt'',\sims'',\highlight{\simi,\phi_1 \land \phi_2}}}
+  {}
 
 %% Firsts %%
 
 \newrule{R-Firsts}
   {t,\sigma\simulate\overline{\simv,\simi:\tilde{is},\Phi}}
   {\Firsts(t,\sigma,g) = \overline{\simi,\Phi\land g \simv}}
-  [\Sat(\Phi\land g\simv)]
+  {\Sat(\Phi\land g\simv)}

@@ -125,7 +125,7 @@
 \lstnewenvironment{TASK}[1][]
   {\lstset{language=tasks,style=tasks,#1}}
   {}
-\newmacro{TS}[1][1]
+\newmacro{TS}[1][]
   {\lstinline[language=tasks,style=tasks,#1]}
 \newmacro{includeTASK}[2][]
   {\lstinputlisting[language=tasks,style=tasks,#1]{#2}}
@@ -147,7 +147,7 @@
 \lstnewenvironment{FLOW}[1][]
   {\lstset{language=flows,style=natural,#1}}
   {}
-\newmacro{FL}[1][1]
+\newmacro{FL}[1][]
   {\lstinline[language=flows,style=natural,#1]}
 \newmacro{includeFLOW}[2][]
   {\lstinputlisting[language=flows,style=natural,#1]{#2}}
@@ -169,7 +169,7 @@
 \lstnewenvironment{CLEAN}[1][]
   {\lstset{language=clean,style=flexible,#1}}
   {}
-\newmacro{CL}[1][1]
+\newmacro{CL}[1][]
   {\lstinline[language=clean,style=flexible,#1]}
-\newmacro{includeCLEAN}[2][1]
+\newmacro{includeCLEAN}[2][]
   {\lstinputlisting[language=clean,style=flexible,#1]{#2}}

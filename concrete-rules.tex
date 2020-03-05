@@ -11,34 +11,41 @@
 \newrule{T-ConstBool}
   {c\in B}
   {\Gamma,\Sigma\infers c : \Bool}
+  {}
 
 \newrule{T-ConstInt}
   {c\in I}
   {\Gamma,\Sigma\infers c : \Int}
+  {}
 
 \newrule{T-ConstString}
   {c\in S}
   {\Gamma,\Sigma\infers c : \String}
+  {}
 
 
 \newrule{T-Unit}
   { }
   {\Gamma,\Sigma\infers \unit : \Unit}
+  {}
 
 
 \newrule{T-Var}
   {x:\tau\in\Gamma}
   {\Gamma,\Sigma\infers x:\tau}
+  {}
 
 
 \newrule{T-Abs}
   {\Gamma[x:\tau_1] ,\Sigma \infers e:\tau_2}
   {\Gamma,\Sigma \infers \lambda x : \tau_1 . e :\tau_1 \to \tau_2}
+  {}
 
 \newrule{T-App}
   { {\Gamma,\Sigma \infers e_1:\tau_1\to\tau_2 } \Quad
-  {\Gamma,\Sigma \infers e_2:\tau_1}}
+    {\Gamma,\Sigma \infers e_2:\tau_1}}
   {\Gamma,\Sigma \infers e_1 e_2 :\tau_2}
+  {}
 
 
 \newrule{T-If}
@@ -46,38 +53,46 @@
    { {\Gamma,\Sigma \infers e_2:\tau}\Quad
    {\Gamma,\Sigma \infers e_3:\tau}}}
   {\Gamma,\Sigma \infers \If{e_1}{e_2}{e_3}:\tau}
+  {}
 
 
 \newrule{T-Pair}
-    {\Gamma,\Sigma \infers e_1 : \tau_1  \Quad
-     \Gamma,\Sigma \infers e_2 : \tau_2}
-    {\Gamma,\Sigma \infers \tuple{e_1, e_2} :\tau_1 \times \tau_2}
+  {\Gamma,\Sigma \infers e_1 : \tau_1  \Quad
+   \Gamma,\Sigma \infers e_2 : \tau_2}
+  {\Gamma,\Sigma \infers \tuple{e_1, e_2} :\tau_1 \times \tau_2}
+  {}
 
 \newrule{T-First}
   {\Gamma,\Sigma\infers e_1:\tau}
   {\Gamma,\Sigma\infers \Fst \tuple{e_1,e_2}:\tau}
+  {}
 
-  \newrule{T-Second}
-    {\Gamma,\Sigma\infers e_2:\tau}
-    {\Gamma,\Sigma\infers \Snd \tuple{e_1,e_2}:\tau}
+\newrule{T-Second}
+  {\Gamma,\Sigma\infers e_2:\tau}
+  {\Gamma,\Sigma\infers \Snd \tuple{e_1,e_2}:\tau}
+  {}
 
 %%%%%
 \newrule{T-ListEmpty}
   { }
   {\Gamma,\Sigma\infers [\ ]_\beta : \List\beta}
+  {}
 
 \newrule{T-ListCons}
   { {\Gamma,\Sigma\infers e_1:\beta}\Quad
    {\Gamma,\Sigma\infers e_2:\List\beta}}
   {\Gamma,\Sigma\infers e_1 :: e_2 : \List \beta}
+  {}
 
 \newrule{T-ListHead}
   {\Gamma,\Sigma\infers e:\List\beta}
   {\Gamma,\Sigma\infers \Head e:\beta}
+  {}
 
 \newrule{T-ListTail}
-    {\Gamma,\Sigma\infers e:\List\beta}
-    {\Gamma,\Sigma\infers \Tail e:\List\beta}
+  {\Gamma,\Sigma\infers e:\List\beta}
+  {\Gamma,\Sigma\infers \Tail e:\List\beta}
+  {}
 
 %%%%%
 
@@ -85,67 +100,80 @@
 \newrule{T-Ref}
   {\Gamma,\Sigma \infers e:\beta}
   {\Gamma,\Sigma \infers \Ref e :\Reference \beta}
+  {}
 
 \newrule{T-Deref}
   {\Gamma,\Sigma \infers e:\Reference \beta}
   {\Gamma,\Sigma\infers\ !e:\beta}
+  {}
 
 \newrule{T-Assign}
   { {\Gamma,\Sigma\infers e_1:\Reference \beta}\Quad
    {\Gamma,\Sigma\infers e_2:\beta}}
   {\Gamma,\Sigma\infers e_1 := e_2:\Unit}
+  {}
 
 \newrule{T-Loc}
   {\Sigma(l) = \beta}
   {\Gamma,\Sigma\infers l:\Reference \beta}
+  {}
 
 
 \newrule{T-Edit}
   {\Gamma,\Sigma \infers e : \beta}
   {\Gamma,\Sigma \infers \Edit e : \Task \beta}
+  {}
 
 \newrule{T-Enter}
   {}
   {\Gamma,\Sigma \infers \Enter \beta : \Task \beta}
+  {}
 
 \newrule{T-Update}
   {\Gamma,\Sigma \infers e : \Reference \beta}
   {\Gamma,\Sigma \infers \Update e : \Task \beta}
+  {}
 
 
 \newrule{T-Fail}
   {}
   {\Gamma,\Sigma \infers \Fail : \Task \tau}
+  {}
 
 
 \newrule{T-Then}
   { {\Gamma,\Sigma \infers e_1 : \Task \tau_1}\Quad
    {\Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}}
   {\Gamma,\Sigma \infers e_1 \Then e_2 : \Task \tau_2}
+  {}
 
 
 \newrule{T-Next}
   { {\Gamma,\Sigma \infers e_1 : \Task \tau_1}\Quad
    {\Gamma,\Sigma \infers e_2 : \tau_1 \to \Task \tau_2}}
   {\Gamma,\Sigma \infers e_1 \Next e_2 : \Task \tau_2}
+  {}
 
 
 \newrule{T-And}
   { {\Gamma,\Sigma \infers e_1 : \Task \tau_1}\Quad
    {\Gamma,\Sigma \infers e_2 : \Task \tau_2}}
   {\Gamma,\Sigma \infers e_1 \And e_2 : \Task\,(\tau_1 \times \tau_2)}
+  {}
 
 
 \newrule{T-Or}
   { {\Gamma,\Sigma \infers e_1 : \Task \tau}\Quad
    {\Gamma,\Sigma \infers e_2 : \Task \tau}}
   {\Gamma,\Sigma \infers e_1 \Or e_2 : \Task \tau}
+  {}
 
 
 \newrule{T-Xor}
   { {\Gamma,\Sigma \infers e_1 : \Task \tau}\Quad
    {\Gamma,\Sigma \infers e_2 : \Task \tau}}
   {\Gamma,\Sigma \infers e_1 \Xor e_2 : \Task \tau}
+  {}
 
 
 %% Evaluation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -157,6 +185,7 @@
 \newrule{E-Value}
   {}
   {v,{\sigma}{\eval} v,{\sigma}}
+  {}
 
 
 \newrule{E-App}
@@ -164,31 +193,37 @@
    { {e_2               ,\sigma'  \eval v_2                ,\sigma''}\Quad
    {e_1'[x\mapsto v_2],\sigma'' \eval v_1                ,\sigma'''}}}
   {e_1 e_2           ,\sigma   \eval v_1                ,\sigma'''}
+  {}
 
 
 \newrule{E-IfTrue}
   { {e_1,{\sigma}{\eval} \True,{\sigma}'}\Quad
    {e_2,{\sigma}'{\eval} {v_2},{\sigma}''}}
   {\If{e_1}{e_2}{e_3},{\sigma}{\eval} {v_2},{\sigma}''}
+  {}
 
 \newrule{E-IfFalse}
   { {e_1,{\sigma}{\eval} \False ,{\sigma}'}\Quad
    {e_3,{\sigma}'{\eval} {v_3},{\sigma}''}}
   {\If{e_1}{e_2}{e_3},{\sigma}{\eval} {v_3},{\sigma}''}
+  {}
 
 
 \newrule{E-Pair}
   {e_1,{\sigma}{\eval} {v_1},{\sigma}' \Quad
    e_2,{\sigma}'{\eval} {v_2},{\sigma}''}
   {\tuple{e_1,e_2},{\sigma}{\eval}\tuple{{v_1},{v_2}},{\sigma}''}
+  {}
 
 \newrule{E-First}
   {e,\sigma\eval \tuple{v_1,v_2},\sigma'}
   {\Fst e,\sigma\eval v_1,\sigma'}
+  {}
 
 \newrule{E-Second}
   {e,\sigma\eval\tuple{v_1,v_2},\sigma'}
   {\Snd e,\sigma \eval v_2,\sigma' }
+  {}
 
 %%%%%%%%%
 
@@ -196,14 +231,17 @@
   {e_1,{\sigma}{\eval}{v_1},{\sigma}'\Quad
    e_2,{\sigma}'{\eval}{v_2},{\sigma}''}
   {e_1 :: e_2,{\sigma}{\eval}{v_1}::{v_2},{\sigma}''}
+  {}
 
 \newrule{E-Head}
   {e,{\sigma}{\eval} {v_1}::{v_2},{\sigma}'}
   {\Head e,{\sigma}{\eval}{v_1},{\sigma}'}
+  {}
 
 \newrule{E-Tail}
-{e,{\sigma}{\eval} {v_1}::{v_2},{\sigma}'}
-{\Tail e,{\sigma}{\eval}{v_2},{\sigma}'}
+  {e,{\sigma}{\eval} {v_1}::{v_2},{\sigma}'}
+  {\Tail e,{\sigma}{\eval}{v_2},{\sigma}'}
+  {}
 
 %%%%%%
 
@@ -212,49 +250,59 @@
   {e,{\sigma}{\eval} {v},{\sigma}' \Quad
    l\not\in Dom({\sigma}')}
   {\Ref e,{\sigma}{\eval} l,{\sigma}'[l\mapsto {v}]}
+  {}
 
 \newrule{E-Deref}
   {e,{\sigma}{\eval} l,{\sigma}'}
   {!e,{\sigma}{\eval} {\sigma}'(l),{\sigma}'}
+  {}
 
 \newrule{E-Assign}
   {e_1,{\sigma}{\eval} l,{\sigma}' \Quad
    e_2,{\sigma}'{\eval} {v_2},{\sigma}''}
   {e_1:=e_2,{\sigma}{\eval} \unit,{\sigma}''[l\mapsto {v_2}]}
+  {}
 
 \newrule{E-Edit}
   {e,{\sigma} {\eval} {v},{\sigma}'}
   {\Edit e , {\sigma}{\eval} \Edit {v},{\sigma}'}
+  {}
 
 \newrule{E-Update}
   {e,{\sigma}{\eval} l,{\sigma}'}
   {\Update e ,{\sigma}{\eval} \Update l,{\sigma}'}
+  {}
 
 
 \newrule{E-Fail}
   {}
   {\Fail,{\sigma} {\eval} \Fail,{\sigma}}
+  {}
 
 
 \newrule{E-Then}
   {e_1 ,{\sigma}{\eval} {t_1},{\sigma}'}
   {e_1 \Then e_2,{\sigma}{\eval}{t_1} \Then e_2,{\sigma}'}
+  {}
 
 \newrule{E-Next}
   {e_1 ,{\sigma}{\eval} {t_1},{\sigma}'}
   {e_1 \Next e_2 ,{\sigma}{\eval} {t_1} \Next e_2,{\sigma}'}
+  {}
 
 
 \newrule{E-And}
   {e_1 ,{\sigma}{\eval}{ t_1 },{\sigma}'\Quad
    e_2 ,{\sigma}'{\eval} {t_2},{\sigma}''}
   {e_1 \And e_2 ,{\sigma}{\eval}{ t_1} \And {t_2},{\sigma}''}
+  {}
 
 
 \newrule{E-Or}
   {e_1 ,{\sigma}{\eval}{ t_1} ,{\sigma}'\Quad
    e_2 ,{\sigma}'{\eval} {t_2},{\sigma}''}
   {e_1 \Or e_2 ,{\sigma}{\eval} {t_1} \Or {t_2},{\sigma}''}
+  {}
 
 
 %% Normalisation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -266,76 +314,83 @@
 \newrule{S-Edit}
   { }
   {\Edit v,{\sigma} {\stride} \Edit v,{\sigma}}
+  {}
 
 \newrule{S-Fill}
   { }
   {\Enter \beta,{\sigma} {\stride} \Enter \beta,{\sigma}}
+  {}
 
 \newrule{S-Update}
   { }
   {\Update l,{\sigma} {\stride} \Update l,{\sigma}}
+  {}
 
 
 \newrule{S-Fail}
   { }
   {\Fail,{\sigma} {\stride} \Fail,{\sigma}}
+  {}
 
 
 \newrule{S-ThenStay}
   {t_1,{\sigma} {\stride} {t_1}',{\sigma}'}
   {t_1 \Then e_2,{\sigma} {\stride} {t_1}' \Then e_2,{\sigma}'}
-  [\Value\ ({t_1}',{\sigma}') = \bot]
+  {\Value\ ({t_1}',{\sigma}') = \bot}
 
 \newrule{S-ThenFail}
   { t_1,{\sigma} {\stride} {t_1}',{\sigma}' \Quad
     e_2\ {v_1},{\sigma}' {\eval} {t_2},{\sigma}''}
   {t_1 \Then e_2,{\sigma} {\stride} {t_1}' \Then e_2,{\sigma}'}
-  [\Value\ ({t_1}',{\sigma}') = {v_1} \land \Failing\ ({t_2},{\sigma}'')]
+  {\Value\ ({t_1}',{\sigma}') = {v_1} \land \Failing\ ({t_2},{\sigma}'')}
 
 \newrule{S-ThenCont}
   {t_1,{\sigma} {\stride} {t_1}',{\sigma}' \Quad
    e_2\ {v_1},{\sigma}' {\eval} {t_2 },{\sigma}''}
   {t_1 \Then e_2,{\sigma} {\stride} {t_2},{\sigma}''}
-  [\Value\ ({t_1}',{\sigma}') = {v_1} \land \lnot\Failing\ ({t_2},{\sigma}'') ]
+  {\Value\ ({t_1}',{\sigma}') = {v_1} \land \lnot\Failing\ ({t_2},{\sigma}'') }
 
 \newrule{S-Next}
   {t_1,{\sigma} {\stride} {t_1}',{\sigma}'}
   {t_1 \Next e_2,{\sigma} {\stride} {t_1}' \Next e_2,{\sigma}'}
+  {}
 
 
 \newrule{S-And}
   {t_1,{\sigma}  {\stride} {t_1}',{\sigma}'  \Quad
    t_2,{\sigma}' {\stride} {t_2}',{\sigma}''}
   {t_1 \And t_2,{\sigma} {\stride} {t_1}' \And {t_2}',{\sigma}''}
+  {}
 
 
 \newrule{S-OrLeft}
   {t_1,{\sigma}  {\stride} {t_1}',{\sigma}'}
   {t_1 \Or t_2,{\sigma} {\stride} {t_1}',{\sigma}'}
-  [\Value\ ({t_1}',{\sigma}') = {v_1}]
+  {\Value\ ({t_1}',{\sigma}') = {v_1}}
 
 \newrule{S-OrRight}
   { {t_1,{\sigma}  {\stride} {t_1}',{\sigma}'}\Quad
    {t_2,{\sigma}' {\stride} {t_2}',{\sigma}''}}
   {t_1 \Or t_2,{\sigma} {\stride} {t_2}',{\sigma}''}
-  [\Value\ ({t_1}',{\sigma}') = \bot \land \Value\ ({t_2}',{\sigma}'') = {v_2}]
+  {\Value\ ({t_1}',{\sigma}') = \bot \land \Value\ ({t_2}',{\sigma}'') = {v_2}}
 
 \newrule{S-OrNone}
   { {t_1,{\sigma}  {\stride }{t_1}',{\sigma}'}\Quad
    { t_2,{\sigma' }{\stride} {t_2}',{\sigma}''}}
   {t_1 \Or t_2,{\sigma} {\stride} {t_1}' \Or {t_2}',{\sigma}''}
-  [\Value\ ({t_1}',{\sigma}') = \bot \land \Value\ ({t_2}',{\sigma}'') = \bot ]
+  {\Value\ ({t_1}',{\sigma}') = \bot \land \Value\ ({t_2}',{\sigma}'') = \bot }
 
 
 \newrule{S-Xor}
   { }
   {e_1 \Xor e_2,{\sigma} {\stride} e_1 \Xor e_2,{\sigma}}
+  {}
 
 \newrule{S-Eval}
-    {e,{\sigma} {\eval} {e}',{\sigma}'  \Quad
-     e',{\sigma}' {\stride} {e}'',{\sigma}''}
-    {e,{\sigma} {\stride} {e}'',{\sigma}''}
-    [e \neq {e}']
+  {e,{\sigma} {\eval} {e}',{\sigma}'  \Quad
+   e',{\sigma}' {\stride} {e}'',{\sigma}''}
+  {e,{\sigma} {\stride} {e}'',{\sigma}''}
+  {e \neq {e}'}
 
 
 %% Normalisation %%
@@ -345,18 +400,19 @@
 
 
 \newrule{N-Done}
-    { {e,{\sigma} {\eval} {t},{\sigma}'}\Quad
-     { {t,\sigma' \stride t',\sigma''}\Quad
-     {\sigma'=\sigma'' \land t=t'}}}
-    {e,{\sigma} {\normalise} {t},{\sigma}'}
+  { {e,{\sigma} {\eval} {t},{\sigma}'}\Quad
+   { {t,\sigma' \stride t',\sigma''}\Quad
+   {\sigma'=\sigma'' \land t=t'}}}
+  {e,{\sigma} {\normalise} {t},{\sigma}'}
+  {}
     %[\sigma'=\sigma'' \land t=t']
 
 \newrule{N-Repeat}
-    { e,{\sigma} {\eval} {t},{\sigma}'\Quad
-      t,\sigma' \stride t',{\sigma}''\Quad
-      t',\sigma'' \normalise t'',\sigma'''}
-    {e,{\sigma} {\normalise} {t}'',{\sigma}'''}
-    [{\sigma}'\neq {\sigma}''\lor {t}\neq {t}']
+  { e,{\sigma} {\eval} {t},{\sigma}'\Quad
+    t,\sigma' \stride t',{\sigma}''\Quad
+    t',\sigma'' \normalise t'',\sigma'''}
+  {e,{\sigma} {\normalise} {t}'',{\sigma}'''}
+  {{\sigma}'\neq {\sigma}''\lor {t}\neq {t}'}
 
 
 %% Handling %%
@@ -368,55 +424,64 @@
 \newrule{H-Change}
   {v,v':\beta}
   {\Edit v,{\sigma} \xrightarrow[]{v'} \Edit v',{\sigma}}
+  {}
 
 \newrule{H-Fill}
   { v:\beta}
   {\Enter \beta,{\sigma} \xrightarrow[]{v} \Edit v,{\sigma}}
+  {}
 
 \newrule{H-Update}
   {\sigma(l),v:\beta }
   {\Update l,{\sigma} \xrightarrow[]{v} \Update l,{\sigma}[l \mapsto v]}
+  {}
 
 \newrule{H-PassThen}
   {t_1,\sigma \xrightarrow[]{i} {t_1'},\sigma'}
   {t_1 \Then e_2,\sigma \xrightarrow[]{i} {t_1'} \Then e_2,\sigma'}
+  {}
 
 \newrule{H-PassNext}
   {t_1,\sigma \xrightarrow[]{i} {t_1'},\sigma'}
   {t_1 \Next e_2,\sigma \xrightarrow[]{i} {t_1'} \Next e_2,\sigma'}
+  {}
 
 \newrule{H-Next}
   { {e_2\ {v_1},\sigma {\normalise} {t_2},{\sigma}'}}
   {t_1 \Next e_2,\sigma \xrightarrow[]{\Continue} {t_2},{\sigma}'}
-  [\Value\ {(t_1,\sigma)} = {v_1} \land \neg\Failing\ ({t_2},{\sigma}')]
+  {\Value\ {(t_1,\sigma)} = {v_1} \land \neg\Failing\ ({t_2},{\sigma}')}
 
 \newrule{H-FirstAnd}
   {t_1,\sigma \xrightarrow[]{i} {t_1}',{\sigma}'}
   {t_1 \And t_2,\sigma \xrightarrow[]{\First i} {t_1}' \And t_2,{\sigma}'}
+  {}
 
 \newrule{H-SecondAnd}
   {t_2,\sigma \xrightarrow[]{i} {t_2}',{\sigma}'}
   {t_1 \And t_2,\sigma \xrightarrow[]{\Second i} t_1 \And {t_2}',{\sigma}'}
+  {}
 
 
 \newrule{H-FirstOr}
   {t_1,\sigma \xrightarrow[]{i} {t_1}',{\sigma}'}
   {t_1 \Or t_2,\sigma \xrightarrow[]{\First i} {t_1}' \Or t_2,{\sigma}'}
+  {}
 
 \newrule{H-SecondOr}
   {t_2,\sigma \xrightarrow[]{i} {t_2}',{\sigma}' }
   {t_1 \Or t_2,\sigma \xrightarrow[]{\Second i} t_1 \Or {t_2}',{\sigma}'}
+  {}
 
 
 \newrule{H-PickLeft}
   {e_1,\sigma \normalise {t_1},{\sigma}'}
   {e_1 \Xor e_2,\sigma \xrightarrow[]{\Left} {t_1},{\sigma}'}
-  [\neg\Failing\ ({t_1},{\sigma}')]
+  {\neg\Failing\ ({t_1},{\sigma}')}
 
 \newrule{H-PickRight}
   {e_2,\sigma {\normalise} {t_2},{\sigma}'}
   {e_1 \Xor e_2,\sigma \xrightarrow[]{\Right} {t_2},{\sigma}'}
-  [ \neg\Failing\ ({t_2},{\sigma}')]
+  { \neg\Failing\ ({t_2},{\sigma}')}
 
 
 
@@ -431,3 +496,4 @@
   {t,\sigma \xrightarrow[]{i} {t}',{\sigma}' \Quad
    {t}',{\sigma}' {\normalise} {t}'',{\sigma}''}
   {t,\sigma \xRightarrow[]{i} {t}'',{\sigma}''}
+  {}

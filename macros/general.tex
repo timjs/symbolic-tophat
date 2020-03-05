@@ -129,7 +129,7 @@
 %% Logos %%
 
 %% \newlogo[.name.]{.text.}
-\newmacro{newlogo}[2][1]
+\newmacro{newlogo}[2][]
   {\ifthenelse{\isempty{#1}}
      {\newlogoaux{#2}{\smallcaps{\lowercase{#2}}}}
      {\newlogoaux{#1}{#2}}}
@@ -142,17 +142,17 @@
 %%NOTE: `\mathrel` gives a single space width between keywords but removes it after another relational operator.
 %%      `\mathop`  gives just a small skip, but doesn't has above bug.
 \newmacro{newoperator}[1]
-  {\newmathcommand{#1}[op]}
-\newmacro{newkeyword}[2][1]
+  {\newmathcommand[op]{#1}}
+\newmacro{newkeyword}[2][]
   %%FIXME: this is to complicated: {\newoperator{\ifthenelse{\isempty{#1}}{#2}{#1}}{\text{\sffamily\bfseries #2}}}
   {\ifthenelse{\isempty{#1}}
     {\newoperator{#2}{\text{\normalfont\sffamily\bfseries #2}}}
     {\newoperator{#1}{\text{\normalfont\sffamily\bfseries #2}}}}
-\newmacro{newvalue}[2][1]
+\newmacro{newvalue}[2][]
   {\ifthenelse{\isempty{#1}}
     {\newoperator{#2}{\text{\normalfont\sffamily #2}}}
     {\newoperator{#1}{\text{\normalfont\sffamily #2}}}}
-\newmacro{newtype}[2][1]
+\newmacro{newtype}[2][]
   {\ifthenelse{\isempty{#1}}
     {\newoperator{#2}{\text{\normalfont\sffamily\scshape #2}}}
     {\newoperator{#1}{\text{\normalfont\sffamily\scshape #2}}}}
@@ -196,8 +196,8 @@
 \let\<\langle
 \let\>\rangle
 
-\newmathcommand{llbrace}[open] {\{\!|}
-\newmathcommand{rrbrace}[close]{|\!\}}
+\newmathcommand[open]{llbrace}{\{\!|}
+\newmathcommand[close]{rrbrace}{|\!\}}
 
 \newmacro{set}[1]
   {\ensuremath{\{#1\}}}
@@ -211,7 +211,7 @@
 \let\gt>
 \let\To\Rightarrow
 
-\newmathcommand{pp}[bin]
+\newmathcommand[bin]{pp}
   {+\!\!+}
 \newmathcommand{Mid}
   {\;\mid\;}
@@ -225,19 +225,19 @@
 
 \newmathcommand{n}{\underline{n}}
 
-\newmathcommand{NN}  [bb]{N}
-\newmathcommand{ZZ}  [bb]{Z}
-\newmathcommand{EE}  [bb]{E}
-\newmathcommand{OO}  [bb]{O}
-\newmathcommand{QQ}  [bb]{A}
-\newmathcommand{RR}  [bb]{R}
-\newmathcommand{CC}  [bb]{C}
-\newmathcommand{HH}  [bb]{H}
+\newmathcommand[bb]  {NN}{N}
+\newmathcommand[bb]  {ZZ}{Z}
+\newmathcommand[bb]  {EE}{E}
+\newmathcommand[bb]  {OO}{O}
+\newmathcommand[bb]  {QQ}{A}
+\newmathcommand[bb]  {RR}{R}
+\newmathcommand[bb]  {CC}{C}
+\newmathcommand[bb]  {HH}{H}
 
-\newmathcommand{LL}  [bb]{L}
-\newmathcommand{UU}  [bb]{U}
-\newmathcommand{BB}  [bb]{B}
-\renewmathcommand{SS}[bb]{S}
+\newmathcommand[bb]  {LL}{L}
+\newmathcommand[bb]  {UU}{U}
+\newmathcommand[bb]  {BB}{B}
+\renewmathcommand[bb]{SS}{S}
 
 \let\to\rightarrow
 % \let\implies\Rightarrow
@@ -251,15 +251,15 @@
 \newmacro{hint}[1]
   {\quad\text{\{ #1 \}}}
 
-\newmathcommand{when}[op]
+\newmathcommand[op]{when}
   {\mathbf{when}}
-\newmathcommand{where}[op]
+\newmathcommand[op]{where}
   {\mathbf{where}}
-\renewmathcommand{and}[op]
+\renewmathcommand[op]{and}
   {\mathbf{and}}
-\newmathcommand{otherwise}[op]
+\newmathcommand[op]{otherwise}
   {\mathbf{otherwise}}
-\newmathcommand{impossible}[op]
+\newmathcommand[op]{impossible}
   {\mathrm{impossible}}
 
 
@@ -267,11 +267,11 @@
 
 \let\group\begingroup
 
-\newenvironment*{marginequation}[1][1=0pt]
+\newenvironment*{marginequation}[1] %[1=0pt]
   {\begin{marginfigure}[#1]\equation}
   {\endequation\end{marginfigure}}
 
-\newenvironment*{marginequation*}[1][1=0pt]
+\newenvironment*{marginequation*}[1] %[1=0pt]
   {\begin{marginfigure}[#1]\equation\nonumber}
   {\endequation\end{marginfigure}}
 
@@ -336,15 +336,15 @@
 
 %% Inference rules %%
 
-\newmacro{placerule}[4][1,4]
+\newmacro{placerule}[4]
   {\ensuremath{
     \upon
       {\text{\smallcaps{#1}}\hfill}
       {\dfrac{#2}{#3}\ #4}
   }}
 
-\newmacro{newrule}[4][4]
-  {\newmacro{#1}{\placerule[#1]{#2}{#3}[#4]}}
+\newmacro{newrule}[4]
+  {\newmacro{#1}{\placerule{#1}{#2}{#3}{#4}}}
 \newmacro{userule}
   {\usemacro}
 \newmacro{refrule}[1]
