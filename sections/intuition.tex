@@ -6,8 +6,8 @@
 This section briefly introduces the task-oriented programming language \TOPHAT,
 and discusses our vision about symbolic evaluation of this language.
 
-The \TOPHAT language consists of two parts, the host language and the task language.
-Programs in \TOPHAT are called \emph{tasks}.
+The \TOPHAT\ language consists of two parts, the host language and the task language.
+Programs in \TOPHAT\ are called \emph{tasks}.
 The basic elements of tasks are editors.
 Using combinators, tasks can be combined into larger tasks.
 
@@ -24,10 +24,10 @@ Next, we discuss the main constructs of the task language.
 
 Editors are the most basic tasks.
 They are used to communicate with the outside world.
-Editors are an abstraction over widgets in a \GUI library or on webpage forms.
+Editors are an abstraction over widgets in a \GUI\ library or on webpage forms.
 Users can change the value held by an editor, in the same way they can manipulate widgets in a \GUI.
 
-When a \TOP implementation generates an application from a task specification, it derives user interfaces for the editors.
+When a \TOP\ implementation generates an application from a task specification, it derives user interfaces for the editors.
 The appearance of an editor is influenced by its type.
 For example, an editor for a string can be represented by a simple input field, a date by a calendar, and a location by a pin on a map.
 
@@ -77,7 +77,7 @@ The concrete syntax of the language is described in \cref{sec:expressions}
     The user continues to work on the chosen task.
 \end{description}
 
-In addition to editors and combinators, \TOPHAT also contains the fail task ($\Fail$).
+In addition to editors and combinators, \TOPHAT\ also contains the fail task ($\Fail$).
 Programmers can use this task to indicate that a task is not reachable or viable.
 When the right hand side of a step combinator evaluates to $\Fail$, the step will not proceed to that task.
 

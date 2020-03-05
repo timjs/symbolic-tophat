@@ -67,9 +67,9 @@
 
 
 \newmacro{TOPHAT}
-  {$\widehat{\text{\smallcaps{top}}}$\xspace}
+  {$\widehat{\text{\smallcaps{top}}}$}
 \newmacro{STOPHAT}
-  {Symbolic $\widehat{\smallcaps{top}}$\xspace}
+  {Symbolic $\widehat{\smallcaps{top}}$}
 
 
 \let\And\relax
@@ -121,10 +121,10 @@
 \newmacro{handle}[1]
   {\mathrel{\;\xrightarrow{#1}\;}}
 \newmacro{interact}[1]
-  {\mathrel{\;\xRightarrow{#1}\;}}
+  {\mathrel{\;\Rightarrow{#1}\;}}
 
   \newmathcommand{Leadsto}[rel]
-    {\raisebox{-0.25ex}{$\leadsto$}\mathllap{\raisebox{+0.25ex}{$\leadsto$}}}
+   {\rotatebox[origin=c]{90}{\rotatebox[origin=c]{-90}{$\leadsto$}\!\rotatebox[origin=c]{-90}{$\leadsto$}}}
 
   \newmathcommand{simeval}[rel]
     {\;\rotatebox[origin=c]{-90}{$\leadsto$}\;}

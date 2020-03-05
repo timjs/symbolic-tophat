@@ -13,18 +13,18 @@
     \Value(\simt_1 \Then \sime_2, \sims)          &=& \bot \\
     \Value(\simt_1 \Next \sime_2, \sims)          &=& \bot \\
     \Value(\simt_1 \And \simt_2, \sims)           &=& \left\{
-      \begin{array}{ll}
-        \tuple{\simv_1, \simv_2}  & \ \when\ \Value(\simt_1, \sims) = \
-        \simv_1 \land \Value(\simt_2, \sims) = \simv_2 \\
-        \bot                          & \ \otherwise
-      \end{array}
+      \begin{tabular}{ll}
+        $\tuple{\simv_1, \simv_2}  $&$ \ \when\ \Value(\simt_1, \sims) = \
+        \simv_1 \land \Value(\simt_2, \sims) = \simv_2 $\\
+        $\bot                          $&$ \ \otherwise$
+      \end{tabular}
     \right. \\
     \Value(\simt_1 \Or \simt_2, \sims)            &=& \left\{
-      \begin{array}{ll}
-        \simv_1                           & \ \when\ \Value(\simt_1, \sims) = \simv_1 \\
-        \simv_2                           & \ \when\ \Value(\simt_1, \sims) = \bot \land \Value(\simt_2, \sims) = \simv_2 \\
-        \obox{\tuple{\simv_1, \simv_2}}{\bot} & \ \otherwise
-      \end{array}
+      \begin{tabular}{ll}
+        $\simv_1  $                         & $\ \when\ \Value(\simt_1, \sims) = \simv_1 $\\
+        $\simv_2 $                          & $\ \when\ \Value(\simt_1, \sims) = \bot \land \Value(\simt_2, \sims) = \simv_2 $\\
+        $\obox{\tuple{\simv_1, \simv_2}}{\bot}$ &$ \ \otherwise$
+      \end{tabular}
     \right. \\
     \Value(\simt_1 \Xor \simt_2, \sims)           &=& \bot
   \end{function}

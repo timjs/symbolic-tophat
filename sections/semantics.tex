@@ -10,32 +10,7 @@ It consists of three layers, a big step symbolic evaluation semantics for the ho
 
 \begin{figure}[h]
   \centering
-  \begin{tikzpicture}[
-              > = stealth, % arrow head style
-              shorten > = 1pt, % don't touch arrow head to node
-              auto,
-              node distance = 2.3cm, % distance between nodes
-              semithick, % line style
-          ]
-
-          \node (interact)  {Interact ($\siminteract$)};
-          \node (handle) [above of=interact,yshift=-.9cm] {Handle ($\simhandle$)};
-          \node (normalise) [left of=interact,xshift=-1cm] {Normalise ($\simnormalise$)};
-          \node (stride) [left of=handle,xshift=-1cm] {Stride ($\simstride$)};
-          \node (evaluate) [left of=normalise,xshift=-1cm] {Evaluate ($\simeval$)};
-
-
-          \path[->,right] (interact) edge node {uses} (handle);
-          \path[->,above] (interact) edge node {uses} (normalise);
-
-          \path[->] (handle) edge node {uses} (normalise);
-
-          \path[->,right] (normalise) edge node {uses} (stride);
-          \path[->,above] (normalise) edge node {uses} (evaluate);
-
-          \path[->] (stride) edge node {uses} (evaluate);
-
-      \end{tikzpicture}
+  \includegraphics{figures/relations}
   \caption{
     Semantic functions defined in this report and their relation.
   }
@@ -206,14 +181,14 @@ A complete overview of the rules can be found in the appendix online.
       \rightarrow \powerset{\mathrm{Values} \times [\mathrm{Inputs}] \times \mathrm{Predicates}}} \\
     \Simulate'\ (\Again, \simt, \simt', \sims', I, \phi) &=& \\
       \multicolumn{3}{L}{ \left\{
-        \begin{array}{lr@{\ }c@{\ }l@{\ }c@{\ }l@{\ }c@{\ }r}
+        \begin{tabular}{LR@{\ }C@{\ }L@{\ }C@{\ }L@{\ }C@{\ }R}
           \nothing                                                                                    & \neg\Sat(\phi) &&&&&&\\
           \set{(\simv, I, \phi)}                                                                & \Sat(\phi)     &\land& \Value(\simt',\sims') = \simv &&&& \\
           \Simulate\ (\simt', \sims', I, \phi)                                                           & \Sat(\phi)     &\land& \Value(\simt',\sims') = \bot &\land& \simt' \neq \simt &&\\
           \bigcup \set{\Simulate'\ (\False, \simt',\simt'', \sims'', I\oplus[\simi'], \phi\land\phi')
             \mid  \simt',\sims' \siminteract \simt'', \sims'', \simi', \phi'}                                       & \Sat(\phi)     &\land& \Value(\simt',\sims') = \bot &\land& \simt' = \simt    &\land& \Again\\
           \nothing                                                                                    & \Sat(\phi)     &\land& \Value(\simt',\sims') = \bot &\land& \simt' = \simt    &\land& \neg\Again
-        \end{array}
+        \end{tabular}
         \right.}
   \end{function}
   \caption{Simulation function definition.}
@@ -280,68 +255,7 @@ The recursion terminates when one of the following conditions is met.
 
 \begin{figure*}[t]
   \small
-\tikzstyle{level 1}=[level distance=4.75cm, sibling distance=3cm]
-\tikzstyle{bag} = [text width=4em, text centered]
-\tikzstyle{end} = [circle, minimum width=3pt,fill, inner sep=0pt]
-\hspace*{-1em}
-\begin{tikzpicture}[grow=right, sloped]
-\node[bag] {$\simi=s_0$}
-    child[missing] {node {}}
-    child {
-        node[bag] {$\simi'=s_1$}
-            child[missing] {node {}}
-            child {
-                node[bag] {$\simi''=s_2$}
-                child[missing] {node {}}
-                child {
-                    node[end, label=right:
-                        {$\nothing$}] {}
-                    edge from parent
-                    node[above] {$\phi''=s_2\leq 0$}
-                    node[below] {\begin{tabular}{R@{\ }C@{\ }L}
-                      \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
-                      \Edit s_0 \Then\ldots               &=& \Edit s_1\Then\ldots \\
-                      \Again                              &=& \False
-                    \end{tabular}}
-                }
-                child {
-                    node[end, label=right:
-                        % {\begin{tabular}{l} $s_2$\\ $[s_0,s_1,s_2]$\\ $s_0\leq 0$\\$\quad\land\ s_1\leq 0$\\$\quad\land\ s_2>0$ \end{tabular}}] {}
-                        {\begin{tabular}{l} $s_2$\\ $[s_0,s_1,s_2]$\\ $s_0\leq 0\land s_1\leq 0\land s_2>0$ \end{tabular}}] {}
-                    edge from parent
-                    node[above] {$\phi''=s_2>0$}
-                    node[below]  {$\Value(\Edit s_2,\sigma)=s_2$}
-                }
-                edge from parent
-                node[above] {$\phi'=s_1\leq0$}
-                node[below] {\begin{tabular}{R@{\ }C@{\ }L}
-                  \Value(\Edit s_0\Then\ldots,\sigma) &=& \bot \\
-                  \Edit s_0 \Then\ldots               &=& \Edit s_1\Then\ldots \\
-                  \Again                              &=& \True
-                \end{tabular}}
-            }
-            child {
-                node[end, label=right:
-                    {\begin{tabular}{l} $s_1$\\ $[s_0,s_1]$\\ $s_0\leq 0\land s_1>0$\end{tabular}}] {}
-                edge from parent
-                node[above] {$\phi'=s_1>0$}
-                node[below]  {$\Value(\Edit s_1,\sims)=s_1$}
-            }
-            edge from parent
-            node[above] {$\phi=s_0\leq 0$}
-            node[below] {\begin{tabular}{R@{\ }C@{\ }L}
-              \Value(\Edit s_0\Then\ldots,\sigma) &=   & \bot \\
-              \Enter \Int \Then\ldots             &\neq& \Edit s_0\Then\ldots
-            \end{tabular}}
-    }
-    child {
-        node[end, label=right:
-            {\begin{tabular}{l} $s_0$\\ $[s_0]$\\ $s_0>0$\end{tabular}}] {}
-        edge from parent
-            node[above] {$\phi=s_0>0$}
-            node[below]  {$\Value(\Edit s_0,\sigma)=s_0$}
-    };
-\end{tikzpicture}
+\includegraphics{figures/simulation}
 \caption{Application of the simulation function to \cref{lst:abs}.}
 \label{diagram:simapp}
 \end{figure*}
@@ -405,10 +319,10 @@ In this example all are trivially solvable.
 \subsection{Implementation}
 
 We implemented our language and its symbolic execution semantics in \HASKELL.\footnote{\url{https://github.com/timjs/symbolic-tophat-haskell}}
-With the help of a couple of \GHC extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
+With the help of a couple of \GHC\ extensions, the grammar, typing rules and semantics are almost one-to-one translatable into code.
 Our tool generates execution trees like the one shown in \cref{diagram:simapp},
 which keep track of intermediate normalisations, symbolic inputs, and path conditions.
-All path conditions are converted to \SMTLIB compatible statements and are verified using the \ZTHREE \SMT~solver.
+All path conditions are converted to \SMTLIB\ compatible statements and are verified using the \ZTHREE\ \SMT~solver.
 As of now we do not have a parser, programs must be specified directly as abstract syntax trees.
 
 As is usually the case with symbolic execution, the number of paths grows quickly.

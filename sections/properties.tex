@@ -31,7 +31,7 @@ This soundness property is expressed by \cref{thm:sounddrive}.
   For all concrete tasks $t$, concrete states $\sigma$ and mappings $M=[s_0\mapsto c_0,\cdots,s_n\mapsto c_n]$,
     we have for all tuples $(\tilde{t}',\tilde{\sigma}',\simi,\phi)$ in $t,\sigma\siminteract \overline{\tilde{t}',\tilde{\sigma}',\simi,\phi}$ that
     $M\phi$ implies
-    $t,\sigma \interact{M \simi} t',\sigma''$ and $M\tilde{t}' \equiv t'$ and $M\tilde{\sigma}' \equiv \sigma''$.
+    $t,\sigma \interact{M \simi} t',\sigma''$ and $M\tilde{t}' \equiv t'$ and $M\tilde{\sigma}' \equiv \sigma''$.\todo{please fix, should be xRightarrow}
 \end{theorem}
 
 The proof for this theorem is rather straightforward.
@@ -96,7 +96,7 @@ The full proofs of \cref{lem:soundnorm,lem:soundstride,lem:soundeval} are listed
 
 We also want to show that for every concrete execution, a symbolic one exists.
 
-To state this Theorem, we require a simulation relation $i\sim j$, which means that the symbolic input $i$ follows the same direction as the concrete input $j$.
+To state this Theorem, we require a simulation relation $\simi\sim i$, which means that the symbolic input $\simi$ follows the same direction as the concrete input $i$.
 This relation is defined below.
 
 \begin{definition}[Input simulation]
