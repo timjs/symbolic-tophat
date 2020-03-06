@@ -1,4 +1,4 @@
-% !TEX root=../../main.tex
+% !TEX root=../../appendix.tex
 
 
 % \begin{proof}[Proof of Theorem~\ref{thm:sound}]
@@ -10,7 +10,7 @@
 
 \subsection{Proof of soundness of symbolic evaluation semantics}
 \begin{proof}
-  We prove Lemma~\ref{lem:soundeval} by induction over the derivation of the symbolic evaluation $e,\sigma\simeval\overline{\sime,\sims,\phi}$.
+  We prove Lemma 6.5 by induction over the derivation of the symbolic evaluation $e,\sigma\simeval\overline{\sime,\sims,\phi}$.
 
   \case{\refrule{SE-Value}}
     {Since this case does not generate constraints, any $M$ will do.
@@ -24,12 +24,12 @@
       this case holds trivially.
       }
   \case{\refrule{SE-Pair}}
-    {For all mappings $M$ such that $M(\phi_1\wedge\phi_2)$,we need to demonstrate that\\
+    {For all mappings $M$ such that $M(\phi_1\wedge\phi_2)$,we need to demonstrate that
     $\tuple{e_1,e_2},\sigma\eval\tuple{v_1,v_2},\sigma''$ with
     $M\tuple{\simv_1,\simv_2} \equiv \tuple{v_1,v_2}$ and $M\sims''\equiv\sigma''$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . \sime_1,\sims\simeval\overline{\simv_1,\sims',\phi_1}\land M_1\phi_1 \implies e_1,\sigma \eval v_1,\sigma'\land  M_1\simv_1\equiv v_1 \land  M_1\sims'\equiv\sigma'$ and\\
+    $\forall M_1 . \sime_1,\sims\simeval\overline{\simv_1,\sims',\phi_1}\land M_1\phi_1 \implies e_1,\sigma \eval v_1,\sigma'\land  M_1\simv_1\equiv v_1 \land  M_1\sims'\equiv\sigma'$ and
     $\forall M_2 . M_2\phi_2 \implies e_2, \sigma'\eval v_2,\sigma''\land M_2 \simv_2\equiv v_2\land M_2\sims''\equiv\sigma''$.
 
     Note that we have omitted from the second application of the induction hypothesis, the requirement that the symbolic step exists.
@@ -72,7 +72,7 @@
   $M \simv_1::\simv_2\equiv v_1 :: v_2$ and $M\sims''\equiv \sigma''$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma \eval v_1, \sigma' \land  M_1\simv_1\equiv{v_1} \land  M_1\sims'\equiv{\sigma'}$ and\\
+  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma \eval v_1, \sigma' \land  M_1\simv_1\equiv{v_1} \land  M_1\sims'\equiv{\sigma'}$ and
   $\forall M_2 . M_2\phi_2 \implies e_2,\sigma' \eval v_2,\sigma'' \land M_2\simv_2\equiv{v_2} \wedge M_2\sims''\equiv{\sigma''}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
@@ -110,7 +110,7 @@
 
   From the induction hypothesis, we obtain the following.\\
   $\forall M_1 . M_1\phi_1 \implies e_1,\sigma{\eval}\lambda x : \tau.{e_1'},{\sigma'}
-  \land M_1\lambda x : \tau.\sime_1' \equiv \lambda x : \tau.{e_1'} \land M_1\sims'\equiv{\sigma'}$\\
+  \land M_1\lambda x : \tau.\sime_1' \equiv \lambda x : \tau.{e_1'} \land M_1\sims'\equiv{\sigma'}$
   and
   $\forall M_2 . M_2\phi_2 \implies e_2,\sigma'{\eval}{v_2},{\sigma''}
   \land M_2 \simv_2 \equiv {v_2} \land M_2\sims'' \equiv{\sigma''}$\\
@@ -130,12 +130,12 @@
    From the induction hypothesis, we obtain the following.\\
    $\forall M_1 . M_1\phi_1 \implies e_1,\sigma\eval v_1,\sigma'
    \land M_1\simv_1 \equiv {v_1} \land M_1\sims'\equiv{\sigma'}$
-   and\\
+   and
    $\forall M_2 . M_2\phi_2 \implies e_2,\sigma'\eval v_2,\sigma''
    \land M_2 \simv_2 \equiv {v_2} \land M_2\sims'' \equiv{\sigma''}$.
 
    Since $M$ satisfies $\phi_1$, $\phi_2$ and $\simv_1$, we know that $v_1=\True$.\\
-   From \refrule{E-IfTrue} and the induction steps above, we obtain that\\
+   From \refrule{E-IfTrue} and the induction steps above, we obtain that
    $\If{e_1}{e_2}{e_3},\sigma\eval v_2,\sigma''$ with $M\simv_2={v_2}$ and $M\sims''={\sigma''}$.
 
    For all mappings $M$ such that $M(\phi_1\land \phi_3 \land \neg \simv_1)$,
@@ -146,19 +146,19 @@
    From the induction hypothesis, we obtain the following.\\
    $\forall M_1 . M_1\phi_1 \implies e_1,\sigma\eval{v_1},{\sigma'}
    \land M_1\simv_1 \equiv {v_1} \land M_1\sims'\equiv{\sigma'}$
-   and\\
+   and
    $\forall M_3 . M_3\phi_3 \implies e_3,\sigma'\eval{v_3},{\sigma''}
    \land M_3 \simv_3 \equiv {v_3} \land M_3\sims'' \equiv{\sigma''}$.
 
    Since $M$ satisfies $\phi_1$, $\phi_3$ and $\neg\simv_1$, we know that $v_1=\False$.\\
-   From \refrule{E-IfFalse} and the induction steps above, we obtain that\\
+   From \refrule{E-IfFalse} and the induction steps above, we obtain that
     $\If{e_1}{e_2}{e_3},\sigma\eval v_3,\sigma''$
    with $M\simv_3={v_3}$ and $M\sims''={\sigma''}$.
   }
 
 \case{\refrule{SE-Ref}}
   {For all mappings $M$ such that $M\phi$,
-  we need to demonstrate that\\
+  we need to demonstrate that
   $\Ref e,\sigma\eval l,\sigma'[l\mapsto v]$ with
   $M l \equiv l$ and $M\sims'[l\mapsto \simv]\equiv{\sigma'}[l\mapsto{v}]$.
 
@@ -194,7 +194,7 @@
   and $M\sims''[l\mapsto \simv_2]\equiv{\sigma''}[l\mapsto{v_2}]$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}l,{\sigma'}\land  M_1 l\equiv l \land  M_1\sims'\equiv{\sigma'}$ and\\
+  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}l,{\sigma'}\land  M_1 l\equiv l \land  M_1\sims'\equiv{\sigma'}$ and
   $\forall M_2 . M_2\phi_2 \implies e_2,\sigma' {\eval}{v_2},{\sigma''}\land M_2\simv_2\equiv {v_2} \land M_2\sims''\equiv{\sigma''}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$, we obtain from \refrule{E-Assign} and the induction steps above that $e_1 := e_2,\sigma\eval\unit,\sigma''[l\mapsto v_2]$ with $M\sims''[l\mapsto \simv_2]\equiv{\sigma''}[l\mapsto{v_2}]$.
@@ -205,7 +205,7 @@
   we need to demonstrate that $\Edit e,\sigma\eval\Edit v,\sigma'$ with
   $M \Edit \simv \equiv \Edit {v}$ and $M\sims'\equiv{\sigma'}$.
 
-  From the induction hypothesis, we obtain the following.\\
+  From the induction hypothesis, we obtain the following.
   $\forall M_1 .  M_1\phi \implies e, \sigma {\eval}{v},{\sigma'}\land  M_1\simv\equiv {v} \land  M_1\sims'\equiv{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
@@ -217,7 +217,7 @@
   {For all mappings $M$ such that $M\phi$, we need to demonstrate that $\Update e,\sigma\eval\Update l,\sigma'$ with
   $M \Update l \equiv \Update l$ and $M\sims'\equiv{\sigma'}$.
 
-  From the induction hypothesis, we obtain the following.\\
+  From the induction hypothesis, we obtain the following.
   $\forall M_1 .  M_1\phi \implies e, \sigma {\eval}l,{\sigma'}\land  M_1 l\equiv l \land  M_1\sims'\equiv{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
@@ -226,11 +226,11 @@
   }
 
 \case{\refrule{SE-Then}}
-  {For all mappings $M$ such that $M\phi$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M\phi$, we need to demonstrate that
   $e_1\Then e_2,\sigma\eval t_1\Then e_2,\sigma'$ with
   $M \simt_1\Then \sime_2 \equiv {t_1}\Then e_2$ and $M\sims'\equiv{\sigma'}$.
 
-  From the induction hypothesis, we obtain the following.\\
+  From the induction hypothesis, we obtain the following.
   $\forall M_1 .  M_1\phi \implies e, \sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
@@ -239,11 +239,11 @@
   }
 
 \case{\refrule{SE-Next}}
-  {For all mappings $M$ such that $M\phi$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M\phi$, we need to demonstrate that
   $e_1\Next e_2,\sigma\eval t_1\Next e_2,\sigma'$ with
   $M \simt_1\Next e_2 \equiv {t_1}\Next e_2$ and $M\sims'\equiv{\sigma'}$.
 
-  From the induction hypothesis, we obtain the following.\\
+  From the induction hypothesis, we obtain the following.
   $\forall M_1 .  M_1\phi \implies e,\sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$.
 
   Since $M$ satisfies $\phi$,
@@ -252,11 +252,11 @@
   }
 
 \case{\refrule{SE-Or}}
-  {For all mappings $M$ such that $M(\phi_1\wedge \phi_2)$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M(\phi_1\wedge \phi_2)$, we need to demonstrate that
    $e_1\Or e_2,\sigma\eval t_1\Or t_2,\sigma''$ with $M \simt_1\Or \simt_2 \equiv {t_1}\Or{t_2}$ and $M\sims''\equiv{\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$ and\\
+  $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$ and
   $\forall M_2 . M_2\phi_2 \implies e_2,\sigma' {\eval}{t_2},{\sigma''}\land M_2\simt_2\equiv {t_2} \land M_2\sims''\equiv{\sigma''}$
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$, we obtain from \refrule{E-Or} and the induction steps above that $e_1\Or e_2,\sigma\eval t_1\Or t_2,\sigma''$ with $M \simt_1\Or \simt_2 \equiv {t_1}\Or{t_2}$ and $M \sims'' \equiv{\sigma''}$.
@@ -264,11 +264,11 @@
   }
 
   \case{\refrule{SE-And}}
-    {For all mappings $M$ such that $M(\phi_1\wedge \phi_2)$, we need to demonstrate that\\
+    {For all mappings $M$ such that $M(\phi_1\wedge \phi_2)$, we need to demonstrate that
      $e_1\And e_2,\sigma\eval t_1\And t_2,\sigma''$ with $M \simt_1\And \simt_2 \equiv {t_1}\And{t_2}$ and $M\sims''\equiv{\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$ and\\
+    $\forall M_1 .  M_1\phi_1 \implies e_1, \sigma {\eval}{t_1},{\sigma'}\land  M_1 \simt_1\equiv {t_1} \land  M_1\sims'\equiv{\sigma'}$ and
     $\forall M_2 . M_2\phi_2 \implies e_2,\sigma' {\eval}{t_2},{\sigma''}\land M_2\simt_2\equiv {t_2} \land M_2\sims''\equiv{\sigma''}$
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$, we obtain from \refrule{E-And} and the induction steps above that $e_1\And e_2,\sigma\eval t_1\And t_2,\sigma''$ with $M \simt_1\And \simt_2 \equiv {t_1}\And{t_2}$ and $M \sims'' \equiv{\sigma''}$.
@@ -280,15 +280,15 @@
 
 \subsection{Proof of soundness of symbolic striding semantics}
 \begin{proof}
-  We prove \cref{lem:soundstride} by induction over the derivation $t,\sigma\simstride\overline{\simt,\sims,\phi}$.
+  We prove Lemma 6.4 by induction over the derivation $t,\sigma\simstride\overline{\simt,\sims,\phi}$.
 
   \case{\refrule{SS-ThenStay},\refrule{SS-ThenFail}}
     {For all mappings $M$ such that $M\phi$
-    we need to demonstrate that\\
+    we need to demonstrate that
     $t_1\Then e_2,\sigma\stride  t_1'\Then e_2,\sigma'$ with
     $M \simt_1'\Then e_2 \equiv {t_1'}\Then e_2 $ and $ M\sims'\equiv {\sigma'}$.
 
-    From the induction hypothesis, we obtain the following.\\
+    From the induction hypothesis, we obtain the following.
     $\forall M_1 . M_1 \phi \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$.
 
     Since $M$ satisfies $\phi$,
@@ -302,24 +302,24 @@
     $t_1\Then e_2,\sigma\stride t_2,\sigma''$ with
     $M \simt_2 \equiv {t_2}$ and $M\sims''\equiv {\sigma''}$.
 
-    From the induction hypothesis, we obtain the following.\\
+    From the induction hypothesis, we obtain the following.
     $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\implies M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$.\\
-    From Lemma~\ref{lem:soundeval} we know that\\
+    From Lemma 6.5 we know that
     $\forall M_2 . M_2 \phi_2 \implies e_2{v_1},\sigma'{\eval}{t_2},{\sigma''}\and M_2 \simt_2\equiv {t_2}\land M_2\sims''\equiv {\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$,
-    we obtain from \refrule{S-ThenCont}, the induction step and application of Lemma~\ref{lem:soundeval} above that
+    we obtain from \refrule{S-ThenCont}, the induction step and application of Lemma 6.5 above that
     $t_1\Then e_2,\sigma\stride t_2,\sigma''$ with
     $M \simt_2 \equiv t_2$ and $M\sims''\equiv {\sigma''}$.
     }
 
   \case{\refrule{SS-OrLeft}}
     {For all mappings $M$ such that $M\phi$
-    we have to demonstrate that\\
+    we have to demonstrate that
     $t_1\Or t_2,\sigma\stride t_1',\sigma'$ with
     $M \simt_1'\equiv {t_1'}$ and $M\sims'\equiv {\sigma'}$.
 
-    From the induction hypothesis, we obtain the following.\\
+    From the induction hypothesis, we obtain the following.
     $\forall M_1 . M_1 \phi \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\and M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$.
 
     Since $M$ satisfies $\phi$, we obtain from \refrule{S-OrLeft} and the induction step above that $t_1\Or t_2,\sigma\stride t_1',\sigma'$ with
@@ -334,7 +334,7 @@
     $M \simt_2'\equiv {t_2'}$ and $M\sims''\equiv {\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and\\
+    $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and
     $\forall M_2 . M_2 \phi_2 \implies t_2,\sigma' {\stride} {t_2'},{\sigma''}\land M_2 \simt_2'\equiv{t_2'}\land M_2\sims'' \equiv {\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$, and from the premise we have that $\Value\ (\simt',\sims')=\bot$,
@@ -348,7 +348,7 @@
     $M \simt_1'\Or \simt_2'\equiv {t_1'}\Or{t_2'}$ and $M\sims''\equiv {\sigma''}$.
 
     From the induction hypothesis, we obtain the following.\\
-    $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and\\
+    $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and
     $\forall M_2 . M_2 \phi_2 \implies t_2,\sigma' {\stride} {t_2'},{\sigma''}\land M_2 \simt_2'\equiv{t_2'}\land M_2\sims'' \equiv {\sigma''}$.
 
     Since $M$ satisfies both $\phi_1$ and $\phi_2$,
@@ -391,11 +391,11 @@
 
 \case{\refrule{SS-Next}}
   {For all mappings $M$ such that $M\phi$,
-  we need to demonstrate that\\
+  we need to demonstrate that
   $t_1\Next e_2,\sigma\stride t_1'\Next e_2,\sigma'$ with
   $M \simt_1'\Next e_2\equiv {t_1'}\Next e_2$ and $M \sims'\equiv{\sigma'}$.
 
-  From the induction hypothesis, we obtain the following.\\
+  From the induction hypothesis, we obtain the following.
   $\forall M_1 . M_1 \phi \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv{\sigma'}$.
 
   Since $M$ satisfies $\phi$, we obtain from \refrule{S-Next} and the induction step above that $t_1\Next e_2,\sigma\stride t_1'\Next e_2,\sigma'$ with
@@ -409,7 +409,7 @@
   $M \simt_1'\And \simt_2'\equiv {t_1'}\And{t_2'}$ and $M\sims''\equiv {\sigma''}$.
 
   From the induction hypothesis, we obtain the following.\\
-  $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\and M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and\\
+  $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma {\stride} {t_1'},{\sigma'}\and M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$ and
   $\forall M_2 . M_2 \phi_2 \implies t_2,\sigma' {\stride} {t_2'},{\sigma''}\and M_2 \simt_2'\equiv{t_2'}\land M_2\sims'' \equiv {\sigma''}$.
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$,
@@ -423,7 +423,7 @@
 
 \subsection{Proof of soundness of symbolic normalisation semantics}
 \begin{proof}
-  We prove Lemma~\ref{lem:soundnorm} by induction over the derivation $e,\sigma\simnormalise \overline{\simt,\sims,\phi}$.
+  We prove Lemma 6.3 by induction over the derivation $e,\sigma\simnormalise \overline{\simt,\sims,\phi}$.
 
   The base case is when the SN-Done rule applies.
   Provided that $M(\phi_1\land \phi_2)$,
@@ -431,8 +431,8 @@
   $e,\sigma\normalise t,\sigma'$ with
   $M \simt\equiv {t}$ and $M\sims'\equiv {\sigma'}$.
 
-  By Lemma~\ref{lem:soundeval} and \ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,\sigma {\eval}{t},{\sigma'}\land M_1 \simt \equiv {t} \land M_1 \sims'\equiv {\sigma'}$ and\\
+  By Lemma 6.5 and 6.4, we know that\\
+  $\forall M_1. M_1\phi_1 \implies e,\sigma {\eval}{t},{\sigma'}\land M_1 \simt \equiv {t} \land M_1 \sims'\equiv {\sigma'}$ and
   $\forall M_2.M_2\phi_2\implies t,\sigma'{\stride}{t'},{\sigma''}\land M_2 \simt'\equiv{t'}\land M_2\sims''\equiv {\sigma''}$.
 
   Since $M$ satisfies both $\phi_1$ and $\phi_2$, we have $e,\sigma \normalise {t},{\sigma'}$ with $M\sims'\equiv {\sigma'}$.
@@ -443,10 +443,10 @@
   we need to demonstrate that $e,\sigma\normalise t'',\sigma'''$
   with $M \simt''\equiv {t''}$ and $M\sims'''\equiv {\sigma'''}$.
 
-  Again by Lemma~\ref{lem:soundeval} and \ref{lem:soundstride}, we know that\\
-  $\forall M_1. M_1\phi_1 \implies e,\sigma {\eval}{t},{\sigma'}\land M_1 \simt \equiv {t} \land M_1 \sims'\equiv {\sigma'}$ and\\
+  Again by Lemma 6.5 and 6.4, we know that\\
+  $\forall M_1. M_1\phi_1 \implies e,\sigma {\eval}{t},{\sigma'}\land M_1 \simt \equiv {t} \land M_1 \sims'\equiv {\sigma'}$ and
   $\forall M_2.M_2\phi_2\implies t,\sigma'{\stride}{t'},{\sigma''}\land M_2 \simt'\equiv{t'}\land M_2\sims''\equiv {\sigma''}$.\\
-  Furthermore, we know by applying the induction hypothesis that\\
+  Furthermore, we know by applying the induction hypothesis that
   $\forall M_3.M_3\phi_3 \implies t',\sigma''{\normalise} {t''},{\sigma'''}\land M_3 \simt''\equiv {t''}\land M_3 \sims'''\equiv {\sigma'''}$.
 
   Since $M$ satisfies $\phi_1$, $\phi_2$ and $\phi_3$,
@@ -458,7 +458,7 @@
 
 \label{appendix:symbolicsoundhandle}
 \begin{proof}
-  We prove Lemma~\ref{lem:soundhandle} by induction over the derivation $t,\sigma\simhandle\simt,\sims,\simi,\phi$.
+  We prove Lemma 6.2 by induction over the derivation $t,\sigma\simhandle\simt,\sims,\simi,\phi$.
 
   \case{\refrule{SH-Change}}
     {
@@ -492,11 +492,11 @@
 
   \case{\refrule{SH-Next}}
 
-  {For all mappings $M$ such that $M\phi_1$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M\phi_1$, we need to demonstrate that
   $t_1\Next e_2,\sigma\handle{M \simi} t_1'\Next e_2,\sigma'$ with
   $M \simt_1' \Next e_2 \equiv {t_1'}\Next e_2$ and $M\sims'\equiv{\sigma'}$.
 
-  By the induction hypothesis we obtain the following.\\
+  By the induction hypothesis we obtain the following.
   $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma \handle{M_1 \simi} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$
 
   Since $M$ satisfies $\phi_1$, we obtain from \refrule{H-PassNext} and the induction step above that $t_1\Next e_2,\sigma\handle{M \simi} t_1'\Next e_2,\sigma'$ with
@@ -504,22 +504,22 @@
 
 
 
-  For all mappings $M$ such that $M\phi_2$, we need to demonstrate that\\
+  For all mappings $M$ such that $M\phi_2$, we need to demonstrate that
   $t_1\Next e_2,\sigma\handle{\Continue}t_2,\sigma'$ with
   $M \simt_2 \equiv {t_2}$ and $M\sims'\equiv{\sigma'}$.
 
-  From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,\sigma{\normalise}{t_2},{\sigma'}\land M \simt_2\equiv{t_2}\land M \sims'\equiv{\sigma'}$.
+  From Lemma 6.3 we obtain that $\forall M_1. M_1 \phi \implies e_2 v_1,\sigma{\normalise}{t_2},{\sigma'}\land M \simt_2\equiv{t_2}\land M \sims'\equiv{\sigma'}$.
 
   This together with \refrule{H-Next} gives us exactly what we need to prove this case.
     }
 
   \case{\refrule{SH-PassNext}}
   {
-  For all mappings $M$ such that $M\phi$, we need to demonstrate that\\
+  For all mappings $M$ such that $M\phi$, we need to demonstrate that
   $t_1\Next e_2,\sigma\handle{M\simi}t_1'\Next e_2,\sigma'$ with
   $M \simt_1' \Next e_2 \equiv {t_1'}\Next e_2$ and $M\sims'\equiv{\sigma'}$.
 
-  By the induction hypothesis we obtain the following.\\
+  By the induction hypothesis we obtain the following.
   $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma \handle{M_1 \simi} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$
 
   Since $M$ satisfies $\phi$, we obtain from \refrule{H-PassNext} and the induction step above that $t_1\Next e_2,\sigma\handle{M\simi}t_1'\Next e_2,\sigma'$ with
@@ -528,11 +528,11 @@
 
     \case{\refrule{SH-PassNextFail}}
     {
-    For all mappings $M$ such that $M\phi$, we need to demonstrate that\\
+    For all mappings $M$ such that $M\phi$, we need to demonstrate that
     $t_1\Next e_2,\sigma\handle{M\simi}t_1'\Next e_2,\sigma'$ with
     $M \simt_1' \Next e_2 \equiv {t_1'}\Next e_2$ and $M\sims'\equiv{\sigma'}$.
 
-    By the induction hypothesis we obtain the following.\\
+    By the induction hypothesis we obtain the following.
     $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma \handle{M_1 \simi} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$.
 
     Since $M$ satisfies $\phi$ and from the premise of \refrule{SH-PassNextFail} we have $\Failing\ (\simt_2,\sims'')$, we obtain from \refrule{H-PassNextFail} and the induction step above that $t_1\Next e_2,\sigma\handle{M\simi}t_1'\Next e_2,\sigma'$ with
@@ -540,11 +540,11 @@
     }
 
   \case{\refrule{SH-PassThen}}
-  {For all mappings $M$ such that $M\phi$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M\phi$, we need to demonstrate that
   $t_1\Then e_2,\sigma\handle{M\simi}t_1'\Then e_2,\sigma'$ with
   $M \simt_1'\Then e_2\equiv {t_1'}\Then e_2$ and $M\sims'\equiv{\sigma'}$.
 
-  By the induction hypothesis we obtain the following.\\
+  By the induction hypothesis we obtain the following.
   $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma \handle{M_1 \simi} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$
 
   Since $M$ satisfies $\phi$, we obtain from \refrule{H-PassThen} and the induction step above that $t_1\Then e_2,\sigma\handle{M\simi}t_1'\Then e_2,\sigma'$ with
@@ -559,33 +559,33 @@
     }
 
     \case{\refrule{SH-PickLeft}}
-    {For all mappings $M$ such that  $M\phi_1$, we need to demonstrate that\\
+    {For all mappings $M$ such that  $M\phi_1$, we need to demonstrate that
     $e_1\Xor e_2,\sigma\handle{\Left}t_1,\sigma'$ with
     $M \simt_1\equiv {t_1}$ and $M\sims'\equiv {\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_1,\sigma{\normalise}{t_1},{\sigma'}\land M \simt_1\equiv{t_1}\land M \sims'\equiv{\sigma'}$.
+    From Lemma 6.3 we obtain that $\forall M_1. M_1 \phi \implies e_1,\sigma{\normalise}{t_1},{\sigma'}\land M \simt_1\equiv{t_1}\land M \sims'\equiv{\sigma'}$.
 
-    Since $M$ satisfies $\phi_1$, we obtain from \refrule{H-PickLeft} and the application of Lemma~\ref{lem:soundnorm} above that $e_1\Xor e_2,\sigma\handle{\Left}t_1,\sigma'$ with
+    Since $M$ satisfies $\phi_1$, we obtain from \refrule{H-PickLeft} and the application of Lemma 6.3 above that $e_1\Xor e_2,\sigma\handle{\Left}t_1,\sigma'$ with
     $M \simt_1\equiv {t_1}$ and $M\sims'\equiv {\sigma'}$.
     }
 
     \case{\refrule{SH-PickRight}}
-    {For all mappings $M$ such that $M\phi_2$, we need to demonstrate that\\
+    {For all mappings $M$ such that $M\phi_2$, we need to demonstrate that
     $e_1\Xor e_2,\sigma\handle{\Right}t_2,\sigma'$ with
     $M \simt_2\equiv {t_2}$ and $M\sims_2\equiv {\sigma'}$.
 
-    From Lemma~\ref{lem:soundnorm} we obtain that $\forall M_1. M_1 \phi \implies e_2,\sigma{\normalise}{t_2},{\sigma'}\land M \simt_2\equiv{t_2}\land M \sims'\equiv{\sigma'}$.
+    From Lemma 6.3 we obtain that $\forall M_1. M_1 \phi \implies e_2,\sigma{\normalise}{t_2},{\sigma'}\land M \simt_2\equiv{t_2}\land M \sims'\equiv{\sigma'}$.
 
-    Since $M$ satisfies $\phi_2$, we obtain from \refrule{H-PickRight} and the application of Lemma~\ref{lem:soundnorm} above that $e_1\Xor e_2,\sigma\handle{\Right}t_2,\sigma'$ with
+    Since $M$ satisfies $\phi_2$, we obtain from \refrule{H-PickRight} and the application of Lemma 6.3 above that $e_1\Xor e_2,\sigma\handle{\Right}t_2,\sigma'$ with
     $M \simt_2\equiv {t_2}$ and $M\sims_2\equiv {\sigma'}$.
     }
 
   \case{\refrule{SH-And}}
-  {For all mappings $M$ such that $M\phi_1$, we need to demonstrate that\\
+  {For all mappings $M$ such that $M\phi_1$, we need to demonstrate that
    $t_1\And t_2,\sigma\handle{M\First \simi}t_1'\And t_2,\sigma'$ with
    $M \simt_1'\And t_2\equiv {t_1'}\And t_2$ and $M\sims'\equiv {\sigma'}$.
 
-   By the induction hypothesis we obtain the following.\\
+   By the induction hypothesis we obtain the following.
    $\forall M_1 . M_1 \phi_1 \implies t_1,\sigma \handle{M_1 \simi} {t_1'},{\sigma'}\land M_1 \simt_1'\equiv{t_1'}\land M_1\sims' \equiv {\sigma'}$.
 
    Since $M$ satisfies $\phi_1$, we obtain from \refrule{H-FirstAnd} and the induction step above that
@@ -597,7 +597,7 @@
    $t_1\And t_2,\sigma\handle{M\Second \simi}t_1\And t_2',\sigma'$ with
    $M t_1\And \simt_2'\equiv t_1\And t_2'$ and $M\sims'\equiv {\sigma'}$.
 
-  By the induction hypothesis we obtain the following.\\
+  By the induction hypothesis we obtain the following.
   $\forall M_1 . M_1 \phi_1 \implies t_2,\sims \handle{M_1 \simi} {t_2'},{\sigma'}\land M_1 \simt_2'\equiv{t_2'}\land M_1\sims' \equiv {\sigma'}$
 
   Since $M$ satisfies $\phi_2$, we obtain from \refrule{H-SecondAnd} and the induction step above that
@@ -615,7 +615,7 @@
 
 \subsection{Proof of soundness of symbolic interacting semantics}
 \begin{proof}
-  We prove Lemma~\ref{thm:soundinteract} by induction on $\simt,\sims\siminteract \overline{\simt',
+  We prove Theorem 6.1 by induction on $\simt,\sims\siminteract \overline{\simt',
   \sims',\simi,\phi}$.
   There is only one rule that applies, namely
   \refrule{SI-Handle}.
@@ -625,8 +625,8 @@
   $M \simt'' \equiv {t''}$ and $M\sims''\equiv {\sigma''}$.
 
 
-  Lemma~\ref{lem:soundhandle} and Lemma~\ref{lem:soundnorm} respectively give us that\\
-$\forall M_1 . M_1 \phi_1 \implies t,\sigma \handle{M_1 \simi} {t'},{\sigma'}\land M_1 \simt'\equiv{t'}\land M_1\sims' \equiv {\sigma'}$ and \\
+  Lemma 6.3 and Lemma 6.2 respectively give us that\\
+$\forall M_1 . M_1 \phi_1 \implies t,\sigma \handle{M_1 \simi} {t'},{\sigma'}\land M_1 \simt'\equiv{t'}\land M_1\sims' \equiv {\sigma'}$ and
 $\forall M_2 . M_2 \phi_2 \implies t',\sigma' {\normalise} {t''},{\sigma''}\land M_2 \simt''\equiv{t''}\land M_2\sims'' \equiv {\sigma''}$.
 
 Since $M$ satisfies both $\phi_1$ and $\phi_2$,

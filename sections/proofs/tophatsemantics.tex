@@ -1,6 +1,6 @@
-% !TEX root=../../main.tex
+% !TEX root=../../appendix.tex
 
-\section{\TOPHAT semantics}
+\section{TopHat semantics}
 
 \subsection{Typing rules}
 
@@ -20,11 +20,12 @@
   \userule{T-ListHead} \Quad
   \userule{T-ListTail}\Quad
   \userule{T-Abs} \Quad
-  \userule{T-App} \Break
+  \userule{T-App} \Quad
+  \userule{T-Ref} \Break
   \userule{T-If} \Quad
-  \userule{T-Ref} \Quad
   \userule{T-Deref} \Quad
-  \userule{T-Assign}\Break
+  \userule{T-Assign}\Quad
+  \userule{T-Xor} \Break
   \userule{T-Edit}\Quad
   \userule{T-Enter}\Quad
   \userule{T-Update}\Quad
@@ -32,8 +33,7 @@
   \userule{T-Then}\Break
   \userule{T-Next}\Quad
   \userule{T-And}\Quad
-  \userule{T-Or}\Quad
-  \userule{T-Xor}
+  \userule{T-Or}
 \end{gather*}
 
 \subsection{Evaluation rules}

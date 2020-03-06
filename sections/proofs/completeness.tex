@@ -1,4 +1,4 @@
-% !TEX root=../../main.tex
+% !TEX root=../../appendix.tex
 
 
 \section{Completeness proofs}
@@ -7,7 +7,7 @@
 \subsection{Proof of completeness of the symbolic handling semantics}
 \begin{proof}
 
-  We prove Lemma~\ref{lem:completeHandle} by induction over the derivation $t,\sigma\handle{i}t',\sigma'$.
+  We prove Lemma 6.8 by induction over the derivation $t,\sigma\handle{i}t',\sigma'$.
 
   \case{\refrule{H-Change}}
   {
@@ -48,8 +48,8 @@
 
   \case{\refrule{H-PickLeft}}
     {
-      Lemma~\ref{lem:completeNormalise} gives us the following.\\
-      There exists a symbolic execution $e_1,\sigma\simnormalise \overline{\simt_1,\sims,\phi_1}$.\\
+      Lemma 6.9 gives us the following.\\
+      There exists a symbolic execution $e_1,\sigma\simnormalise \overline{\simt_1,\sims,\phi_1}$.
       There exists a symbolic execution $e_2,\sims\simnormalise \overline{\simt_2,\sims',\phi_2}$.
 
       We can now conclude that a symbolic execution exists.
@@ -58,8 +58,8 @@
     }
   \case{\refrule{H-PickRight}}
     {
-    Lemma~\ref{lem:completeNormalise} gives us the following.\\
-    There exists a symbolic execution $e_1,\sigma\simnormalise\overline{ t_1,\sims,\phi_1}$.\\
+    Lemma 6.9 gives us the following.\\
+    There exists a symbolic execution $e_1,\sigma\simnormalise\overline{ t_1,\sims,\phi_1}$.
     There exists a symbolic execution $e_2,\sims\simnormalise\overline{ t_2,\sims',\phi_2}$.
 
     We can now conclude that a symbolic execution exists.
@@ -113,12 +113,12 @@
 
 \subsection{Proof of completeness of the symbolic interaction semantics}
 
-\begin{proof} The proof of \cref{thm:completeinteract} consists of one case, since
+\begin{proof} The proof of Theorem 6.7 consists of one case, since
   the interacting semantics consists of one rule, namely\\
   \userule{I-Handle}.\\
-  By Lemma~\ref{lem:completeHandle} we obtain the following.\\
+  By Lemma 6.8 we obtain the following.
   $t,\sigma\handle{i} t',\sigma'\implies \exists \simi . t,\sigma\simhandle \simt,\sims,\simi,\phi \land \simi\sim i$\\
-  Then by Lemma~\ref{lem:completeNormalise} we obtain the following.\\
+  Then by Lemma 6.9 we obtain the following.
   $t',\sigma'\normalise t'',\sigma''\implies t',\sigma'\simnormalise \simt',\sims',\phi'$\\
   From the above, together with the SI-Handle rule, we can conclude that there exists a symbolic execution $t,\sigma\siminteract \simt'',\sims'',\simi,\phi\land \simi\sim i$.
 
