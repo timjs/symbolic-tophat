@@ -298,7 +298,7 @@ When this look-ahead does not return a value, the branch is pruned.
 
 To check the satisfiability of path conditions $\Sat(\phi)$, as well as the properties stated about a program,
 we make use of an external \SMT~solver.
-In the implementation we use \ZTHREE, although any other \SMT~solver supporting \SMTLIB could be used.
+In the implementation we use \ZTHREE, although any other \SMT~solver supporting \SMTLIB\ could be used.
 
 For Listing~\ref{lst:abs}, we would like to prove that after any input sequence $I$,
 the path conditions $\phi$ imply that the value $v$ of the resulting task $t'$ is greater than $0$.\todo{should this be symbolic or concrete?}
